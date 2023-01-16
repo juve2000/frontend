@@ -40,7 +40,7 @@ export default {
         return {
           ...state,
           isAuthenticated: true,
-          user: payload.user,
+          usersList: payload,
           loading: false,
         };
       })
@@ -48,7 +48,7 @@ export default {
         return {
           ...state,
           isAuthenticated: true,
-          user: payload.user,
+          usersList: payload,
           loading: false,
         };
       });

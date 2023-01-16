@@ -8,7 +8,7 @@ export const ClientLayout = () => {
   return (
     <>
       <Row>
-        <Col className="bg-orange" span={24}>
+        <Col span={24}>
           <Header />
         </Col>
       </Row>

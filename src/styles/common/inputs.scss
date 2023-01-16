@@ -1,0 +1,30 @@
+.ant-input-affix-wrapper {
+  background-color: $input-bg-color;
+  border: none;
+  border-radius: 8px;
+  min-height: 40px;
+}
+
+.ant-input {
+  background-color: $input-bg-color;
+}
+
+.ant-form-item-control-input-content {
+  input {
+    background-color: $input-bg-color !important;
+  }
+}
+
+.ant-form-item {
+  width: 100%;
+  font-family: "Ubuntu" !important;
+}
+
+.ant-form-item-explain-error {
+  text-align: right;
+}
+
+.ant-form-item-explain-error {
+  font-family: Ubuntu !important;
+  color: #ff6b00 !important;
+}

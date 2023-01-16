@@ -47,7 +47,12 @@ export const loginFailed = createAction(
   }
 );
 
-export const logOut = createAction(AuthActionTypes.USER_LOGOUT_REQUEST);
+export const logOut = createAction(
+  AuthActionTypes.USER_LOGOUT_REQUEST,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
 export const logOutSuccess = createAction(AuthActionTypes.USER_LOGOUT_SUCCESS);
 
 // Register user actions

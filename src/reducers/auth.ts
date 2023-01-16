@@ -105,5 +105,29 @@ export default {
           errorMessage: payload,
         };
       });
+    // REGISTER
+    builder
+      .addCase(registerUserReq, (state) => {
+        return {
+          ...state,
+          loading: true,
+        };
+      })
+      .addCase(registerUserResSuccess, (state, { payload }) => {
+        return {
+          ...state,
+          isAuthenticated: true,
+          // user: payload,
+          loading: false,
+        };
+      })
+      .addCase(registerUserResFailed, (state, { payload }) => {
+        return {
+          ...state,
+          isAuthenticated: false,
+          loading: false,
+          errorMessage: payload,
+        };
+      });
   }),
 };

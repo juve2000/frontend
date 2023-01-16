@@ -1,0 +1,33 @@
+.ant-btn {
+  box-shadow: none;
+  min-height: 40px;
+  border: none;
+}
+
+.ant-btn.orange {
+  background-color: $orange;
+  color: $white;
+  font-family: "Ubuntu";
+  font-size: 12px;
+  width: 100%;
+  padding-top: 6px;
+  &:hover {
+    background-color: $white;
+    transition: 0.2s ease;
+    color: $orange;
+  }
+}
+
+.ant-btn.white {
+  background-color: $white;
+  color: $orange;
+  font-family: "Ubuntu";
+  font-size: 12px;
+  width: 100%;
+  padding-top: 6px;
+  &:hover {
+    background-color: $orange;
+    transition: 0.2s ease;
+    color: $white;
+  }
+}

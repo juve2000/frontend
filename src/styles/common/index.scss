@@ -1,3 +1,8 @@
+.app-container {
+  color: $dark_text;
+  min-height: 100vh;
+}
+
 .h100 {
   height: 100%;
 }
@@ -8,4 +13,20 @@
 
 .bg-orange {
   background-color: $orange;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.pointer {
+  cursor: pointer;
 }

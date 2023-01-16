@@ -1,34 +1,18 @@
-$ubuntu-font: "../../fonts/Ubuntu";
-@import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
-
-// @font-face {
-//     src: url("#{$ubuntu-font}/Ubuntu-Regular.ttf") format("ttf");
-//     font-family: 'Ubuntu';
-//     font-weight: 100;
-// }
-
-.ubuntu {
-  font-family: "Ubuntu" !important;
-  font-weight: normal;
-}
-
 @font-face {
-  font-family: "icomoon";
-  src: url("../../fonts/Ubuntu/icomoon.eot?bm81qm");
-  src: url("../../fonts/Ubuntu/icomoon.eot?bm81qm#iefix")
-      format("embedded-opentype"),
-    url("../../fonts/Ubuntu/icomoon.ttf?bm81qm") format("truetype"),
-    url("../../fonts/Ubuntu/icomoon.woff?bm81qm") format("woff"),
-    url("../../fonts/Ubuntu/icomoon.svg?bm81qm#icomoon") format("svg");
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?bm81qm');
+  src:  url('fonts/icomoon.eot?bm81qm#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?bm81qm') format('truetype'),
+    url('fonts/icomoon.woff?bm81qm') format('woff'),
+    url('fonts/icomoon.svg?bm81qm#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
-[class^="icon-"],
-[class*=" icon-"] {
+[class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: "icomoon" !important;
+  font-family: 'icomoon' !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -43,52 +27,69 @@ $ubuntu-font: "../../fonts/Ubuntu";
 
 .icon-icon-bag:before {
   content: "\e900";
+  color: #374957;
 }
 .icon-icon-key:before {
   content: "\e901";
+  color: #374957;
 }
 .icon-icon-shield-check:before {
   content: "\e902";
+  color: #374957;
 }
 .icon-icon-settings:before {
   content: "\e903";
+  color: #374957;
 }
 .icon-icon-settings-sliders:before {
   content: "\e904";
+  color: #374957;
 }
 .icon-icon-transfer:before {
   content: "\e905";
+  color: #374957;
 }
 .icon-icon-learning:before {
   content: "\e906";
+  color: #374957;
 }
 .icon-icon-document:before {
   content: "\e907";
+  color: #374957;
 }
 .icon-icon-histogram:before {
   content: "\e908";
+  color: #374957;
 }
 .icon-icon-folder:before {
   content: "\e909";
+  color: #374957;
 }
 .icon-icon-lock:before {
   content: "\e90a";
+  color: #374957;
 }
 .icon-icon-label:before {
   content: "\e90b";
+  color: #374957;
 }
 .icon-icon-time-quarter-past:before {
   content: "\e90c";
+  color: #374957;
 }
 .icon-icon-user:before {
   content: "\e90d";
+  color: #374957;
 }
 .icon-icon-truck-side:before {
   content: "\e90e";
+  color: #374957;
 }
 .icon-icon-apps:before {
   content: "\e90f";
+  color: #374957;
 }
 .icon-icon-atention:before {
   content: "\e910";
+  color: #374957;
 }

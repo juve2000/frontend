@@ -34,7 +34,7 @@ export function* getListOfUsersInnerCompanySaga({ payload }: any): any {
 export function* getListOfUsersSaga({ payload }: any): any {
   try {
     const { data } = yield call(request.get, "/user/root/list");
-    yield put(getUsersListResSuccess(data));
+    yield put(getUsersListResSuccess(data.data));
   } catch (e: any) {
     yield put(getUsersListResFailed(e.message));
   }

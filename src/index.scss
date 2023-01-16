@@ -1,11 +1,33 @@
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+    Ubuntu, "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: red;
+  ::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    font-family: "Ubuntu" !important;
+  }
+  ::-moz-placeholder {
+    /* Firefox 19+ */
+    font-family: "Ubuntu" !important;
+  }
+  :-ms-input-placeholder {
+    /* IE 10+ */
+    font-family: "Ubuntu" !important;
+  }
+  :-moz-placeholder {
+    /* Firefox 18- */
+    font-family: "Ubuntu" !important;
+  }
+}
+
+.main::-webkit-input-placeholder {
+  font-family: "Ubuntu" !important;
+}
+
+.main:-moz-placeholder {
+  font-family: "Ubuntu" !important;
 }
 
 code {
@@ -16,3 +38,15 @@ code {
 @import "./styles/colors/colors.scss";
 @import "./styles/fonts/fonts.scss";
 @import "./styles/common/index.scss";
+@import "./styles/common/icons.scss";
+@import "./styles/common/padding.scss";
+@import "./styles/common/container.scss";
+@import "./styles/common/inputs.scss";
+@import "./styles/common/button.scss";
+
+// sign in / up
+
+@import "./styles/signin_signup/index.scss";
+
+//access
+@import "./styles/pages/access.scss";

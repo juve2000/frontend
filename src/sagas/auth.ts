@@ -1,5 +1,7 @@
 import { all, delay, put, takeLatest, call } from "redux-saga/effects";
 import request from "../utils/request";
+import { notification } from "antd";
+
 import { AuthActionTypes } from "../actions/auth";
 import jwtDecode from "jwt-decode";
 
@@ -21,7 +23,7 @@ import {
 
 export function* loginSaga({ payload }: any) {
   try {
-    const { data } = yield call(request.post, "/user/login", payload);
+    const { data } = yield call(request.post, "/user/login", payload.values);
     window.localStorage.setItem("accessToken", data.token);
     yield put(
       loginSuccess({
@@ -29,20 +31,25 @@ export function* loginSaga({ payload }: any) {
         isAuth: true,
       })
     );
+    yield call(notification.open, { message: "text", type: "info" });
+    payload.navigate("/client");
   } catch (e: any) {
     yield put(loginFailed(e.message));
   }
 }
 
-export function* logoutSaga() {
+export function* logoutSaga({ payload }: any): any {
   yield delay(200);
   window.localStorage.clear();
+  yield call(notification.open, { message: "Log out success", type: "info" });
+
+  payload.navigate("/signin");
   yield put(logOutSuccess());
 }
 
 export function* createUserSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.post, "/user", payload);
+    const { data } = yield call(request.post, "/user/registration", payload);
     yield put(createUserResSuccess(data));
   } catch (e: any) {
     yield put(createUserResFailed(e.message));
@@ -51,8 +58,13 @@ export function* createUserSaga({ payload }: any): any {
 
 export function* registerUserSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.post, "/user/registration", payload);
+    const { data } = yield call(
+      request.post,
+      "/user/registration",
+      payload.values
+    );
     yield put(registerUserResSuccess(data));
+    payload.navigate("/client");
   } catch (e: any) {
     yield put(registerUserResFailed(e.message));
   }
@@ -72,9 +84,7 @@ export function* resetPasswordUserSaga({ payload }: any): any {
 
 export function* forgotPasswordUserSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.post, `/user/forgot`, {
-      payload,
-    });
+    const { data } = yield call(request.post, `/user/forgot`, payload.values);
     yield put(forgotPasswordResSuccess(data));
   } catch (e: any) {
     yield put(forgotPasswordResFailed(e.message));
