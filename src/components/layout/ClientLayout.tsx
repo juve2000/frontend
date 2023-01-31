@@ -7,12 +7,12 @@ import { SideBar } from "../SideBar/SideBar";
 export const ClientLayout = () => {
   return (
     <>
-      <Row>
+      <Row style={{ paddingLeft: 23, paddingRight: 25 }}>
         <Col span={24}>
           <Header />
         </Col>
       </Row>
-      <Row>
+      <Row style={{ paddingLeft: 27, paddingRight: 25 }}>
         <Col span={6}>
           <SideBar />
         </Col>

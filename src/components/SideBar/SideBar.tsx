@@ -66,17 +66,22 @@ export const SideBar = () => {
   const items = React.useMemo(() => {
     return [
       getItem(
-        "Warnings",
-        "warnings",
-        getPath("warnings"),
+        "Units",
+        "units",
+        getPath("units"),
 
-        <span className="icon-icon-atention"></span>
+        null,
+        [
+          getItem("All Units", "allunits", "/allunits", <MailOutlined />),
+          getItem("Logs", "logs", "/logs", <MailOutlined />),
+        ]
       ),
       getItem(
         "Dashboard",
         "dashboard",
         getPath("dashboard"),
-        <span className="icon-icon-atention"></span>
+        <span className="icon-icon-atention"></span>,
+        []
       ),
       getItem("Navigation One", "sub1", "/", <MailOutlined />, [
         ...usersList.map((user: any) => {
@@ -94,8 +99,9 @@ export const SideBar = () => {
   const FirstMenu = React.useMemo(() => {
     return (
       <Menu
+        className="ubuntu"
         defaultSelectedKeys={["1"]}
-        defaultOpenKeys={["sub1"]}
+        defaultOpenKeys={["units"]}
         mode="inline"
         //   theme="dark"
         onClick={(item) => {
@@ -110,7 +116,7 @@ export const SideBar = () => {
   }, []);
 
   return (
-    <Row className="side-bar">
+    <Row className="side-bar ubuntu">
       <Col span={24}>{FirstMenu}</Col>
     </Row>
   );

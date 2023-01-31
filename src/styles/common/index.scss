@@ -1,6 +1,7 @@
 .app-container {
   color: $dark_text;
   min-height: 100vh;
+  font-family: "Ubuntu" !important;
 }
 
 .h100 {
@@ -29,4 +30,8 @@
 
 .pointer {
   cursor: pointer;
+}
+
+.ant-row {
+  font-family: "Ubuntu" !important;
 }

@@ -1,0 +1,20 @@
+.side-bar {
+  .ant-menu {
+    background: transparent;
+    border-inline-end: none !important;
+  }
+  .ant-menu-submenu-title {
+    background-color: $card;
+    padding: 0px 16px !important;
+    color: #706e7e;
+    height: 30px !important;
+  }
+  .ant-menu-item {
+    background-color: transparent !important;
+    padding-left: 16px !important;
+    color: #403e54;
+  }
+  .ant-menu.ant-menu-sub.ant-menu-inline {
+    background-color: transparent !important;
+  }
+}

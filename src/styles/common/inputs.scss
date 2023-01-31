@@ -28,3 +28,15 @@
   font-family: Ubuntu !important;
   color: #ff6b00 !important;
 }
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #ffab00;
+  border-color: $orange;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  &:hover {
+    background-color: #ffab00 !important;
+    border-color: $orange !important;
+  }
+}

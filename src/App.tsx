@@ -26,10 +26,6 @@ function App() {
     dispatch(getLoggedInUserReq());
   }, []);
 
-  React.useEffect(() => {
-    console.log("location", location);
-  }, [location]);
-
   if (loading) {
     return <Spin />;
   }
@@ -42,9 +38,7 @@ function App() {
   }
 
   return (
-    <div className="bg-main app-container ubuntu main hw100">
-      {<MainRouter />}
-    </div>
+    <div className="app-container ubuntu main hw100">{<MainRouter />}</div>
   );
 }
 

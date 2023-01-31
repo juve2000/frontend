@@ -68,6 +68,7 @@ export const SignIn = () => {
           >
             Login
           </div>
+
           <Form.Item
             name="username"
             hasFeedback
@@ -76,11 +77,14 @@ export const SignIn = () => {
               // { type: "email", message: "Should be an email" },
             ]}
           >
-            <Input
-              prefix={<span className="icon-icon-user orange"></span>}
-              placeholder="Email"
-              style={{ width: 360 }}
-            />
+            <div style={{ textAlign: "left" }}>
+              <div className="access-item-wrapper">Email</div>
+              <Input
+                prefix={<span className="icon-icon-user orange"></span>}
+                placeholder="Your Email"
+                style={{ width: 360 }}
+              />
+            </div>
           </Form.Item>
 
           <Form.Item
@@ -88,14 +92,22 @@ export const SignIn = () => {
             name="password"
             rules={[
               { required: true, message: "Please input your password!" },
-              { min: 1, message: "Minimum 6 characters" },
+              // {
+              //   pattern:
+              //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+              //   message:
+              //     " Use at least: 8 characters, 1 uppercase letter, 1 digit",
+              // },
             ]}
           >
-            <Input.Password
-              prefix={<span className="icon-icon-lock orange"></span>}
-              placeholder="Password"
-              style={{ width: 360 }}
-            />
+            <div style={{ textAlign: "left" }}>
+              <div className="access-item-wrapper">Password</div>
+              <Input.Password
+                prefix={<span className="icon-icon-lock orange"></span>}
+                placeholder="Your Password"
+                style={{ width: 360 }}
+              />
+            </div>
           </Form.Item>
           <div
             className="orange ubuntu pointer"

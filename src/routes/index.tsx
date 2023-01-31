@@ -14,19 +14,11 @@ export const MainRouter = () => {
   const navigate = useNavigate();
   return (
     <>
-      {/* <NavLink to="/client">/ user </NavLink>
-      <NavLink to="/signin">/ login </NavLink>
-      <NavLink to="/signup">/ signup </NavLink>
-
-      <NavLink to="/">/ home </NavLink>
-      <div>
-        ACCESS LAYOUT <LogOut />
-      </div> */}
       <Routes>
         <Route
           element={
             <div
-              className="center hw100 access-container"
+              className="center hw100 access-container bg-main"
               style={{ minHeight: "100vh" }}
             >
               <Outlet />
