@@ -18,7 +18,8 @@ import {
 
 type MenuItem = Required<MenuProps>["items"][number];
 
-export const SideBar = () => {
+export const SideBar = (props: any) => {
+  const { isOpen } = props;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
@@ -77,17 +78,15 @@ export const SideBar = () => {
         ]
       ),
       getItem(
-        "Dashboard",
-        "dashboard",
-        getPath("dashboard"),
+        "Manage",
+        "manage",
+        getPath("manage"),
         <span className="icon-icon-atention"></span>,
-        []
+        [
+          getItem("Carriers", "carriers", "/carriers", <MailOutlined />),
+          getItem("Drivers", "drivers", "/drivers", <MailOutlined />),
+        ]
       ),
-      getItem("Navigation One", "sub1", "/", <MailOutlined />, [
-        ...usersList.map((user: any) => {
-          return getItem(user.email, `/client/${user.id}`);
-        }),
-      ]),
       getItem("Navigation One", "sub1", "/", <MailOutlined />, [
         ...usersList.map((user: any) => {
           return getItem(user.email, `/client/${user.id}`);
@@ -100,20 +99,21 @@ export const SideBar = () => {
     return (
       <Menu
         className="ubuntu"
-        defaultSelectedKeys={["1"]}
-        defaultOpenKeys={["units"]}
+        defaultSelectedKeys={["1", "carriers"]}
+        defaultOpenKeys={["units", "manage"]}
         mode="inline"
         //   theme="dark"
         onClick={(item) => {
           navigate(item.key);
         }}
         items={items}
+        inlineCollapsed={!isOpen}
         // onOpenChange={(item) => {
         //   getUsers();
         // }}
       />
     );
-  }, []);
+  }, [isOpen]);
 
   return (
     <Row className="side-bar ubuntu">

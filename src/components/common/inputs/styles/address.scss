@@ -1,0 +1,47 @@
+.input-address {
+  position: relative;
+  .ant-form-item .ant-form-item-label {
+    label {
+      position: absolute !important;
+    }
+  }
+  .address-label {
+    font-size: 12px;
+  }
+  .adress-label-province {
+    position: absolute;
+    left: 220px;
+    top: 75px;
+  }
+  .adress-label-state {
+    position: absolute;
+    left: 405px;
+    top: 75px;
+  }
+  .adress-label-address {
+    position: absolute;
+    left: 220px;
+    top: 0px;
+  }
+  .adress-label-country {
+    position: absolute;
+    left: 220px;
+    top: 145px;
+  }
+  .adress-label-index {
+    position: absolute;
+    left: 405px;
+    top: 145px;
+  }
+
+  .address-item-state,
+  .address-item-address,
+  .address-item-province,
+  .address-item-index,
+  .address-item-country {
+    .ant-form-item-explain-error {
+      position: absolute;
+      font-size: 10px;
+    }
+  }
+}

@@ -1,4 +1,7 @@
 .side-bar {
+  .ant-menu-inline-collapsed {
+    width: 50px !important;
+  }
   .ant-menu {
     background: transparent;
     border-inline-end: none !important;
@@ -17,4 +20,10 @@
   .ant-menu.ant-menu-sub.ant-menu-inline {
     background-color: transparent !important;
   }
+}
+
+.ant-menu-item.ant-menu-item-selected {
+  background-color: $orange !important;
+  color: $white;
+  font-size: 13px;
 }

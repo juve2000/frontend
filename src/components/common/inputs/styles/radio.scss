@@ -1,0 +1,22 @@
+$grey: #cfd5d9;
+.ant-radio-checked .ant-radio-inner {
+  border-color: $grey !important ;
+}
+
+.ant-radio-checked .ant-radio-inner:after {
+  background-color: #000000;
+}
+
+.ant-radio:hover .ant-radio-inner {
+  border-color: $grey;
+}
+
+.input-radio {
+  .ant-radio-wrapper {
+    font-family: "Ubuntu" !important;
+    font-size: 16px;
+  }
+  .ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+    background-color: transparent;
+  }
+}

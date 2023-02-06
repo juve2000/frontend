@@ -6,6 +6,7 @@ import { registerUserReq } from "../../actions/auth";
 import { useNavigate } from "react-router-dom";
 import greyCircle from "../../img/grey_circle.svg";
 import orangeCircle from "../../img/orange_circle.svg";
+import { validate } from "../../utils/validation";
 
 // "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
 // Minimum eight characters, at least one uppercase letter,
@@ -193,12 +194,7 @@ export const SignUp = () => {
               rules={[
                 { required: true, message: "Please input your password!" },
                 { min: 1, message: "Minimum 8 characters" },
-                {
-                  pattern:
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                  message:
-                    " Use at least: 8 characters, 1 uppercase letter, 1 digit",
-                },
+                validate("password", "PASSWORD"),
               ]}
             >
               <div style={{ textAlign: "left" }}>

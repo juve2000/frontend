@@ -17,7 +17,7 @@ function getLocalRefreshToken() {
 }
 
 export const instance = axios.create({
-  baseURL: "https://dev.hgrs.us/api/support/v1",
+  baseURL: "https://dev.hgrs.us/api/support/carrier/v1",
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${getLocalAccessToken()}`,

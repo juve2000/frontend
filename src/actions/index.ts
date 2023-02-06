@@ -12,3 +12,4 @@ export * from "./eld";
 export * from "./driver";
 export * from "./report";
 export * from "./unit";
+export * from "./carrier";

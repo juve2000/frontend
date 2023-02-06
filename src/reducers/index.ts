@@ -10,6 +10,7 @@ import trailer, { trailerState } from "./trailer";
 import eld, { eldState } from "./eld";
 import driver, { driverState } from "./driver";
 import report, { reportState } from "./report";
+import carrier, { carrierState } from "./carrier";
 
 export const initialState = {
   alerts: alertsState,
@@ -24,6 +25,7 @@ export const initialState = {
   eld: eldState,
   driver: driverState,
   report: reportState,
+  carrier: carrierState,
 };
 
 export default {
@@ -39,4 +41,5 @@ export default {
   ...eld,
   ...driver,
   ...report,
+  ...carrier,
 };

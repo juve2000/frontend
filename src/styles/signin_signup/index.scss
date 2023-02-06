@@ -12,3 +12,35 @@
   line-height: 18px;
   margin-bottom: 4px;
 }
+
+.input-item-wrapper {
+  font-size: 16px;
+  color: #141029;
+  font-family: "Ubuntu" !important;
+  text-align: "left" !important;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.ant-form-item-control-input-content {
+  font-family: "Ubuntu" !important;
+  input {
+    font-family: "Ubuntu" !important;
+    color: rgba(20, 16, 41, 0.4);
+  }
+}
+
+.input-container {
+  display: flex;
+  // align-items: center;
+  text-align: "left";
+  margin: 10px 0px;
+  .ant-form-item {
+    margin-bottom: 0px !important;
+  }
+  .input-item-wrapper {
+    min-width: 220px;
+  }
+}

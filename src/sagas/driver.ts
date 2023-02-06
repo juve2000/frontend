@@ -1,5 +1,5 @@
 import { all, put, takeLatest, call } from "redux-saga/effects";
-import request from "../utils/request";
+import request from "../utils/requestCarrier";
 import { DriverActionTypes } from "../actions/driver";
 import {
   getDriverSuccess,

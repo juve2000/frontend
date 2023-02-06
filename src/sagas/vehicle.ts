@@ -1,5 +1,5 @@
 import { all, put, takeLatest, call } from "redux-saga/effects";
-import request from "../utils/request";
+import request from "../utils/requestCarrier";
 import { VehicleActionTypes } from "../actions/vehicle";
 import {
   getVehicleSuccess,

@@ -9,6 +9,9 @@ import { Recovery } from "../components/access/Recovery";
 import { SignUp } from "../components/access/SignUp";
 import { NewPassword } from "../components/access/NewPassword";
 import { LogOut } from "../components/access/LogOut";
+import { CarriersPage } from "../components/modules/carrier/CarriersPage";
+import { CarrierPage } from "../components/modules/carrier/Carrier";
+import { CarriersList } from "../components/modules/carrier/CarriersList";
 
 export const MainRouter = () => {
   const navigate = useNavigate();
@@ -48,6 +51,12 @@ export const MainRouter = () => {
             <Route path={`comments`} element={<div> user comment id</div>} />
             <Route index element={<div> user index</div>} />;
           </Route>
+          <Route path={`/client/carriers`} element={<CarriersPage />}>
+            <Route index element={<CarriersList />} />;
+            <Route path={`:carrierid`} element={<CarrierPage />} />
+          </Route>
+
+          <Route path={`/client/drivers`} element={<div>drivers </div>} />
         </Route>
       </Routes>
     </>

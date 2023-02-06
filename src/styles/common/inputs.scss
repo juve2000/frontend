@@ -1,8 +1,21 @@
+//INPUT STYLE
 .ant-input-affix-wrapper {
   background-color: $input-bg-color;
   border: none;
   border-radius: 8px;
   min-height: 40px;
+}
+
+// SELECT STYLE
+.ant-select .ant-select-selector {
+  background-color: $input-bg-color !important;
+  border: none !important;
+  border-radius: 8px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  font-family: "Ubuntu" !important;
+  color: #9c9ca8;
 }
 
 .ant-input {
@@ -25,7 +38,7 @@
 }
 
 .ant-form-item-explain-error {
-  font-family: Ubuntu !important;
+  font-family: "Ubuntu" !important;
   color: #ff6b00 !important;
 }
 

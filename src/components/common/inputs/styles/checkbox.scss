@@ -1,0 +1,30 @@
+.input-checkbox {
+  .ant-checkbox-wrapper {
+    font-family: "Ubuntu" !important;
+    font-size: 16px;
+  }
+  .ant-checkbox-disabled .ant-checkbox-inner {
+    background-color: transparent;
+    border-color: #cfd5d9;
+  }
+  .ant-checkbox-wrapper {
+    .ant-checkbox:hover .ant-checkbox-inner,
+    .ant-checkbox-input:focus + .ant-checkbox-inner {
+      border-color: #cfd5d9 !important;
+    }
+  }
+
+  .ant-checkbox-inner {
+    background-color: $white;
+    border: 1.5px #cfd5d9 solid;
+    &:hover {
+      background-color: $white;
+    }
+    &:after {
+      border: 2px #374957 solid;
+      border-top: 0;
+      border-left: 0;
+      border-radius: 1px;
+    }
+  }
+}
