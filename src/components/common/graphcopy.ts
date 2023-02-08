@@ -562,9 +562,6 @@ export class eLog {
         var xCoor1 = hourX - Math.floor(hourBlockWidth * 0.75);
         var xCoor2 = hourX - Math.floor(hourBlockWidth * 0.5);
         var xCoor3 = hourX - Math.floor(hourBlockWidth * 0.25);
-        var xCoor4 = hourX - Math.floor(hourBlockWidth * 0.75);
-        var xCoor5 = hourX - Math.floor(hourBlockWidth * 0.5);
-        var xCoor6 = hourX - Math.floor(hourBlockWidth * 0.25);
         console.log("hourblock", hourBlockWidth);
         // quarter hour line
         ctx.beginPath();

@@ -87,6 +87,13 @@ export const SideBar = (props: any) => {
           getItem("Drivers", "drivers", "/drivers", <MailOutlined />),
         ]
       ),
+      getItem(
+        "Company Account",
+        "company_account",
+        getPath("company_account"),
+        <span className="icon-icon-atention"></span>,
+        [getItem("Users", "users", "/users", <MailOutlined />)]
+      ),
       getItem("Navigation One", "sub1", "/", <MailOutlined />, [
         ...usersList.map((user: any) => {
           return getItem(user.email, `/client/${user.id}`);

@@ -54,7 +54,7 @@ export function* deleteCarrierSaga({ payload }: any): any {
 
 export function* getCarriersListSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.get, `/carrier/${payload.id}`);
+    const { data } = yield call(request.get, `/carrier`);
     yield put(getCarriersListSuccess(data));
   } catch (e: any) {
     yield put(getCarriersListFailed(e.message));

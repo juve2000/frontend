@@ -34,6 +34,8 @@ export function* getListOfUsersInnerCompanySaga({ payload }: any): any {
 export function* getListOfUsersSaga({ payload }: any): any {
   try {
     const { data } = yield call(request.get, "/user/root/list");
+    console.log("data", data);
+
     yield put(getUsersListResSuccess(data.data));
   } catch (e: any) {
     yield put(getUsersListResFailed(e.message));
@@ -76,7 +78,7 @@ export function* updateUserSaga({ payload }: any): any {
 
 export function* getUserSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.get, `/user/${payload.userId}`);
+    const { data } = yield call(request.get, `/user/${payload.id}`);
     yield put(getUserResSuccess(data));
   } catch (e: any) {
     yield put(getUserResFailed(e.message));

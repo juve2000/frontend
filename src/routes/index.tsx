@@ -13,6 +13,10 @@ import { CarriersPage } from "../components/modules/carrier/CarriersPage";
 import { CarrierPage } from "../components/modules/carrier/Carrier";
 import { CarriersList } from "../components/modules/carrier/CarriersList";
 
+import { UsersPage } from "../components/modules/user/UsersPage";
+import { UserPage } from "../components/modules/user/User";
+import { UsersList } from "../components/modules/user/UsersList";
+
 export const MainRouter = () => {
   const navigate = useNavigate();
   return (
@@ -54,6 +58,11 @@ export const MainRouter = () => {
           <Route path={`/client/carriers`} element={<CarriersPage />}>
             <Route index element={<CarriersList />} />;
             <Route path={`:carrierid`} element={<CarrierPage />} />
+          </Route>
+          {/* USERS ROUTE */}
+          <Route path={`/client/users`} element={<UsersPage />}>
+            <Route index element={<UsersList />} />;
+            <Route path={`:userid`} element={<UserPage />} />
           </Route>
 
           <Route path={`/client/drivers`} element={<div>drivers </div>} />
