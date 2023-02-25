@@ -78,10 +78,15 @@ export const SignUp = () => {
           form={form}
         >
           <div
-            style={{ color: "black", marginBottom: 28, textAlign: "left" }}
+            style={{
+              color: "black",
+              marginBottom: 8,
+              textAlign: "left",
+              fontWeight: "bold",
+            }}
             className="ubuntu"
           >
-            Register
+            Register your account
           </div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <Form.Item
@@ -271,17 +276,21 @@ export const SignUp = () => {
               className="orange"
               style={{ width: "100%" }}
             >
-              Submit
+              Register
             </Button>
-            <Button
-              onClick={() => {
-                navigate("/signin");
-              }}
-              className="white"
-              style={{ width: "100%", marginTop: 16 }}
-            >
-              Login
-            </Button>
+
+            <div style={{ marginTop: 18 }}>
+              <span style={{ color: "#8C8C8C" }}>Already registered?</span>{" "}
+              <span
+                className="orange"
+                onClick={() => {
+                  navigate("/signin");
+                }}
+                style={{ cursor: "pointer" }}
+              >
+                Sign in
+              </span>
+            </div>
           </Form.Item>
         </Form>
       </div>

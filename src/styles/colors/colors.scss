@@ -21,3 +21,8 @@ $input-bg-color: #f7f9fd;
 .orange-bg {
   background-color: $orange;
 }
+
+.orange-border {
+  border: 1px solid $orange !important;
+  border-radius: 8px;
+}

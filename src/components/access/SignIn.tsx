@@ -63,7 +63,12 @@ export const SignIn = () => {
           form={form}
         >
           <div
-            style={{ color: "black", marginBottom: 28, textAlign: "left" }}
+            style={{
+              color: "black",
+              marginBottom: 8,
+              textAlign: "left",
+              fontWeight: "bold",
+            }}
             className="ubuntu"
           >
             Login
@@ -132,13 +137,30 @@ export const SignIn = () => {
               className="orange"
               style={{ width: "100%" }}
             >
-              Submit
+              Sign In
             </Button>
+            <div
+              style={{
+                backgroundColor: "#D9D9D9",
+                marginTop: 46,
+                marginBottom: 10,
+                height: 1,
+              }}
+            ></div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                color: "#D9D9D9",
+              }}
+            >
+              Dont have an account ?
+            </div>
             <Button
               onClick={() => {
                 navigate("/signup");
               }}
-              className="white"
+              className="white orange-border"
               style={{ width: "100%", marginTop: 16 }}
             >
               Register
