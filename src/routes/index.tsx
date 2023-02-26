@@ -1,5 +1,7 @@
 import React from "react";
 import { Routes, Route, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { ROUTES } from "./constants";
+
 import { ProtectedRoute } from "./ProtectedRoute";
 import { AccessRoute } from "./Access";
 import UserRoute from "./ClientRoute";
@@ -55,7 +57,7 @@ export const MainRouter = () => {
             <Route path={`comments`} element={<div> user comment id</div>} />
             <Route index element={<div> user index</div>} />;
           </Route>
-          <Route path={`/client/carriers`} element={<CarriersPage />}>
+          <Route path={ROUTES.CARRIERS} element={<CarriersPage />}>
             <Route index element={<CarriersList />} />;
             <Route path={`:carrierid`} element={<CarrierPage />} />
           </Route>
