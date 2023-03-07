@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Form, Select, Col } from "antd";
 
 export const InputSelectV2 = (props: any) => {
@@ -14,10 +14,22 @@ export const InputSelectV2 = (props: any) => {
     title,
     span,
     width,
+    styles = {},
+    pathName = "",
+    form,
+    onChange,
   } = props;
 
   const { Option } = Select;
   const isRequired = rules.find((rule: any) => rule.required);
+
+  // const getName = useMemo(() => {
+  //   return pathName ? [...pathName, name] : name;
+  // }, [pathName, name]);
+
+  const getName = (name: any, pathName: any) => {
+    return pathName ? [...pathName, name] : name;
+  };
 
   return (
     <Col
@@ -39,12 +51,21 @@ export const InputSelectV2 = (props: any) => {
           <div className="input-item-title">{title}</div>
         )
       ) : null}
-      <Form.Item rules={rules} name={name} style={{ width: "100%" }}>
-        <Select disabled={disabled} style={{ width }} placeholder={placeholder}>
+      <Form.Item
+        rules={rules}
+        name={getName(name, pathName)}
+        style={{ width: "100%" }}
+      >
+        <Select
+          disabled={disabled}
+          style={{ width, ...styles }}
+          placeholder={placeholder}
+          onChange={onChange}
+        >
           {options.map((item: any, i: number) => {
             return (
-              <Option key={i} value={item.value}>
-                {item.key}
+              <Option key={i} value={item.key}>
+                {item.value}
               </Option>
             );
           })}

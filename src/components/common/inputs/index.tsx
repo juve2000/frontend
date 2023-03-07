@@ -1,5 +1,6 @@
 import { TextInput } from "./InputText";
 import { InputSelect } from "./InputSelect";
+import { InputSelectV2 } from "../doubleinput";
 import { InputSelectUpload } from "./InputSelectUpload";
 import { InputRadio } from "./InputRadio";
 import { InputCheckboxGroup } from "./InputCheckbox";
@@ -9,18 +10,26 @@ import { MultiInputV2 } from "../doubleinput/MultiInput";
 import { InputTitle } from "../doubleinput/InputTitle";
 import { InputAddDynamic } from "../doubleinput/InputAddDynamic";
 import { InputPageTitle } from "../doubleinput/InputPageTitle";
+import { InputImageUploadV2 } from "../doubleinput/InputImageUpload";
+import { TextInputPassword } from "../doubleinput/InputPassword";
 
 export const CommonInput = (props: any) => {
   const { type } = props;
   switch (type) {
     case InputType.TEXT:
       return <TextInput {...props} />;
+    case InputType.PASSWORD:
+      return <TextInputPassword {...props} />;
+    case InputType.IMAGE_UPLOAD:
+      return <InputImageUploadV2 {...props} />;
     case InputType.TITLE:
       return <InputTitle {...props} />;
     case InputType.ADDRESS:
       return <InputAdress {...props} />;
     case InputType.SELECT:
       return <InputSelect {...props} />;
+    case InputType.SELECT_V2:
+      return <InputSelectV2 {...props} />;
     case InputType.RADIO:
       return <InputRadio {...props} />;
     case InputType.CHECKBOX:

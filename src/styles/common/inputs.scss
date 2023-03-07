@@ -21,6 +21,11 @@
 .ant-input {
   background-color: $input-bg-color;
 }
+.ant-form-item-control-input-content {
+  textarea {
+    border: none;
+  }
+}
 
 .ant-form-item-control-input-content {
   input {

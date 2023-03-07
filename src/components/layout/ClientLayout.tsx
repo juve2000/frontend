@@ -16,9 +16,6 @@ export const ClientLayout = () => {
     console.log("values", values);
   };
 
-  React.useEffect(() => {
-    console.log("is open", isOpenSidebar);
-  }, [isOpenSidebar]);
   return (
     <>
       <Row className="header-container">

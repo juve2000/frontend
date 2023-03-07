@@ -4,6 +4,8 @@ export const VALIDATION_RULES = {
   EMAIL: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
   PASSWORD:
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+  NAME: /^[a-zA-Z]+(?:[\s.]+[a-zA-Z]+)*$/,
+  PHONE: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
 };
 
 export const VALIDATION_TYPE = {
@@ -14,6 +16,8 @@ export const VALIDATION_TYPE = {
   MIN: "MIN",
   MAX: "MAX",
   REQUIRED: "REQUIRED",
+  NAME: "NAME",
+  PHONE: "PHONE",
 };
 
 export const getValidation = (type: any, value: any) => {
@@ -23,9 +27,10 @@ export const getValidation = (type: any, value: any) => {
         min: value,
         message: `Minimum ${value} characters`,
       };
+
     case VALIDATION_TYPE.MAX:
       return {
-        min: value,
+        max: value,
         message: `Maximum ${value} characters`,
       };
     case VALIDATION_TYPE.REQUIRED:
@@ -44,6 +49,16 @@ export const getRegExpByType = (type: any) => {
       return {
         pattern: VALIDATION_RULES.ALPHABETICAL,
         message: "Only alphabetical characters",
+      };
+    case VALIDATION_TYPE.PHONE:
+      return {
+        pattern: VALIDATION_RULES.PHONE,
+        message: "Wrong phone format",
+      };
+    case VALIDATION_TYPE.NAME:
+      return {
+        pattern: VALIDATION_RULES.NAME,
+        message: `Unsupported characters`,
       };
     case VALIDATION_TYPE.NUMERIC:
       return {

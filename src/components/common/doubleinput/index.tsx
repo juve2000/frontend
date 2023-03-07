@@ -6,16 +6,26 @@ import { InputCheckboxGroupV2 } from "./InputCheckbox";
 import { InputAdressV2 } from "./InputAdress";
 import { InputAddDynamic } from "./InputAddDynamic";
 import { InputType } from "../../../constants/inputs";
+import { InputAdress } from "../inputs/InputAdress";
+import { InputImageUploadV2 } from "./InputImageUpload";
+import { TextInputPassword } from "./InputPassword";
+import { InputTextArea } from "./InputTextArea";
 
 export const CommonInputV2 = (props: any) => {
   const { type } = props;
   switch (type) {
+    case InputType.TEXT_AREA:
+      return <InputTextArea {...props} />;
+    case InputType.PASSWORD:
+      return <TextInputPassword {...props} />;
     case InputType.TEXT_V2:
       return <TextInputV2 {...props} />;
     case InputType.ADD_DYNAMIC:
       return <InputAddDynamic {...props} />;
     case InputType.ADDRESS_V2:
       return <InputAdressV2 {...props} />;
+    case InputType.ADDRESS:
+      return <InputAdress {...props} />;
     case InputType.SELECT_V2:
       return <InputSelectV2 {...props} />;
     case InputType.RADIO_V2:

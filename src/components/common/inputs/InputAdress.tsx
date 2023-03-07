@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Input, Row, Col, Select } from "antd";
-import { states } from "./utils";
+import { statesUsaOption, countriesOption, statesCanadaOption } from "./utils";
+import { carrierData } from "../../modules/carrier/constant";
 import {
   validate,
   VALIDATION_TYPE,
@@ -18,7 +19,18 @@ export const InputAdress = (props: any) => {
     placeholder = "",
     label = "",
     hasFeedback = false,
+    form,
   } = props;
+  // React.useEffect(() => {
+  //   console.log("props", props);
+  // }, [props]);
+
+  const getName = (name: any, type: any) => {
+    return typeof name === "string" ? [name, type] : [...name, type];
+  };
+
+  console.log("getname", getName(name, "address_index"));
+
   const isRequired = rules.find((rule: any) => rule.required);
   return (
     <Row className="input-container input-address">
@@ -45,33 +57,9 @@ export const InputAdress = (props: any) => {
               ...rules,
               { required: true, message: "Street number is required" },
             ]}
-            name={[name, "number_street"]}
+            name={getName(name, "number_street")}
             hasFeedback={true}
-          />
-          <TextInputV2
-            title="Province"
-            icon={icon}
-            span={12}
-            width="95%"
-            placeholder={`${placeholder} Province`}
-            rules={[
-              ...rules,
-              { required: true, message: "Province is required" },
-              validate("", ALPHABETICAL),
-            ]}
-            name={[name, "area"]}
-            hasFeedback={true}
-          />
-          <InputSelectV2
-            title="State"
-            icon={icon}
-            span={12}
-            width="100%"
-            placeholder={`${placeholder} state`}
-            rules={[...rules, { required: true, message: "State is required" }]}
-            name={[name, "state"]}
-            hasFeedback={true}
-            options={states}
+            styles={{ margin: "8px 0px" }}
           />
           <InputSelectV2
             title="Country"
@@ -83,14 +71,46 @@ export const InputAdress = (props: any) => {
               ...rules,
               { required: true, message: "Country is required" },
             ]}
-            name={[name, "country"]}
+            name={getName(name, "country")}
             hasFeedback={true}
-            options={[
-              {
-                value: "US",
-                key: "USA",
-              },
+            options={carrierData.countries}
+            styles={{ margin: "8px 0px" }}
+            onChange={() => {
+              form.setFieldValue(getName(name, "state"), "");
+            }}
+          />
+          <InputSelectV2
+            title="State"
+            icon={icon}
+            span={12}
+            width="100%"
+            placeholder={`${placeholder} state`}
+            rules={[...rules, { required: true, message: "State is required" }]}
+            name={getName(name, "state")}
+            hasFeedback={true}
+            options={
+              // form.getFieldValue(getName(name, "country")) === "USA"
+              //   ? carrierData.states
+              //   : statesCanadaOption
+              carrierData.states
+            }
+            styles={{ margin: "8px 0px" }}
+          />
+
+          <TextInputV2
+            title="City"
+            icon={icon}
+            span={12}
+            width="95%"
+            placeholder={`${placeholder} City`}
+            rules={[
+              ...rules,
+              { required: true, message: "City is required" },
+              validate("", ALPHABETICAL),
             ]}
+            name={getName(name, "area")}
+            hasFeedback={true}
+            styles={{ margin: "8px 0px" }}
           />
           <TextInputV2
             title="Index"
@@ -101,10 +121,11 @@ export const InputAdress = (props: any) => {
             rules={[
               ...rules,
               { required: true, message: "Index is required" },
-              validate("", ALPHABETICAL),
+              validate("", NUMERIC),
             ]}
-            name={[name, "address_index"]}
+            name={getName(name, "address_index")}
             hasFeedback={true}
+            styles={{ margin: "8px 0px" }}
           />
         </Row>
       </Col>

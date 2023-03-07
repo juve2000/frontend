@@ -6,6 +6,7 @@ import {
   VALIDATION_TYPE,
   VALIDATION_RULES,
 } from "../../../utils/validation";
+import { CarrierField } from "../../modules/carrier/constant";
 
 const { ALPHABETICAL, NUMERIC } = VALIDATION_TYPE;
 
@@ -19,6 +20,10 @@ export const InputAdressV2 = (props: any) => {
     hasFeedback = false,
   } = props;
   const isRequired = rules.find((rule: any) => rule.required);
+  const getName = (name: any, type: any) => {
+    const pathName = typeof name === "string" ? [name, type] : [...name, type];
+    return pathName;
+  };
   return (
     <div
       className="input-container-v2 input-address"
@@ -40,7 +45,7 @@ export const InputAdressV2 = (props: any) => {
           ...rules,
           { required: true, message: "Street number is required" },
         ]}
-        name={[name, "number_street"]}
+        name={getName(name, CarrierField.ADDRESS.NUMBER_STREET)}
         style={{ position: "absolute", top: 25, left: 220 }}
         hasFeedback={true}
         className="address-item-address"
@@ -64,7 +69,7 @@ export const InputAdressV2 = (props: any) => {
           { required: true, message: "Province is required" },
           validate("", ALPHABETICAL),
         ]}
-        name={[name, "area"]}
+        name={getName(name, CarrierField.ADDRESS.AREA)}
         style={{ position: "absolute", top: 95, left: 220 }}
         className="address-item-province"
       >
@@ -84,7 +89,7 @@ export const InputAdressV2 = (props: any) => {
 
       <Form.Item
         rules={[...rules, { required: true, message: "State is required" }]}
-        name={[name, "state"]}
+        name={getName(name, CarrierField.ADDRESS.STATE)}
         hasFeedback={hasFeedback}
         style={{ position: "absolute", top: 95, left: 405 }}
         className="adress-state address-item-state"
@@ -103,7 +108,7 @@ export const InputAdressV2 = (props: any) => {
       <div className="address-label adress-label-country">Country</div>
 
       <Form.Item
-        name={[name, "country"]}
+        name={getName(name, CarrierField.ADDRESS.COUNTRY)}
         style={{ position: "absolute", top: 165, left: 220 }}
         className="address-item-country"
         rules={[...rules, { required: true, message: "Country is required" }]}
@@ -131,7 +136,7 @@ export const InputAdressV2 = (props: any) => {
 
           //   validate("", NUMERIC),
         ]}
-        name={[name, "address_index"]}
+        name={getName(name, CarrierField.ADDRESS.ADDRESS_INDEX)}
         hasFeedback={hasFeedback}
         style={{ position: "absolute", top: 165, left: 405 }}
         className="adress-state address-item-state"

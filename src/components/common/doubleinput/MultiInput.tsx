@@ -16,6 +16,7 @@ export const MultiInputV2 = (props: any) => {
     span = 24,
     fields = [],
     isRequired = false,
+    form,
   } = props;
   return (
     <Row>
@@ -36,7 +37,7 @@ export const MultiInputV2 = (props: any) => {
       <Col span={18}>
         <Row>
           {fields.map((field: any, i: number) => {
-            return <CommonInputV2 {...field} key={i} />;
+            return <CommonInputV2 {...field} key={i} form={form} />;
           })}
         </Row>
       </Col>

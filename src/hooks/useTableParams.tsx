@@ -13,7 +13,7 @@ interface TableParams {
 
 export const useTableParams = (props: any) => {
   const { setData } = props;
-  const [tableParams, setTableParams] = useState<TableParams>({
+  const [tableParams, setTableParams] = useState<any>({
     pagination: {
       current: 1,
       pageSize: 10,
@@ -21,7 +21,6 @@ export const useTableParams = (props: any) => {
   });
 
   const handleTableChange = (pagination: any, filters: any, sorter: any) => {
-    console.log("sorter", sorter);
     setTableParams({
       pagination,
       filters,

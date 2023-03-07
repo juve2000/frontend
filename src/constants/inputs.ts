@@ -1,5 +1,7 @@
 export const InputType = {
   MULTI: "MULTI",
+  TEXT_AREA: "TEXT_AREA",
+  PASSWORD: "PASSWORD",
   ADD_DYNAMIC: "ADD_DYNAMIC",
   TITLE: "TITLE",
   TEXT: "TEXT",
@@ -15,4 +17,5 @@ export const InputType = {
   RADIO_V2: "RADIO_V2",
   UPLOAD_V2: "UPLOAD_V2",
   PAGE_TITLE: "PAGE_TITLE",
+  IMAGE_UPLOAD: "IMAGE_UPLOAD",
 };

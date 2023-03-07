@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { Form, Input, Col } from "antd";
 
-export const TextInputV2 = (props: any) => {
+export const InputTextArea = (props: any) => {
   const {
     rules = [],
     name = "",
@@ -21,6 +21,7 @@ export const TextInputV2 = (props: any) => {
   const getName = useMemo(() => {
     return pathName ? [...pathName, name] : name;
   }, [pathName, name]);
+
   return (
     <Col
       span={span}
@@ -45,14 +46,14 @@ export const TextInputV2 = (props: any) => {
         )
       ) : null}
       <Form.Item rules={rules} name={getName} style={{ width: "100%" }}>
-        <Input
-          prefix={
-            !!icon ? (
-              <span className={`icon-icon-${icon} orange`}></span>
-            ) : (
-              <span></span>
-            )
-          }
+        <Input.TextArea
+          //   prefix={
+          //     !!icon ? (
+          //       <span className={`icon-icon-${icon} orange`}></span>
+          //     ) : (
+          //       <span></span>
+          //     )
+          //   }
           placeholder={placeholder}
           style={{ width, ...styles }}
           disabled={disabled}

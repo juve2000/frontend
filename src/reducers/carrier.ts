@@ -36,7 +36,7 @@ export default {
   carrier: createReducer<any>(carrierState, (builder) => {
     // GET CARRIER
     builder
-      .addCase(getCarrierReq, (state) => {
+      .addCase(getCarrierReq, (state, payload) => {
         return {
           ...state,
           loading: true,
@@ -46,7 +46,10 @@ export default {
       .addCase(getCarrierSuccess, (state, { payload }) => {
         return {
           ...state,
-          driver: payload,
+          carrier: {
+            ...payload.data,
+          },
+
           loading: false,
         };
       })
@@ -128,7 +131,7 @@ export default {
       });
     // GET LIST OF CARRIERS
     builder
-      .addCase(getCarriersListReq, (state) => {
+      .addCase(getCarriersListReq, (state, { payload }) => {
         return {
           ...state,
           loading: true,
@@ -138,8 +141,26 @@ export default {
       .addCase(getCarriersListSuccess, (state, { payload }) => {
         return {
           ...state,
-          driverList: payload,
+          // driverList: payload,
           loading: false,
+          carrierList: [
+            ...payload.data,
+            {
+              ...payload.data[0],
+              id: "2",
+              terminals: [
+                {
+                  name: "Carrier Terminal Name 1",
+                  tz: "2",
+                  country: "USA",
+                  area: "Area name terminal 1",
+                  state: "AL",
+                  number_street: "Vasile Alexandri 33/4 of 33",
+                  address_index: "MD-2044",
+                },
+              ],
+            },
+          ],
         };
       })
       .addCase(getCarriersListFailed, (state, { payload }) => {

@@ -1,4 +1,18 @@
-export const states = [
+export const COUNTRY = {
+  USA: "USA",
+  CANADA: "CANADA",
+};
+export const countriesOption = [
+  {
+    value: COUNTRY.USA,
+    key: "USA",
+  },
+  {
+    value: COUNTRY.CANADA,
+    key: "Canada",
+  },
+];
+export const statesUsaOption = [
   {
     value: "AL",
     key: "Alabama",
@@ -198,5 +212,56 @@ export const states = [
   {
     value: "WY",
     key: "Wyoming",
+  },
+];
+
+export const statesCanadaOption = [
+  {
+    key: "Alberta",
+    value: "AB",
+  },
+  {
+    key: "New Brunswick",
+    value: "NB",
+  },
+  {
+    key: "British Columbia",
+    value: "BC",
+  },
+  {
+    key: "Nova Scotia",
+    value: "NS",
+  },
+  {
+    key: "Prince Edward Island",
+    value: "PE",
+  },
+  {
+    key: "Saskatchewan",
+    value: "SK",
+  },
+  {
+    key: "Manitoba",
+    value: "MB",
+  },
+  {
+    key: "Quebec",
+    value: "QC",
+  },
+  {
+    key: "Newfoundland and Labrador",
+    value: "NL",
+  },
+  {
+    key: "Yukon",
+    value: "YT",
+  },
+  {
+    key: "Nunavut",
+    value: "NU",
+  },
+  {
+    key: "Ontario",
+    value: "ON",
   },
 ];

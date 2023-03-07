@@ -38,7 +38,6 @@ export const SideBar = (props: any) => {
     children?: MenuItem[],
     type?: "group"
   ): MenuItem {
-    console.log("render");
     return {
       key,
       icon,
@@ -83,7 +82,12 @@ export const SideBar = (props: any) => {
         getPath("manage"),
         <span className="icon-icon-atention"></span>,
         [
-          getItem("Carriers", "carriers", "/carriers", <MailOutlined />),
+          getItem(
+            "Carriers",
+            "carriers",
+            "/carriers",
+            <span className="icon-fi-rr-briefcase"></span>
+          ),
           getItem("Drivers", "drivers", "/drivers", <MailOutlined />),
         ]
       ),

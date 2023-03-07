@@ -16,7 +16,7 @@ import {
 
 export function* getCarrierSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.get, `/carrier/${payload.id}`);
+    const { data } = yield call(request.get, `/carrier/${payload.carrierId}`);
     yield put(getCarrierSuccess(data));
   } catch (e: any) {
     yield put(getCarrierFailed(e.message));
@@ -24,9 +24,10 @@ export function* getCarrierSaga({ payload }: any): any {
 }
 
 export function* createCarrierSaga({ payload }: any): any {
+  console.log("payload", payload);
   try {
-    const { data } = yield call(request.post, "/carrier", {
-      payload,
+    const { data } = yield call(request.post, "/carrier/", {
+      ...payload,
     });
     yield put(createCarrierSuccess(data));
   } catch (e: any) {
@@ -45,7 +46,7 @@ export function* updateCarrierSaga({ payload }: any): any {
 
 export function* deleteCarrierSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.delete, `/carrier/${payload.id}`);
+    const { data } = yield call(request.delete, `/carrier`);
     yield put(deleteCarrierSuccess(data));
   } catch (e: any) {
     yield put(deleteCarrierFailed(e.message));
@@ -54,9 +55,12 @@ export function* deleteCarrierSaga({ payload }: any): any {
 
 export function* getCarriersListSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.get, `/carrier`);
+    const { data } = yield call(request.get, `/carrier`, {
+      params: payload.queryParams,
+    });
     yield put(getCarriersListSuccess(data));
   } catch (e: any) {
+    console.log(e);
     yield put(getCarriersListFailed(e.message));
   }
 }

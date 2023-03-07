@@ -96,7 +96,6 @@ export function* getLoggedInUserSaga({ payload }: any): any {
     const { data } = yield call(request.get, "/user");
 
     if (data.status === "success") {
-      console.log("data", data);
       yield put(getLoggedInUserResSuccess(data.data));
     }
   } catch (e: any) {
