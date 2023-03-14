@@ -32,7 +32,7 @@ export const InputCheckboxGroupV2 = (props: any) => {
             name={getName(name, option.value)}
             hasFeedback={hasFeedback}
             key={i}
-            valuePropName={getName(name, option.value)}
+            valuePropName={"checked"}
           >
             <Checkbox
               onChange={(e) => {
@@ -41,8 +41,6 @@ export const InputCheckboxGroupV2 = (props: any) => {
                   e.target.checked
                 );
               }}
-              // value={!!form.getFieldValue(getName(name, option.value))}
-              // checked={!!form.getFieldValue(getName(name, option.value))}
               style={{
                 lineHeight: "32px",
                 margin: direction === "row" ? "0px 16px 0px 0px" : "0px 0px",

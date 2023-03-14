@@ -14,6 +14,11 @@ export const COUNTRY = {
   CANADA: "CANADA",
 };
 
+export const PAGE_STATUS = {
+  VIEW: "VIEW",
+  EDIT: "EDIT",
+};
+
 export const CarrierField = {
   NAME: "name",
   ID: "id",

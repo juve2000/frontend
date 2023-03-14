@@ -10,12 +10,18 @@ import { InputAdress } from "../inputs/InputAdress";
 import { InputImageUploadV2 } from "./InputImageUpload";
 import { TextInputPassword } from "./InputPassword";
 import { InputTextArea } from "./InputTextArea";
+import { InputFetchCarrierSelectV2 } from "./InputFetchCarrierSelect";
+import { InputTimePickerV2 } from "./InputTimePicker";
 
 export const CommonInputV2 = (props: any) => {
   const { type } = props;
   switch (type) {
+    case InputType.FETCH_CARRIER_SELECT:
+      return <InputFetchCarrierSelectV2 {...props} />;
     case InputType.TEXT_AREA:
       return <InputTextArea {...props} />;
+    case InputType.UPLOAD_V2:
+      return <InputImageUploadV2 {...props} />;
     case InputType.PASSWORD:
       return <TextInputPassword {...props} />;
     case InputType.TEXT_V2:
@@ -32,6 +38,8 @@ export const CommonInputV2 = (props: any) => {
       return <InputRadioV2 {...props} />;
     case InputType.CHECKBOX_V2:
       return <InputCheckboxGroupV2 {...props} />;
+    case InputType.TIME_PICKER:
+      return <InputTimePickerV2 {...props} />;
     default:
       return null;
   }

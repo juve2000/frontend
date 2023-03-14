@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Table } from "antd";
+import { Table, Dropdown, Row, Col } from "antd";
 import type { ColumnsType, TablePaginationConfig } from "antd/es/table";
 import type { FilterValue, SorterResult } from "antd/es/table/interface";
 import { useTableParams } from "../../../hooks/useTableParams";
 import { getCarriersListReq } from "../../../actions/carrier";
 import { getParams } from "../../../routes/utils";
+import { carrierData } from "./constant";
 import qs from "qs";
 
 interface DataType {
@@ -35,21 +36,26 @@ const getRandomuserParams = (params: TableParams) => ({
 });
 
 export const CarriersList: React.FC = () => {
-  // const [carriers, setCarriers] = useState<DataType[]>();
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { handleTableChange, onSuccess, tableParams } = useTableParams({});
+  const { handleTableChange, onSuccess, tableParams, rowSelection } =
+    useTableParams({});
   const carriers = useSelector((state: any) => state.carrier.carrierList);
 
   React.useEffect(() => {
-    dispatch(getCarriersListReq({}));
+    dispatch(
+      getCarriersListReq({
+        // queryParams: getParams(tableParams),
+      })
+    );
   }, []);
 
   const columns: ColumnsType<any> = [
     {
       title: "Name",
+      key: "name",
       dataIndex: "name",
       sorter: {
         compare: (a: any, b: any) => a.name - b.name,
@@ -66,7 +72,7 @@ export const CarriersList: React.FC = () => {
           </div>
         );
       },
-      width: "20%",
+      width: 200,
       ellipsis: true,
     },
     {
@@ -77,17 +83,17 @@ export const CarriersList: React.FC = () => {
         multiple: 2,
       },
       ellipsis: true,
-      filters: [
-        { text: "Male", value: "male" },
-        { text: "Female", value: "female" },
-      ],
       width: "8%",
     },
     {
       title: "MC",
       dataIndex: "",
       width: "8%",
-      render: (value) => `${value.id}`,
+      render: (value) => `${value.mcnumber}`,
+      sorter: {
+        compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
+        multiple: 3,
+      },
       ellipsis: true,
     },
     {
@@ -107,36 +113,66 @@ export const CarriersList: React.FC = () => {
       width: "9%",
       ellipsis: true,
       render: (value, record, index) => {
-        return <div>{value}</div>;
+        const status = carrierData.status.find((st) => st.key === value);
+        return <div>{status?.value}</div>;
       },
-      filters: [
-        { text: "Active", value: "ACTIVE" },
-        { text: "Inactive", value: "INACTIVE" },
-        { text: "Blocked", value: "BLOCKED" },
-      ],
+      filters: carrierData.status.map((st: any) => {
+        return {
+          text: st.value,
+          value: st.key,
+        };
+      }),
     },
     {
       title: "Action",
       dataIndex: "action",
       width: "5%",
       ellipsis: true,
+      render: (value, record, index) => {
+        return (
+          <Dropdown
+            placement="bottomLeft"
+            trigger={["click"]}
+            className="menu-option"
+            menu={{
+              items: [
+                {
+                  key: "1",
+                  label: (
+                    <span
+                      onClick={() => {
+                        navigate(
+                          `${location.pathname}/${record.id}?state=EDIT`
+                        );
+                      }}
+                    >
+                      Edit
+                    </span>
+                  ),
+                },
+                {
+                  key: "2",
+                  label: (
+                    <span
+                      onClick={() => {
+                        navigate(
+                          `${location.pathname}/${record.id}?state=VIEW`
+                        );
+                      }}
+                    >
+                      View
+                    </span>
+                  ),
+                },
+              ],
+            }}
+          >
+            <span className="orange icon-fi-rr-menu-dots"></span>
+          </Dropdown>
+        );
+      },
     },
   ];
-
-  // const fetchData = () => {
-  //   setLoading(true);
-  //   fetch(
-  //     `https://randomuser.me/api?${qs.stringify(
-  //       getRandomuserParams(tableParams)
-  //     )}`
-  //   )
-  //     .then((res) => res.json())
-  //     .then(({ results }) => {
-  //       setCarriers(results);
-  //       setLoading(false);
-  //       onSuccess();
-  //     });
-  // };
 
   useEffect(() => {
     const params = getParams(tableParams);
@@ -148,15 +184,28 @@ export const CarriersList: React.FC = () => {
   }, [tableParams]);
 
   return (
-    <Table
-      columns={columns}
-      rowKey={(record) => record.id}
-      dataSource={carriers}
-      pagination={tableParams.pagination}
-      loading={loading}
-      onChange={handleTableChange}
-      //   sticky
-      //   scroll={{ y: window.innerHeight - 235 }}
-    />
+    <>
+      <Row>
+        <Col span={12}></Col>
+        <Col span={12}></Col>
+      </Row>
+      <Table
+        columns={columns}
+        rowKey={(record) => record.id}
+        dataSource={carriers.map((carrier: any, index: any) => {
+          return {
+            ...carrier,
+            // key: index,
+          };
+        })}
+        pagination={tableParams.pagination}
+        loading={loading}
+        onChange={handleTableChange}
+        rowSelection={{ ...rowSelection, columnWidth: "40px" }}
+        className="table-custom"
+        //   sticky
+        //   scroll={{ y: window.innerHeight - 235 }}
+      />
+    </>
   );
 };

@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import { Form, Select, Button, Upload, Col, Input } from "antd";
-import downloadIcon from "../../../img/download.svg";
-import uploadIcon from "../../../img/upload.svg";
+import React, { useState, useMemo } from "react";
+import { Form, Input, Col, TimePicker } from "antd";
 
-export const InputImageUploadV2 = (props: any) => {
+export const InputTimePickerV2 = (props: any) => {
   const {
     rules = [],
     name = "",
@@ -15,16 +13,14 @@ export const InputImageUploadV2 = (props: any) => {
     title = "",
     isSecondField = false,
     span = 24,
+    styles = {},
+    pathName = "",
   } = props;
   const isRequired = rules.find((rule: any) => rule.required);
 
-  const normFile = (e: any) => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e?.file.originFileObj;
-  };
-
+  const getName = useMemo(() => {
+    return pathName ? [...pathName, name] : name;
+  }, [pathName, name]);
   return (
     <Col
       span={span}
@@ -48,22 +44,15 @@ export const InputImageUploadV2 = (props: any) => {
           <div className="input-item-title input-title ubuntu">{title}</div>
         )
       ) : null}
-      <Form.Item
-        rules={rules}
-        name={name}
-        style={{ width: "100%" }}
-        // valuePropName="fileList"
-        getValueFromEvent={normFile}
-      >
-        <Upload
-          name="logo"
-          listType="picture"
+      <Form.Item rules={rules} name={getName} style={{ width: "100%" }}>
+        <TimePicker
+          placeholder={placeholder}
+          style={{ width, ...styles }}
+          disabled={disabled}
           onChange={(e) => {
             console.log("e", e);
           }}
-        >
-          <Button>Click to upload</Button>
-        </Upload>
+        />
       </Form.Item>
     </Col>
   );

@@ -9,7 +9,7 @@ export const MultiInputV2 = (props: any) => {
     icon,
     placeholder = "",
     label = "",
-    disabled,
+    disabled = false,
     width = "100%",
     title = "",
     isSecondField = false,
@@ -18,6 +18,7 @@ export const MultiInputV2 = (props: any) => {
     isRequired = false,
     form,
   } = props;
+
   return (
     <Row>
       <Col
@@ -37,7 +38,14 @@ export const MultiInputV2 = (props: any) => {
       <Col span={18}>
         <Row>
           {fields.map((field: any, i: number) => {
-            return <CommonInputV2 {...field} key={i} form={form} />;
+            return (
+              <CommonInputV2
+                {...field}
+                key={i}
+                form={form}
+                disabled={disabled}
+              />
+            );
           })}
         </Row>
       </Col>

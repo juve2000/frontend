@@ -58,3 +58,21 @@
 //   //   -webkit-box-shadow: inset 2px 2px 2px rgba(255, 255, 255, 0.25),
 //   //     inset -2px -2px 2px rgba(0, 0, 0, 0.25);
 // }
+
+td.ant-table-cell.ant-table-selection-column {
+  max-width: 50px !important;
+}
+.table-custom {
+  .ant-table th.ant-table-selection-column {
+    width: 50px !important;
+  }
+  .ant-table td.ant-table-selection-column {
+    width: 50px !important;
+  }
+  .menu-option {
+    cursor: pointer;
+  }
+  table {
+    table-layout: initial !important;
+  }
+}

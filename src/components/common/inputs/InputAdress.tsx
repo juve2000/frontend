@@ -20,6 +20,7 @@ export const InputAdress = (props: any) => {
     label = "",
     hasFeedback = false,
     form,
+    disabled = false,
   } = props;
   // React.useEffect(() => {
   //   console.log("props", props);
@@ -60,12 +61,14 @@ export const InputAdress = (props: any) => {
             name={getName(name, "number_street")}
             hasFeedback={true}
             styles={{ margin: "8px 0px" }}
+            disabled={disabled}
           />
           <InputSelectV2
             title="Country"
             icon={icon}
             span={12}
             width="95%"
+            disabled={disabled}
             placeholder={`${placeholder} country`}
             rules={[
               ...rules,
@@ -84,6 +87,7 @@ export const InputAdress = (props: any) => {
             icon={icon}
             span={12}
             width="100%"
+            disabled={disabled}
             placeholder={`${placeholder} state`}
             rules={[...rules, { required: true, message: "State is required" }]}
             name={getName(name, "state")}
@@ -111,12 +115,14 @@ export const InputAdress = (props: any) => {
             name={getName(name, "area")}
             hasFeedback={true}
             styles={{ margin: "8px 0px" }}
+            disabled={disabled}
           />
           <TextInputV2
             title="Index"
             icon={icon}
             span={12}
             width="100%"
+            disabled={disabled}
             placeholder={`${placeholder} Index`}
             rules={[
               ...rules,

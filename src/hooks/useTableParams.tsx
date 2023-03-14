@@ -13,12 +13,29 @@ interface TableParams {
 
 export const useTableParams = (props: any) => {
   const { setData } = props;
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [tableParams, setTableParams] = useState<any>({
     pagination: {
       current: 1,
       pageSize: 10,
     },
   });
+
+  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+    getCheckboxProps: (record: any) => ({
+      disabled: record.name === "Disabled User", // Column configuration not to be checked
+      name: record.name,
+      columnWidth: "50px",
+    }),
+    // columnWidth: "50px",
+    // type: "checkbox",
+  };
 
   const handleTableChange = (pagination: any, filters: any, sorter: any) => {
     setTableParams({
@@ -50,5 +67,6 @@ export const useTableParams = (props: any) => {
     setTableParams,
     handleTableChange,
     onSuccess,
+    rowSelection,
   };
 };

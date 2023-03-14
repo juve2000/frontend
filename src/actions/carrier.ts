@@ -19,6 +19,9 @@ export const CarrierActionTypes = keyMirror({
   GET_CARRIERS_LIST_REQUEST: undefined,
   GET_CARRIERS_LIST_SUCCESS: undefined,
   GET_CARRIERS_LIST_FAILURE: undefined,
+  GET_CARRIER_DELETE_TERMINAL_REQUEST: undefined,
+  GET_CARRIER_DELETE_TERMINAL_SUCCESS: undefined,
+  GET_CARRIER_DELETE_TERMINAL_FAILURE: undefined,
 });
 
 // get carrier
@@ -126,6 +129,28 @@ export const getCarriersListSuccess = createAction(
 
 export const getCarriersListFailed = createAction(
   CarrierActionTypes.GET_CARRIERS_LIST_FAILURE,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+// delete carrier terminal
+
+export const getDeleteCarrierTerminalReq = createAction(
+  CarrierActionTypes.GET_CARRIER_DELETE_TERMINAL_REQUEST,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+export const getDeleteCarrierTerminalSuccess = createAction(
+  CarrierActionTypes.GET_CARRIER_DELETE_TERMINAL_SUCCESS,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+export const getDeleteCarrierTerminalFailed = createAction(
+  CarrierActionTypes.GET_CARRIER_DELETE_TERMINAL_FAILURE,
   (payload: any) => {
     return actionPayload(payload);
   }

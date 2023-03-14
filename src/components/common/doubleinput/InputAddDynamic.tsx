@@ -10,7 +10,7 @@ export const InputAddDynamic = (props: any) => {
     icon,
     placeholder = "",
     label = "",
-    disabled,
+    disabled = false,
     width = "100%",
     title = "",
     isSecondField = false,
@@ -127,6 +127,7 @@ export const InputAddDynamic = (props: any) => {
                               key={y}
                               name={namePath}
                               form={form}
+                              disabled={disabled}
                             />
                           );
                         }

@@ -1,28 +1,76 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { getCarrierReq, createCarrierReq } from "../../../actions/carrier";
+import { useParams, useLocation, useSearchParams } from "react-router-dom";
+import {
+  getCarrierReq,
+  createCarrierReq,
+  updateCarrierReq,
+} from "../../../actions/carrier";
 
 import { Row, Col, Form, Button, Input, Spin } from "antd";
 import { CommonInput } from "../../common/inputs";
 import { carrierForm } from "./carrier-form";
 import { Graph } from "../../../components/common/graph/Graph";
 import { InputType } from "../../../constants/inputs";
+import { PAGE_STATUS } from "./constant";
 
-const promise = async () => {
-  return new Promise((res, rej) => {
-    res(3);
-  });
-};
+function buildFormData(formData: any, data: any, parentKey?: any) {
+  if (
+    data &&
+    typeof data === "object" &&
+    !(data instanceof Date) &&
+    !(data instanceof File)
+  ) {
+    if (data instanceof File) {
+      console.log("hui", {
+        data,
+        parentKey,
+      });
+    }
+    Object.keys(data).forEach((key) => {
+      buildFormData(
+        formData,
+        data[key],
+        parentKey ? `${parentKey}[${key}]` : key
+      );
+    });
+  } else {
+    const value = data == null ? "" : data;
+    if (data instanceof File) {
+      console.log("file", {
+        data,
+        parentKey,
+        value,
+      });
+    }
+    formData.append(parentKey, value);
+  }
+}
+
+function jsonToFormData(data: any) {
+  const formData = new FormData();
+
+  buildFormData(formData, data);
+
+  return formData;
+}
 
 export const CarrierPage = () => {
   const [form] = Form.useForm();
   const params = useParams();
+  const location = useLocation();
+  const [search, setSearch] = useSearchParams();
+  const [state, setStateValue] = React.useState(search.get("state"));
   const dispatch = useDispatch();
   const { loading, carrier } = useSelector((state: any) => state.carrier);
   const { user } = useSelector((state: any) => state.auth);
   const [fields, setFields] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  React.useEffect(() => {
+    console.log("seatch", search);
+    setStateValue(search.get("state"));
+  }, [search]);
+
   const [initialValues, setInitialValues] = useState({
     name: "vasea pupkin",
     company: "01GS6TJ6FTCX93Q16PPR2NR4FD",
@@ -76,12 +124,17 @@ export const CarrierPage = () => {
     const f = Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
+    const data = jsonToFormData({
+      ...values,
+      // logo: new File([values.logo.originFileObj], ),
+      email: `govno${f}@govno.com`,
+      company: user.company.id,
+      offices: [...user.offices].map((office) => office.id),
+    });
     dispatch(
-      createCarrierReq({
-        ...values,
-        email: `govno${f}@govno.com`,
-        company: user.company.id,
-        offices: [...user.offices].map((office) => office.id),
+      updateCarrierReq({
+        values: data,
+        carrierId: params.carrierid,
       })
     );
   };
@@ -126,7 +179,11 @@ export const CarrierPage = () => {
                 console.log("form values", form.getFieldsValue());
               }}
             >
-              {carrierForm({}).map((field: any, i: number) => {
+              {carrierForm({}).map((fieldCurrent: any, i: number) => {
+                const field = {
+                  ...fieldCurrent,
+                  disabled: state === PAGE_STATUS.VIEW,
+                };
                 if (field.type === InputType.ADD_DYNAMIC) {
                   return (
                     <CommonInput
@@ -140,38 +197,21 @@ export const CarrierPage = () => {
                     // prettier-ignore
                   );
                 }
-                // prettier-ignore
-                return <CommonInput key={i} {...field} form={form} />
+                return <CommonInput key={i} {...field} form={form} />;
               })}
               <Form.Item style={{ width: "100%" }}>
                 <Button
                   type="primary"
                   htmlType="submit"
                   className="orange"
-                  style={{ width: "100%" }}
+                  style={{ width: "65px" }}
                 >
-                  Submit
+                  Save
                 </Button>
               </Form.Item>
             </Form>
           </Col>
         )}
-        <Button
-          onClick={() => {
-            console.log("values", form.getFieldsValue());
-            form.validateFields().then((res) => {
-              const a = promise();
-              console.log("a", a);
-            });
-            // dispatch(
-            //   createCarrierReq({
-            //     ...form.getFieldsValue(),
-            //   })
-            // );
-          }}
-        >
-          push
-        </Button>
       </Row>
     </>
   );

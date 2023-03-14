@@ -24,20 +24,30 @@ export function* getCarrierSaga({ payload }: any): any {
 }
 
 export function* createCarrierSaga({ payload }: any): any {
-  console.log("payload", payload);
   try {
     const { data } = yield call(request.post, "/carrier/", {
-      ...payload,
+      ...payload.values,
     });
     yield put(createCarrierSuccess(data));
+    payload.onSuccess();
   } catch (e: any) {
     yield put(createCarrierFailed(e.message));
   }
 }
 
 export function* updateCarrierSaga({ payload }: any): any {
+  console.log("payload", payload);
   try {
-    const { data } = yield call(request.put, `/carrier/${payload.id}`, payload);
+    const { data } = yield call(
+      request.put,
+      `/carrier/${payload.carrierId}`,
+      payload.values,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     yield put(updateCarrierSuccess(data));
   } catch (e: any) {
     yield put(updateCarrierFailed(e.message));

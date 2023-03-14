@@ -13,6 +13,7 @@ import { NewPassword } from "../components/access/NewPassword";
 import { LogOut } from "../components/access/LogOut";
 import { CarriersPage } from "../components/modules/carrier/CarriersPage";
 import { CarrierPage } from "../components/modules/carrier/Carrier";
+import { CarrierCreatePage } from "../components/modules/carrier/CarrierCreate";
 import { CarriersList } from "../components/modules/carrier/CarriersList";
 
 import { UsersPage } from "../components/modules/user/UsersPage";
@@ -59,6 +60,7 @@ export const MainRouter = () => {
           </Route>
           <Route path={ROUTES.CARRIERS} element={<CarriersPage />}>
             <Route index element={<CarriersList />} />;
+            <Route path={`create`} element={<CarrierCreatePage />} />
             <Route path={`:carrierid`} element={<CarrierPage />} />
           </Route>
           {/* USERS ROUTE */}

@@ -5,27 +5,31 @@ export const routes = {
 
 export const getParams = (data: any) => {
   const params: any = {};
-  const sorts = [];
+  const order: any = {};
   for (let prop in data) {
     if (prop === "filters") {
-      params.filters = data[prop];
+      params.filter = data[prop];
     }
     if (prop === "pagination") {
-      params.pagination = data[prop];
+      params.page = data[prop].current;
+      params.limit = data[prop].pageSize;
     }
     if (data?.field) {
-      sorts.push({
-        field: data.field,
-        order: data.order,
-      });
+      //   order.push({
+      //     field: data.field,
+      //     order: data.order,
+      //   });
+      order[data.field] = data.order;
     }
 
     if (data[prop]?.field) {
-      sorts.push({
-        field: data[prop].field,
-        order: data[prop].order,
-      });
+      order[data[prop].field] = data[prop].order;
+
+      //   order.push({
+      //     field: data[prop].field,
+      //     order: data[prop].order,
+      //   });
     }
   }
-  return { ...params, sorts };
+  return { ...params, order };
 };
