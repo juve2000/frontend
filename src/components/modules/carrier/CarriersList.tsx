@@ -73,14 +73,14 @@ export const CarriersList: React.FC = () => {
           </div>
         );
       },
-      width: 200,
+      width: 450,
       ellipsis: true,
     },
     {
       title: "USDOT",
-      dataIndex: "dot",
+      dataIndex: "usdot",
       sorter: {
-        compare: (a: any, b: any) => a.dot - b.dot,
+        compare: (a: any, b: any) => a.usdot - b.usdot,
         multiple: 2,
       },
       ellipsis: true,
@@ -88,9 +88,9 @@ export const CarriersList: React.FC = () => {
     },
     {
       title: "MC",
-      dataIndex: "",
+      dataIndex: "mcnumber",
       width: "8%",
-      render: (value) => `${value.mcnumber}`,
+      // render: (value) => `${value.mcnumber}`,
       sorter: {
         compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
         multiple: 3,
