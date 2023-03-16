@@ -24,7 +24,7 @@ export const GeneralCarrierFields = {
       type: InputType.TEXT_V2,
       name: CarrierField.NAME,
       label: "Name",
-      rules: [validate("", NAME), getValidation(REQUIRED, "name")],
+      rules: [getValidation(REQUIRED, "name")],
       placeholder: "Name",
       hasFeedback: true,
       title: "Name*",

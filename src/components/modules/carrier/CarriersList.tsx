@@ -43,6 +43,7 @@ export const CarriersList: React.FC = () => {
   const { handleTableChange, onSuccess, tableParams, rowSelection } =
     useTableParams({});
   const carriers = useSelector((state: any) => state.carrier.carrierList);
+  const count = useSelector((state: any) => state.carrier.count);
 
   React.useEffect(() => {
     dispatch(
@@ -195,10 +196,13 @@ export const CarriersList: React.FC = () => {
         dataSource={carriers.map((carrier: any, index: any) => {
           return {
             ...carrier,
-            // key: index,
           };
         })}
-        pagination={tableParams.pagination}
+        pagination={{
+          ...tableParams.pagination,
+          position: ["bottomCenter"],
+          total: count,
+        }}
         loading={loading}
         onChange={handleTableChange}
         rowSelection={{ ...rowSelection, columnWidth: "40px" }}

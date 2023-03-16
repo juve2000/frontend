@@ -13,10 +13,6 @@ export const ProtectedRoute = ({ children }: any) => {
     (state: any) => state.auth.isAuthenticated
   );
 
-  React.useEffect(() => {
-    console.log("isAuth", isAuthenticated);
-  }, [isAuthenticated]);
-
   if (!isAuthenticated) {
     return <Navigate to="/" replace />;
   }

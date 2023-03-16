@@ -15,6 +15,7 @@ export const InputImageUploadV2 = (props: any) => {
     title = "",
     isSecondField = false,
     span = 24,
+    form,
   } = props;
   const isRequired = rules.find((rule: any) => rule.required);
 
@@ -48,6 +49,7 @@ export const InputImageUploadV2 = (props: any) => {
           <div className="input-item-title input-title ubuntu">{title}</div>
         )
       ) : null}
+      {/* <img src={"https://dev.hgrs.us" + form.getFieldValue(name)} /> */}
       <Form.Item
         rules={rules}
         name={name}

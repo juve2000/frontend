@@ -49,7 +49,6 @@ export const InputFetchCarrierSelectV2 = (props: any) => {
     if (isEmpty(carrierList) && isEmpty(options)) {
       dispatch(getCarriersListReq({}));
     }
-    console.log("RENDER");
   }, []);
 
   const getName = (name: any, pathName: any) => {

@@ -22,9 +22,6 @@ export const InputAdress = (props: any) => {
     form,
     disabled = false,
   } = props;
-  // React.useEffect(() => {
-  //   console.log("props", props);
-  // }, [props]);
 
   const getName = (name: any, type: any) => {
     return typeof name === "string" ? [name, type] : [...name, type];

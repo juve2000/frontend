@@ -46,7 +46,7 @@ export const TerminalCarrierFields = (options: any) => {
 
       {
         type: InputType.ADDRESS,
-        name: "",
+        name: "address",
         label: "Carrier Address",
         rules: [],
         placeholder: "Carrier",

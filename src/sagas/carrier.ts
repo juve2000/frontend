@@ -25,9 +25,7 @@ export function* getCarrierSaga({ payload }: any): any {
 
 export function* createCarrierSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.post, "/carrier/", {
-      ...payload.values,
-    });
+    const { data } = yield call(request.post, "/carrier/", payload.values);
     yield put(createCarrierSuccess(data));
     payload.onSuccess();
   } catch (e: any) {
@@ -39,7 +37,7 @@ export function* updateCarrierSaga({ payload }: any): any {
   console.log("payload", payload);
   try {
     const { data } = yield call(
-      request.put,
+      request.post,
       `/carrier/${payload.carrierId}`,
       payload.values,
       {

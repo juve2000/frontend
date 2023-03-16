@@ -24,10 +24,6 @@ export const InputAddDynamic = (props: any) => {
   //   const [fields, setFields] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  React.useEffect(() => {
-    console.log("currentIndex", currentIndex);
-  }, [currentIndex]);
-
   return (
     <>
       <Form.List name={name}>
@@ -65,7 +61,6 @@ export const InputAddDynamic = (props: any) => {
                           form
                             .validateFields()
                             .then((res: any) => {
-                              console.log("res", res);
                               setCurrentIndex((currentValue) => {
                                 return currentValue + 1;
                               });

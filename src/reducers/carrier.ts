@@ -30,6 +30,7 @@ export const carrierState = {
   carrierList: [],
   loading: false,
   errorMessage: "",
+  count: 0,
 };
 
 export default {
@@ -139,28 +140,13 @@ export default {
         };
       })
       .addCase(getCarriersListSuccess, (state, { payload }) => {
+        console.log("p", payload);
         return {
           ...state,
           // driverList: payload,
           loading: false,
-          carrierList: [
-            ...payload.data,
-            // {
-            //   ...payload.data[0],
-            //   id: "2",
-            //   terminals: [
-            //     {
-            //       name: "Carrier Terminal Name 1",
-            //       tz: "2",
-            //       country: "USA",
-            //       area: "Area name terminal 1",
-            //       state: "AL",
-            //       number_street: "Vasile Alexandri 33/4 of 33",
-            //       address_index: "MD-2044",
-            //     },
-            //   ],
-            // },
-          ],
+          carrierList: [...payload.data],
+          count: payload.params.items.count,
         };
       })
       .addCase(getCarriersListFailed, (state, { payload }) => {

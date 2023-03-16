@@ -9,11 +9,34 @@ import { carrierForm } from "./carrier-form";
 import { Graph } from "../../common/graph/Graph";
 import { InputType } from "../../../constants/inputs";
 
-const promise = async () => {
-  return new Promise((res, rej) => {
-    res(3);
-  });
-};
+function buildFormData(formData: any, data: any, parentKey?: any) {
+  if (
+    data &&
+    typeof data === "object" &&
+    !(data instanceof Date) &&
+    !(data instanceof File)
+  ) {
+    Object.keys(data).forEach((key) => {
+      buildFormData(
+        formData,
+        data[key],
+        parentKey ? `${parentKey}[${key}]` : key
+      );
+    });
+  } else {
+    const value = data == null ? "" : data;
+
+    formData.append(parentKey, value);
+  }
+}
+
+function jsonToFormData(data: any) {
+  const formData = new FormData();
+
+  buildFormData(formData, data);
+
+  return formData;
+}
 
 export const CarrierCreatePage = () => {
   const [form] = Form.useForm();
@@ -23,9 +46,6 @@ export const CarrierCreatePage = () => {
   const { user } = useSelector((state: any) => state.auth);
   const [fields, setFields] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  React.useEffect(() => {
-    console.log("params", params);
-  }, [params]);
 
   const [initialValues, setInitialValues] = useState({
     name: "",
@@ -72,13 +92,18 @@ export const CarrierCreatePage = () => {
   });
 
   const handleSubmit = async (values: any) => {
+    const f = Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+    const data = jsonToFormData({
+      ...values,
+      email: `govno${f}@govno.com`,
+      company: user.company.id,
+      offices: [...user.offices].map((office) => office.id),
+    });
     dispatch(
       createCarrierReq({
-        values: {
-          ...values,
-          company: user.company.id,
-          offices: [...user.offices].map((office) => office.id),
-        },
+        values: data,
         onSuccess: () => {
           form.setFieldsValue(initialValues);
         },
@@ -90,10 +115,6 @@ export const CarrierCreatePage = () => {
     form.setFieldsValue(carrier);
     setInitialValues({ ...initialValues, ...carrier });
   }, [carrier]);
-
-  React.useEffect(() => {
-    console.log("initial", initialValues);
-  }, [initialValues]);
 
   return (
     <>
@@ -122,9 +143,6 @@ export const CarrierCreatePage = () => {
               }}
               onFinish={handleSubmit}
               initialValues={initialValues}
-              onChange={(values) => {
-                console.log("form values", form.getFieldsValue());
-              }}
             >
               {carrierForm({}).map((field: any, i: number) => {
                 if (field.type === InputType.ADD_DYNAMIC) {
@@ -148,7 +166,7 @@ export const CarrierCreatePage = () => {
                   type="primary"
                   htmlType="submit"
                   className="orange"
-                  style={{ width: "100%" }}
+                  style={{ width: "65px" }}
                 >
                   Submit
                 </Button>
@@ -156,22 +174,6 @@ export const CarrierCreatePage = () => {
             </Form>
           </Col>
         )}
-        <Button
-          onClick={() => {
-            console.log("values", form.getFieldsValue());
-            form.validateFields().then((res) => {
-              const a = promise();
-              console.log("a", a);
-            });
-            // dispatch(
-            //   createCarrierReq({
-            //     ...form.getFieldsValue(),
-            //   })
-            // );
-          }}
-        >
-          push
-        </Button>
       </Row>
     </>
   );

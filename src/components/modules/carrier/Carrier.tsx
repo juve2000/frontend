@@ -21,12 +21,6 @@ function buildFormData(formData: any, data: any, parentKey?: any) {
     !(data instanceof Date) &&
     !(data instanceof File)
   ) {
-    if (data instanceof File) {
-      console.log("hui", {
-        data,
-        parentKey,
-      });
-    }
     Object.keys(data).forEach((key) => {
       buildFormData(
         formData,
@@ -36,13 +30,7 @@ function buildFormData(formData: any, data: any, parentKey?: any) {
     });
   } else {
     const value = data == null ? "" : data;
-    if (data instanceof File) {
-      console.log("file", {
-        data,
-        parentKey,
-        value,
-      });
-    }
+
     formData.append(parentKey, value);
   }
 }
@@ -67,7 +55,6 @@ export const CarrierPage = () => {
   const [fields, setFields] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   React.useEffect(() => {
-    console.log("seatch", search);
     setStateValue(search.get("state"));
   }, [search]);
 
@@ -120,14 +107,11 @@ export const CarrierPage = () => {
   }, []);
 
   const handleSubmit = async (values: any) => {
-    console.log("values,", values);
     const f = Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
     const data = jsonToFormData({
       ...values,
-      // logo: new File([values.logo.originFileObj], ),
-      email: `govno${f}@govno.com`,
       company: user.company.id,
       offices: [...user.offices].map((office) => office.id),
     });
@@ -144,14 +128,26 @@ export const CarrierPage = () => {
     setInitialValues({ ...initialValues, ...carrier });
   }, [carrier]);
 
-  React.useEffect(() => {
-    console.log("initial", initialValues);
-  }, [initialValues]);
+  //   For mobile devices:
+
+  // <a href="viber://chat?number=PHONE_WITHOUT_PLUS">Text to Viber</a>
+
+  // <a href="viber://add?number=PHONE_WITHOUT_PLUS">Add the phone to Viber</a>
+  // For desktop devices:
+
+  // <a href="viber://chat?number=+PHONE_WITH_PLUS">Text to Viber</a>
+
+  // <!-- or use %2B = + -->
+
+  // <a href="viber://chat?number=%2BPHONE_WITH_PLUS">Text to Viber</a>
 
   return (
     <>
       <Row style={{ paddingLeft: 23, paddingRight: 25, height: "100%" }}>
         {/* <Graph /> */}
+        <a href="viber://chat?number=%2B977-9800000000">test</a>
+        <a href="tel:9800000000">test 2</a>
+
         {loading ? (
           <div
             style={{
@@ -189,6 +185,7 @@ export const CarrierPage = () => {
                     <CommonInput
                     currentIndex={currentIndex}
                     fields={fields}
+
                     key={i}
                     setCurrentIndex={setCurrentIndex}
                     {...field}

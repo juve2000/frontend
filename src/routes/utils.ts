@@ -3,6 +3,17 @@ export const routes = {
   toUnits: "/units",
 };
 
+const getOrderName = (type: any) => {
+  switch (type) {
+    case "ascend":
+      return "asc";
+    case "descend":
+      return "desc";
+    default:
+      return "asc";
+  }
+};
+
 export const getParams = (data: any) => {
   const params: any = {};
   const order: any = {};
@@ -19,11 +30,11 @@ export const getParams = (data: any) => {
       //     field: data.field,
       //     order: data.order,
       //   });
-      order[data.field] = data.order;
+      order[data.field] = getOrderName(data.order);
     }
 
     if (data[prop]?.field) {
-      order[data[prop].field] = data[prop].order;
+      order[data[prop].field] = getOrderName(data[prop].order);
 
       //   order.push({
       //     field: data[prop].field,

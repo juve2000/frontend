@@ -26,7 +26,6 @@ export const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    console.log("config", config);
     const token = getLocalAccessToken();
     //   if (token && config?.headers) {
     //     config.headers["x-access-token"] = token;

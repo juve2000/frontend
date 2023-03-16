@@ -20,10 +20,6 @@ export const InputSelectUpload = (props: any) => {
 
   const { Option } = Select;
 
-  React.useEffect(() => {
-    console.log("value", value);
-  }, [value]);
-
   return (
     <div className="input-container">
       <div className="input-item-wrapper" style={{ width: 220 }}>
