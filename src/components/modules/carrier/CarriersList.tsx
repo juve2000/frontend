@@ -4,12 +4,16 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Table, Dropdown, Row, Col } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useTableParams } from "../../../hooks/useTableParams";
-import { getCarriersListReq } from "../../../actions/carrier";
+import {
+  getCarriersListReq,
+  getCarrierPasswordReq,
+} from "../../../actions/carrier";
 import { getParams } from "../../../routes/utils";
 import { carrierData } from "./constant";
 import { InputSearch } from "../../common/doubleinput/InputSearch";
 import { getOrderFromTableParams } from "../../../hooks/utils";
 import { InputPageTitle } from "../../common/doubleinput/InputPageTitle";
+import { SetPassword } from "./modals/CarrierSetPassword";
 
 export const CarriersList: React.FC = () => {
   const location = useLocation();
@@ -27,6 +31,11 @@ export const CarriersList: React.FC = () => {
   const carriers = useSelector((state: any) => state.carrier.carrierList);
   const count = useSelector((state: any) => state.carrier.count);
   const loading = useSelector((state: any) => state.carrier.loading);
+  const [accautnModalOpen, setAccauntModalOpen] = useState(false);
+  const [currentCarrier, setCurrentCarrier] = useState({
+    id: "",
+    name: "",
+  });
 
   React.useEffect(() => {
     dispatch(
@@ -148,6 +157,7 @@ export const CarriersList: React.FC = () => {
       width: "5%",
       ellipsis: true,
       render: (value, record, index) => {
+        console.log("record", record);
         return (
           <Dropdown
             placement="bottomLeft"
@@ -158,29 +168,60 @@ export const CarriersList: React.FC = () => {
                 {
                   key: "1",
                   label: (
-                    <span
+                    <div
                       onClick={() => {
                         navigate(
                           `${location.pathname}/${record.id}?state=EDIT`
                         );
                       }}
+                      style={{ display: "flex", alignItems: "center" }}
                     >
+                      <span
+                        className="icon-fi-rr-pencil"
+                        style={{ marginRight: "10px" }}
+                      ></span>{" "}
                       Edit
-                    </span>
+                    </div>
                   ),
                 },
                 {
                   key: "2",
                   label: (
-                    <span
+                    <div
                       onClick={() => {
                         navigate(
                           `${location.pathname}/${record.id}?state=VIEW`
                         );
                       }}
+                      style={{ display: "flex", alignItems: "center" }}
                     >
+                      <span
+                        className="icon-fi-rr-eye"
+                        style={{ marginRight: "10px" }}
+                      ></span>{" "}
                       View
-                    </span>
+                    </div>
+                  ),
+                },
+                {
+                  key: "3",
+                  label: (
+                    <div
+                      onClick={() => {
+                        setCurrentCarrier({
+                          id: record.id,
+                          name: record.name,
+                        });
+                        setAccauntModalOpen(true);
+                      }}
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      <span
+                        className="icon-fi-rr-lock"
+                        style={{ marginRight: "10px" }}
+                      ></span>{" "}
+                      Set password
+                    </div>
                   ),
                 },
               ],
@@ -205,6 +246,14 @@ export const CarriersList: React.FC = () => {
   return (
     <>
       <Row>
+        <SetPassword
+          currentItem={currentCarrier}
+          isOpen={accautnModalOpen}
+          toggleModal={(status: any) => setAccauntModalOpen(status)}
+          onSubmit={(payload: any) => {
+            dispatch(getCarrierPasswordReq(payload));
+          }}
+        />
         <Col span={12}>
           <InputPageTitle fields={["Carriers"]} route="/client" carriers />
         </Col>
@@ -213,7 +262,7 @@ export const CarriersList: React.FC = () => {
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
           }}
         >
           <InputSearch

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Form, Input, Col } from "antd";
 import { CopyToClipboard } from "./CopyToClipboard";
-import { validate } from "../../../utils/validation";
 
-export const TextInputPassword = (props: any) => {
+export const TextInputConfirmPassword = (props: any) => {
   const {
     rules = [],
     name = "",
@@ -53,14 +52,29 @@ export const TextInputPassword = (props: any) => {
 
       <Form.Item
         rules={[
-          { required: true, message: "Please input your password!" },
-          { min: 1, message: "Minimum 8 characters" },
-          validate("password", "PASSWORD"),
+          {
+            required: true,
+            message: "Please confirm your password!",
+          },
+          ({ getFieldValue }) => ({
+            validator(rule, value) {
+              console.log("value", value);
+              console.log("rule", rule);
+
+              if (!value || getFieldValue("password") === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(
+                "The two passwords that you entered do not match!"
+              );
+            },
+          }),
         ]}
         name={name}
         style={{ width: "100%", position: "relative" }}
       >
         <Input.Password
+          //   prefix={<span className="icon-fi-rr-lock"></span>}
           placeholder={placeholder || "Password"}
           style={{ width }}
           disabled={disabled}

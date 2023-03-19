@@ -27,8 +27,6 @@ export const InputAdress = (props: any) => {
     return typeof name === "string" ? [name, type] : [...name, type];
   };
 
-  console.log("getname", getName(name, "address_index"));
-
   const isRequired = rules.find((rule: any) => rule.required);
   return (
     <Row className="input-container input-address">

@@ -1,11 +1,13 @@
 export const VALIDATION_RULES = {
   ALPHABETICAL: /^[a-zA-Z]*$/,
   NUMERIC: /^[0-9]*$/,
-  EMAIL: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+  EMAIL: /^$|^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/,
   PASSWORD:
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
   NAME: /^[a-zA-Z]+(?:[\s.]+[a-zA-Z]+)*$/,
-  PHONE: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+  PHONE:
+    /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/,
+  NOT_EMPTY: /^$/,
 };
 
 export const VALIDATION_TYPE = {
@@ -18,6 +20,8 @@ export const VALIDATION_TYPE = {
   REQUIRED: "REQUIRED",
   NAME: "NAME",
   PHONE: "PHONE",
+  NOT_REQUIRED: "NOT_REQUIRED",
+  NOT_EMPTY: "NOT_EMPTY",
 };
 
 export const getValidation = (type: any, value: any) => {
@@ -38,8 +42,13 @@ export const getValidation = (type: any, value: any) => {
         required: true,
         message: `This field is required`,
       };
+    case VALIDATION_TYPE.NOT_REQUIRED:
+      return {
+        required: false,
+        message: `This field is required`,
+      };
     default:
-      return {};
+      return null;
   }
 };
 
@@ -52,6 +61,8 @@ export const getRegExpByType = (type: any) => {
       };
     case VALIDATION_TYPE.PHONE:
       return {
+        required: true,
+        type: "regexp",
         pattern: VALIDATION_RULES.PHONE,
         message: "Wrong phone format",
       };
@@ -75,10 +86,15 @@ export const getRegExpByType = (type: any) => {
         pattern: VALIDATION_RULES.PASSWORD,
         message: "Use at least: 8 characters, 1 uppercase letter, 1 digit !",
       };
+    case VALIDATION_TYPE.NOT_EMPTY:
+      return {
+        pattern: VALIDATION_RULES.NOT_EMPTY,
+        message: "This field is required",
+      };
     default:
       return {
-        pattern: VALIDATION_RULES.NUMERIC,
-        message: "Wrong format",
+        pattern: VALIDATION_RULES.ALPHABETICAL,
+        message: "test",
       };
   }
 };
@@ -86,7 +102,8 @@ export const getRegExpByType = (type: any) => {
 export const validate = (name: any, rule: any): any => {
   return ({ getFieldValue }: any) => ({
     validator(_: any, value: any) {
-      const { pattern, message } = getRegExpByType(rule);
+      const { pattern, message, required } = getRegExpByType(rule);
+
       if (pattern.test(value)) {
         return Promise.resolve();
       }

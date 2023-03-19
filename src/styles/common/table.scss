@@ -24,7 +24,9 @@
 //   }
 // }
 
-.ant-table-body {
+.ant-table-cell {
+  font-family: "Ubuntu" !important;
+  font-size: 12px;
 }
 // .ant-table-body::-webkit-scrollbar {
 //   width: 15px;
@@ -84,5 +86,13 @@ td.ant-table-cell.ant-table-selection-column {
   .ant-btn.ant-btn-primary.ant-btn-sm {
     color: $white;
     background: $orange;
+  }
+}
+
+.ant-pagination-item-active {
+  background: $orange !important;
+  border-color: $orange !important;
+  a {
+    color: $white !important;
   }
 }

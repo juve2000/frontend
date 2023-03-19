@@ -54,6 +54,7 @@ export const CarrierPage = () => {
   const { user } = useSelector((state: any) => state.auth);
   const [fields, setFields] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+
   React.useEffect(() => {
     setStateValue(search.get("state"));
   }, [search]);
@@ -128,25 +129,10 @@ export const CarrierPage = () => {
     setInitialValues({ ...initialValues, ...carrier });
   }, [carrier]);
 
-  //   For mobile devices:
-
-  // <a href="viber://chat?number=PHONE_WITHOUT_PLUS">Text to Viber</a>
-
-  // <a href="viber://add?number=PHONE_WITHOUT_PLUS">Add the phone to Viber</a>
-  // For desktop devices:
-
-  // <a href="viber://chat?number=+PHONE_WITH_PLUS">Text to Viber</a>
-
-  // <!-- or use %2B = + -->
-
-  // <a href="viber://chat?number=%2BPHONE_WITH_PLUS">Text to Viber</a>
-
   return (
     <>
       <Row style={{ paddingLeft: 23, paddingRight: 25, height: "100%" }}>
         {/* <Graph /> */}
-        <a href="viber://chat?number=%2B977-9800000000">test</a>
-        <a href="tel:9800000000">test 2</a>
 
         {loading ? (
           <div

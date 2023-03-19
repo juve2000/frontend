@@ -36,11 +36,6 @@ export const InputPhone = (props: any) => {
     return pathName ? [...pathName, name] : name;
   }, [pathName, name]);
 
-  React.useEffect(() => {
-    console.log("form phone", form.getFieldValue(getName));
-    console.log("form", form);
-  }, [form]);
-
   const getCallOptions = (type: any, numberValue: any) => {
     switch (type) {
       case CallTypes.VIBER:

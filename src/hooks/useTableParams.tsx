@@ -23,10 +23,6 @@ export const useTableParams = (props: any) => {
     },
   });
 
-  useEffect(() => {
-    console.log("table", tableParams);
-  }, [tableParams]);
-
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
   };
@@ -71,10 +67,6 @@ export const useTableParams = (props: any) => {
     }
     return hasFilter || hasOrder;
   }, [tableParams, setTableParams]);
-
-  useEffect(() => {
-    console.log("hasFilter", hasFiltersOrOrder);
-  }, [hasFiltersOrOrder]);
 
   const handleTableChange = (pagination: any, filters: any, sorter: any) => {
     setTableParams({

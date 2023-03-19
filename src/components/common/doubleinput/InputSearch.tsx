@@ -32,10 +32,6 @@ export const InputSearch = (props: any) => {
     <div
       style={{ marginRight: 50 }}
       onFocus={() => {
-        console.log("on focus", {
-          c: !confirmedFilters,
-          hasFilters,
-        });
         if (!confirmedFilters && hasFilters) {
           setIsOpen(true);
         }
@@ -55,7 +51,6 @@ export const InputSearch = (props: any) => {
                   setIsOpen(false);
                   setCorfimedFilters(true);
                   onClear();
-                  console.log("clear filters");
                 }}
                 style={{ width: 150 }}
                 className="white"

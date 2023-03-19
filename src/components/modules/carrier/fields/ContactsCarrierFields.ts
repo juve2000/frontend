@@ -11,8 +11,18 @@ import {
   carrierCheckboxGroup,
 } from "../constant";
 
-const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL, NAME } =
-  VALIDATION_TYPE;
+const {
+  ALPHABETICAL,
+  REQUIRED,
+  MIN,
+  MAX,
+  NUMERIC,
+  PASSWORD,
+  EMAIL,
+  NOT_EMPTY,
+  NAME,
+  PHONE,
+} = VALIDATION_TYPE;
 
 export const ContactsCarrierFields = {
   type: InputType.MULTI,
@@ -23,9 +33,16 @@ export const ContactsCarrierFields = {
       type: InputType.PHONE,
       name: CarrierField.PHONE,
       label: "Phone Number*",
+      // rules: [
+      //   getValidation(MAX, 9),
+
+      //   validate("", NUMERIC),
+      //   getValidation(REQUIRED, "DOT Number"),
+      // ],
       rules: [
-        validate("", VALIDATION_TYPE.PHONE),
-        getValidation(REQUIRED, "phone"),
+        // validate("", NOT_EMPTY),
+        validate("", PHONE),
+        getValidation(REQUIRED, ""),
       ],
       placeholder: "Phone Number",
       hasFeedback: true,
@@ -37,10 +54,7 @@ export const ContactsCarrierFields = {
       type: InputType.TEXT_V2,
       name: CarrierField.EMAIL,
       label: "Email",
-      rules: [
-        validate("", VALIDATION_TYPE.EMAIL),
-        getValidation(REQUIRED, "email"),
-      ],
+      rules: [getValidation(REQUIRED, ""), validate("", VALIDATION_TYPE.EMAIL)],
       placeholder: "Email",
       hasFeedback: true,
       title: "Email*",
@@ -50,7 +64,7 @@ export const ContactsCarrierFields = {
     {
       type: InputType.TEXT_V2,
       name: CarrierField.PERSON,
-      rules: [validate("", NAME), getValidation(REQUIRED, "Contact person")],
+      rules: [getValidation(REQUIRED, "Contact person"), validate("", NAME)],
       placeholder: "Contact Person",
       hasFeedback: true,
       span: 12,
@@ -60,7 +74,10 @@ export const ContactsCarrierFields = {
     {
       type: InputType.TEXT_V2,
       name: CarrierField.EMAIL_SECOND,
-      rules: [getValidation(REQUIRED, "Second email"), validate("", EMAIL)],
+      rules: [
+        validate("", VALIDATION_TYPE.EMAIL),
+        getValidation(REQUIRED, "Second email"),
+      ],
       placeholder: "Reserve mail",
       hasFeedback: true,
       span: 12,

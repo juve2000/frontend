@@ -34,7 +34,6 @@ export const InputFetchCarrierSelectV2 = (props: any) => {
   // }, [pathName, name]);
 
   React.useEffect(() => {
-    console.log("carrierList", carrierList);
     setOptions(
       carrierList.map((carrier: any) => {
         return {

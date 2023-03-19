@@ -52,6 +52,11 @@ export default {
           ...state,
           carrier: {
             ...payload.data,
+            email_second: "govno@t.com",
+            settings: {
+              ...payload.data.settings,
+              period_starting_time: "12-12-12",
+            },
           },
 
           loading: false,
@@ -99,7 +104,8 @@ export default {
       .addCase(updateCarrierSuccess, (state, { payload }) => {
         return {
           ...state,
-          driver: payload,
+          // driver: payload,
+          carrier: payload.data,
           loading: false,
         };
       })

@@ -37,10 +37,10 @@ export const carrierForm = (options: any) => {
     },
     // // CARRIER NAME DETAILS
     { ...GeneralCarrierFields },
-    {
-      type: InputType.TITLE,
-      label: "Account & Security",
-    },
+    // {
+    //   type: InputType.TITLE,
+    //   label: "Account & Security",
+    // },
     // // CARRIER LOGIN
     // { ...LoginCarrierFields },
     {

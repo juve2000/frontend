@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Col, Button, Row } from "antd";
 import { CommonInput } from "../inputs";
 import { InputTitleDynamic } from "./InputTitleDynamic";
+import { getDeleteCarrierTerminalReq } from "../../../actions";
 
 export const InputAddDynamic = (props: any) => {
   const {
@@ -19,10 +21,11 @@ export const InputAddDynamic = (props: any) => {
     fields,
     itemName = "Terminal",
   } = props;
-  const isRequired = rules.find((rule: any) => rule.required);
 
-  //   const [fields, setFields] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const carrier = useSelector((state: any) => state.carrier.carrier);
+
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -31,6 +34,7 @@ export const InputAddDynamic = (props: any) => {
           return (
             <>
               {formFields.map((field: any, i: any) => {
+                const terminalId = form.getFieldValue(name)[i].id;
                 if (field.name === currentIndex) {
                   return (
                     <>
@@ -64,7 +68,7 @@ export const InputAddDynamic = (props: any) => {
                               setCurrentIndex((currentValue) => {
                                 return currentValue + 1;
                               });
-                              add();
+                              add({});
                             })
                             .catch((err: any) => {
                               console.log("err", err);
@@ -97,10 +101,19 @@ export const InputAddDynamic = (props: any) => {
                               }}
                               onClick={() => {
                                 if (currentIndex !== 0) {
-                                  remove(currentIndex);
-                                  setCurrentIndex((currentValue) => {
-                                    return currentValue - 1;
-                                  });
+                                  if (terminalId) {
+                                    dispatch(
+                                      getDeleteCarrierTerminalReq({
+                                        terminalId,
+                                        carrierId: carrier.id,
+                                      })
+                                    );
+                                  } else {
+                                    remove(currentIndex);
+                                    setCurrentIndex((currentValue) => {
+                                      return currentValue - 1;
+                                    });
+                                  }
                                 }
                               }}
                             >
