@@ -12,10 +12,13 @@ import { TextInputPassword } from "./InputPassword";
 import { InputTextArea } from "./InputTextArea";
 import { InputFetchCarrierSelectV2 } from "./InputFetchCarrierSelect";
 import { InputTimePickerV2 } from "./InputTimePicker";
+import { InputPhone } from "./InputPhone";
 
 export const CommonInputV2 = (props: any) => {
   const { type } = props;
   switch (type) {
+    case InputType.PHONE:
+      return <InputPhone {...props} />;
     case InputType.FETCH_CARRIER_SELECT:
       return <InputFetchCarrierSelectV2 {...props} />;
     case InputType.TEXT_AREA:

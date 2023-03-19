@@ -76,3 +76,13 @@ td.ant-table-cell.ant-table-selection-column {
     table-layout: initial !important;
   }
 }
+
+.ant-table-filter-dropdown-btns {
+  .ant-btn.ant-btn-link.ant-btn-sm {
+    color: $orange;
+  }
+  .ant-btn.ant-btn-primary.ant-btn-sm {
+    color: $white;
+    background: $orange;
+  }
+}

@@ -9,7 +9,7 @@ export const InputPageTitle = (props: any) => {
   return (
     <div
       className="ubuntu"
-      style={{ display: "flex", alignItems: "center", padding: "12px 0px" }}
+      style={{ display: "flex", alignItems: "baseline", padding: "12px 0px" }}
     >
       {props.fields.map((field: any, i: any) => {
         if (i === 0) {

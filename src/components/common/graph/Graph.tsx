@@ -8,18 +8,14 @@ export const Graph = (props: any) => {
 
   useEffect(() => {
     const ctx = canvasRef.current?.getContext("2d") as any;
-    console.log("ctx", ctx);
     const log = new eLog(ctx, {
       data,
       options: {
         startStatus: 1,
       },
     });
-    console.log("elog", log);
   }, [data]);
 
-  console.log("log");
-  console.log("canvas", canvas);
   return (
     <div>
       <button

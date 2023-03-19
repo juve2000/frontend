@@ -2,48 +2,31 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Table, Dropdown, Row, Col } from "antd";
-import type { ColumnsType, TablePaginationConfig } from "antd/es/table";
-import type { FilterValue, SorterResult } from "antd/es/table/interface";
+import type { ColumnsType } from "antd/es/table";
 import { useTableParams } from "../../../hooks/useTableParams";
 import { getCarriersListReq } from "../../../actions/carrier";
 import { getParams } from "../../../routes/utils";
 import { carrierData } from "./constant";
-import qs from "qs";
-
-interface DataType {
-  name: {
-    first: string;
-    last: string;
-  };
-  gender: string;
-  email: string;
-  login: {
-    uuid: string;
-  };
-}
-
-interface TableParams {
-  pagination?: TablePaginationConfig;
-  sortField?: string;
-  sortOrder?: string;
-  filters?: Record<string, FilterValue>;
-}
-
-const getRandomuserParams = (params: TableParams) => ({
-  results: params.pagination?.pageSize,
-  page: params.pagination?.current,
-  ...params,
-});
+import { InputSearch } from "../../common/doubleinput/InputSearch";
+import { getOrderFromTableParams } from "../../../hooks/utils";
+import { InputPageTitle } from "../../common/doubleinput/InputPageTitle";
 
 export const CarriersList: React.FC = () => {
-  const [loading, setLoading] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { handleTableChange, onSuccess, tableParams, rowSelection } =
-    useTableParams({});
+  const {
+    handleTableChange,
+    onSuccess,
+    tableParams,
+    rowSelection,
+    clearOrderFilters,
+    setSearchParam,
+    hasFiltersOrOrder,
+  } = useTableParams({});
   const carriers = useSelector((state: any) => state.carrier.carrierList);
   const count = useSelector((state: any) => state.carrier.count);
+  const loading = useSelector((state: any) => state.carrier.loading);
 
   React.useEffect(() => {
     dispatch(
@@ -58,9 +41,10 @@ export const CarriersList: React.FC = () => {
       title: "Name",
       key: "name",
       dataIndex: "name",
+      sortOrder: getOrderFromTableParams("name", tableParams),
       sorter: {
         compare: (a: any, b: any) => a.name - b.name,
-        multiple: 3,
+        multiple: 5,
       },
       render: (name, record, index) => {
         return (
@@ -73,15 +57,17 @@ export const CarriersList: React.FC = () => {
           </div>
         );
       },
-      width: 450,
+      width: 300,
       ellipsis: true,
     },
     {
       title: "USDOT",
       dataIndex: "usdot",
+      key: "usdot",
+      sortOrder: getOrderFromTableParams("usdot", tableParams),
       sorter: {
         compare: (a: any, b: any) => a.usdot - b.usdot,
-        multiple: 2,
+        multiple: 5,
       },
       ellipsis: true,
       width: "8%",
@@ -89,11 +75,14 @@ export const CarriersList: React.FC = () => {
     {
       title: "MC",
       dataIndex: "mcnumber",
+      key: "mcnumber",
       width: "8%",
       // render: (value) => `${value.mcnumber}`,
+      sortOrder: getOrderFromTableParams("mcnumber", tableParams),
+
       sorter: {
         compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
-        multiple: 3,
+        multiple: 5,
       },
       ellipsis: true,
     },
@@ -110,7 +99,12 @@ export const CarriersList: React.FC = () => {
     {
       title: "status",
       dataIndex: "status",
-      sorter: true,
+      sortOrder: getOrderFromTableParams("status", tableParams),
+      key: "status",
+      sorter: {
+        compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
+        multiple: 5,
+      },
       width: "9%",
       ellipsis: true,
       render: (value, record, index) => {
@@ -123,6 +117,30 @@ export const CarriersList: React.FC = () => {
           value: st.key,
         };
       }),
+      filteredValue: tableParams?.filters?.status || null,
+    },
+    {
+      title: "Account",
+      dataIndex: "account",
+      sortOrder: getOrderFromTableParams("account", tableParams),
+      key: "account",
+      sorter: {
+        compare: (a: any, b: any) => a.account - b.account,
+        multiple: 5,
+      },
+      width: "9%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        const status = carrierData.status.find((st) => st.key === value);
+        return <div>{status?.value}</div>;
+      },
+      filters: carrierData.status.map((st: any) => {
+        return {
+          text: st.value,
+          value: st.key,
+        };
+      }),
+      filteredValue: tableParams?.filters?.account || null,
     },
     {
       title: "Action",
@@ -187,8 +205,40 @@ export const CarriersList: React.FC = () => {
   return (
     <>
       <Row>
-        <Col span={12}></Col>
-        <Col span={12}></Col>
+        <Col span={12}>
+          <InputPageTitle fields={["Carriers"]} route="/client" carriers />
+        </Col>
+        <Col
+          span={12}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <InputSearch
+            onChange={setSearchParam}
+            onClear={clearOrderFilters}
+            hasFilters={hasFiltersOrOrder}
+          />
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <span className="icon-fi-rr-plus ubuntu orange" />
+            <div
+              className="orange ubuntu"
+              style={{
+                fontWeight: 500,
+                fontSize: 12,
+                marginLeft: 8,
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                navigate(`${location.pathname}/create`);
+              }}
+            >
+              Create
+            </div>
+          </div>
+        </Col>
       </Row>
       <Table
         columns={columns}

@@ -47,10 +47,6 @@ export const SideBar = (props: any) => {
     } as MenuItem;
   }
 
-  React.useEffect(() => {
-    console.log("users", users);
-  }, [usersList]);
-
   const getUsers = () => {
     if (!usersList.length) {
       dispatch(getUsersListReq({}));

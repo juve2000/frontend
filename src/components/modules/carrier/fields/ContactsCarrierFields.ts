@@ -20,7 +20,7 @@ export const ContactsCarrierFields = {
   isRequired: true,
   fields: [
     {
-      type: InputType.TEXT_V2,
+      type: InputType.PHONE,
       name: CarrierField.PHONE,
       label: "Phone Number*",
       rules: [
@@ -60,7 +60,7 @@ export const ContactsCarrierFields = {
     {
       type: InputType.TEXT_V2,
       name: CarrierField.EMAIL_SECOND,
-      rules: [validate("", EMAIL)],
+      rules: [getValidation(REQUIRED, "Second email"), validate("", EMAIL)],
       placeholder: "Reserve mail",
       hasFeedback: true,
       span: 12,

@@ -12,6 +12,7 @@ import {
   deleteCarrierFailed,
   getCarriersListSuccess,
   getCarriersListFailed,
+  getDeleteCarrierTerminalFailed,
 } from "../actions";
 
 export function* getCarrierSaga({ payload }: any): any {
@@ -34,7 +35,6 @@ export function* createCarrierSaga({ payload }: any): any {
 }
 
 export function* updateCarrierSaga({ payload }: any): any {
-  console.log("payload", payload);
   try {
     const { data } = yield call(
       request.post,
@@ -68,8 +68,23 @@ export function* getCarriersListSaga({ payload }: any): any {
     });
     yield put(getCarriersListSuccess(data));
   } catch (e: any) {
-    console.log(e);
     yield put(getCarriersListFailed(e.message));
+  }
+}
+
+export function* deleteCarrierTerminalSaga({ payload }: any): any {
+  console.log("payload", payload);
+  try {
+    const { data } = yield call(
+      request.delete,
+      `/carrier/terminal/${payload.terminalId}`
+    );
+    if (data) {
+      yield call(getCarrierSaga, payload.carrierId);
+    }
+    // yield put(deleteCarrierSuccess(data));
+  } catch (e: any) {
+    yield put(getDeleteCarrierTerminalFailed({}));
   }
 }
 
@@ -82,6 +97,14 @@ export default function* root() {
     takeLatest(
       CarrierActionTypes.GET_CARRIERS_LIST_REQUEST,
       getCarriersListSaga
+    ),
+    takeLatest(
+      CarrierActionTypes.GET_CARRIER_SET_PASSWORD_REQUEST,
+      updateCarrierSaga
+    ),
+    takeLatest(
+      CarrierActionTypes.GET_CARRIER_DELETE_TERMINAL_REQUEST,
+      deleteCarrierSaga
     ),
   ]);
 }

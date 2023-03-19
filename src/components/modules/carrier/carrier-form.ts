@@ -28,6 +28,7 @@ export const carrierForm = (options: any) => {
     {
       type: InputType.PAGE_TITLE,
       fields: ["Carriers", "Details"],
+      route: "/client/carriers",
     },
 
     {

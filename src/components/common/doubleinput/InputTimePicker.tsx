@@ -1,5 +1,9 @@
 import React, { useState, useMemo } from "react";
 import { Form, Input, Col, TimePicker } from "antd";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+
+dayjs.extend(customParseFormat);
 
 export const InputTimePickerV2 = (props: any) => {
   const {
@@ -15,6 +19,7 @@ export const InputTimePickerV2 = (props: any) => {
     span = 24,
     styles = {},
     pathName = "",
+    form,
   } = props;
   const isRequired = rules.find((rule: any) => rule.required);
 
@@ -49,8 +54,10 @@ export const InputTimePickerV2 = (props: any) => {
           placeholder={placeholder}
           style={{ width, ...styles }}
           disabled={disabled}
-          onChange={(e) => {
-            console.log("e", e);
+          defaultValue={dayjs("00-00-00", "HH-mm-ss")}
+          defaultOpenValue={dayjs("00-00-00", "HH-mm-ss")}
+          onChange={(e, timeString) => {
+            form.setFieldValue(timeString.split(":").join("-"));
           }}
         />
       </Form.Item>

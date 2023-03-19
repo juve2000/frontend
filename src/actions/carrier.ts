@@ -22,6 +22,9 @@ export const CarrierActionTypes = keyMirror({
   GET_CARRIER_DELETE_TERMINAL_REQUEST: undefined,
   GET_CARRIER_DELETE_TERMINAL_SUCCESS: undefined,
   GET_CARRIER_DELETE_TERMINAL_FAILURE: undefined,
+  GET_CARRIER_SET_PASSWORD_REQUEST: undefined,
+  GET_CARRIER_SET_PASSWORD_SUCCESS: undefined,
+  GET_CARRIER_SET_PASSWORD_FAILURE: undefined,
 });
 
 // get carrier
@@ -151,6 +154,28 @@ export const getDeleteCarrierTerminalSuccess = createAction(
 
 export const getDeleteCarrierTerminalFailed = createAction(
   CarrierActionTypes.GET_CARRIER_DELETE_TERMINAL_FAILURE,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+// delete carrier password
+
+export const getCarrierPasswordReq = createAction(
+  CarrierActionTypes.GET_CARRIER_SET_PASSWORD_REQUEST,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+export const getCarrierPasswordSuccess = createAction(
+  CarrierActionTypes.GET_CARRIER_SET_PASSWORD_SUCCESS,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+export const getCarrierPasswordFailed = createAction(
+  CarrierActionTypes.GET_CARRIER_SET_PASSWORD_FAILURE,
   (payload: any) => {
     return actionPayload(payload);
   }

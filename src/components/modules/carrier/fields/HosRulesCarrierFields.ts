@@ -77,7 +77,9 @@ export const HosRulesCarrierFields = (options: any) => {
 
       {
         type: InputType.CHECKBOX_V2,
-        name: "settings",
+        // type: InputType.TIME_PICKER,
+
+        name: ["settings"],
         label: "24 Hour Period Starting Time",
         // rules: [getValidation(REQUIRED, "24 Hour Period Starting Time")],
         placeholder: "24 Hour Period Starting Time",

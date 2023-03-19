@@ -15,6 +15,7 @@
     background-color: $white;
     transition: 0.2s ease;
     color: $orange;
+    border: 1px solid $orange;
   }
 }
 
@@ -26,8 +27,9 @@
   width: 100%;
   padding-top: 6px;
   &:hover {
-    background-color: $orange;
+    background-color: $white;
     transition: 0.2s ease;
-    color: $white;
+    color: $orange;
+    border: 1px solid $orange;
   }
 }

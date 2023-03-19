@@ -87,28 +87,30 @@ export const InputAddDynamic = (props: any) => {
                           }}
                           className={"orange"}
                         >
-                          <div
-                            style={{
-                              cursor: "pointer",
-                              display: "flex",
-                              justifyContent: "flex-end",
-                              alignItems: "center",
-                            }}
-                            onClick={() => {
-                              if (currentIndex !== 0) {
-                                remove(currentIndex);
-                                setCurrentIndex((currentValue) => {
-                                  return currentValue - 1;
-                                });
-                              }
-                            }}
-                          >
-                            <span
-                              className="icon-fi-rr-cross-small"
-                              style={{ marginRight: 4 }}
-                            ></span>{" "}
-                            Remove {itemName}
-                          </div>
+                          {currentIndex !== 0 && (
+                            <div
+                              style={{
+                                cursor: "pointer",
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                alignItems: "center",
+                              }}
+                              onClick={() => {
+                                if (currentIndex !== 0) {
+                                  remove(currentIndex);
+                                  setCurrentIndex((currentValue) => {
+                                    return currentValue - 1;
+                                  });
+                                }
+                              }}
+                            >
+                              <span
+                                className="icon-fi-rr-cross-small"
+                                style={{ marginRight: 4 }}
+                              ></span>{" "}
+                              Remove {itemName}
+                            </div>
+                          )}
                         </Col>
                       </Row>
                       {fields.map((f: any, y: any) => {

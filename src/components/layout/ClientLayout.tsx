@@ -11,10 +11,6 @@ import "./clientlayout.scss";
 export const ClientLayout = () => {
   const [form] = Form.useForm();
   const [isOpenSidebar, setIsOpenSidebar] = React.useState(true);
-  const handleSubmit = (values: any) => {
-    console.log("form", form);
-    console.log("values", values);
-  };
 
   return (
     <>

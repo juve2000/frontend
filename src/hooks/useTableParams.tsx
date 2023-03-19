@@ -23,8 +23,22 @@ export const useTableParams = (props: any) => {
     },
   });
 
+  useEffect(() => {
+    console.log("table", tableParams);
+  }, [tableParams]);
+
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
+  };
+
+  const clearOrderFilters = () => {
+    setTableParams((state: any) => {
+      return { pagination: { ...state.pagination }, filters: [], order: {} };
+    });
+  };
+
+  const setSearchParam = (value: any) => {
+    setTableParams({ ...tableParams, search: value });
   };
 
   const rowSelection = {
@@ -39,6 +53,29 @@ export const useTableParams = (props: any) => {
     // type: "checkbox",
   };
 
+  const hasFiltersOrOrder = useMemo(() => {
+    let hasFilter = false;
+    let hasOrder = false;
+    for (let prop in tableParams.filters) {
+      if (tableParams.filters[prop]) {
+        hasFilter = true;
+      }
+    }
+    for (let prop in tableParams) {
+      if (tableParams[prop]?.field) {
+        hasOrder = true;
+      }
+      if (prop === "order" && tableParams[prop]) {
+        hasOrder = true;
+      }
+    }
+    return hasFilter || hasOrder;
+  }, [tableParams, setTableParams]);
+
+  useEffect(() => {
+    console.log("hasFilter", hasFiltersOrOrder);
+  }, [hasFiltersOrOrder]);
+
   const handleTableChange = (pagination: any, filters: any, sorter: any) => {
     setTableParams({
       pagination,
@@ -47,9 +84,9 @@ export const useTableParams = (props: any) => {
     });
 
     // `dataSource` is useless since `pageSize` changed
-    if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-      setData([]);
-    }
+    // if (pagination.pageSize !== tableParams.pagination?.pageSize) {
+    //   setData([]);
+    // }
   };
 
   const onSuccess = () => {
@@ -70,5 +107,8 @@ export const useTableParams = (props: any) => {
     handleTableChange,
     onSuccess,
     rowSelection,
+    clearOrderFilters,
+    setSearchParam,
+    hasFiltersOrOrder,
   };
 };

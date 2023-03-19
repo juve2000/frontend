@@ -62,12 +62,14 @@ export const PreferencesCarrierFields = {
     },
     {
       type: InputType.TEXT_V2,
+      // type: InputType.TIME_PICKER,
       name: CarrierField.SETTINGS.PERIOD_STARTING_TIME,
 
       pathName: ["settings"],
 
       label: "24 Hour Period Starting Time",
       rules: [getValidation(REQUIRED, "24 Hour Period Starting Time")],
+      // rules: [],
       placeholder: "24 Hour Period Starting Time",
       hasFeedback: true,
       title: "24 Hour Period Starting Time",

@@ -20,6 +20,9 @@ import {
   getCarriersListReq,
   getCarriersListSuccess,
   getCarriersListFailed,
+  getDeleteCarrierTerminalReq,
+  getDeleteCarrierTerminalSuccess,
+  getDeleteCarrierTerminalFailed,
 } from "../actions";
 
 // import { UserState } from "../types";
@@ -140,7 +143,6 @@ export default {
         };
       })
       .addCase(getCarriersListSuccess, (state, { payload }) => {
-        console.log("p", payload);
         return {
           ...state,
           // driverList: payload,
@@ -150,6 +152,28 @@ export default {
         };
       })
       .addCase(getCarriersListFailed, (state, { payload }) => {
+        return {
+          ...state,
+          errorMessage: payload,
+          loading: false,
+        };
+      });
+    // DELETE CARRIER TERMINAL
+    builder
+      .addCase(getDeleteCarrierTerminalReq, (state, { payload }) => {
+        return {
+          ...state,
+          loading: true,
+          errorMessage: "",
+        };
+      })
+      .addCase(getDeleteCarrierTerminalSuccess, (state, { payload }) => {
+        return {
+          ...state,
+          loading: false,
+        };
+      })
+      .addCase(getDeleteCarrierTerminalFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,
