@@ -52,11 +52,11 @@ export const TextInputPassword = (props: any) => {
       <CopyToClipboard copyText={copyValue} top={43} />
 
       <Form.Item
-        rules={[
-          { required: true, message: "Please input your password!" },
-          { min: 1, message: "Minimum 8 characters" },
-          validate("password", "PASSWORD"),
-        ]}
+        // rules={[
+        //   { required: true, message: "Please input your password!" },
+        //   { min: 1, message: "Minimum 8 characters" },
+        //   validate("password", "PASSWORD"),
+        // ]}
         name={name}
         style={{ width: "100%", position: "relative" }}
       >
