@@ -60,46 +60,45 @@ export const CarrierPage = () => {
   }, [search]);
 
   const [initialValues, setInitialValues] = useState({
-    name: "vasea pupkin",
-    company: "01GS6TJ6FTCX93Q16PPR2NR4FD",
-    offices: ["01GS6TVX8YTVK0M3CRB3C7S6QV", "01GS6TWCA6HYX1M8SVSVBQZ8YY"],
-    usdot: "100000013",
-    phone: "+393129319231",
-    mcnumber: "20000001",
-    email: "govno@govno.com",
-    person: "Ale d",
-    status: 1,
-    notes: "test text1",
-    email_second: "a@a.com",
+    name: "",
+
+    usdot: "",
+    phone: "",
+    mcnumber: "",
+    email: "",
+    person: "",
+    status: null,
+    notes: "",
+    email_second: "",
     settings: {
-      measurement_system: 1,
-      dst: 1,
-      first_day: 1,
-      compliance_mode: 1,
-      motion_treshold: 2,
-      cargo_type: 1,
-      restart: 1,
-      rest_break: 1,
-      short_haul: true,
-      personal_conveyance: true,
-      adverse_conditions: true,
-      unlimited_documents: true,
-      unlimited_trailers: true,
-      yard_move: true,
-      exempt_driver: true,
-      exempt_driver_notice: true,
-      period_starting_time: "12-12-12",
-      motion_trashhold: 3,
+      measurement_system: null,
+      dst: null,
+      first_day: null,
+      compliance_mode: null,
+      motion_treshold: null,
+      cargo_type: null,
+      restart: null,
+      rest_break: null,
+      short_haul: false,
+      personal_conveyance: false,
+      adverse_conditions: false,
+      unlimited_documents: false,
+      unlimited_trailers: false,
+      yard_move: false,
+      exempt_driver: false,
+      exempt_driver_notice: false,
+      period_starting_time: "",
+      motion_trashhold: "",
     },
     terminals: [
       {
-        name: "name1",
+        name: "",
         country: 1,
         state: 1,
-        area: "london",
-        address_index: "1234",
+        area: "",
+        address_index: "",
         tz: 1,
-        number_street: "12 riso",
+        number_street: "",
       },
     ],
   });
@@ -182,14 +181,23 @@ export const CarrierPage = () => {
                 }
                 return <CommonInput key={i} {...field} form={form} />;
               })}
-              <Form.Item style={{ width: "100%" }}>
+              <Form.Item style={{ width: "100%", display: "flex" }}>
                 <Button
                   type="primary"
                   htmlType="submit"
                   className="orange"
-                  style={{ width: "65px" }}
+                  style={{ width: "65px", marginRight: 12 }}
                 >
                   Save
+                </Button>
+                <Button
+                  className="grey"
+                  style={{ width: "85px", marginRight: 12 }}
+                  onClick={() => {
+                    form.setFieldsValue(initialValues);
+                  }}
+                >
+                  Cancel
                 </Button>
               </Form.Item>
             </Form>

@@ -111,10 +111,10 @@ export const CarrierCreatePage = () => {
     );
   };
 
-  React.useEffect(() => {
-    form.setFieldsValue(carrier);
-    setInitialValues({ ...initialValues, ...carrier });
-  }, [carrier]);
+  // React.useEffect(() => {
+  //   form.setFieldsValue(carrier);
+  //   setInitialValues({ ...initialValues, ...carrier });
+  // }, [carrier]);
 
   return (
     <>
@@ -161,14 +161,23 @@ export const CarrierCreatePage = () => {
                 // prettier-ignore
                 return <CommonInput key={i} {...field} form={form} />
               })}
-              <Form.Item style={{ width: "100%" }}>
+              <Form.Item style={{ width: "100%", display: "flex" }}>
                 <Button
                   type="primary"
                   htmlType="submit"
                   className="orange"
-                  style={{ width: "65px" }}
+                  style={{ width: "65px", marginRight: 12 }}
                 >
                   Submit
+                </Button>
+                <Button
+                  className="grey"
+                  style={{ width: "85px", marginRight: 12 }}
+                  onClick={() => {
+                    form.setFieldsValue(initialValues);
+                  }}
+                >
+                  Cancel
                 </Button>
               </Form.Item>
             </Form>

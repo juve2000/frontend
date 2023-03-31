@@ -20,7 +20,7 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const loading = useSelector((state: any) => state.auth.loading);
-  const isAuth = useSelector((state: any) => state.auth.isAuthenticated);
+  const { isAuthenticated, user } = useSelector((state: any) => state.auth);
 
   useEffect(() => {
     dispatch(getLoggedInUserReq());
@@ -30,10 +30,23 @@ function App() {
     return <Spin />;
   }
 
-  if (location.pathname === "/" && isAuth) {
+  // if (isAuthenticated) {
+  //   if (!user.company?.name) {
+  //     // navigate("/client/company");
+  //   } else {
+  //     // navigate("/client");
+  //   }
+  // }
+
+  if (location.pathname === "/" && isAuthenticated) {
+    // if (!user.company?.name) {
+    //   navigate("/client/company");
+    // } else {
+    //   navigate("/client");
+    // }
     navigate("/client");
   }
-  if (location.pathname === "/" && !isAuth) {
+  if (location.pathname === "/" && !isAuthenticated) {
     navigate("/signin");
   }
 

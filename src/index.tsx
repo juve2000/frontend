@@ -8,7 +8,10 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import { configStore } from "./store";
+import * as dotenv from "dotenv";
 import "antd/dist/reset.css";
+
+// dotenv.config({ path: "../.env" });
 
 const { persistor, store } = configStore();
 

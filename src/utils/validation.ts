@@ -4,10 +4,11 @@ export const VALIDATION_RULES = {
   EMAIL: /^$|^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/,
   PASSWORD:
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-  NAME: /^[a-zA-Z]+(?:[\s.]+[a-zA-Z]+)*$/,
+  NAME: /^[a-zA-Z]+(([',.-][a-zA-Z])?[a-zA-Z]*)*$/,
+
   PHONE:
     /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/,
-  NOT_EMPTY: /^$/,
+  NOT_EMPTY: /^(\w+\S+)$/,
 };
 
 export const VALIDATION_TYPE = {

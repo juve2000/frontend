@@ -91,8 +91,15 @@ export const SideBar = (props: any) => {
         "Company Account",
         "company_account",
         getPath("company_account"),
-        <span className="icon-icon-atention"></span>,
-        [getItem("Users", "users", "/users", <MailOutlined />)]
+        <span className="icon-fi-rr-comment-user"></span>,
+        [
+          getItem(
+            "Company",
+            "company",
+            "/company",
+            <span className="icon-fi-rr-folder"></span>
+          ),
+        ]
       ),
       getItem("Navigation One", "sub1", "/", <MailOutlined />, [
         ...usersList.map((user: any) => {

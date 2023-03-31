@@ -29,9 +29,6 @@ export function* getCarrierSaga({ payload }: any): any {
   try {
     const { data } = yield call(request.get, `/carrier/${payload.carrierId}`);
     yield put(getCarrierSuccess(data));
-    yield call(notification.success, {
-      message: "Carrier created successfully",
-    });
   } catch (e: any) {
     yield put(getCarrierFailed(e.message));
   }
@@ -39,7 +36,11 @@ export function* getCarrierSaga({ payload }: any): any {
 
 export function* createCarrierSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.post, "/carrier/", payload.values);
+    const { data } = yield call(request.post, "/carrier/", payload.values, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     yield put(createCarrierSuccess(data));
     payload.onSuccess();
     yield call(notification.success, {
@@ -110,7 +111,6 @@ export function* deleteCarrierTerminalSaga({ payload }: any): any {
     yield call(notification.success, {
       message: "Terminal deleted successfully",
     });
-    // yield put(deleteCarrierSuccess(data));
   } catch (e: any) {
     yield put(getDeleteCarrierTerminalFailed({}));
     yield call(notification.error, {
@@ -124,13 +124,16 @@ export function* createCarrierPasswordSaga({ payload }: any): any {
   try {
     const { data } = yield call(
       request.put,
-      `/carrier/authenticable/${payload.id}`,
-      { password: payload.password }
+      `/carrier/authenticable/${payload.data.id}`,
+      { password: payload.data.password }
     );
     yield put(getCarrierPasswordSuccess(data));
-    yield call(notification.success, {
-      message: "Carrier password created successfully",
-    });
+    if (data) {
+      yield call(notification.success, {
+        message: "Carrier password created successfully",
+      });
+      payload.onSuccess();
+    }
   } catch (e: any) {
     yield put(getCarrierPasswordFailed(e.message));
     yield call(notification.error, {

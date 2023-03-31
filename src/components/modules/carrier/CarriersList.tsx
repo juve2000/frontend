@@ -15,6 +15,9 @@ import { getOrderFromTableParams } from "../../../hooks/utils";
 import { InputPageTitle } from "../../common/doubleinput/InputPageTitle";
 import { SetPassword } from "./modals/CarrierSetPassword";
 
+import ResetSort from "../../../img/resetSort.svg";
+import ResetFilter from "../../../img/resetFilter.svg";
+
 export const CarriersList: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -27,6 +30,8 @@ export const CarriersList: React.FC = () => {
     clearOrderFilters,
     setSearchParam,
     hasFiltersOrOrder,
+    clearFilter,
+    clearOrder,
   } = useTableParams({});
   const carriers = useSelector((state: any) => state.carrier.carrierList);
   const count = useSelector((state: any) => state.carrier.count);
@@ -98,8 +103,9 @@ export const CarriersList: React.FC = () => {
     {
       title: "Carrier Time Zone",
       dataIndex: ["terminals", "0"],
-      sorter: true,
+      // sorter: true,
       render: (value, record, index) => {
+        console.log("record", record);
         return <div>{value?.number_street}</div>;
       },
       width: "25%",
@@ -131,17 +137,32 @@ export const CarriersList: React.FC = () => {
     {
       title: "Account",
       dataIndex: "account",
-      sortOrder: getOrderFromTableParams("account", tableParams),
+      // sortOrder: getOrderFromTableParams("account", tableParams),
       key: "account",
-      sorter: {
-        compare: (a: any, b: any) => a.account - b.account,
-        multiple: 5,
-      },
+      // sorter: {
+      //   compare: (a: any, b: any) => a.account - b.account,
+      //   multiple: 5,
+      // },
       width: "9%",
       ellipsis: true,
       render: (value, record, index) => {
         const status = carrierData.status.find((st) => st.key === value);
-        return <div>{status?.value}</div>;
+        return (
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {record?.with_account ? (
+              <span className="icon-fi-rr-check orange" />
+            ) : (
+              <span className="icon-fi-rr-minus-small" />
+            )}
+          </div>
+        );
       },
       filters: carrierData.status.map((st: any) => {
         return {
@@ -235,7 +256,6 @@ export const CarriersList: React.FC = () => {
   ];
 
   useEffect(() => {
-    const params = getParams(tableParams);
     dispatch(
       getCarriersListReq({
         queryParams: getParams(tableParams),
@@ -251,7 +271,19 @@ export const CarriersList: React.FC = () => {
           isOpen={accautnModalOpen}
           toggleModal={(status: any) => setAccauntModalOpen(status)}
           onSubmit={(payload: any) => {
-            dispatch(getCarrierPasswordReq(payload));
+            dispatch(
+              getCarrierPasswordReq({
+                data: payload,
+                onSuccess: () => {
+                  dispatch(
+                    getCarriersListReq({
+                      queryParams: getParams(tableParams),
+                    })
+                  );
+                  setAccauntModalOpen(false);
+                },
+              })
+            );
           }}
         />
         <Col span={12}>
@@ -285,6 +317,45 @@ export const CarriersList: React.FC = () => {
               }}
             >
               Create
+            </div>
+          </div>
+          <div style={{ marginLeft: 20, display: "flex" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+              onClick={clearOrder}
+            >
+              <div style={{ marginRight: 5 }}>
+                <img src={ResetSort} />
+              </div>
+              <div
+                className="ubuntu"
+                style={{ color: "#8A8996", fontSize: 12 }}
+              >
+                Reset sorting
+              </div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                cursor: "pointer",
+                marginLeft: 10,
+              }}
+              onClick={clearFilter}
+            >
+              <div style={{ marginRight: 5 }}>
+                <img src={ResetFilter} />
+              </div>
+              <div
+                className="ubuntu"
+                style={{ color: "#8A8996", fontSize: 12 }}
+              >
+                Reset filter
+              </div>
             </div>
           </div>
         </Col>

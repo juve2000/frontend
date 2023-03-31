@@ -23,6 +23,10 @@ export const useTableParams = (props: any) => {
     },
   });
 
+  useEffect(() => {
+    console.log("tableParams", tableParams);
+  }, [tableParams]);
+
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
   };
@@ -30,6 +34,24 @@ export const useTableParams = (props: any) => {
   const clearOrderFilters = () => {
     setTableParams((state: any) => {
       return { pagination: { ...state.pagination }, filters: [], order: {} };
+    });
+  };
+
+  const clearOrder = () => {
+    setTableParams((state: any) => {
+      return {
+        pagination: state.pagination,
+        filters: state.filters,
+      };
+    });
+  };
+
+  const clearFilter = () => {
+    setTableParams((state: any) => {
+      return {
+        ...state,
+        filters: [],
+      };
     });
   };
 
@@ -102,5 +124,7 @@ export const useTableParams = (props: any) => {
     clearOrderFilters,
     setSearchParam,
     hasFiltersOrOrder,
+    clearOrder,
+    clearFilter,
   };
 };

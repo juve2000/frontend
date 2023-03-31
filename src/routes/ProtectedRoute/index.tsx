@@ -9,9 +9,7 @@ import {
 } from "react-router-dom";
 
 export const ProtectedRoute = ({ children }: any) => {
-  const isAuthenticated = useSelector(
-    (state: any) => state.auth.isAuthenticated
-  );
+  const { isAuthenticated, user } = useSelector((state: any) => state.auth);
 
   if (!isAuthenticated) {
     return <Navigate to="/" replace />;

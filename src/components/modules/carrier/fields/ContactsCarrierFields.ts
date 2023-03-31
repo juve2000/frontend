@@ -64,7 +64,7 @@ export const ContactsCarrierFields = {
     {
       type: InputType.TEXT_V2,
       name: CarrierField.PERSON,
-      rules: [getValidation(REQUIRED, "Contact person"), validate("", NAME)],
+      rules: [getValidation(REQUIRED, "")],
       placeholder: "Contact Person",
       hasFeedback: true,
       span: 12,
