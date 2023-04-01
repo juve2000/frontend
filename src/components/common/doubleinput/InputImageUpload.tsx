@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Select, Button, Upload, Col, Input, Row } from "antd";
+import { Form, Select, Button, Upload, Col, Input, Row, Modal } from "antd";
 import downloadIcon from "../../../img/download.svg";
 import uploadIcon from "../../../img/upload.svg";
 
@@ -18,6 +18,7 @@ export const InputImageUploadV2 = (props: any) => {
     form,
   } = props;
   const isRequired = rules.find((rule: any) => rule.required);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const normFile = (e: any) => {
     if (Array.isArray(e)) {
@@ -54,9 +55,22 @@ export const InputImageUploadV2 = (props: any) => {
           {form.getFieldValue(name) && (
             <>
               <img
-                style={{ width: "80%", borderRadius: 10 }}
+                style={{ width: "80%", borderRadius: 10, cursor: "pointer" }}
                 src={"https://dev.hgrs.us/" + form.getFieldValue(name)}
+                onClick={() => setIsModalOpen(true)}
               />
+              <Modal
+                // title="Basic Modal"
+                open={isModalOpen}
+                onOk={() => setIsModalOpen(true)}
+                onCancel={() => setIsModalOpen(false)}
+                footer={false}
+              >
+                <img
+                  style={{ width: "80%", borderRadius: 10 }}
+                  src={"https://dev.hgrs.us/" + form.getFieldValue(name)}
+                />
+              </Modal>
             </>
           )}
         </Col>

@@ -12,7 +12,9 @@ export const Header = (props: any) => {
   return (
     <Row className="header">
       <Col className="flex-start" span={4}>
-        <Logo />
+        <div style={{ marginLeft: 25 }}>
+          <Logo />
+        </div>
       </Col>
       <Col span={16}>
         <div style={{ display: "flex", alignItems: "center", height: "100%" }}>
