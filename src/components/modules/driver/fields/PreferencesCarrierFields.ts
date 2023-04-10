@@ -11,6 +11,7 @@ import {
   carrierCheckboxGroup,
   carrierData,
 } from "../constant";
+import { DriverField } from "../constant";
 
 const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL } =
   VALIDATION_TYPE;
@@ -23,8 +24,7 @@ export const PreferencesCarrierFields = {
     {
       type: InputType.SELECT_V2,
       // TODO change field name
-      name: CarrierField.SETTINGS.MEASURENMENT_SYSTEM,
-      pathName: ["settings"],
+      name: DriverField.MEASUREMENT_SYSTEM,
       label: "Measurment system",
       rules: [getValidation(REQUIRED, "Measurment system")],
       placeholder: "Measurment system",
@@ -36,8 +36,7 @@ export const PreferencesCarrierFields = {
     },
     {
       type: InputType.SELECT_V2,
-      name: CarrierField.SETTINGS.DST,
-      pathName: ["settings"],
+      name: DriverField.DST,
       label: "Daylight saving time",
       rules: [getValidation(REQUIRED, "Daylight saving time")],
       placeholder: "Daylight saving time",
@@ -49,8 +48,7 @@ export const PreferencesCarrierFields = {
     },
     {
       type: InputType.SELECT_V2,
-      name: CarrierField.SETTINGS.FIRST_DAY,
-      pathName: ["settings"],
+      name: DriverField.FIRST_DAY,
       label: "The first day of the week",
       rules: [getValidation(REQUIRED, "The first day of the week")],
       placeholder: "The first day of the week",
@@ -63,9 +61,7 @@ export const PreferencesCarrierFields = {
     {
       type: InputType.TEXT_V2,
       // type: InputType.TIME_PICKER,
-      name: CarrierField.SETTINGS.PERIOD_STARTING_TIME,
-
-      pathName: ["settings"],
+      name: DriverField.PERIOD_STARTING_TIME,
 
       label: "24 Hour Period Starting Time",
       rules: [getValidation(REQUIRED, "24 Hour Period Starting Time")],
@@ -78,8 +74,7 @@ export const PreferencesCarrierFields = {
     },
     {
       type: InputType.SELECT_V2,
-      name: CarrierField.SETTINGS.COMPLIANCE_MODE,
-      pathName: ["settings"],
+      name: DriverField.COMPLIANCE_MODE,
       label: "Compliance Mode*",
       rules: [getValidation(REQUIRED, "Compliance Mode*")],
       placeholder: "Compliance Mode*",
@@ -91,8 +86,7 @@ export const PreferencesCarrierFields = {
     },
     {
       type: InputType.TEXT_V2,
-      name: CarrierField.SETTINGS.MOTION_TRASHOLD,
-      pathName: ["settings"],
+      name: DriverField.MOTION_TRASHOLD,
       label: "Vehicle Motion Trashhold*",
       rules: [
         getValidation(REQUIRED, "Vehicle Motion Trashhold*"),

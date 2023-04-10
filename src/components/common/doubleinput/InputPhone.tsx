@@ -140,8 +140,10 @@ export const InputPhone = (props: any) => {
                   color: "white",
                   borderRadius: "6px",
                   cursor: "pointer",
+                  position: "absolute",
+                  right: width === "95%" ? "5%" : 0,
                 }}
-                className="bg-orange ubuntu"
+                className="ubuntu"
                 onClick={() => setIsOpen(true)}
               >
                 <Popover
@@ -163,10 +165,10 @@ export const InputPhone = (props: any) => {
                   onOpenChange={() => setIsOpen(false)}
                 />
                 <div
-                  className="icon-fi-rr-call-outgoing"
+                  className="icon-fi-rr-call-outgoing orange"
                   style={{ marginRight: 10 }}
                 />
-                {<div className="ubuntu">Call-to-call</div>}
+                {<div className="ubuntu orange">Call-to-call</div>}
               </div>
             }
           </div>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Input, Col } from "antd";
 import { CopyToClipboard } from "./CopyToClipboard";
 import { validate } from "../../../utils/validation";
+import generator from "generate-password-browser";
 
 export const TextInputPassword = (props: any) => {
   const {
@@ -17,12 +18,24 @@ export const TextInputPassword = (props: any) => {
     span = 24,
     form,
     style,
+    hasGenerate = false,
   } = props;
   const [copyValue, setCopyValue] = useState("");
 
   React.useEffect(() => {
     setCopyValue(form.getFieldValue(name));
   }, []);
+
+  const generatePassword = () => {
+    const pwd = generator.generate({
+      length: 8,
+      lowercase: true,
+      uppercase: true,
+      numbers: true,
+      symbols: true,
+    });
+    form.setFieldValue(name, pwd);
+  };
 
   return (
     <Col
@@ -50,6 +63,19 @@ export const TextInputPassword = (props: any) => {
         )
       ) : null}
       <CopyToClipboard copyText={copyValue} top={43} />
+      {hasGenerate && (
+        <div
+          className="orange ubuntu"
+          style={{
+            position: "absolute",
+            right: width === "95%" ? "5%" : 0,
+            cursor: "pointer",
+          }}
+          onClick={generatePassword}
+        >
+          Generate
+        </div>
+      )}
 
       <Form.Item
         // rules={[

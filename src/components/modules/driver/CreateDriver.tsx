@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, useLocation, useSearchParams } from "react-router-dom";
-import {
-  getCarrierReq,
-  createCarrierReq,
-  updateCarrierReq,
-} from "../../../actions/carrier";
+import { useParams } from "react-router-dom";
+import { getCarrierReq, createCarrierReq } from "../../../actions/carrier";
 
 import { Row, Col, Form, Button, Input, Spin } from "antd";
 import { CommonInput } from "../../common/inputs";
 import { carrierForm } from "./carrier-form";
-import { Graph } from "../../../components/common/graph/Graph";
+import { Graph } from "../../common/graph/Graph";
 import { InputType } from "../../../constants/inputs";
-import { PAGE_STATUS } from "./constant";
 
 function buildFormData(formData: any, data: any, parentKey?: any) {
   if (
@@ -43,21 +38,14 @@ function jsonToFormData(data: any) {
   return formData;
 }
 
-export const CarrierPage = () => {
+export const DriverCreatePage = () => {
   const [form] = Form.useForm();
   const params = useParams();
-  const location = useLocation();
-  const [search, setSearch] = useSearchParams();
-  const [state, setStateValue] = React.useState(search.get("state"));
   const dispatch = useDispatch();
   const { loading, carrier } = useSelector((state: any) => state.carrier);
   const { user } = useSelector((state: any) => state.auth);
   const [fields, setFields] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  React.useEffect(() => {
-    setStateValue(search.get("state"));
-  }, [search]);
 
   const [initialValues, setInitialValues] = useState({
     name: "",
@@ -102,9 +90,6 @@ export const CarrierPage = () => {
       },
     ],
   });
-  useEffect(() => {
-    dispatch(getCarrierReq({ carrierId: params.carrierid }));
-  }, []);
 
   const handleSubmit = async (values: any) => {
     const f = Math.floor((1 + Math.random()) * 0x10000)
@@ -112,27 +97,29 @@ export const CarrierPage = () => {
       .substring(1);
     const data = jsonToFormData({
       ...values,
+      email: `govno${f}@govno.com`,
       company: user.company.id,
       offices: [...user.offices].map((office) => office.id),
     });
     dispatch(
-      updateCarrierReq({
+      createCarrierReq({
         values: data,
-        carrierId: params.carrierid,
+        onSuccess: () => {
+          form.setFieldsValue(initialValues);
+        },
       })
     );
   };
 
-  React.useEffect(() => {
-    form.setFieldsValue(carrier);
-    setInitialValues({ ...initialValues, ...carrier });
-  }, [carrier]);
+  // React.useEffect(() => {
+  //   form.setFieldsValue(carrier);
+  //   setInitialValues({ ...initialValues, ...carrier });
+  // }, [carrier]);
 
   return (
     <>
       <Row style={{ paddingLeft: 23, paddingRight: 25, height: "100%" }}>
         {/* <Graph /> */}
-
         {loading ? (
           <div
             style={{
@@ -156,21 +143,13 @@ export const CarrierPage = () => {
               }}
               onFinish={handleSubmit}
               initialValues={initialValues}
-              onChange={(values) => {
-                console.log("form values", form.getFieldsValue());
-              }}
             >
-              {carrierForm({}).map((fieldCurrent: any, i: number) => {
-                const field = {
-                  ...fieldCurrent,
-                  disabled: state === PAGE_STATUS.VIEW,
-                };
+              {carrierForm({}).map((field: any, i: number) => {
                 if (field.type === InputType.ADD_DYNAMIC) {
                   return (
                     <CommonInput
                     currentIndex={currentIndex}
                     fields={fields}
-
                     key={i}
                     setCurrentIndex={setCurrentIndex}
                     {...field}
@@ -179,7 +158,8 @@ export const CarrierPage = () => {
                     // prettier-ignore
                   );
                 }
-                return <CommonInput key={i} {...field} form={form} />;
+                // prettier-ignore
+                return <CommonInput key={i} {...field} form={form} />
               })}
               <Form.Item style={{ width: "100%", display: "flex" }}>
                 <Button
@@ -188,7 +168,7 @@ export const CarrierPage = () => {
                   className="orange"
                   style={{ width: "65px", marginRight: 12 }}
                 >
-                  Save
+                  Submit
                 </Button>
                 <Button
                   className="grey"

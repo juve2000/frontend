@@ -16,7 +16,9 @@ import {
 
 export function* getDriverSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.get, `/driver/${payload.id}`);
+    const { data } = yield call(request.get, `/driver/${payload.driverId}`, {
+      params: payload.queryParams,
+    });
     yield put(getDriverSuccess(data));
   } catch (e: any) {
     yield put(getDriverFailed(e.message));
@@ -54,7 +56,9 @@ export function* deleteDriverSaga({ payload }: any): any {
 
 export function* getDriverListSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.get, `/driver/${payload.id}`);
+    const { data } = yield call(request.get, `/driver`, {
+      params: payload.queryParams,
+    });
     yield put(getDriverListSuccess(data));
   } catch (e: any) {
     yield put(getDriverListFailed(e.message));

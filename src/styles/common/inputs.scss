@@ -17,6 +17,11 @@
   font-family: "Ubuntu" !important;
   color: #9c9ca8;
 }
+.ant-picker {
+  background-color: $input-bg-color !important;
+  min-height: 40px;
+  border: none;
+}
 
 .ant-input {
   background-color: $input-bg-color;

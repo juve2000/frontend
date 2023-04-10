@@ -18,6 +18,7 @@ import {
   getDriverListReq,
   getDriverListSuccess,
   getDriverListFailed,
+  setCurrentCarrier,
 } from "../actions";
 
 // import { UserState } from "../types";
@@ -28,6 +29,7 @@ export const driverState = {
   driverList: [],
   loading: false,
   errorMessage: "",
+  currentCarrier: {},
 };
 
 export default {
@@ -44,7 +46,7 @@ export default {
       .addCase(getDriverSuccess, (state, { payload }) => {
         return {
           ...state,
-          driver: payload,
+          driver: payload.data,
           loading: false,
         };
       })
@@ -136,8 +138,9 @@ export default {
       .addCase(getDriverListSuccess, (state, { payload }) => {
         return {
           ...state,
-          driverList: payload,
+          driverList: payload.data,
           loading: false,
+          count: payload?.params?.items?.count || 20,
         };
       })
       .addCase(getDriverListFailed, (state, { payload }) => {
@@ -147,5 +150,11 @@ export default {
           loading: false,
         };
       });
+    builder.addCase(setCurrentCarrier, (state, { payload }) => {
+      return {
+        ...state,
+        currentCarrier: payload,
+      };
+    });
   }),
 };

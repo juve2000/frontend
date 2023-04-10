@@ -12,6 +12,8 @@ import { InputAddDynamic } from "../doubleinput/InputAddDynamic";
 import { InputPageTitle } from "../doubleinput/InputPageTitle";
 import { InputImageUploadV2 } from "../doubleinput/InputImageUpload";
 import { TextInputPassword } from "../doubleinput/InputPassword";
+import { CarrierDynamicField } from "../../modules/driver/fields/CarrierDynamicFields";
+import { InputDriverSelecetAdress } from "../../modules/driver/fields/DriverTerminalSelect";
 
 export const CommonInput = (props: any) => {
   const { type } = props;
@@ -40,6 +42,10 @@ export const CommonInput = (props: any) => {
       return <InputAddDynamic {...props} />;
     case InputType.PAGE_TITLE:
       return <InputPageTitle {...props} />;
+    case InputType.DRIVER_DYNAMIC_CARRIER:
+      return <CarrierDynamicField {...props} />;
+    case InputType.DRIVER_SELECT_TERMINAL:
+      return <InputDriverSelecetAdress {...props} />;
     default:
       return null;
   }

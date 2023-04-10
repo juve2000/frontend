@@ -14,10 +14,14 @@ export const InputCheckboxGroupV2 = (props: any) => {
     direction = "row",
     form,
     isGroup = false,
+    isSingleField = false,
   } = props;
 
   const { Option } = Select;
   const getName = (name: any, type: any) => {
+    if (isSingleField) {
+      return type;
+    }
     return isGroup ? [name, type] : name;
   };
   return (

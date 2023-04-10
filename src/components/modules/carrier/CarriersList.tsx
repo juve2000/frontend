@@ -84,13 +84,13 @@ export const CarriersList: React.FC = () => {
         multiple: 5,
       },
       ellipsis: true,
-      width: "8%",
+      width: "12%",
     },
     {
       title: "MC",
       dataIndex: "mcnumber",
       key: "mcnumber",
-      width: "8%",
+      width: "12%",
       // render: (value) => `${value.mcnumber}`,
       sortOrder: getOrderFromTableParams("mcnumber", tableParams),
 
@@ -105,10 +105,32 @@ export const CarriersList: React.FC = () => {
       dataIndex: ["terminals", "0"],
       // sorter: true,
       render: (value, record, index) => {
-        console.log("record", record);
-        return <div>{value?.number_street}</div>;
+        const {
+          address_index,
+          country,
+          state,
+          number_street,
+          area = "",
+        } = record?.terminals?.[0]?.address || {};
+        const stateFound = carrierData.states.find(
+          (st: any) => st.key === state
+        );
+        const countryFound = carrierData.countries.find(
+          (st: any) => st.key === country
+        );
+
+        return (
+          <div style={{ display: "flex" }}>
+            <div style={{ marginRight: 2 }}>{number_street}</div>
+            <div style={{ marginRight: 2 }}>{area},</div>
+            <div style={{ marginRight: 2 }}>({stateFound?.code}),</div>
+            <div style={{ marginRight: 2 }}>{countryFound?.value},</div>
+
+            <div style={{ marginRight: 2 }}>{address_index}</div>
+          </div>
+        );
       },
-      width: "25%",
+      width: "30%",
       ellipsis: true,
     },
     {
@@ -124,6 +146,7 @@ export const CarriersList: React.FC = () => {
       ellipsis: true,
       render: (value, record, index) => {
         const status = carrierData.status.find((st) => st.key === value);
+
         return <div>{status?.value}</div>;
       },
       filters: carrierData.status.map((st: any) => {
@@ -178,7 +201,6 @@ export const CarriersList: React.FC = () => {
       width: "5%",
       ellipsis: true,
       render: (value, record, index) => {
-        console.log("record", record);
         return (
           <Dropdown
             placement="bottomLeft"
@@ -258,7 +280,10 @@ export const CarriersList: React.FC = () => {
   useEffect(() => {
     dispatch(
       getCarriersListReq({
-        queryParams: getParams(tableParams),
+        queryParams: {
+          ...getParams(tableParams),
+          with: ["terminals", "driver_groups"],
+        },
       })
     );
   }, [tableParams]);
@@ -277,7 +302,10 @@ export const CarriersList: React.FC = () => {
                 onSuccess: () => {
                   dispatch(
                     getCarriersListReq({
-                      queryParams: getParams(tableParams),
+                      queryParams: {
+                        ...getParams(tableParams),
+                        with: ["terminals", "driver_groups"],
+                      },
                     })
                   );
                   setAccauntModalOpen(false);

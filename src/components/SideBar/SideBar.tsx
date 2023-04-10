@@ -84,7 +84,12 @@ export const SideBar = (props: any) => {
             "/carriers",
             <span className="icon-fi-rr-briefcase"></span>
           ),
-          getItem("Drivers", "drivers", "/drivers", <MailOutlined />),
+          getItem(
+            "Drivers",
+            "drivers",
+            "/drivers",
+            <span className="icon-fi-rr-user"></span>
+          ),
         ]
       ),
       getItem(
@@ -113,10 +118,10 @@ export const SideBar = (props: any) => {
     return (
       <Menu
         className="ubuntu"
-        defaultSelectedKeys={["1", "carriers"]}
+        // defaultSelectedKeys={["1", "carriers"]}
         defaultOpenKeys={["units", "manage"]}
         mode="inline"
-        //   theme="dark"
+        // theme="dark"
         onClick={(item) => {
           navigate(item.key);
         }}

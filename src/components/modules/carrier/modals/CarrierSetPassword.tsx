@@ -12,9 +12,6 @@ export const SetPassword = (props: any): React.ReactElement => {
     confirmPassword: "",
   });
 
-  React.useEffect(() => {
-    console.log("props", props);
-  }, [props]);
   const [form] = Form.useForm();
 
   const handleSubmit = (values: any) => {

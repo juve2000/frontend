@@ -19,6 +19,7 @@ const ActionTypes = keyMirror({
   GET_DRIVER_LIST_REQUEST: undefined,
   GET_DRIVER_LIST_SUCCESS: undefined,
   GET_DRIVER_LIST_FAILURE: undefined,
+  SET_CURRENT_CARRIER: undefined,
 });
 
 export const DriverActionTypes = ActionTypes;
@@ -128,6 +129,14 @@ export const getDriverListSuccess = createAction(
 
 export const getDriverListFailed = createAction(
   ActionTypes.GET_DRIVER_LIST_FAILURE,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+//SET_CURRENT_CARRIER
+
+export const setCurrentCarrier = createAction(
+  ActionTypes.SET_CURRENT_CARRIER,
   (payload: any) => {
     return actionPayload(payload);
   }

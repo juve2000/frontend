@@ -1,10 +1,7 @@
 import React, { useState, useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { isEmpty } from "lodash";
 import { Form, Select, Col } from "antd";
-import { getCarriersListReq } from "../../../actions";
 
-export const InputFetchCarrierSelectV2 = (props: any) => {
+export const InputSelectMultiV2 = (props: any) => {
   const {
     rules = [],
     name = "",
@@ -13,7 +10,7 @@ export const InputFetchCarrierSelectV2 = (props: any) => {
     label = "",
     disabled = false,
     hasFeedback = true,
-    // options = [],
+    options = [],
     title,
     span,
     width,
@@ -21,28 +18,14 @@ export const InputFetchCarrierSelectV2 = (props: any) => {
     pathName = "",
     form,
     onChange,
-    items,
   } = props;
 
   const { Option } = Select;
   const isRequired = rules.find((rule: any) => rule.required);
-  const dispatch = useDispatch();
-  const { carrierList, carrier } = useSelector((state: any) => state.carrier);
-  const [options, setOptions] = useState([]);
+
   // const getName = useMemo(() => {
   //   return pathName ? [...pathName, name] : name;
   // }, [pathName, name]);
-
-  React.useEffect(() => {
-    setOptions(
-      carrierList.map((carrier: any) => {
-        return {
-          key: carrier.name,
-          value: carrier.id,
-        };
-      })
-    );
-  }, [carrierList]);
 
   const getName = (name: any, pathName: any) => {
     return pathName ? [...pathName, name] : name;
@@ -74,16 +57,16 @@ export const InputFetchCarrierSelectV2 = (props: any) => {
         style={{ width: "100%" }}
       >
         <Select
+          mode="multiple"
           disabled={disabled}
           style={{ width, ...styles }}
           placeholder={placeholder}
           onChange={onChange}
-          // showSearch
         >
           {options.map((item: any, i: number) => {
             return (
-              <Option key={i} value={item.value}>
-                {item.key}
+              <Option key={i} value={item.key}>
+                {item.value}
               </Option>
             );
           })}

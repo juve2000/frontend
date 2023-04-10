@@ -55,7 +55,7 @@ export default {
             email_second: "govno@t.com",
             settings: {
               ...payload.data.settings,
-              period_starting_time: "12-12-12",
+              period_starting_time: "12:13:14",
             },
           },
 

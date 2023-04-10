@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Table, Dropdown, Row, Col } from "antd";
+import { Table, Dropdown, Row, Col, Select, Button } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useTableParams } from "../../../hooks/useTableParams";
 import {
   getCarriersListReq,
   getCarrierPasswordReq,
 } from "../../../actions/carrier";
+import {
+  getDriverListReq,
+  // getCarrierPasswordReq,
+} from "../../../actions/driver";
 import { getParams } from "../../../routes/utils";
-import { carrierData } from "./constant";
 import { InputSearch } from "../../common/doubleinput/InputSearch";
 import { getOrderFromTableParams } from "../../../hooks/utils";
 import { InputPageTitle } from "../../common/doubleinput/InputPageTitle";
 import { SetPassword } from "./modals/CarrierSetPassword";
+import { InputCallToCall } from "../../common/doubleinput/InputCallToCall";
 
 import ResetSort from "../../../img/resetSort.svg";
 import ResetFilter from "../../../img/resetFilter.svg";
+import { carrierData } from "./constant";
 
-export const CarriersList: React.FC = () => {
+export const DriversList: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,10 +37,14 @@ export const CarriersList: React.FC = () => {
     hasFiltersOrOrder,
     clearFilter,
     clearOrder,
+    clearCustomFilter,
+    setCustomFilter,
   } = useTableParams({});
+  const drivers = useSelector((state: any) => state.driver.driverList);
   const carriers = useSelector((state: any) => state.carrier.carrierList);
-  const count = useSelector((state: any) => state.carrier.count);
-  const loading = useSelector((state: any) => state.carrier.loading);
+
+  const count = useSelector((state: any) => state.driver.count);
+  const loading = useSelector((state: any) => state.driver.loading);
   const [accautnModalOpen, setAccauntModalOpen] = useState(false);
   const [currentCarrier, setCurrentCarrier] = useState({
     id: "",
@@ -45,29 +54,33 @@ export const CarriersList: React.FC = () => {
   React.useEffect(() => {
     dispatch(
       getCarriersListReq({
-        // queryParams: getParams(tableParams),
+        queryParams: {
+          with: ["driver_groups"],
+        },
       })
     );
   }, []);
 
   const columns: ColumnsType<any> = [
+    Table.SELECTION_COLUMN,
     {
-      title: "Name",
-      key: "name",
-      dataIndex: "name",
-      sortOrder: getOrderFromTableParams("name", tableParams),
+      title: "Full Name",
+      key: "first_name",
+      dataIndex: "first_name",
+      sortOrder: getOrderFromTableParams("first_name", tableParams),
       sorter: {
-        compare: (a: any, b: any) => a.name - b.name,
+        compare: (a: any, b: any) => a.first_name - b.first_name,
         multiple: 5,
       },
       render: (name, record, index) => {
         return (
           <div
+            className="orange ubuntu"
             onClick={() => {
               navigate(`${location.pathname}/${record.id}`);
             }}
           >
-            {record.name}
+            {`${record.first_name} ${record.last_name}`}
           </div>
         );
       },
@@ -75,41 +88,215 @@ export const CarriersList: React.FC = () => {
       ellipsis: true,
     },
     {
-      title: "USDOT",
-      dataIndex: "usdot",
-      key: "usdot",
-      sortOrder: getOrderFromTableParams("usdot", tableParams),
+      title: "Username",
+      dataIndex: "email",
+      key: "email",
+      sortOrder: getOrderFromTableParams("email", tableParams),
       sorter: {
-        compare: (a: any, b: any) => a.usdot - b.usdot,
+        compare: (a: any, b: any) => a.email - b.email,
         multiple: 5,
       },
+      render: (name, record, index) => {
+        return (
+          <div
+            className="ubuntu"
+            style={{ color: "#141029", cursor: "pointer" }}
+          >
+            {`${record.username}`}
+          </div>
+        );
+      },
       ellipsis: true,
-      width: "8%",
+      width: "20%",
     },
     {
-      title: "MC",
-      dataIndex: "mcnumber",
-      key: "mcnumber",
-      width: "8%",
+      title: "Phone",
+      dataIndex: "phone",
+      key: "phone",
+      width: "15%",
       // render: (value) => `${value.mcnumber}`,
-      sortOrder: getOrderFromTableParams("mcnumber", tableParams),
+      sortOrder: getOrderFromTableParams("phone", tableParams),
 
       sorter: {
-        compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
+        compare: (a: any, b: any) => a.phone - b.phone,
         multiple: 5,
+      },
+      render: (name, record, index) => {
+        return (
+          <div
+            className="ubuntu"
+            style={{ color: "#141029", cursor: "pointer" }}
+          >
+            <InputCallToCall phone={record.phone} />
+          </div>
+        );
       },
       ellipsis: true,
     },
     {
-      title: "Carrier Time Zone",
-      dataIndex: ["terminals", "0"],
+      title: "CDL No.",
+      dataIndex: "cdl",
       // sorter: true,
       render: (value, record, index) => {
-        console.log("record", record);
-        return <div>{value?.number_street}</div>;
+        return <div>{record?.cdl}</div>;
       },
-      width: "25%",
+      width: "15%",
       ellipsis: true,
+    },
+    {
+      title: "CDL State",
+      dataIndex: "cdl_state",
+      sortOrder: getOrderFromTableParams("cdl_state", tableParams),
+      key: "cdl_state",
+      sorter: {
+        compare: (a: any, b: any) => a.cdl_state - b.cdl_state,
+        multiple: 5,
+      },
+      width: "9%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        const state = carrierData.states.find(
+          (st) => st.key === +record.cdl_state
+        );
+        return (
+          <div className="ubuntu">
+            {state?.value} ({state?.code})
+          </div>
+        );
+      },
+      filters: carrierData.states.map((st: any) => {
+        return {
+          text: st.value,
+          value: st.key,
+        };
+      }),
+
+      filterSearch: true,
+      filteredValue: tableParams?.filters?.cdl_state || null,
+    },
+    {
+      title: "Carrier",
+      dataIndex: "carrier",
+      sortOrder: getOrderFromTableParams("carrier", tableParams),
+      key: "carrier",
+      sorter: {
+        compare: (a: any, b: any) => a.carrier - b.carrier,
+        multiple: 5,
+      },
+      width: "20%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        return (
+          <div
+            className="orange ubuntu"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              navigate(`/client/carriers/${record?.carrier?.id}`);
+            }}
+          >
+            {`${record?.carrier?.name}`}
+          </div>
+        );
+      },
+      filterDropdown: () => {
+        return (
+          <div style={{ padding: 10 }}>
+            <div>
+              <Select
+                style={{ width: 200, marginBottom: 20 }}
+                value={tableParams.filters?.carrier}
+                onChange={(value) => {
+                  clearCustomFilter("group");
+                  setCustomFilter("carrier", value);
+                }}
+              >
+                {carriers?.map((carrier: any) => {
+                  return (
+                    <Select.Option key={carrier.id} value={carrier.id}>
+                      {carrier.name}
+                    </Select.Option>
+                  );
+                })}
+              </Select>
+            </div>
+            <Button
+              style={{ width: 80, height: 40 }}
+              className="orange"
+              onClick={() => {
+                clearCustomFilter("carrier");
+                clearCustomFilter("group");
+              }}
+            >
+              Reset
+            </Button>
+          </div>
+        );
+      },
+
+      filteredValue: tableParams?.filters?.carrier || null,
+    },
+    {
+      title: "Group",
+      dataIndex: "group",
+      sortOrder: getOrderFromTableParams("group", tableParams),
+      key: "group",
+      sorter: {
+        compare: (a: any, b: any) => a.group - b.group,
+        multiple: 5,
+      },
+      width: "20%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        return (
+          <div
+            className="orange ubuntu"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              navigate(`/client/driver_groups/${record?.group?.id}`);
+            }}
+          >
+            {`${record?.group?.name}`}
+          </div>
+        );
+      },
+      filterDropdown: () => {
+        const groups =
+          carriers.find(
+            (carrier: any) => carrier.id === tableParams?.filters?.carrier
+          )?.driver_groups || [];
+        return (
+          <div style={{ padding: 10 }}>
+            <div>
+              <Select
+                style={{ width: 200, marginBottom: 20 }}
+                value={tableParams.filters?.group}
+                onChange={(value) => {
+                  setCustomFilter("group", value);
+                }}
+              >
+                {groups?.map((carrier: any) => {
+                  return (
+                    <Select.Option key={carrier.id} value={carrier.id}>
+                      {carrier.name}
+                    </Select.Option>
+                  );
+                })}
+              </Select>
+            </div>
+            <Button
+              style={{ width: 80 }}
+              className="orange"
+              onClick={() => {
+                clearCustomFilter("group");
+              }}
+            >
+              Reset
+            </Button>
+          </div>
+        );
+      },
+
+      filteredValue: tableParams?.filters?.group || null,
     },
     {
       title: "status",
@@ -124,6 +311,7 @@ export const CarriersList: React.FC = () => {
       ellipsis: true,
       render: (value, record, index) => {
         const status = carrierData.status.find((st) => st.key === value);
+
         return <div>{status?.value}</div>;
       },
       filters: carrierData.status.map((st: any) => {
@@ -135,50 +323,11 @@ export const CarriersList: React.FC = () => {
       filteredValue: tableParams?.filters?.status || null,
     },
     {
-      title: "Account",
-      dataIndex: "account",
-      // sortOrder: getOrderFromTableParams("account", tableParams),
-      key: "account",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.account - b.account,
-      //   multiple: 5,
-      // },
-      width: "9%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        const status = carrierData.status.find((st) => st.key === value);
-        return (
-          <div
-            style={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {record?.with_account ? (
-              <span className="icon-fi-rr-check orange" />
-            ) : (
-              <span className="icon-fi-rr-minus-small" />
-            )}
-          </div>
-        );
-      },
-      filters: carrierData.status.map((st: any) => {
-        return {
-          text: st.value,
-          value: st.key,
-        };
-      }),
-      filteredValue: tableParams?.filters?.account || null,
-    },
-    {
       title: "Action",
       dataIndex: "action",
       width: "5%",
       ellipsis: true,
       render: (value, record, index) => {
-        console.log("record", record);
         return (
           <Dropdown
             placement="bottomLeft"
@@ -257,8 +406,11 @@ export const CarriersList: React.FC = () => {
 
   useEffect(() => {
     dispatch(
-      getCarriersListReq({
-        queryParams: getParams(tableParams),
+      getDriverListReq({
+        queryParams: {
+          ...getParams(tableParams),
+          with: ["terminal", "carrier", "group"],
+        },
       })
     );
   }, [tableParams]);
@@ -287,7 +439,7 @@ export const CarriersList: React.FC = () => {
           }}
         />
         <Col span={12}>
-          <InputPageTitle fields={["Carriers"]} route="/client" carriers />
+          <InputPageTitle fields={["Drivers"]} route="/client" drivers />
         </Col>
         <Col
           span={12}
@@ -363,7 +515,7 @@ export const CarriersList: React.FC = () => {
       <Table
         columns={columns}
         rowKey={(record) => record.id}
-        dataSource={carriers.map((carrier: any, index: any) => {
+        dataSource={drivers.map((carrier: any, index: any) => {
           return {
             ...carrier,
           };
@@ -375,7 +527,7 @@ export const CarriersList: React.FC = () => {
         }}
         loading={loading}
         onChange={handleTableChange}
-        rowSelection={{ ...rowSelection, columnWidth: "40px" }}
+        rowSelection={{ ...rowSelection, columnWidth: 10 }}
         className="table-custom"
         //   sticky
         //   scroll={{ y: window.innerHeight - 235 }}

@@ -13,6 +13,10 @@ import { carrierForm } from "./carrier-form";
 import { Graph } from "../../../components/common/graph/Graph";
 import { InputType } from "../../../constants/inputs";
 import { PAGE_STATUS } from "./constant";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+
+dayjs.extend(customParseFormat);
 
 function buildFormData(formData: any, data: any, parentKey?: any) {
   if (
@@ -61,7 +65,6 @@ export const CarrierPage = () => {
 
   const [initialValues, setInitialValues] = useState({
     name: "",
-
     usdot: "",
     phone: "",
     mcnumber: "",
@@ -76,7 +79,7 @@ export const CarrierPage = () => {
       first_day: null,
       compliance_mode: null,
       motion_treshold: null,
-      cargo_type: null,
+      cargo_type: [],
       restart: null,
       rest_break: null,
       short_haul: false,
@@ -87,7 +90,7 @@ export const CarrierPage = () => {
       yard_move: false,
       exempt_driver: false,
       exempt_driver_notice: false,
-      period_starting_time: "",
+      period_starting_time: dayjs("00:00:00", "HH:mm:ss"),
       motion_trashhold: "",
     },
     terminals: [
@@ -103,7 +106,14 @@ export const CarrierPage = () => {
     ],
   });
   useEffect(() => {
-    dispatch(getCarrierReq({ carrierId: params.carrierid }));
+    dispatch(
+      getCarrierReq({
+        carrierId: params.carrierid,
+        queryParams: {
+          with: ["settings", "terminals", "offices", "company"],
+        },
+      })
+    );
   }, []);
 
   const handleSubmit = async (values: any) => {
@@ -112,6 +122,10 @@ export const CarrierPage = () => {
       .substring(1);
     const data = jsonToFormData({
       ...values,
+      settings: {
+        ...values.settings,
+        cargo_type: values.settings?.cargo_type.map((type: any) => `${type}`),
+      },
       company: user.company.id,
       offices: [...user.offices].map((office) => office.id),
     });
@@ -124,8 +138,20 @@ export const CarrierPage = () => {
   };
 
   React.useEffect(() => {
-    form.setFieldsValue(carrier);
-    setInitialValues({ ...initialValues, ...carrier });
+    form.setFieldsValue({
+      ...carrier,
+      settings: {
+        ...carrier.settings,
+        cargo_type: carrier.settings?.cargo_type.map((type: any) => +type),
+      },
+    });
+    setInitialValues({
+      ...carrier,
+      settings: {
+        ...carrier.settings,
+        cargo_type: carrier.settings?.cargo_type.map((type: any) => +type),
+      },
+    });
   }, [carrier]);
 
   return (
@@ -147,7 +173,7 @@ export const CarrierPage = () => {
             <Spin />
           </div>
         ) : (
-          <Col span={24}>
+          <Col span={16}>
             <Form
               form={form}
               name="test"

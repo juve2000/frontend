@@ -61,7 +61,7 @@ export const PreferencesCarrierFields = {
       options: carrierData.first_day,
     },
     {
-      type: InputType.TEXT_V2,
+      type: InputType.TIME_PICKER,
       // type: InputType.TIME_PICKER,
       name: CarrierField.SETTINGS.PERIOD_STARTING_TIME,
 

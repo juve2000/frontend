@@ -33,7 +33,31 @@ export const useTableParams = (props: any) => {
 
   const clearOrderFilters = () => {
     setTableParams((state: any) => {
-      return { pagination: { ...state.pagination }, filters: [], order: {} };
+      return { pagination: { ...state.pagination }, filters: {}, order: {} };
+    });
+  };
+
+  const setCustomFilter = (filterName: any, filterValue: any) => {
+    setTableParams((state: any) => {
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          [filterName]: filterValue,
+        },
+      };
+    });
+  };
+
+  const clearCustomFilter = (filterName: any) => {
+    setTableParams((state: any) => {
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          [filterName]: null,
+        },
+      };
     });
   };
 
@@ -50,7 +74,7 @@ export const useTableParams = (props: any) => {
     setTableParams((state: any) => {
       return {
         ...state,
-        filters: [],
+        filters: {},
       };
     });
   };
@@ -126,5 +150,7 @@ export const useTableParams = (props: any) => {
     hasFiltersOrOrder,
     clearOrder,
     clearFilter,
+    setCustomFilter,
+    clearCustomFilter,
   };
 };

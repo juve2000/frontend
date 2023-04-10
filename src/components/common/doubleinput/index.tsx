@@ -13,14 +13,24 @@ import { InputTextArea } from "./InputTextArea";
 import { InputFetchCarrierSelectV2 } from "./InputFetchCarrierSelect";
 import { InputTimePickerV2 } from "./InputTimePicker";
 import { InputPhone } from "./InputPhone";
+import { InputSelectMultiV2 } from "./InputMultiSelect";
+import { CarrierDynamicField } from "../../modules/driver/fields/CarrierDynamicFields";
+import { InputDriverSelecetAdress } from "../../modules/driver/fields/DriverTerminalSelect";
+import { InputDatePickerSingleV2 } from "./InputDatePickerSingle";
 
 export const CommonInputV2 = (props: any) => {
   const { type } = props;
   switch (type) {
+    case InputType.DATE_PICKER_SINGLE:
+      return <InputDatePickerSingleV2 {...props} />;
+    case InputType.DRIVER_DYNAMIC_CARRIER:
+      return <CarrierDynamicField {...props} />;
     case InputType.PHONE:
       return <InputPhone {...props} />;
     case InputType.FETCH_CARRIER_SELECT:
       return <InputFetchCarrierSelectV2 {...props} />;
+    case InputType.SELECT_MULTI:
+      return <InputSelectMultiV2 {...props} />;
     case InputType.TEXT_AREA:
       return <InputTextArea {...props} />;
     case InputType.UPLOAD_V2:
@@ -43,6 +53,8 @@ export const CommonInputV2 = (props: any) => {
       return <InputCheckboxGroupV2 {...props} />;
     case InputType.TIME_PICKER:
       return <InputTimePickerV2 {...props} />;
+    case InputType.DRIVER_SELECT_TERMINAL:
+      return <InputDriverSelecetAdress {...props} />;
     default:
       return null;
   }

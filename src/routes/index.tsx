@@ -15,6 +15,10 @@ import { CarriersPage } from "../components/modules/carrier/CarriersPage";
 import { CarrierPage } from "../components/modules/carrier/Carrier";
 import { CarrierCreatePage } from "../components/modules/carrier/CarrierCreate";
 import { CarriersList } from "../components/modules/carrier/CarriersList";
+import { DriversPage } from "../components/modules/driver/DriversPage";
+import { DriverPage } from "../components/modules/driver/Driver";
+import { DriverCreatePage } from "../components/modules/driver/CreateDriver";
+import { DriversList } from "../components/modules/driver/DriverList";
 
 import { UsersPage } from "../components/modules/user/UsersPage";
 import { UserPage } from "../components/modules/user/User";
@@ -62,6 +66,12 @@ export const MainRouter = () => {
             <Route index element={<CarriersList />} />;
             <Route path={`create`} element={<CarrierCreatePage />} />
             <Route path={`:carrierid`} element={<CarrierPage />} />
+          </Route>
+          {/* DRIVERS ROUTES */}
+          <Route path={ROUTES.DRIVERS} element={<DriversPage />}>
+            <Route index element={<DriversList />} />;
+            <Route path={`create`} element={<DriverCreatePage />} />
+            <Route path={`:driverid`} element={<DriverPage />} />
           </Route>
           {/* USERS ROUTE */}
           <Route path={`/client/users`} element={<UsersPage />}>
