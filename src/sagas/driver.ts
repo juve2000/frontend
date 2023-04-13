@@ -38,7 +38,16 @@ export function* createDriverSaga({ payload }: any): any {
 
 export function* updateDriverSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.put, `/driver/${payload.id}`, payload);
+    const { data } = yield call(
+      request.post,
+      `/driver/${payload.driverId}`,
+      payload.values,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     yield put(updateDriverSuccess(data));
   } catch (e: any) {
     yield put(updateDriverFailed(e.message));

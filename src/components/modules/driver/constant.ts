@@ -9,6 +9,21 @@ export const carrierStatusOptions = [
   },
 ];
 
+export const DocumentType = {
+  CDL: "CDL",
+  MC: "MC",
+  BOL: "BOL",
+  FUEL_RECEIPT: "Fuel Receipt",
+  ACCIDENT_PHOTO: "Accident Photo",
+  CITATION: "Citation",
+  SCALE_TICKET: "Scale Ticket",
+  OTHER: "Other",
+};
+
+export const getDocumentByType = (type: any) => {
+  return carrierData.documents.find((doc: any) => doc.value === type);
+};
+
 export const COUNTRY = {
   USA: "USA",
   CANADA: "CANADA",
@@ -51,6 +66,7 @@ export const DriverField = {
   SIGNATURES: "signatures",
   DRIVER_GROUP: "driver_group",
   TERMINAL: "terminal",
+  DOCUMENTS: "documents",
 };
 
 export const CarrierField = {
@@ -593,6 +609,40 @@ export const carrierData = {
     {
       key: 7,
       value: "Pacific Standard Time (PST /-08)",
+    },
+  ],
+  documents: [
+    {
+      key: 1,
+      value: "CDL",
+    },
+    {
+      key: 2,
+      value: "MC",
+    },
+    {
+      key: 3,
+      value: "BOL",
+    },
+    {
+      key: 4,
+      value: "Fuel Receipt",
+    },
+    {
+      key: 5,
+      value: "Accident Photo",
+    },
+    {
+      key: 6,
+      value: "Citation",
+    },
+    {
+      key: 7,
+      value: "Scale Ticket",
+    },
+    {
+      key: 8,
+      value: "Other",
     },
   ],
 };

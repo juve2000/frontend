@@ -150,8 +150,26 @@ export const DriverPage = () => {
     const data = jsonToFormData({
       ...values,
       company: user.company.id,
+      cdl_state: `${values.cdl_state}`,
       offices: [...user.offices].map((office) => office.id),
+      documents: [
+        ...values?.documents_MC?.map((doc: any) => {
+          return {
+            type: doc.fileType,
+            file: doc.originFileObj,
+          };
+        }),
+        ...values?.documents_CDL?.map((doc: any) => {
+          return {
+            type: doc.fileType,
+            file: doc.originFileObj,
+          };
+        }),
+      ],
+      documents_MC: undefined,
+      documents_CDL: undefined,
     });
+
     dispatch(
       updateDriverReq({
         values: data,

@@ -59,8 +59,8 @@ export const PreferencesCarrierFields = {
       options: carrierData.first_day,
     },
     {
-      type: InputType.TEXT_V2,
-      // type: InputType.TIME_PICKER,
+      // type: InputType.TEXT_V2,
+      type: InputType.TIME_PICKER,
       name: DriverField.PERIOD_STARTING_TIME,
 
       label: "24 Hour Period Starting Time",

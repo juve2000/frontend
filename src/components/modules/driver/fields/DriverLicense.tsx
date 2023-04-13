@@ -11,6 +11,7 @@ import {
   carrierCheckboxGroup,
   DriverField,
   carrierData,
+  DocumentType,
 } from "../constant";
 
 const {
@@ -50,14 +51,59 @@ export const DriverLicense = {
     },
     {
       type: InputType.SELECT_V2,
-      name: DriverField.DRIVER_GROUP,
-      title: "Driver Group*",
-      rules: [getValidation(REQUIRED, "Status")],
-      placeholder: "Driver Group",
-      // options: carrierData.status,
+      name: DriverField.CDL_STATE,
+      title: "CDL Issuing State*",
+      rules: [getValidation(REQUIRED, "CDL Issuing State")],
+      placeholder: "CDL Issuing State",
+      options: carrierData.states,
       hasFeedback: true,
       span: 12,
-      width: "95%",
+      width: "100%",
+    },
+  ],
+};
+
+export const LicenseDriverFields = {
+  type: InputType.MULTI,
+  label: "Driver's License",
+  isRequired: true,
+  fields: [
+    {
+      type: InputType.TEXT_V2,
+      name: DriverField.CDL,
+      label: "CDL No*",
+      rules: [getValidation(REQUIRED, "")],
+      placeholder: "CDL No",
+      hasFeedback: true,
+      title: "CDL No*",
+      span: 24,
+      width: "100%",
+    },
+    {
+      type: InputType.MULTI_UPLOAD,
+      name: `${DriverField.DOCUMENTS}_${DocumentType.CDL}`,
+      isMultiType: true,
+      label: "Documents*",
+      rules: [],
+      placeholder: "CDL Document",
+      hasFeedback: true,
+      title: "CDL Document*",
+      span: 24,
+      width: "100%",
+      fileType: DocumentType.CDL,
+    },
+    {
+      type: InputType.DRIVER_DOCUMENTS_LIST,
+      // name: `${DriverField.DOCUMENTS}_${DocumentType.CDL}`,
+      isMultiType: true,
+      label: "Saved Documents List*",
+      rules: [],
+      placeholder: "CDL Document Saved",
+      hasFeedback: true,
+      title: "CDL Document Saved*",
+      span: 24,
+      width: "100%",
+      fileType: DocumentType.CDL,
     },
   ],
 };

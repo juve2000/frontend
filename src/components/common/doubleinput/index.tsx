@@ -17,10 +17,17 @@ import { InputSelectMultiV2 } from "./InputMultiSelect";
 import { CarrierDynamicField } from "../../modules/driver/fields/CarrierDynamicFields";
 import { InputDriverSelecetAdress } from "../../modules/driver/fields/DriverTerminalSelect";
 import { InputDatePickerSingleV2 } from "./InputDatePickerSingle";
+import { InputMultiUploadV2 } from "./InputMultiUpload";
+// DriverDocumentsList
+import { DriverDocumentsList } from "../../modules/driver/fields/DriverDocumentsList";
 
 export const CommonInputV2 = (props: any) => {
   const { type } = props;
   switch (type) {
+    case InputType.DRIVER_DOCUMENTS_LIST:
+      return <DriverDocumentsList {...props} />;
+    case InputType.MULTI_UPLOAD:
+      return <InputMultiUploadV2 {...props} />;
     case InputType.DATE_PICKER_SINGLE:
       return <InputDatePickerSingleV2 {...props} />;
     case InputType.DRIVER_DYNAMIC_CARRIER:

@@ -123,7 +123,6 @@ export function* deleteCarrierTerminalSaga({ payload }: any): any {
 }
 
 export function* createCarrierPasswordSaga({ payload }: any): any {
-  console.log("payload", payload);
   try {
     const { data } = yield call(
       request.put,

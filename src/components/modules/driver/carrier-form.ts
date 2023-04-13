@@ -24,7 +24,9 @@ import {
   HosCarrierNotice,
 } from "./fields/HosRulesCarrierFields";
 import { ContactsDriverFields } from "./fields/ContactsDriverField";
-import { DriverLicense } from "./fields/DriverLicense";
+import { DriverLicense, LicenseDriverFields } from "./fields/DriverLicense";
+//MedicalCardDriverFields
+import { MedicalCardDriverFields } from "./fields/DriverMC";
 
 const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL } =
   VALIDATION_TYPE;
@@ -52,7 +54,10 @@ export const carrierForm = (options: any) => {
     // { ...GroupsStatusFields },
     { ...ContactsDriverFields },
     //LICENSE
+    { ...LicenseDriverFields },
     { ...DriverLicense },
+    //MEDICAL CARD
+    { ...MedicalCardDriverFields },
     // // PREFERENCES
     { ...CarrierFieldInput },
 
