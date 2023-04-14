@@ -4,11 +4,13 @@ export const VALIDATION_RULES = {
   EMAIL: /^$|^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/,
   PASSWORD:
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+  //^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$
   NAME: /^[a-zA-Z]+(([',.-][a-zA-Z])?[a-zA-Z]*)*$/,
 
   PHONE:
     /^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/,
   NOT_EMPTY: /^(\w+\S+)$/,
+  ALPHABETICAL_NUMBERS: /[^A-Za-z0-9]+/,
 };
 
 export const VALIDATION_TYPE = {
@@ -23,6 +25,7 @@ export const VALIDATION_TYPE = {
   PHONE: "PHONE",
   NOT_REQUIRED: "NOT_REQUIRED",
   NOT_EMPTY: "NOT_EMPTY",
+  ALPHABETICAL_NUMBERS: "ALPHABETICAL_NUMBERS",
 };
 
 export const getValidation = (type: any, value: any) => {
@@ -59,6 +62,11 @@ export const getRegExpByType = (type: any) => {
       return {
         pattern: VALIDATION_RULES.ALPHABETICAL,
         message: "Only alphabetical characters",
+      };
+    case VALIDATION_TYPE.ALPHABETICAL_NUMBERS:
+      return {
+        pattern: VALIDATION_RULES.ALPHABETICAL_NUMBERS,
+        message: "Only numbers or alphabetical characters",
       };
     case VALIDATION_TYPE.PHONE:
       return {

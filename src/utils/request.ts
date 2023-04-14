@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
-
+import { ENV } from "./constants";
 function refreshToken() {
   return instance.post("/auth/refreshtoken", {
     refreshToken: getLocalRefreshToken(),
@@ -17,7 +17,7 @@ function getLocalRefreshToken() {
 }
 
 export const instance = axios.create({
-  baseURL: "https://dev.hgrs.us/api/support/v1",
+  baseURL: `${ENV}/api/support/v1`,
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${getLocalAccessToken()}`,

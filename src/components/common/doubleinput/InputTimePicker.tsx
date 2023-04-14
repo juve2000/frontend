@@ -23,7 +23,8 @@ export const InputTimePickerV2 = (props: any) => {
   } = props;
   const isRequired = rules.find((rule: any) => rule.required);
 
-  const FORMAT = "HH:mm:ss a";
+  const FORMAT = "HH:mm:ss";
+  const DEFAULT_VALUE = "02:00:00";
 
   const getName = useMemo(() => {
     return pathName ? [...pathName, name] : name;
@@ -31,22 +32,23 @@ export const InputTimePickerV2 = (props: any) => {
 
   const [showPicker, setShowPicker] = useState<any>(null);
   const [selectedTime, setSelectedTime] = useState<any>(
-    dayjs("02:00:00 a", FORMAT)
+    dayjs(DEFAULT_VALUE, FORMAT)
   );
   const [hasDefaultValue, setHasDefaultValue] = useState(false);
 
   React.useEffect(() => {
     if (!!form.getFieldValue(getName)) {
-      if (typeof form.getFieldValue(getName) === "string" && !hasDefaultValue) {
+      console.log("time", form?.getFieldValue(getName));
+      if (typeof form.getFieldValue(getName) === "string") {
         setSelectedTime(dayjs(form.getFieldValue(getName), FORMAT));
-        setHasDefaultValue(true);
+        // setHasDefaultValue(true);
       }
     }
-  }, [form]);
+  }, [form?.getFieldValue(getName)]);
 
-  React.useEffect(() => {
-    form.setFieldValue(getName, selectedTime.format(FORMAT));
-  }, [selectedTime]);
+  // React.useEffect(() => {
+  //   form.setFieldValue(getName, selectedTime.format(FORMAT));
+  // }, [selectedTime]);
 
   return (
     <Col
@@ -89,11 +91,11 @@ export const InputTimePickerV2 = (props: any) => {
         disabled={disabled}
         format={FORMAT}
         value={dayjs(selectedTime, FORMAT)}
-        defaultValue={dayjs("02:00:00 a", FORMAT)}
-        defaultOpenValue={dayjs("02:00:00 a", FORMAT)}
+        defaultValue={dayjs(DEFAULT_VALUE, FORMAT)}
+        defaultOpenValue={dayjs(DEFAULT_VALUE, FORMAT)}
         onChange={(e, timeString) => {
-          console.log("time string", timeString);
           setSelectedTime(e);
+          form.setFieldValue(getName, selectedTime.format(FORMAT));
         }}
       />
     </Col>

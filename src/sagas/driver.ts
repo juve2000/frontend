@@ -15,6 +15,7 @@ import {
 } from "../actions";
 
 export function* getDriverSaga({ payload }: any): any {
+  console.log("PAYLOAD", payload);
   try {
     const { data } = yield call(request.get, `/driver/${payload.driverId}`, {
       params: payload.queryParams,
@@ -27,10 +28,13 @@ export function* getDriverSaga({ payload }: any): any {
 
 export function* createDriverSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.post, "/driver", {
-      payload,
+    const { data } = yield call(request.post, "/driver/", payload.values, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     });
-    yield put(createDriverSuccess(data));
+    yield put(createDriverSuccess({}));
+    payload.onSuccess();
   } catch (e: any) {
     yield put(createDriverFailed(e.message));
   }
@@ -49,6 +53,14 @@ export function* updateDriverSaga({ payload }: any): any {
       }
     );
     yield put(updateDriverSuccess(data));
+    yield call(getDriverSaga, {
+      payload: {
+        queryParams: {
+          with: ["documents", "terminal", "group", "carrier"],
+        },
+        driverId: payload.driverId,
+      },
+    });
   } catch (e: any) {
     yield put(updateDriverFailed(e.message));
   }

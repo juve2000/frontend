@@ -61,7 +61,8 @@ export const InputSelectMultiV2 = (props: any) => {
           disabled={disabled}
           style={{ width, ...styles }}
           placeholder={placeholder}
-          onChange={onChange}
+          // onChange={onChange}
+          value={[2, 3, 1]}
         >
           {options.map((item: any, i: number) => {
             return (

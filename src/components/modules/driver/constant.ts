@@ -21,7 +21,10 @@ export const DocumentType = {
 };
 
 export const getDocumentByType = (type: any) => {
-  return carrierData.documents.find((doc: any) => doc.value === type);
+  return carrierData.documents.find((doc: any) => doc.value === type)?.key;
+};
+export const getDocumentNameByType = (type: any) => {
+  return carrierData.documents.find((doc: any) => doc.key === type)?.value;
 };
 
 export const COUNTRY = {
@@ -59,7 +62,7 @@ export const DriverField = {
   SHORT_HAUL: "short_haul",
   PERSONAL_CONVEYANCE: "personal_conveyance",
   ADVERSE_CONDITIONS: "adverse_conditions",
-  UNLIMITED_DOCUMENTS: "untlimited_documents",
+  UNLIMITED_DOCUMENTS: "unlimited_documents",
   UNLIMITED_TRAILERS: "unlimited_trailers",
   YARD_MOVE: "yard_move",
   NOTES: "notes",
@@ -105,7 +108,7 @@ export const CarrierField = {
     SHORT_HAUL: "short_haul",
     PERSONAL_CONVEYANCE: "personal_conveyance",
     ADVERSE_CONDITIONS: "adverse_conditions",
-    UNLIMITED_DOCUMENTS: "untlimited_documents",
+    UNLIMITED_DOCUMENTS: "unlimited_documents",
     UNLIMITED_TRAILERS: "unlimited_trailers",
     YARD_MOVE: "yard_move",
     EXEMPT_DRIVER: "exempt_driver",

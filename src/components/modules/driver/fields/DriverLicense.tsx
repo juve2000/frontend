@@ -12,6 +12,8 @@ import {
   DriverField,
   carrierData,
   DocumentType,
+  getDocumentByType,
+  getDocumentNameByType,
 } from "../constant";
 
 const {
@@ -96,14 +98,16 @@ export const LicenseDriverFields = {
       type: InputType.DRIVER_DOCUMENTS_LIST,
       // name: `${DriverField.DOCUMENTS}_${DocumentType.CDL}`,
       isMultiType: true,
-      label: "Saved Documents List*",
-      rules: [],
+      label: "Saved CDL Documents",
+      //   rules: [],
       placeholder: "CDL Document Saved",
       hasFeedback: true,
-      title: "CDL Document Saved*",
+      title: "Saved CDL Documents",
       span: 24,
       width: "100%",
       fileType: DocumentType.CDL,
+      DocsType: getDocumentByType(DocumentType.CDL),
+      documentName: getDocumentNameByType(2),
     },
   ],
 };

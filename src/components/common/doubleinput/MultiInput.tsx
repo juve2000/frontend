@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Input, Col, Row } from "antd";
 import { CommonInputV2 } from "./index";
+import { InputType } from "../../../constants/inputs";
 
 export const MultiInputV2 = (props: any) => {
   const {
@@ -17,6 +18,7 @@ export const MultiInputV2 = (props: any) => {
     fields = [],
     isRequired = false,
     form,
+    showDocsList = false,
   } = props;
 
   return (
@@ -38,6 +40,12 @@ export const MultiInputV2 = (props: any) => {
       <Col span={18}>
         <Row>
           {fields.map((field: any, i: number) => {
+            if (
+              field?.type === InputType.DRIVER_DOCUMENTS_LIST &&
+              !showDocsList
+            ) {
+              return null;
+            }
             return (
               <CommonInputV2
                 {...field}

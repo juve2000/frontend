@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getCarrierReq, createCarrierReq } from "../../../actions/carrier";
+import { createCarrierReq, getCarriersListReq } from "../../../actions/carrier";
 
 import { Row, Col, Form, Button, Input, Spin } from "antd";
 import { CommonInput } from "../../common/inputs";
 import { carrierForm } from "./carrier-form";
 import { Graph } from "../../common/graph/Graph";
 import { InputType } from "../../../constants/inputs";
+import { getDocumentByType } from "./constant";
+
+import {
+  updateDriverReq,
+  getDriverReq,
+  createDriverReq,
+  setCurrentCarrier,
+} from "../../../actions/driver";
 
 function buildFormData(formData: any, data: any, parentKey?: any) {
   if (
@@ -42,14 +50,18 @@ export const DriverCreatePage = () => {
   const [form] = Form.useForm();
   const params = useParams();
   const dispatch = useDispatch();
-  const { loading, carrier } = useSelector((state: any) => state.carrier);
+  const { loading, driver, currentCarrier } = useSelector(
+    (state: any) => state.driver
+  );
+  const { loading: carrierLoading, carrierList } = useSelector(
+    (state: any) => state.carrier
+  );
   const { user } = useSelector((state: any) => state.auth);
   const [fields, setFields] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const [initialValues, setInitialValues] = useState({
     name: "",
-
     usdot: "",
     phone: "",
     mcnumber: "",
@@ -58,38 +70,49 @@ export const DriverCreatePage = () => {
     status: null,
     notes: "",
     email_second: "",
-    settings: {
-      measurement_system: null,
-      dst: null,
-      first_day: null,
-      compliance_mode: null,
-      motion_treshold: null,
-      cargo_type: null,
-      restart: null,
-      rest_break: null,
-      short_haul: false,
-      personal_conveyance: false,
-      adverse_conditions: false,
-      unlimited_documents: false,
-      unlimited_trailers: false,
-      yard_move: false,
-      exempt_driver: false,
-      exempt_driver_notice: false,
-      period_starting_time: "",
-      motion_trashhold: "",
-    },
-    terminals: [
-      {
-        name: "",
-        country: 1,
-        state: 1,
-        area: "",
-        address_index: "",
-        tz: 1,
-        number_street: "",
-      },
-    ],
+    measurement_system: null,
+    dst: null,
+    first_day: null,
+    compliance_mode: null,
+    motion_treshold: null,
+    cargo_type: [],
+    restart: null,
+    rest_break: null,
+    short_haul: false,
+    personal_conveyance: false,
+    adverse_conditions: false,
+    unlimited_documents: false,
+    unlimited_trailers: false,
+    yard_move: false,
+    exempt_driver: false,
+    exempt_driver_notice: false,
+    period_starting_time: "",
+    motion_trashhold: "",
+    terminal: null,
+    driver_group: null,
+    password: "",
   });
+
+  React.useEffect(() => {
+    dispatch(
+      getCarriersListReq({
+        queryParams: {
+          with: ["settings", "terminals", "driver_groups"],
+        },
+      })
+    );
+  }, []);
+
+  useEffect(() => {
+    form.setFieldsValue({
+      ...form.getFieldsValue(),
+      ...(!currentCarrier.defaultSavedCarrier ? currentCarrier?.settings : {}),
+      cargo_type: form.getFieldValue("cargo_type"),
+      driver_group: currentCarrier?.defaultSavedCarrier
+        ? form.getFieldValue("driver_group")
+        : null,
+    });
+  }, [currentCarrier]);
 
   const handleSubmit = async (values: any) => {
     const f = Math.floor((1 + Math.random()) * 0x10000)
@@ -97,15 +120,38 @@ export const DriverCreatePage = () => {
       .substring(1);
     const data = jsonToFormData({
       ...values,
-      email: `govno${f}@govno.com`,
       company: user.company.id,
+      cdl_state: `${values.cdl_state}`,
       offices: [...user.offices].map((office) => office.id),
+      documents: [
+        ...(values?.documents_MC?.length > 0
+          ? values?.documents_MC?.map((doc: any) => {
+              return {
+                type: getDocumentByType(doc.fileType),
+                file: doc.originFileObj,
+                driver: params.driverId,
+              };
+            })
+          : []),
+        ...(values?.documents_CDL?.length > 0
+          ? values?.documents_CDL?.map((doc: any) => {
+              return {
+                type: getDocumentByType(doc.fileType),
+                file: doc.originFileObj,
+                driver: params.driverId,
+              };
+            })
+          : []),
+      ],
+      documents_MC: undefined,
+      documents_CDL: undefined,
     });
     dispatch(
-      createCarrierReq({
+      createDriverReq({
         values: data,
         onSuccess: () => {
           form.setFieldsValue(initialValues);
+          setCurrentCarrier({});
         },
       })
     );
@@ -134,12 +180,12 @@ export const DriverCreatePage = () => {
             <Spin />
           </div>
         ) : (
-          <Col span={24}>
+          <Col span={16}>
             <Form
               form={form}
               name="test"
               onError={(err) => {
-                console.log("err", err);
+                // console.log("err", err);
               }}
               onFinish={handleSubmit}
               initialValues={initialValues}

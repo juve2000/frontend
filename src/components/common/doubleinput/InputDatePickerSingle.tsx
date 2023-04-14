@@ -23,6 +23,7 @@ export const InputDatePickerSingleV2 = (props: any) => {
   } = props;
   const isRequired = rules.find((rule: any) => rule.required);
   const FORMAT = "MM-DD-YYYY";
+  const DefaultValue = "02-03-2021";
 
   const getName = useMemo(() => {
     return pathName ? [...pathName, name] : name;
@@ -30,27 +31,18 @@ export const InputDatePickerSingleV2 = (props: any) => {
 
   const [showPicker, setShowPicker] = useState<any>(null);
   const [selectedTime, setSelectedTime] = useState<any>(
-    dayjs("02-02-2022", FORMAT)
+    // dayjs(DefaultValue, FORMAT)
+    dayjs(DefaultValue, FORMAT)
   );
   const [hasDefaultValue, setHasDefaultValue] = useState(false);
 
   React.useEffect(() => {
     if (!!form.getFieldValue(getName)) {
       if (typeof form.getFieldValue(getName) === "string") {
-        setSelectedTime(dayjs(form.getFieldValue(getName), FORMAT));
-        // setHasDefaultValue(true);
+        setSelectedTime(dayjs(form.getFieldValue(getName)));
       }
     }
-  }, [form]);
-
-  React.useEffect(() => {
-    // form.setFieldValue(getName, selectedTime.format("YYYY-MM-DD"));
-    if (!!selectedTime) {
-      form.setFieldValue(getName, selectedTime.format(FORMAT));
-    }
-
-    // console.log("selected time", selectedTime);
-  }, [selectedTime]);
+  }, [form.getFieldValue(getName)]);
 
   return (
     <Col
@@ -75,11 +67,9 @@ export const InputDatePickerSingleV2 = (props: any) => {
           <div className="input-item-title input-title ubuntu">{title}</div>
         )
       ) : null}
-      {/* <TimePicker value={value} onChange={onChange} /> */}
       <Form.Item
         name={getName}
         style={{ width: "100%" }}
-        // initialValue={dayjs("02:00:00", "HH:mm:ss")}
         rules={[
           {
             // type: "object" as const,
@@ -92,12 +82,14 @@ export const InputDatePickerSingleV2 = (props: any) => {
         placeholder={placeholder}
         style={{ width, ...styles, position: "absolute", top: 30 }}
         disabled={disabled}
-        format={FORMAT}
-        // value={dayjs(selectedTime, "YYYY-MM-DD")}
-        defaultValue={dayjs(selectedTime, FORMAT)}
+        // format={FORMAT}
+        value={selectedTime}
+        // defaultValue={dayjs(selectedTime, FORMAT)}
+        defaultValue={selectedTime}
         // defaultOpenValue={dayjs("02:00:00", "HH:mm")}
         onChange={(e, timeString) => {
           setSelectedTime(e);
+          form.setFieldValue(getName, e?.format());
         }}
       />
     </Col>

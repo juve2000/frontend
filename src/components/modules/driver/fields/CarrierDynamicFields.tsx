@@ -85,8 +85,6 @@ export const CarrierDynamicField = (props: any) => {
       );
     }
     if (currentCarrier?.status === 1) {
-      console.log("status", currentCarrier?.status === 1);
-
       setStatusOptions(carrierData.status);
     } else {
       setStatusOptions(inactiveStatus);
@@ -140,13 +138,14 @@ export const CarrierDynamicField = (props: any) => {
               span={24}
               width={"100%"}
               onChange={(id: any) => {
-                console.log("id", id);
                 const foundCarrier = carrierList.find(
                   (carrier: any) => carrier.id === id
                 );
                 form.setFieldValue("status", null);
 
-                dispatch(setCurrentCarrier(foundCarrier));
+                dispatch(
+                  setCurrentCarrier({ ...foundCarrier, defaultCarrier: false })
+                );
               }}
             />
             {/* {fields.map((field: any, i: number) => {
@@ -179,16 +178,6 @@ export const CarrierDynamicField = (props: any) => {
           <Row>
             <InputSelectV2 {...StatusProps} options={statusOptions} />
             <InputSelectV2 {...groupProps} options={driverGroupOptions} />
-            {/* {fields.map((field: any, i: number) => {
-              return (
-                <CommonInputV2
-                  {...field}
-                  key={i}
-                  form={form}
-                  disabled={disabled}
-                />
-              );
-            })} */}
           </Row>
         </Col>
       </Row>

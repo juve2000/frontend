@@ -35,6 +35,12 @@
     font-family: "Ubuntu" !important;
   }
 }
+.ant-input-password {
+  span.ant-input-password-icon {
+    position: absolute;
+    right: 30px;
+  }
+}
 .ant-picker-dropdown .ant-picker-cell-selected .ant-picker-cell-inner {
   background-color: $orange !important;
   &::before {

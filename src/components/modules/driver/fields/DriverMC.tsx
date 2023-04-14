@@ -12,6 +12,7 @@ import {
   DriverField,
   carrierData,
   DocumentType,
+  getDocumentByType,
 } from "../constant";
 
 const {
@@ -65,13 +66,25 @@ export const MedicalCardDriverFields = {
       name: `${DriverField.DOCUMENTS}_${DocumentType.MC}`,
       isMultiType: true,
       label: "MC Documents*",
-      rules: [],
+      //   rules: [],
       placeholder: "CDL No",
       hasFeedback: true,
       title: "MC Documents*",
       span: 24,
       width: "100%",
       fileType: DocumentType.MC,
+    },
+    {
+      type: InputType.DRIVER_DOCUMENTS_LIST,
+      isMultiType: true,
+      label: "Saved Documents List*",
+      placeholder: "MC Document Saved",
+      hasFeedback: true,
+      title: "Saved MC Documents",
+      span: 24,
+      width: "100%",
+      fileType: DocumentType.MC,
+      DocsType: getDocumentByType(DocumentType.MC),
     },
   ],
 };

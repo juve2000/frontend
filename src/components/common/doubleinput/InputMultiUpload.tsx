@@ -23,6 +23,10 @@ export const InputMultiUploadV2 = (props: any) => {
   const isRequired = rules.find((rule: any) => rule.required);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  React.useEffect(() => {
+    console.log("props", props);
+  }, [props]);
+
   const normFile = (e: any) => {
     if (Array.isArray(e)) {
       return e;
@@ -91,7 +95,7 @@ export const InputMultiUploadV2 = (props: any) => {
         </Col> */}
         <Col span={18}>
           <Form.Item
-            rules={rules}
+            rules={[{ required: false }]}
             name={name}
             style={{ width: "100%" }}
             // valuePropName="fileList"
@@ -100,6 +104,9 @@ export const InputMultiUploadV2 = (props: any) => {
             <Upload
               name="documents"
               listType="picture"
+              beforeUpload={(file: any) => {
+                console.log("file", file);
+              }}
               onChange={(e) => {
                 console.log("e", e);
               }}
@@ -108,8 +115,15 @@ export const InputMultiUploadV2 = (props: any) => {
               }}
               maxCount={3}
             >
-              <Button className="white ubuntu" style={{ padding: "0px 0px" }}>
-                Upload document {documentName}
+              <Button
+                className="hoverWhite white ubuntu"
+                style={{ padding: "0px 0px" }}
+              >
+                <span
+                  className="icon-fi-rr-upload orange"
+                  style={{ marginRight: 10 }}
+                ></span>
+                Upload document {fileType}
               </Button>
             </Upload>
           </Form.Item>

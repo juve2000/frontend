@@ -18,7 +18,7 @@ import { CommonInput } from "../../common/inputs";
 import { carrierForm } from "./carrier-form";
 import { Graph } from "../../../components/common/graph/Graph";
 import { InputType } from "../../../constants/inputs";
-import { PAGE_STATUS, DriverField } from "./constant";
+import { PAGE_STATUS, DriverField, getDocumentByType } from "./constant";
 
 function buildFormData(formData: any, data: any, parentKey?: any) {
   if (
@@ -71,7 +71,7 @@ export const DriverPage = () => {
     first_day: null,
     compliance_mode: null,
     motion_treshold: null,
-    cargo_type: null,
+    cargo_type: [],
     restart: null,
     rest_break: null,
     short_haul: false,
@@ -106,7 +106,9 @@ export const DriverPage = () => {
         (carrier: any) => carrier.id === driver.carrier.id
       );
 
-      dispatch(setCurrentCarrier(foundCarrier));
+      dispatch(
+        setCurrentCarrier({ ...foundCarrier, defaultSavedCarrier: true })
+      );
     }
   }, [carrierList, driver]);
 
@@ -118,7 +120,7 @@ export const DriverPage = () => {
     dispatch(
       getCarriersListReq({
         queryParams: {
-          with: ["settings", "terminals", "driver_groups"],
+          with: ["settings", "terminals", "driver_groups", "documents"],
         },
       })
     );
@@ -127,8 +129,11 @@ export const DriverPage = () => {
   useEffect(() => {
     form.setFieldsValue({
       ...form.getFieldsValue(),
-      ...currentCarrier?.settings,
-      driver_group: null,
+      ...(!currentCarrier.defaultSavedCarrier ? currentCarrier?.settings : {}),
+      cargo_type: form.getFieldValue("cargo_type"),
+      driver_group: currentCarrier?.defaultSavedCarrier
+        ? form.getFieldValue("driver_group")
+        : null,
     });
   }, [currentCarrier]);
 
@@ -137,13 +142,14 @@ export const DriverPage = () => {
       getDriverReq({
         driverId: params.driverid,
         queryParams: {
-          with: ["terminal", "group", "carrier"],
+          with: ["terminal", "group", "carrier", "documents"],
         },
       })
     );
   }, []);
 
   const handleSubmit = async (values: any) => {
+    console.log("values", values);
     const f = Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
@@ -153,18 +159,24 @@ export const DriverPage = () => {
       cdl_state: `${values.cdl_state}`,
       offices: [...user.offices].map((office) => office.id),
       documents: [
-        ...values?.documents_MC?.map((doc: any) => {
-          return {
-            type: doc.fileType,
-            file: doc.originFileObj,
-          };
-        }),
-        ...values?.documents_CDL?.map((doc: any) => {
-          return {
-            type: doc.fileType,
-            file: doc.originFileObj,
-          };
-        }),
+        ...(values?.documents_MC?.length > 0
+          ? values?.documents_MC?.map((doc: any) => {
+              return {
+                type: getDocumentByType(doc.fileType),
+                file: doc.originFileObj,
+                driver: params.driverId,
+              };
+            })
+          : []),
+        ...(values?.documents_CDL?.length > 0
+          ? values?.documents_CDL?.map((doc: any) => {
+              return {
+                type: getDocumentByType(doc.fileType),
+                file: doc.originFileObj,
+                driver: params.driverId,
+              };
+            })
+          : []),
       ],
       documents_MC: undefined,
       documents_CDL: undefined,
@@ -179,21 +191,32 @@ export const DriverPage = () => {
   };
 
   React.useEffect(() => {
-    form.setFieldsValue({
-      ...initialValues,
-      ...driver,
-      carrier: driver?.carrier?.id,
-      terminal: driver?.terminal?.id,
-      driver_group: driver?.driver_group?.id,
-    });
     setInitialValues({
       ...initialValues,
       ...driver,
       carrier: driver?.carrier?.id,
       terminal: driver?.terminal?.id,
-      driver_group: driver?.driver_group?.id,
+      driver_group: driver?.group?.id,
+      cargo_type: driver?.cargo_type?.map((ct: any) => +ct),
+    });
+    form.setFieldsValue({
+      ...initialValues,
+      ...driver,
+      carrier: driver?.carrier?.id,
+      terminal: driver?.terminal?.id,
+      driver_group: driver?.group?.id,
+      cargo_type: driver?.cargo_type?.map((ct: any) => +ct),
+      group: driver?.group?.id,
     });
   }, [driver]);
+
+  React.useEffect(() => {
+    console.log("init", initialValues);
+  }, [initialValues]);
+
+  React.useEffect(() => {
+    console.log("form", form.getFieldsValue());
+  }, [form]);
 
   return (
     <>
@@ -247,7 +270,14 @@ export const DriverPage = () => {
                     // prettier-ignore
                   );
                 }
-                return <CommonInput key={i} {...field} form={form} />;
+                return (
+                  <CommonInput
+                    key={i}
+                    {...field}
+                    form={form}
+                    showDocsList={true}
+                  />
+                );
               })}
               <Form.Item style={{ width: "100%", display: "flex" }}>
                 <Button

@@ -46,7 +46,10 @@ export default {
       .addCase(getDriverSuccess, (state, { payload }) => {
         return {
           ...state,
-          driver: payload.data,
+          driver: {
+            ...payload.data,
+            cargo_type: payload.data?.cargo_type?.map((ct: any) => +ct),
+          },
           loading: false,
         };
       })
@@ -92,7 +95,7 @@ export default {
       .addCase(updateDriverSuccess, (state, { payload }) => {
         return {
           ...state,
-          driver: payload,
+          // driver: payload,
           loading: false,
         };
       })

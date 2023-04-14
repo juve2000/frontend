@@ -22,7 +22,7 @@ export const HosRulesCarrierFields = {
   isRequired: true,
   fields: [
     {
-      type: InputType.SELECT_V2,
+      type: InputType.SELECT_MULTI,
       name: DriverField.CARGO_TYPE,
       // pathName: ["settings"],
       label: "Cargo type",

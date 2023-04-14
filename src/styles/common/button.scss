@@ -63,3 +63,9 @@
     border-color: #d9d9d9;
   }
 }
+
+.ant-btn.hoverWhite {
+  &:hover {
+    border: none;
+  }
+}

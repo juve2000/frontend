@@ -45,10 +45,6 @@ export const InputDriverSelecetAdress = (props: any) => {
     );
   }, [currentCarrier, form]);
 
-  React.useEffect(() => {
-    console.log("TERMINAL", currentTerminal);
-  }, [currentTerminal]);
-
   const isRequired = rules.find((rule: any) => rule.required);
 
   const state = React.useMemo(() => {
@@ -123,18 +119,30 @@ export const InputDriverSelecetAdress = (props: any) => {
         </Col>
         <Col span={18}>
           <Row className="ubuntu">
-            <div style={{ marginRight: 5 }}>
-              {currentCarrier?.terminals?.[0]?.address?.number_street},
-            </div>
-            <div style={{ marginRight: 5 }}>{state?.value}</div>
-            <div style={{ marginRight: 5 }}>({state?.code}),</div>
-            <div style={{ marginRight: 5 }}>
-              {currentCarrier?.terminals?.[0]?.address?.area}
-            </div>
-            <div style={{ marginRight: 5 }}>
-              {currentCarrier?.terminals?.[0]?.address?.address_index},
-            </div>
-            <div style={{ marginRight: 5 }}>{contry?.value}</div>
+            {currentCarrier?.terminals?.[0]?.address?.number_street && (
+              <div style={{ marginRight: 5 }}>
+                {currentCarrier?.terminals?.[0]?.address?.number_street},
+              </div>
+            )}
+            {state?.value && (
+              <div style={{ marginRight: 5 }}>{state?.value}</div>
+            )}
+            {state?.code && (
+              <div style={{ marginRight: 5 }}>({state?.code}),</div>
+            )}
+            {currentCarrier?.terminals?.[0]?.address?.area && (
+              <div style={{ marginRight: 5 }}>
+                {currentCarrier?.terminals?.[0]?.address?.area}
+              </div>
+            )}
+            {currentCarrier?.terminals?.[0]?.address?.address_index && (
+              <div style={{ marginRight: 5 }}>
+                {currentCarrier?.terminals?.[0]?.address?.address_index},
+              </div>
+            )}
+            {contry?.value && (
+              <div style={{ marginRight: 5 }}>{contry?.value}</div>
+            )}
           </Row>
         </Col>
       </Row>
@@ -190,18 +198,30 @@ export const InputDriverSelecetAdress = (props: any) => {
         </Col>
         <Col span={18}>
           <Row className="ubuntu">
-            <div style={{ marginRight: 5 }}>
-              {currentTerminal?.address?.number_street},
-            </div>
-            <div style={{ marginRight: 5 }}>{homeState?.value}</div>
-            <div style={{ marginRight: 5 }}>({homeState?.code}),</div>
-            <div style={{ marginRight: 5 }}>
-              {currentTerminal?.terminals?.[0]?.address?.area}
-            </div>
-            <div style={{ marginRight: 5 }}>
-              {currentTerminal?.address?.address_index},
-            </div>
-            <div style={{ marginRight: 5 }}>{homeContry?.value}</div>
+            {currentTerminal?.address?.number_street && (
+              <div style={{ marginRight: 5 }}>
+                {currentTerminal?.address?.number_street},
+              </div>
+            )}
+            {homeState?.value && (
+              <div style={{ marginRight: 5 }}>{homeState?.value}</div>
+            )}
+            {homeState?.code && (
+              <div style={{ marginRight: 5 }}>({homeState?.code}),</div>
+            )}
+            {currentTerminal?.terminals?.[0]?.address?.area && (
+              <div style={{ marginRight: 5 }}>
+                {currentTerminal?.terminals?.[0]?.address?.area}
+              </div>
+            )}
+            {currentTerminal?.address?.address_index && (
+              <div style={{ marginRight: 5 }}>
+                {currentTerminal?.address?.address_index},
+              </div>
+            )}
+            {homeContry?.value && (
+              <div style={{ marginRight: 5 }}>{homeContry?.value}</div>
+            )}
           </Row>
         </Col>
       </Row>

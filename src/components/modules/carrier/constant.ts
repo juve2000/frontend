@@ -55,7 +55,7 @@ export const CarrierField = {
     SHORT_HAUL: "short_haul",
     PERSONAL_CONVEYANCE: "personal_conveyance",
     ADVERSE_CONDITIONS: "adverse_conditions",
-    UNLIMITED_DOCUMENTS: "untlimited_documents",
+    UNLIMITED_DOCUMENTS: "unlimited_documents",
     UNLIMITED_TRAILERS: "unlimited_trailers",
     YARD_MOVE: "yard_move",
     EXEMPT_DRIVER: "exempt_driver",

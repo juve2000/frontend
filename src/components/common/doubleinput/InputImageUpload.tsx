@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Select, Button, Upload, Col, Input, Row, Modal } from "antd";
 import downloadIcon from "../../../img/download.svg";
 import uploadIcon from "../../../img/upload.svg";
+import { ENV } from "../../../utils/constants";
 
 export const InputImageUploadV2 = (props: any) => {
   const {
@@ -56,7 +57,7 @@ export const InputImageUploadV2 = (props: any) => {
             <>
               <img
                 style={{ width: "80%", borderRadius: 10, cursor: "pointer" }}
-                src={"https://dev.hgrs.us/" + form.getFieldValue(name)}
+                src={ENV + form.getFieldValue(name)}
                 onClick={() => setIsModalOpen(true)}
               />
               <Modal
@@ -68,7 +69,7 @@ export const InputImageUploadV2 = (props: any) => {
               >
                 <img
                   style={{ width: "80%", borderRadius: 10 }}
-                  src={"https://dev.hgrs.us/" + form.getFieldValue(name)}
+                  src={ENV + form.getFieldValue(name)}
                 />
               </Modal>
             </>
@@ -90,7 +91,14 @@ export const InputImageUploadV2 = (props: any) => {
               }}
               maxCount={1}
             >
-              <Button className="white ubuntu">Click to upload</Button>
+              <Button className="white ubuntu">
+                {" "}
+                <span
+                  className="icon-fi-rr-upload orange"
+                  style={{ marginRight: 10 }}
+                ></span>
+                Click to upload
+              </Button>
             </Upload>
           </Form.Item>
         </Col>
