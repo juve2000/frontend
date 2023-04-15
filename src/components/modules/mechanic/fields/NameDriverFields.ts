@@ -46,9 +46,9 @@ export const NameDriverFields = {
     },
     {
       type: InputType.TEXT_V2,
-      name: DriverField.USERNAME,
-      // rules: [getValidation(REQUIRED, "username")],
-      placeholder: "Username",
+      name: DriverField.LOGIN,
+      rules: [getValidation(REQUIRED, "username")],
+      placeholder: "Login",
       hasFeedback: true,
       span: 12,
       width: "95%",

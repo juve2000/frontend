@@ -1,17 +1,10 @@
 import { InputType } from "../../../../constants/inputs";
 import {
-  VALIDATION_RULES,
   validate,
   VALIDATION_TYPE,
   getValidation,
 } from "../../../../utils/validation";
-import {
-  carrierStatusOptions,
-  CarrierField,
-  carrierCheckboxGroup,
-  DriverField,
-  carrierData,
-} from "../constant";
+import { CarrierField, MechanicField } from "../constant";
 
 const {
   ALPHABETICAL,
@@ -26,7 +19,7 @@ const {
   PHONE,
 } = VALIDATION_TYPE;
 
-export const ContactsDriverFields = {
+export const ContactsMechanicFields = {
   type: InputType.MULTI,
   label: "Contacts",
   isRequired: true,
@@ -52,6 +45,27 @@ export const ContactsDriverFields = {
       hasFeedback: true,
       title: "Email*",
       span: 12,
+      width: "100%",
+    },
+  ],
+};
+
+export const NoticeMechanicFields = {
+  type: InputType.MULTI,
+  label: "Notice",
+  isRequired: true,
+  fields: [
+    {
+      type: InputType.TEXT_AREA,
+      name: CarrierField.NOTES,
+      label: "Notice",
+      styles: { height: "120px" },
+
+      // rules: [validate("", PHONE), getValidation(REQUIRED, "")],
+      placeholder: "Notice",
+      hasFeedback: true,
+      title: "",
+      span: 24,
       width: "100%",
     },
   ],

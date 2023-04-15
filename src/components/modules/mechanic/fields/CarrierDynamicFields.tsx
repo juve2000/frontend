@@ -27,7 +27,7 @@ const {
   PHONE,
 } = VALIDATION_TYPE;
 
-export const CarrierDynamicField = (props: any) => {
+export const CarrierDynamicMechanicField = (props: any) => {
   const {
     rules = [],
     name = "",
@@ -46,17 +46,15 @@ export const CarrierDynamicField = (props: any) => {
   } = props;
 
   const dispatch = useDispatch();
-  const { loading, driver } = useSelector((state: any) => state.driver);
+  const { loading, driver } = useSelector((state: any) => state.mechanic);
   const { loading: carrierLoading, carrierList } = useSelector(
     (state: any) => state.carrier
   );
-  const { currentCarrier } = useSelector((state: any) => state.driver);
+  const { currentCarrier } = useSelector((state: any) => state.mechanic);
 
-  // const [currentCarrier, setCurrentCarrier] = useState<any>({});
   const [carrierOptions, setCarrierOptions] = useState([]);
 
   const [statusOptions, setStatusOptions] = useState(carrierData.status);
-  const [driverGroupOptions, setDriverGroupOptions] = useState([]);
 
   useEffect(() => {
     setCarrierOptions(
@@ -74,16 +72,6 @@ export const CarrierDynamicField = (props: any) => {
       (status: any) => status.key !== 1
     );
 
-    if (currentCarrier?.driver_groups) {
-      setDriverGroupOptions(
-        currentCarrier?.driver_groups.map((group: any) => {
-          return {
-            key: group.id,
-            value: group.name,
-          };
-        })
-      );
-    }
     if (currentCarrier?.status === 1) {
       setStatusOptions(carrierData.status);
     } else {
@@ -93,94 +81,36 @@ export const CarrierDynamicField = (props: any) => {
 
   const StatusProps = {
     name: DriverField.STATUS,
-    title: "Driver Status*",
+    title: "Status*",
     rules: [getValidation(REQUIRED, "Status")],
-    placeholder: "Driver Status",
+    placeholder: "Status",
     hasFeedback: true,
     span: 12,
-    width: "95%",
-  };
-
-  const groupProps = {
-    name: DriverField.DRIVER_GROUP,
-    title: "Driver Group*",
-    rules: [getValidation(REQUIRED, "Status")],
-    placeholder: "Driver Group",
-    hasFeedback: true,
-    span: 12,
-    width: "95%",
+    width: "100%",
   };
 
   return (
-    <>
-      {" "}
-      <Row>
-        <Col
-          span={6}
-          className="input-item-wrapper"
-          style={{ alignItems: "flex-start" }}
-        >
-          <div className="input-item-wrapper">
-            <div>
-              {"Carrier"}
-              {isRequired && " *"}
-            </div>
-          </div>
-        </Col>
-        <Col span={18}>
-          <Row>
-            <InputFetchCarrierSelectV2
-              {...props}
-              rules={[getValidation(REQUIRED, "Status")]}
-              name={DriverField.CARRIER}
-              title={"Carrier*"}
-              options={carrierOptions}
-              span={24}
-              width={"100%"}
-              onChange={(id: any) => {
-                const foundCarrier = carrierList.find(
-                  (carrier: any) => carrier.id === id
-                );
-                form.setFieldValue("status", null);
+    <Row style={{ width: "100%" }}>
+      <InputFetchCarrierSelectV2
+        {...props}
+        rules={[getValidation(REQUIRED, "Status")]}
+        name={DriverField.CARRIER}
+        title={"Carrier*"}
+        options={carrierOptions}
+        span={12}
+        width={"95%"}
+        onChange={(id: any) => {
+          const foundCarrier = carrierList.find(
+            (carrier: any) => carrier.id === id
+          );
+          form.setFieldValue("status", null);
 
-                dispatch(
-                  setCurrentCarrier({ ...foundCarrier, defaultCarrier: false })
-                );
-              }}
-            />
-            {/* {fields.map((field: any, i: number) => {
-              return (
-                <CommonInputV2
-                  {...field}
-                  key={i}
-                  form={form}
-                  disabled={disabled}
-                />
-              );
-            })} */}
-          </Row>
-        </Col>
-      </Row>
-      <Row>
-        <Col
-          span={6}
-          className="input-item-wrapper"
-          style={{ alignItems: "flex-start" }}
-        >
-          <div className="input-item-wrapper">
-            <div>
-              {"Groups and Status"}
-              {isRequired && " *"}
-            </div>
-          </div>
-        </Col>
-        <Col span={18}>
-          <Row>
-            <InputSelectV2 {...StatusProps} options={statusOptions} />
-            <InputSelectV2 {...groupProps} options={driverGroupOptions} />
-          </Row>
-        </Col>
-      </Row>
-    </>
+          dispatch(
+            setCurrentCarrier({ ...foundCarrier, defaultCarrier: false })
+          );
+        }}
+      />
+      <InputSelectV2 {...StatusProps} options={statusOptions} />
+    </Row>
   );
 };

@@ -1,35 +1,14 @@
 import { InputType } from "../../../constants/inputs";
-import {
-  VALIDATION_RULES,
-  validate,
-  VALIDATION_TYPE,
-  getValidation,
-} from "../../../utils/validation";
-import {
-  carrierStatusOptions,
-  CarrierField,
-  carrierCheckboxGroup,
-  DriverField,
-} from "./constant";
-import { NameDriverFields } from "./fields/NameDriverFields";
-import {
-  GroupsStatusFields,
-  CarrierFieldInput,
-} from "./fields/GroupStatusDriverFields";
-import { LoginCarrierFields } from "./fields/LoginCarrierFields";
-import { PreferencesCarrierFields } from "./fields/PreferencesCarrierFields";
-import { TerminalCarrierFields } from "./fields/TerminalCarrierFields";
-import {
-  HosRulesCarrierFields,
-  HosCarrierNotice,
-} from "./fields/HosRulesCarrierFields";
-import { ContactsDriverFields } from "./fields/ContactsDriverField";
-import { DriverLicense, LicenseDriverFields } from "./fields/DriverLicense";
-//MedicalCardDriverFields
-import { MedicalCardDriverFields } from "./fields/DriverMC";
 
-const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL } =
-  VALIDATION_TYPE;
+import { NameDriverFields } from "./fields/NameDriverFields";
+import { CarrierStatusMechanicFields } from "./fields/CarrierStatusMechanicFields";
+
+import { TerminalCarrierFields } from "./fields/TerminalCarrierFields";
+
+import {
+  ContactsMechanicFields,
+  NoticeMechanicFields,
+} from "./fields/ContactsDriverField";
 
 export const mechanicForm = (options: any) => {
   return [
@@ -43,32 +22,16 @@ export const mechanicForm = (options: any) => {
       type: InputType.TITLE,
       label: "Mechanic Details",
     },
-    // // DRIVER NAME DETAILS
+    // MECHANIC NAME DETAILS
     { ...NameDriverFields },
 
-    // {
-    //   type: InputType.TITLE,
-    //   label: "Contacts & Preferences",
-    // },
     // CONTACTS
-    // { ...GroupsStatusFields },
-    { ...ContactsDriverFields },
-    //LICENSE
-    { ...LicenseDriverFields },
-    { ...DriverLicense },
-    //MEDICAL CARD
-    { ...MedicalCardDriverFields },
-    // // PREFERENCES
-    { ...CarrierFieldInput },
+    { ...ContactsMechanicFields },
 
-    {
-      type: InputType.TITLE,
-      label: "Preferences",
-    },
-    { ...PreferencesCarrierFields },
-    // //HOS RULES
-    { ...HosRulesCarrierFields },
-    { ...HosCarrierNotice },
+    //  STATUS CARRIER
+    { ...CarrierStatusMechanicFields },
+    { ...NoticeMechanicFields },
+
     // // CARRIER TERMINAL
     {
       type: InputType.TITLE,

@@ -37,6 +37,10 @@ export const PAGE_STATUS = {
   EDIT: "EDIT",
 };
 
+export const MechanicField = {
+  NOTES: "NOTES",
+};
+
 export const DriverField = {
   CARRIER: "carrier",
   FIRST_NAME: "first_name",
@@ -70,6 +74,7 @@ export const DriverField = {
   DRIVER_GROUP: "driver_group",
   TERMINAL: "terminal",
   DOCUMENTS: "documents",
+  LOGIN: "login",
 };
 
 export const CarrierField = {
