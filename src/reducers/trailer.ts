@@ -18,6 +18,7 @@ import {
   getTrailerListReq,
   getTrailerListSuccess,
   getTrailerListFailed,
+  setCurrentCarrierTrailer,
 } from "../actions";
 
 // import { UserState } from "../types";
@@ -28,6 +29,7 @@ export const trailerState = {
   trailerList: [],
   loading: false,
   errorMessage: "",
+  currentCarrier: {},
 };
 
 export default {
@@ -147,5 +149,13 @@ export default {
           loading: false,
         };
       });
+    builder.addCase(setCurrentCarrierTrailer, (state, { payload }) => {
+      return {
+        ...state,
+        loading: true,
+        errorMessage: "",
+        currentCarrier: payload,
+      };
+    });
   }),
 };

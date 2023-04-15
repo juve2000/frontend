@@ -6,7 +6,7 @@ import { InputFetchCarrierSelectV2 } from "../../../common/doubleinput/InputFetc
 import { InputSelectV2 } from "../../../common/doubleinput";
 import { DriverField } from "../constant";
 import { carrierData } from "../constant";
-import { setCurrentCarrier } from "../../../../actions";
+import { setCurrentMechanicCarrier } from "../../../../actions";
 import { InputTitle } from "../../../common/doubleinput/InputTitle";
 import { isArray } from "lodash";
 import {
@@ -106,7 +106,10 @@ export const CarrierDynamicMechanicField = (props: any) => {
           form.setFieldValue("status", null);
 
           dispatch(
-            setCurrentCarrier({ ...foundCarrier, defaultCarrier: false })
+            setCurrentMechanicCarrier({
+              ...foundCarrier,
+              defaultCarrier: false,
+            })
           );
         }}
       />

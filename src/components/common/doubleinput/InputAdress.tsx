@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Input, Row, Col, Select } from "antd";
-import { states } from "./utils";
+import { carrierData } from "../../modules/carrier/constant";
 import {
   validate,
   VALIDATION_TYPE,
@@ -96,7 +96,7 @@ export const InputAdressV2 = (props: any) => {
         label="State"
       >
         <Select style={{ width: 175 }} placeholder={`${placeholder} state`}>
-          {states.map((item: any, i: number) => {
+          {carrierData.states.map((item: any, i: number) => {
             return (
               <Select.Option key={i} value={item.value}>
                 {item.key}

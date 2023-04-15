@@ -13,14 +13,27 @@ export const ClientLayout = () => {
   const [form] = Form.useForm();
   const [isOpenSidebar, setIsOpenSidebar] = React.useState(true);
   const auth = useSelector((state: any) => state.auth);
+  const [defaultKey, setDefaultKey] = React.useState("");
 
   const location = useLocation();
 
   React.useEffect(() => {
     console.log("location", location);
+    fullScreenRoutes.forEach((route: any) => {
+      if (location.pathname.indexOf(route) > -1) {
+        setDefaultKey(route);
+      }
+    });
   }, [location]);
 
-  const fullScreenRoutes = ["carrier", "driver"];
+  const fullScreenRoutes = [
+    "carrier",
+    "driver",
+    "driver_group",
+    "mechanic",
+    "vehicle",
+    "trailer",
+  ];
 
   const getLayout = React.useCallback(() => {
     let fullScreenRoute = false;

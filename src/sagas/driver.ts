@@ -1,4 +1,5 @@
 import { all, put, takeLatest, call } from "redux-saga/effects";
+import { notification } from "antd";
 import request from "../utils/requestCarrier";
 import { DriverActionTypes } from "../actions/driver";
 import {
@@ -16,6 +17,13 @@ import {
   deleteDriverDocumentSuccess,
 } from "../actions";
 
+notification.config({
+  placement: "topRight",
+  bottom: 50,
+  duration: 5,
+  // rtl: true,
+});
+
 export function* getDriverSaga({ payload }: any): any {
   try {
     const { data } = yield call(request.get, `/driver/${payload.driverId}`, {
@@ -24,6 +32,9 @@ export function* getDriverSaga({ payload }: any): any {
     yield put(getDriverSuccess(data));
   } catch (e: any) {
     yield put(getDriverFailed(e.message));
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
   }
 }
 
@@ -36,8 +47,14 @@ export function* createDriverSaga({ payload }: any): any {
     });
     yield put(createDriverSuccess({}));
     payload.onSuccess();
+    yield call(notification.success, {
+      message: "Driver created successfully",
+    });
   } catch (e: any) {
     yield put(createDriverFailed(e.message));
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
   }
 }
 
@@ -62,8 +79,14 @@ export function* updateDriverSaga({ payload }: any): any {
         driverId: payload.driverId,
       },
     });
+    yield call(notification.success, {
+      message: "Driver group updated successfully",
+    });
   } catch (e: any) {
     yield put(updateDriverFailed(e.message));
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
   }
 }
 
@@ -71,8 +94,14 @@ export function* deleteDriverSaga({ payload }: any): any {
   try {
     const { data } = yield call(request.delete, `/driver/${payload.id}`);
     yield put(deleteDriverSuccess(data));
+    yield call(notification.success, {
+      message: "Driver deleted successfully",
+    });
   } catch (e: any) {
     yield put(deleteDriverFailed(e.message));
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
   }
 }
 
@@ -84,6 +113,9 @@ export function* getDriverListSaga({ payload }: any): any {
     yield put(getDriverListSuccess(data));
   } catch (e: any) {
     yield put(getDriverListFailed(e.message));
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
   }
 }
 
@@ -103,8 +135,14 @@ export function* deleteDriverDocumentSaga({ payload }: any): any {
       }
     );
     yield put(deleteDriverDocumentSuccess(dataDocs.data.documents));
+    yield call(notification.success, {
+      message: "Document deleted successfully",
+    });
   } catch (e: any) {
     yield put(deleteDriverFailed(e.message));
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
   }
 }
 

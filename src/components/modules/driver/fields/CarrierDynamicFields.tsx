@@ -41,7 +41,7 @@ export const CarrierDynamicField = (props: any) => {
     span = 24,
     fields = [],
     isRequired = false,
-
+    isReadonlyCarrier = false,
     form,
   } = props;
 
@@ -137,6 +137,7 @@ export const CarrierDynamicField = (props: any) => {
               options={carrierOptions}
               span={24}
               width={"100%"}
+              isReadonlyCarrier={isReadonlyCarrier}
               onChange={(id: any) => {
                 const foundCarrier = carrierList.find(
                   (carrier: any) => carrier.id === id

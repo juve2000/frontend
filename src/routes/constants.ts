@@ -12,6 +12,12 @@ const DRIVER_GROUP_PAGE = `${DRIVER_GROUP}/:id`;
 const MECHANIC = `${Root}/mechanic`;
 const MECHANIC_PAGE = `${MECHANIC}/:id`;
 
+const VEHICLE = `${Root}/vehicle`;
+const VEHICLE_PAGE = `${VEHICLE}/:id`;
+
+const TRAILER = `${Root}/trailer`;
+const TRAILER_PAGE = `${VEHICLE}/:id`;
+
 export const ROUTES = {
   Root,
   CARRIERS,
@@ -22,4 +28,8 @@ export const ROUTES = {
   DRIVER_GROUP_PAGE,
   MECHANIC,
   MECHANIC_PAGE,
+  VEHICLE,
+  VEHICLE_PAGE,
+  TRAILER,
+  TRAILER_PAGE,
 };

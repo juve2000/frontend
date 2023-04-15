@@ -22,6 +22,7 @@ export const InputFetchCarrierSelectV2 = (props: any) => {
     form,
     onChange,
     items,
+    isReadonlyCarrier = false,
   } = props;
 
   const { Option } = Select;
@@ -74,7 +75,7 @@ export const InputFetchCarrierSelectV2 = (props: any) => {
         style={{ width: "100%" }}
       >
         <Select
-          disabled={disabled}
+          disabled={disabled || isReadonlyCarrier}
           style={{ width, ...styles }}
           placeholder={placeholder}
           onChange={onChange}

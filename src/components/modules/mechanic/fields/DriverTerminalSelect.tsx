@@ -14,7 +14,7 @@ import { InputSelectV2, TextInputV2 } from "../../../common/doubleinput";
 
 const { REQUIRED } = VALIDATION_TYPE;
 
-export const InputDriverSelecetAdress = (props: any) => {
+export const InputMechanicSelecetAdress = (props: any) => {
   const {
     rules = [],
     name = "",
@@ -32,7 +32,7 @@ export const InputDriverSelecetAdress = (props: any) => {
 
   const [selectOptions, setSelectOptions] = useState([]);
 
-  const { currentCarrier } = useSelector((state: any) => state.driver);
+  const { currentCarrier } = useSelector((state: any) => state.mechanic);
   const [currentTerminal, setCurrentTerminal] = useState(
     currentCarrier?.terminals?.[0]
   );
@@ -90,9 +90,8 @@ export const InputDriverSelecetAdress = (props: any) => {
         };
       })
     );
+    console.log("current carrier", currentCarrier);
   }, [currentCarrier]);
-
-  useEffect(() => {}, []);
 
   const selectProp = {
     type: InputType.SELECT_V2,

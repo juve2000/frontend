@@ -13,6 +13,7 @@ import { CommonInput } from "../../common/inputs";
 import { mechanicForm } from "./mechanic-form";
 import { InputType } from "../../../constants/inputs";
 import { PAGE_STATUS, getDocumentByType } from "./constant";
+import { CARRIER_SELECT_DISABLED } from "../../common/doubleinput/utils";
 
 function buildFormData(formData: any, data: any, parentKey?: any) {
   if (
@@ -54,33 +55,13 @@ export const MechanicPage = () => {
     name: "",
     usdot: "",
     phone: "",
-    mcnumber: "",
+    carrier: "",
     email: "",
-    person: "",
     status: null,
     notes: "",
-    email_second: "",
-    measurement_system: null,
-    dst: null,
-    first_day: null,
-    compliance_mode: null,
-    motion_treshold: null,
-    cargo_type: [],
-    restart: null,
-    rest_break: null,
-    short_haul: false,
-    personal_conveyance: false,
-    adverse_conditions: false,
-    unlimited_documents: false,
-    unlimited_trailers: false,
-    yard_move: false,
-    exempt_driver: false,
-    exempt_driver_notice: false,
-    period_starting_time: "",
-    motion_trashhold: "",
     terminal: null,
-    driver_group: null,
     password: "",
+    login: "",
   });
   const { loading, mechanic, currentCarrier } = useSelector(
     (state: any) => state.mechanic
@@ -212,7 +193,23 @@ export const MechanicPage = () => {
                 const field = {
                   ...fieldCurrent,
                   disabled: state === PAGE_STATUS.VIEW,
+                  isReadonlyCarrier: true,
                 };
+                if (CARRIER_SELECT_DISABLED.includes(field.type)) {
+                  return (
+                    <CommonInput
+                    currentIndex={currentIndex}
+                    fields={fields}
+
+                    key={i}
+                    setCurrentIndex={setCurrentIndex}
+                    {...field}
+                    form={form}
+                    isReadonlyCarrier={true}
+                  />
+                    // prettier-ignore
+                  );
+                }
 
                 if (field.type === InputType.ADD_DYNAMIC) {
                   return (

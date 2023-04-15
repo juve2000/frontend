@@ -22,6 +22,7 @@ import { InputCallToCall } from "../../common/doubleinput/InputCallToCall";
 import ResetSort from "../../../img/resetSort.svg";
 import ResetFilter from "../../../img/resetFilter.svg";
 import { carrierData } from "./constant";
+import { LogoCarrier } from "../../common/LogoCarrier";
 
 export const DriversList: React.FC = () => {
   const location = useLocation();
@@ -189,12 +190,17 @@ export const DriversList: React.FC = () => {
         return (
           <div
             className="orange ubuntu"
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
             onClick={() => {
               navigate(`/client/carriers/${record?.carrier?.id}`);
             }}
           >
-            {`${record?.carrier?.name}`}
+            <LogoCarrier
+              logo={record?.carrier?.logo}
+              onClick={() => null}
+              styles={{ width: 30, height: 30 }}
+            />
+            <div style={{ marginLeft: 20 }}>{`${record?.carrier?.name}`}</div>
           </div>
         );
       },

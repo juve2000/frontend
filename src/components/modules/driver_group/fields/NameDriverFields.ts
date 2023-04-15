@@ -25,7 +25,6 @@ export const NameDriverFields = {
       type: InputType.CARRIER_DYNAMIC_DRIVER_GROUP,
       name: DriverGroupField.CARRIER,
       rules: [getValidation(REQUIRED, "name")],
-
       placeholder: "Carrier",
       hasFeedback: true,
       span: 12,

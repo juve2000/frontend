@@ -18,6 +18,10 @@ import {
   getVehicleListReq,
   getVehicleListSuccess,
   getVehicleListFailed,
+  getVehicleListRootReq,
+  getVehicleListRootSuccess,
+  getVehicleListRootFailed,
+  setCurrentVehicleCarrier,
 } from "../actions";
 
 // import { UserState } from "../types";
@@ -28,11 +32,12 @@ export const vehicleState = {
   vehicleList: [],
   loading: false,
   errorMessage: "",
+  currentCarrier: {},
 };
 
 export default {
   vehicle: createReducer<any>(vehicleState, (builder) => {
-    // GET COMPANY
+    // GET VEHICLE
     builder
       .addCase(getVehicleReq, (state) => {
         return {
@@ -147,5 +152,36 @@ export default {
           loading: false,
         };
       });
+    // GET LIST OF VEHICLE ROOT
+    builder
+      .addCase(getVehicleListRootReq, (state) => {
+        return {
+          ...state,
+          loading: true,
+          errorMessage: "",
+        };
+      })
+      .addCase(getVehicleListRootSuccess, (state, { payload }) => {
+        return {
+          ...state,
+          vehicleList: payload,
+          loading: false,
+        };
+      })
+      .addCase(getVehicleListRootFailed, (state, { payload }) => {
+        return {
+          ...state,
+          errorMessage: payload,
+          loading: false,
+        };
+      });
+    // SET CURRENT VEHICLE CARRIER
+    builder.addCase(setCurrentVehicleCarrier, (state, { payload }) => {
+      return {
+        ...state,
+        errorMessage: "",
+        currentCarrier: payload,
+      };
+    });
   }),
 };

@@ -19,6 +19,10 @@ export const VehicleActionTypes = keyMirror({
   GET_VEHICLE_LIST_REQUEST: undefined,
   GET_VEHICLE_LIST_SUCCESS: undefined,
   GET_VEHICLE_LIST_FAILURE: undefined,
+  GET_VEHICLE_LIST_ROOT_REQUEST: undefined,
+  GET_VEHICLE_LIST_ROOT_SUCCESS: undefined,
+  GET_VEHICLE_LIST_ROOT_FAILURE: undefined,
+  SET_CURRENT_VEHICLE_CARRIER: undefined,
 });
 
 // get vehicle
@@ -126,6 +130,37 @@ export const getVehicleListSuccess = createAction(
 
 export const getVehicleListFailed = createAction(
   VehicleActionTypes.GET_VEHICLE_LIST_FAILURE,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+// get vehicle list
+
+export const getVehicleListRootReq = createAction(
+  VehicleActionTypes.GET_VEHICLE_LIST_ROOT_REQUEST,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+export const getVehicleListRootSuccess = createAction(
+  VehicleActionTypes.GET_VEHICLE_LIST_ROOT_SUCCESS,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+export const getVehicleListRootFailed = createAction(
+  VehicleActionTypes.GET_VEHICLE_LIST_ROOT_FAILURE,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+// get vehicle list
+
+export const setCurrentVehicleCarrier = createAction(
+  VehicleActionTypes.SET_CURRENT_VEHICLE_CARRIER,
   (payload: any) => {
     return actionPayload(payload);
   }

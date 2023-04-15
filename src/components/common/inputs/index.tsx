@@ -14,6 +14,13 @@ import { InputImageUploadV2 } from "../doubleinput/InputImageUpload";
 import { TextInputPassword } from "../doubleinput/InputPassword";
 import { CarrierDynamicField } from "../../modules/driver/fields/CarrierDynamicFields";
 import { InputDriverSelecetAdress } from "../../modules/driver/fields/DriverTerminalSelect";
+//MECHANIC CARRIER FIELD
+import { InputMechanicSelecetAdress } from "../../modules/mechanic/fields/DriverTerminalSelect";
+import { CarrierDynamicMechanicField } from "../../modules/mechanic/fields/CarrierDynamicFields";
+// VEHICLE CARRIED FIELD
+import { CarrierDynamicVehicleField } from "../../modules/vehicle/fields/CarrierDynamicFields";
+// TRAILER CARRIED FIELD
+import { CarrierDynamicTrailerField } from "../../modules/trailer/fields/CarrierDynamicFields";
 
 export const CommonInput = (props: any) => {
   const { type } = props;
@@ -46,6 +53,17 @@ export const CommonInput = (props: any) => {
       return <CarrierDynamicField {...props} />;
     case InputType.DRIVER_SELECT_TERMINAL:
       return <InputDriverSelecetAdress {...props} />;
+    //MECHANIC CARRIER FIELD
+    case InputType.CARRIER_DYNAMIC_MECHANIC:
+      return <CarrierDynamicMechanicField {...props} />;
+    case InputType.MECHANIC_SELECT_TERMINAL:
+      return <InputMechanicSelecetAdress {...props} />;
+    //VEHICLE CARRIER FIELD
+    case InputType.CARRIER_DYNAMIC_VEHICLE:
+      return <CarrierDynamicVehicleField {...props} />;
+    //TRAILER CARRIER FIELD
+    case InputType.CARRIER_DYNAMIC_TRAILER:
+      return <CarrierDynamicTrailerField {...props} />;
     default:
       return null;
   }

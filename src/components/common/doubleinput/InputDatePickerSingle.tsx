@@ -89,6 +89,7 @@ export const InputDatePickerSingleV2 = (props: any) => {
         // defaultOpenValue={dayjs("02:00:00", "HH:mm")}
         onChange={(e, timeString) => {
           setSelectedTime(e);
+          // form.setFieldValue(getName, e?.format("MM-DD-YYYY"));
           form.setFieldValue(getName, e?.format());
         }}
       />

@@ -26,6 +26,25 @@ export const SideBar = (props: any) => {
   const { checkPermission, PermissionType } = usePermissions();
   const usersList = useSelector((state: any) => state.user.usersList);
 
+  const fullScreenRoutes = [
+    "carriers",
+    "drivers",
+    "driver_group",
+    "mechanic",
+    "vehicle",
+    "trailer",
+  ];
+
+  const getDefaultKey = (pathname: string): any => {
+    const keys: any = [];
+    fullScreenRoutes.forEach((route: any) => {
+      if (pathname.indexOf(route) > -1) {
+        keys.push(route);
+      }
+    });
+    return keys;
+  };
+
   const getPath = (path: string) => {
     return `${pathname}/${path}`;
   };
@@ -102,6 +121,18 @@ export const SideBar = (props: any) => {
             "/mechanic",
             <span className="icon-fi-rr-label"></span>
           ),
+          getItem(
+            "Vehicles",
+            "vehicle",
+            "/vehicle",
+            <span className="icon-fi-rr-truck-side"></span>
+          ),
+          getItem(
+            "Trailers",
+            "trailer",
+            "/trailer",
+            <span className="icon-fi-rr-folder"></span>
+          ),
         ]
       ),
       getItem(
@@ -130,7 +161,7 @@ export const SideBar = (props: any) => {
     return (
       <Menu
         className="ubuntu"
-        // defaultSelectedKeys={["1", "carriers"]}
+        defaultSelectedKeys={getDefaultKey(pathname)}
         defaultOpenKeys={["units", "manage"]}
         mode="inline"
         // theme="dark"
@@ -144,7 +175,7 @@ export const SideBar = (props: any) => {
         // }}
       />
     );
-  }, [isOpen]);
+  }, [isOpen, pathname]);
 
   return (
     <Row className="side-bar ubuntu">

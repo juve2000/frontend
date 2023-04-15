@@ -13,6 +13,7 @@ import { CommonInput } from "../../common/inputs";
 import { driverGroupForm } from "./driver-group-form";
 import { InputType } from "../../../constants/inputs";
 import { PAGE_STATUS } from "./constant";
+import { CARRIER_SELECT_DISABLED } from "../../common/doubleinput/utils";
 
 function buildFormData(formData: any, data: any, parentKey?: any) {
   if (
@@ -180,7 +181,24 @@ export const DriverGroupPage = () => {
                 const field = {
                   ...fieldCurrent,
                   disabled: state === PAGE_STATUS.VIEW,
+                  isReadonlyCarrier: true,
                 };
+
+                if (CARRIER_SELECT_DISABLED.includes(field.type)) {
+                  return (
+                    <CommonInput
+                    currentIndex={currentIndex}
+                    fields={fields}
+
+                    key={i}
+                    setCurrentIndex={setCurrentIndex}
+                    {...field}
+                    form={form}
+                    isReadonlyCarrier={true}
+                  />
+                    // prettier-ignore
+                  );
+                }
 
                 if (field.type === InputType.ADD_DYNAMIC) {
                   return (

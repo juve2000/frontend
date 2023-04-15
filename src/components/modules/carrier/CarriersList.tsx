@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Table, Dropdown, Row, Col } from "antd";
+import { Table, Dropdown, Row, Col, Popover } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useTableParams } from "../../../hooks/useTableParams";
 import {
@@ -14,9 +14,11 @@ import { InputSearch } from "../../common/doubleinput/InputSearch";
 import { getOrderFromTableParams } from "../../../hooks/utils";
 import { InputPageTitle } from "../../common/doubleinput/InputPageTitle";
 import { SetPassword } from "./modals/CarrierSetPassword";
+import { ENV } from "../../../utils/constants";
 
 import ResetSort from "../../../img/resetSort.svg";
 import ResetFilter from "../../../img/resetFilter.svg";
+import { LogoCarrier } from "../../common/LogoCarrier";
 
 export const CarriersList: React.FC = () => {
   const location = useLocation();
@@ -74,6 +76,24 @@ export const CarriersList: React.FC = () => {
       width: 300,
       ellipsis: true,
     },
+    {
+      title: "Logo",
+      key: "logo",
+      dataIndex: "logo",
+
+      render: (name, record, index) => {
+        return (
+          <LogoCarrier
+            logo={record?.logo}
+            onClick={() => null}
+            styles={{ width: 40, height: 40 }}
+          />
+        );
+      },
+      width: "5%",
+      ellipsis: true,
+    },
+
     {
       title: "USDOT",
       dataIndex: "usdot",

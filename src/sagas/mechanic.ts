@@ -1,6 +1,7 @@
 import { all, put, takeLatest, call } from "redux-saga/effects";
 import request from "../utils/requestCarrier";
 import { MechanicActionTypes } from "../actions/mechanic";
+import { notification } from "antd";
 import {
   getMechanicSuccess,
   getMechanicFailed,
@@ -16,6 +17,13 @@ import {
   getMechanicListRootFailed,
   setCurrentMechanicCarrier,
 } from "../actions";
+
+notification.config({
+  placement: "topRight",
+  bottom: 50,
+  duration: 5,
+  // rtl: true,
+});
 
 export function* getMechanicSaga({ payload }: any): any {
   try {
@@ -41,8 +49,14 @@ export function* createMechanicSaga({ payload }: any): any {
     });
     yield put(createMechanicSuccess({}));
     payload.onSuccess();
+    yield call(notification.success, {
+      message: "Mechanic created successfully",
+    });
   } catch (e: any) {
     yield put(createMechanicFailed(e.message));
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
   }
 }
 
@@ -67,8 +81,14 @@ export function* updateMechanicSaga({ payload }: any): any {
         driverId: payload.mechanicId,
       },
     });
+    yield call(notification.success, {
+      message: "Mechanic updated successfully",
+    });
   } catch (e: any) {
     yield put(updateMechanicFailed(e.message));
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
   }
 }
 
@@ -76,8 +96,14 @@ export function* deleteMechanicSaga({ payload }: any): any {
   try {
     const { data } = yield call(request.delete, `/mechanic/${payload.id}`);
     yield put(deleteMechanicSuccess(data));
+    yield call(notification.success, {
+      message: "Mechanic deleted successfully",
+    });
   } catch (e: any) {
     yield put(deleteMechanicFailed(e.message));
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
   }
 }
 
@@ -89,6 +115,9 @@ export function* getMechanicListSaga({ payload }: any): any {
     yield put(getMechanicListSuccess(data));
   } catch (e: any) {
     yield put(getMechanicListFailed(e.message));
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
   }
 }
 
@@ -100,6 +129,9 @@ export function* getMechanicListRootSaga({ payload }: any): any {
     yield put(getMechanicListRootSuccess(data));
   } catch (e: any) {
     yield put(getMechanicListRootFailed(e.message));
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
   }
 }
 

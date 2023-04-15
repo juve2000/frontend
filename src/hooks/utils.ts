@@ -18,3 +18,43 @@ export const getOrderFromTableParams = (
 
   return null;
 };
+
+export function generateArrayOfYears() {
+  var max = new Date().getFullYear();
+  var min = max - 35;
+  var years = [];
+
+  for (var i = max; i >= min; i--) {
+    years.push(i);
+  }
+  return years;
+}
+
+export function buildFormData(formData: any, data: any, parentKey?: any) {
+  if (
+    data &&
+    typeof data === "object" &&
+    !(data instanceof Date) &&
+    !(data instanceof File)
+  ) {
+    Object.keys(data).forEach((key) => {
+      buildFormData(
+        formData,
+        data[key],
+        parentKey ? `${parentKey}[${key}]` : key
+      );
+    });
+  } else {
+    const value = data == null ? "" : data;
+
+    formData.append(parentKey, value);
+  }
+}
+
+export function jsonToFormData(data: any) {
+  const formData = new FormData();
+
+  buildFormData(formData, data);
+
+  return formData;
+}

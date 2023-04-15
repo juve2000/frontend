@@ -34,6 +34,16 @@ import { MechanicPage } from "../components/modules/mechanic/Mechanic";
 import { MechanicCreatePage } from "../components/modules/mechanic/CreateMechanic";
 import { MechanicsList } from "../components/modules/mechanic/MechanicList";
 
+import { VehiclesPage } from "../components/modules/vehicle/VehiclesPage";
+import { VehiclePage } from "../components/modules/vehicle/Vehicle";
+import { VehicleCreatePage } from "../components/modules/vehicle/CreateVehicle";
+import { VehicleList } from "../components/modules/vehicle/VehicleList";
+
+import { TrailersPage } from "../components/modules/trailer/TrailersPage";
+import { TrailerPage } from "../components/modules/trailer/Trailer";
+import { TrailerCreatePage } from "../components/modules/trailer/CreateTrailer";
+import { TrailerList } from "../components/modules/trailer/TrailerList";
+
 export const MainRouter = () => {
   const navigate = useNavigate();
   return (
@@ -94,6 +104,18 @@ export const MainRouter = () => {
             <Route index element={<MechanicsList />} />;
             <Route path={`create`} element={<MechanicCreatePage />} />
             <Route path={`:mechanicId`} element={<MechanicPage />} />
+          </Route>
+          {/* VEHICLES ROUTES */}
+          <Route path={ROUTES.VEHICLE} element={<VehiclesPage />}>
+            <Route index element={<VehicleList />} />;
+            <Route path={`create`} element={<VehicleCreatePage />} />
+            <Route path={`:vehicleId`} element={<VehiclePage />} />
+          </Route>
+          {/* TRAILERS ROUTES */}
+          <Route path={ROUTES.TRAILER} element={<TrailersPage />}>
+            <Route index element={<TrailerList />} />;
+            <Route path={`create`} element={<TrailerCreatePage />} />
+            <Route path={`:trailerId`} element={<TrailerPage />} />
           </Route>
           {/* USERS ROUTE */}
           <Route path={`/client/users`} element={<UsersPage />}>

@@ -19,6 +19,7 @@ export const TrailerActionTypes = keyMirror({
   GET_TRAILER_LIST_REQUEST: undefined,
   GET_TRAILER_LIST_SUCCESS: undefined,
   GET_TRAILER_LIST_FAILURE: undefined,
+  SET_CURRENT_CARRIER_TRAILER: undefined,
 });
 
 // get vehicle
@@ -126,6 +127,13 @@ export const getTrailerListSuccess = createAction(
 
 export const getTrailerListFailed = createAction(
   TrailerActionTypes.GET_TRAILER_LIST_FAILURE,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+export const setCurrentCarrierTrailer = createAction(
+  TrailerActionTypes.SET_CURRENT_CARRIER_TRAILER,
   (payload: any) => {
     return actionPayload(payload);
   }

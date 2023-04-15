@@ -1,5 +1,6 @@
 import { all, put, takeLatest, call } from "redux-saga/effects";
 import request from "../utils/requestCarrier";
+import { notification } from "antd";
 import { DriverGroupActionTypes } from "../actions/driver_group";
 import {
   getDriverGroupSuccess,
@@ -16,6 +17,13 @@ import {
   getDriverGroupListRootFailed,
   setCurrentDriverGroupCarrier,
 } from "../actions";
+
+notification.config({
+  placement: "topRight",
+  bottom: 50,
+  duration: 5,
+  // rtl: true,
+});
 
 export function* getDriverGroupSaga({ payload }: any): any {
   try {
@@ -46,8 +54,14 @@ export function* createDriverGroupSaga({ payload }: any): any {
     );
     yield put(createDriverGroupSuccess({}));
     payload.onSuccess();
+    yield call(notification.success, {
+      message: "Driver group created successfully",
+    });
   } catch (e: any) {
     yield put(createDriverGroupFailed(e.message));
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
   }
 }
 
@@ -72,8 +86,14 @@ export function* updateDriverGroupSaga({ payload }: any): any {
         driverId: payload.driverGroupId,
       },
     });
+    yield call(notification.success, {
+      message: "Driver group updated successfully",
+    });
   } catch (e: any) {
     yield put(updateDriverGroupFailed(e.message));
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
   }
 }
 
@@ -81,8 +101,14 @@ export function* deleteDriverGroupSaga({ payload }: any): any {
   try {
     const { data } = yield call(request.delete, `/driver_group/${payload.id}`);
     yield put(deleteDriverGroupSuccess(data));
+    yield call(notification.success, {
+      message: "Driver group deleted successfully",
+    });
   } catch (e: any) {
     yield put(deleteDriverGroupFailed(e.message));
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
   }
 }
 

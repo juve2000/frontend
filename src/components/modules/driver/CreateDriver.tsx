@@ -157,11 +157,6 @@ export const DriverCreatePage = () => {
     );
   };
 
-  // React.useEffect(() => {
-  //   form.setFieldsValue(carrier);
-  //   setInitialValues({ ...initialValues, ...carrier });
-  // }, [carrier]);
-
   return (
     <>
       <Row style={{ paddingLeft: 23, paddingRight: 25, height: "100%" }}>
@@ -189,6 +184,9 @@ export const DriverCreatePage = () => {
               }}
               onFinish={handleSubmit}
               initialValues={initialValues}
+              onChange={() => {
+                console.log("form values", form.getFieldsValue());
+              }}
             >
               {carrierForm({}).map((field: any, i: number) => {
                 if (field.type === InputType.ADD_DYNAMIC) {

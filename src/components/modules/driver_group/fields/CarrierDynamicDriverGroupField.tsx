@@ -26,7 +26,7 @@ export const CarrierDynamicDriverGroupField = (props: any) => {
     span = 24,
     fields = [],
     isRequired = false,
-
+    isReadonlyCarrier = false,
     form,
   } = props;
 
@@ -57,6 +57,7 @@ export const CarrierDynamicDriverGroupField = (props: any) => {
         name={DriverField.CARRIER}
         title={"Carrier*"}
         options={carrierOptions}
+        isReadonlyCarrier={isReadonlyCarrier}
         span={span}
         width={"100%"}
         onChange={(id: any) => {

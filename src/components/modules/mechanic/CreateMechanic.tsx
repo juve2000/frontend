@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { createCarrierReq, getCarriersListReq } from "../../../actions/carrier";
+import { getCarriersListReq } from "../../../actions/carrier";
 
 import { Row, Col, Form, Button, Input, Spin } from "antd";
 import { CommonInput } from "../../common/inputs";
 import { mechanicForm } from "./mechanic-form";
-import { Graph } from "../../common/graph/Graph";
 import { InputType } from "../../../constants/inputs";
 import { getDocumentByType } from "./constant";
 
 import {
-  updateDriverReq,
-  getDriverReq,
-  createDriverReq,
-  setCurrentCarrier,
-} from "../../../actions/driver";
+  updateMechanicReq,
+  createMechanicReq,
+  setCurrentMechanicCarrier,
+} from "../../../actions/mechanic";
 
 function buildFormData(formData: any, data: any, parentKey?: any) {
   if (
@@ -51,7 +49,7 @@ export const MechanicCreatePage = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const { loading, driver, currentCarrier } = useSelector(
-    (state: any) => state.driver
+    (state: any) => state.mechanic
   );
   const { loading: carrierLoading, carrierList } = useSelector(
     (state: any) => state.carrier
@@ -61,35 +59,13 @@ export const MechanicCreatePage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const [initialValues, setInitialValues] = useState({
-    name: "",
-    usdot: "",
+    first_name: "",
+    last_name: "",
     phone: "",
-    mcnumber: "",
     email: "",
-    person: "",
     status: null,
     notes: "",
-    email_second: "",
-    measurement_system: null,
-    dst: null,
-    first_day: null,
-    compliance_mode: null,
-    motion_treshold: null,
-    cargo_type: [],
-    restart: null,
-    rest_break: null,
-    short_haul: false,
-    personal_conveyance: false,
-    adverse_conditions: false,
-    unlimited_documents: false,
-    unlimited_trailers: false,
-    yard_move: false,
-    exempt_driver: false,
-    exempt_driver_notice: false,
-    period_starting_time: "",
-    motion_trashhold: "",
     terminal: null,
-    driver_group: null,
     password: "",
   });
 
@@ -107,10 +83,6 @@ export const MechanicCreatePage = () => {
     form.setFieldsValue({
       ...form.getFieldsValue(),
       ...(!currentCarrier.defaultSavedCarrier ? currentCarrier?.settings : {}),
-      cargo_type: form.getFieldValue("cargo_type"),
-      driver_group: currentCarrier?.defaultSavedCarrier
-        ? form.getFieldValue("driver_group")
-        : null,
     });
   }, [currentCarrier]);
 
@@ -120,52 +92,21 @@ export const MechanicCreatePage = () => {
       .substring(1);
     const data = jsonToFormData({
       ...values,
-      company: user.company.id,
-      cdl_state: `${values.cdl_state}`,
-      offices: [...user.offices].map((office) => office.id),
-      documents: [
-        ...(values?.documents_MC?.length > 0
-          ? values?.documents_MC?.map((doc: any) => {
-              return {
-                type: getDocumentByType(doc.fileType),
-                file: doc.originFileObj,
-                driver: params.driverId,
-              };
-            })
-          : []),
-        ...(values?.documents_CDL?.length > 0
-          ? values?.documents_CDL?.map((doc: any) => {
-              return {
-                type: getDocumentByType(doc.fileType),
-                file: doc.originFileObj,
-                driver: params.driverId,
-              };
-            })
-          : []),
-      ],
-      documents_MC: undefined,
-      documents_CDL: undefined,
     });
     dispatch(
-      createDriverReq({
+      createMechanicReq({
         values: data,
         onSuccess: () => {
           form.setFieldsValue(initialValues);
-          setCurrentCarrier({});
+          dispatch(setCurrentMechanicCarrier({}));
         },
       })
     );
   };
 
-  // React.useEffect(() => {
-  //   form.setFieldsValue(carrier);
-  //   setInitialValues({ ...initialValues, ...carrier });
-  // }, [carrier]);
-
   return (
     <>
       <Row style={{ paddingLeft: 23, paddingRight: 25, height: "100%" }}>
-        {/* <Graph /> */}
         {loading ? (
           <div
             style={{
@@ -189,6 +130,9 @@ export const MechanicCreatePage = () => {
               }}
               onFinish={handleSubmit}
               initialValues={initialValues}
+              onChange={(vals: any) => {
+                console.log("form values", form.getFieldsValue());
+              }}
             >
               {mechanicForm({}).map((field: any, i: number) => {
                 if (field.type === InputType.ADD_DYNAMIC) {

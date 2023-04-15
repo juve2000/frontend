@@ -60,7 +60,7 @@ export const NameDriverFields = {
       hasGenerate: true,
       title: "Password*",
       rules: [getValidation(REQUIRED, "Status")],
-      placeholder: "Driver password",
+      placeholder: "Mechanic password",
       // options: carrierData.status,
       hasFeedback: true,
       span: 12,

@@ -20,6 +20,7 @@ import { SetPassword } from "./modals/CarrierSetPassword";
 
 import ResetSort from "../../../img/resetSort.svg";
 import ResetFilter from "../../../img/resetFilter.svg";
+import { LogoCarrier } from "../../common/LogoCarrier";
 
 export const DriverGroupList: React.FC = () => {
   const location = useLocation();
@@ -103,12 +104,17 @@ export const DriverGroupList: React.FC = () => {
         return (
           <div
             className="orange ubuntu"
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
             onClick={() => {
               navigate(`/client/carriers/${record?.carrier?.id}`);
             }}
           >
-            {`${record?.carrier?.name}`}
+            <LogoCarrier
+              logo={record?.carrier?.logo}
+              onClick={() => null}
+              styles={{ width: 30, height: 30 }}
+            />
+            <div style={{ marginLeft: 20 }}>{`${record?.carrier?.name}`}</div>
           </div>
         );
       },
@@ -261,7 +267,11 @@ export const DriverGroupList: React.FC = () => {
           }}
         />
         <Col span={12}>
-          <InputPageTitle fields={["Drivers"]} route="/client" driverGroups />
+          <InputPageTitle
+            fields={["Driver Group"]}
+            route="/client"
+            driverGroups
+          />
         </Col>
         <Col
           span={12}

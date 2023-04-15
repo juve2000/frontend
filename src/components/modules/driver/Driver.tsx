@@ -7,6 +7,7 @@ import {
   getDriverReq,
   setCurrentCarrier,
 } from "../../../actions/driver";
+import { CARRIER_SELECT_DISABLED } from "../../common/doubleinput/utils";
 
 import { Row, Col, Form, Button, Input, Spin } from "antd";
 import { CommonInput } from "../../common/inputs";
@@ -239,7 +240,24 @@ export const DriverPage = () => {
                 const field = {
                   ...fieldCurrent,
                   disabled: state === PAGE_STATUS.VIEW,
+                  isReadonlyCarrier: true,
                 };
+
+                if (CARRIER_SELECT_DISABLED.includes(field.type)) {
+                  return (
+                    <CommonInput
+                    currentIndex={currentIndex}
+                    fields={fields}
+
+                    key={i}
+                    setCurrentIndex={setCurrentIndex}
+                    {...field}
+                    form={form}
+                    isReadonlyCarrier={true}
+                  />
+                    // prettier-ignore
+                  );
+                }
 
                 if (field.type === InputType.ADD_DYNAMIC) {
                   return (
