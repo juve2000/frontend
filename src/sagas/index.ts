@@ -10,6 +10,8 @@ import trailer from "./trailer";
 import eld from "./eld";
 import driver from "./driver";
 import carrier from "./carrier";
+import driver_group from "./driver_group";
+import mechanic from "./mechanic";
 
 /**
  * rootSaga
@@ -26,5 +28,7 @@ export default function* root() {
     fork(eld),
     fork(driver),
     fork(carrier),
+    fork(driver_group),
+    fork(mechanic),
   ]);
 }

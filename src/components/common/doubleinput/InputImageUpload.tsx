@@ -52,11 +52,16 @@ export const InputImageUploadV2 = (props: any) => {
         )
       ) : null}
       <Row>
-        <Col span={6}>
+        <Col span={4}>
           {form.getFieldValue(name) && (
             <>
               <img
-                style={{ width: "80%", borderRadius: 10, cursor: "pointer" }}
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: "50%",
+                  cursor: "pointer",
+                }}
                 src={ENV + form.getFieldValue(name)}
                 onClick={() => setIsModalOpen(true)}
               />
@@ -75,7 +80,7 @@ export const InputImageUploadV2 = (props: any) => {
             </>
           )}
         </Col>
-        <Col span={18}>
+        <Col span={20}>
           <Form.Item
             rules={rules}
             name={name}

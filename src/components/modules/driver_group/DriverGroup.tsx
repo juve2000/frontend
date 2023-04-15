@@ -3,16 +3,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, useLocation, useSearchParams } from "react-router-dom";
 import { getCarriersListReq } from "../../../actions/carrier";
 import {
-  updateDriverReq,
-  getDriverReq,
-  setCurrentCarrier,
-} from "../../../actions/driver";
+  updateDriverGroupReq,
+  getDriverGroupReq,
+  setCurrentDriverGroupCarrier,
+} from "../../../actions/driver_group";
 
-import { Row, Col, Form, Button, Input, Spin } from "antd";
+import { Row, Col, Form, Button, Spin } from "antd";
 import { CommonInput } from "../../common/inputs";
-import { carrierForm } from "./carrier-form";
+import { driverGroupForm } from "./driver-group-form";
 import { InputType } from "../../../constants/inputs";
-import { PAGE_STATUS, getDocumentByType } from "./constant";
+import { PAGE_STATUS } from "./constant";
 
 function buildFormData(formData: any, data: any, parentKey?: any) {
   if (
@@ -43,47 +43,23 @@ function jsonToFormData(data: any) {
   return formData;
 }
 
-export const DriverPage = () => {
+export const DriverGroupPage = () => {
   const [form] = Form.useForm();
   const params = useParams();
   const location = useLocation();
   const [search, setSearch] = useSearchParams();
   const [state, setStateValue] = React.useState(search.get("state"));
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    console.log("params", params);
+  }, [params]);
   const [initialValues, setInitialValues] = useState({
     name: "",
-    usdot: "",
-    phone: "",
-    mcnumber: "",
-    email: "",
-    person: "",
-    status: null,
-    notes: "",
-    email_second: "",
-    measurement_system: null,
-    dst: null,
-    first_day: null,
-    compliance_mode: null,
-    motion_treshold: null,
-    cargo_type: [],
-    restart: null,
-    rest_break: null,
-    short_haul: false,
-    personal_conveyance: false,
-    adverse_conditions: false,
-    unlimited_documents: false,
-    unlimited_trailers: false,
-    yard_move: false,
-    exempt_driver: false,
-    exempt_driver_notice: false,
-    period_starting_time: "",
-    motion_trashhold: "",
-    terminal: null,
-    driver_group: null,
-    password: "",
+    carrier: null,
   });
-  const { loading, driver, currentCarrier } = useSelector(
-    (state: any) => state.driver
+  const { loading, driverGroup, currentCarrier } = useSelector(
+    (state: any) => state.driverGroup
   );
   const { loading: carrierLoading, carrierList } = useSelector(
     (state: any) => state.carrier
@@ -94,16 +70,19 @@ export const DriverPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    if (driver?.carrier?.id) {
+    if (driverGroup?.carrier?.id) {
       const foundCarrier = carrierList.find(
-        (carrier: any) => carrier.id === driver.carrier.id
+        (carrier: any) => carrier.id === driverGroup.carrier.id
       );
 
       dispatch(
-        setCurrentCarrier({ ...foundCarrier, defaultSavedCarrier: true })
+        setCurrentDriverGroupCarrier({
+          ...foundCarrier,
+          defaultSavedCarrier: true,
+        })
       );
     }
-  }, [carrierList, driver]);
+  }, [carrierList, driverGroup]);
 
   React.useEffect(() => {
     setStateValue(search.get("state"));
@@ -122,21 +101,17 @@ export const DriverPage = () => {
   useEffect(() => {
     form.setFieldsValue({
       ...form.getFieldsValue(),
-      ...(!currentCarrier.defaultSavedCarrier ? currentCarrier?.settings : {}),
-      cargo_type: form.getFieldValue("cargo_type"),
-      driver_group: currentCarrier?.defaultSavedCarrier
-        ? form.getFieldValue("driver_group")
-        : null,
+      // ...(!currentCarrier.defaultSavedCarrier ? currentCarrier?.settings : {}),
     });
   }, [currentCarrier]);
 
   useEffect(() => {
     dispatch(
-      getDriverReq({
-        driverId: params.driverid,
-        queryParams: {
-          with: ["terminal", "group", "carrier", "documents"],
-        },
+      getDriverGroupReq({
+        driverGroupId: params.driverGroupId,
+        // queryParams: {
+        //   with: ["terminal", "group", "carrier", "documents"],
+        // },
       })
     );
   }, []);
@@ -148,37 +123,12 @@ export const DriverPage = () => {
       .substring(1);
     const data = jsonToFormData({
       ...values,
-      company: user.company.id,
-      cdl_state: `${values.cdl_state}`,
-      offices: [...user.offices].map((office) => office.id),
-      documents: [
-        ...(values?.documents_MC?.length > 0
-          ? values?.documents_MC?.map((doc: any) => {
-              return {
-                type: getDocumentByType(doc.fileType) || 2,
-                file: doc.originFileObj,
-                driver: params.driverId,
-              };
-            })
-          : []),
-        ...(values?.documents_CDL?.length > 0
-          ? values?.documents_CDL?.map((doc: any) => {
-              return {
-                type: getDocumentByType(doc.fileType) || 1,
-                file: doc.originFileObj,
-                driver: params.driverId,
-              };
-            })
-          : []),
-      ],
-      documents_MC: undefined,
-      documents_CDL: undefined,
     });
 
     dispatch(
-      updateDriverReq({
+      updateDriverGroupReq({
         values: data,
-        driverId: params.driverid,
+        driverGroupId: params.driverGroupId,
       })
     );
   };
@@ -186,28 +136,19 @@ export const DriverPage = () => {
   React.useEffect(() => {
     setInitialValues({
       ...initialValues,
-      ...driver,
-      carrier: driver?.carrier?.id,
-      terminal: driver?.terminal?.id,
-      driver_group: driver?.group?.id,
-      cargo_type: driver?.cargo_type?.map((ct: any) => +ct),
+      ...driverGroup,
+      carrier: driverGroup?.carrier?.id,
     });
     form.setFieldsValue({
       ...initialValues,
-      ...driver,
-      carrier: driver?.carrier?.id,
-      terminal: driver?.terminal?.id,
-      driver_group: driver?.group?.id,
-      cargo_type: driver?.cargo_type?.map((ct: any) => +ct),
-      group: driver?.group?.id,
+      ...driverGroup,
+      carrier: driverGroup?.carrier?.id,
     });
-  }, [driver]);
+  }, [driverGroup]);
 
   return (
     <>
       <Row style={{ paddingLeft: 23, paddingRight: 25, height: "100%" }}>
-        {/* <Graph /> */}
-
         {loading ? (
           <div
             style={{
@@ -235,7 +176,7 @@ export const DriverPage = () => {
                 console.log("form values", form.getFieldsValue());
               }}
             >
-              {carrierForm({}).map((fieldCurrent: any, i: number) => {
+              {driverGroupForm({}).map((fieldCurrent: any, i: number) => {
                 const field = {
                   ...fieldCurrent,
                   disabled: state === PAGE_STATUS.VIEW,

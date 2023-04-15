@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, useLocation, useSearchParams } from "react-router-dom";
-import { getCarriersListReq } from "../../../actions/carrier";
-import {
-  updateDriverReq,
-  getDriverReq,
-  setCurrentCarrier,
-} from "../../../actions/driver";
+import { useParams } from "react-router-dom";
+import { createCarrierReq, getCarriersListReq } from "../../../actions/carrier";
 
 import { Row, Col, Form, Button, Input, Spin } from "antd";
 import { CommonInput } from "../../common/inputs";
-import { carrierForm } from "./carrier-form";
+import { mechanicForm } from "./mechanic-form";
+import { Graph } from "../../common/graph/Graph";
 import { InputType } from "../../../constants/inputs";
-import { PAGE_STATUS, getDocumentByType } from "./constant";
+import { getDocumentByType } from "./constant";
+
+import {
+  updateDriverReq,
+  getDriverReq,
+  createDriverReq,
+  setCurrentCarrier,
+} from "../../../actions/driver";
 
 function buildFormData(formData: any, data: any, parentKey?: any) {
   if (
@@ -43,13 +46,20 @@ function jsonToFormData(data: any) {
   return formData;
 }
 
-export const DriverPage = () => {
+export const MechanicCreatePage = () => {
   const [form] = Form.useForm();
   const params = useParams();
-  const location = useLocation();
-  const [search, setSearch] = useSearchParams();
-  const [state, setStateValue] = React.useState(search.get("state"));
   const dispatch = useDispatch();
+  const { loading, driver, currentCarrier } = useSelector(
+    (state: any) => state.driver
+  );
+  const { loading: carrierLoading, carrierList } = useSelector(
+    (state: any) => state.carrier
+  );
+  const { user } = useSelector((state: any) => state.auth);
+  const [fields, setFields] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const [initialValues, setInitialValues] = useState({
     name: "",
     usdot: "",
@@ -82,38 +92,12 @@ export const DriverPage = () => {
     driver_group: null,
     password: "",
   });
-  const { loading, driver, currentCarrier } = useSelector(
-    (state: any) => state.driver
-  );
-  const { loading: carrierLoading, carrierList } = useSelector(
-    (state: any) => state.carrier
-  );
-
-  const { user } = useSelector((state: any) => state.auth);
-  const [fields, setFields] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    if (driver?.carrier?.id) {
-      const foundCarrier = carrierList.find(
-        (carrier: any) => carrier.id === driver.carrier.id
-      );
-
-      dispatch(
-        setCurrentCarrier({ ...foundCarrier, defaultSavedCarrier: true })
-      );
-    }
-  }, [carrierList, driver]);
-
-  React.useEffect(() => {
-    setStateValue(search.get("state"));
-  }, [search]);
 
   React.useEffect(() => {
     dispatch(
       getCarriersListReq({
         queryParams: {
-          with: ["settings", "terminals", "driver_groups", "documents"],
+          with: ["settings", "terminals", "driver_groups"],
         },
       })
     );
@@ -130,19 +114,7 @@ export const DriverPage = () => {
     });
   }, [currentCarrier]);
 
-  useEffect(() => {
-    dispatch(
-      getDriverReq({
-        driverId: params.driverid,
-        queryParams: {
-          with: ["terminal", "group", "carrier", "documents"],
-        },
-      })
-    );
-  }, []);
-
   const handleSubmit = async (values: any) => {
-    console.log("values", values);
     const f = Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
@@ -155,7 +127,7 @@ export const DriverPage = () => {
         ...(values?.documents_MC?.length > 0
           ? values?.documents_MC?.map((doc: any) => {
               return {
-                type: getDocumentByType(doc.fileType) || 2,
+                type: getDocumentByType(doc.fileType),
                 file: doc.originFileObj,
                 driver: params.driverId,
               };
@@ -164,7 +136,7 @@ export const DriverPage = () => {
         ...(values?.documents_CDL?.length > 0
           ? values?.documents_CDL?.map((doc: any) => {
               return {
-                type: getDocumentByType(doc.fileType) || 1,
+                type: getDocumentByType(doc.fileType),
                 file: doc.originFileObj,
                 driver: params.driverId,
               };
@@ -174,40 +146,26 @@ export const DriverPage = () => {
       documents_MC: undefined,
       documents_CDL: undefined,
     });
-
     dispatch(
-      updateDriverReq({
+      createDriverReq({
         values: data,
-        driverId: params.driverid,
+        onSuccess: () => {
+          form.setFieldsValue(initialValues);
+          setCurrentCarrier({});
+        },
       })
     );
   };
 
-  React.useEffect(() => {
-    setInitialValues({
-      ...initialValues,
-      ...driver,
-      carrier: driver?.carrier?.id,
-      terminal: driver?.terminal?.id,
-      driver_group: driver?.group?.id,
-      cargo_type: driver?.cargo_type?.map((ct: any) => +ct),
-    });
-    form.setFieldsValue({
-      ...initialValues,
-      ...driver,
-      carrier: driver?.carrier?.id,
-      terminal: driver?.terminal?.id,
-      driver_group: driver?.group?.id,
-      cargo_type: driver?.cargo_type?.map((ct: any) => +ct),
-      group: driver?.group?.id,
-    });
-  }, [driver]);
+  // React.useEffect(() => {
+  //   form.setFieldsValue(carrier);
+  //   setInitialValues({ ...initialValues, ...carrier });
+  // }, [carrier]);
 
   return (
     <>
       <Row style={{ paddingLeft: 23, paddingRight: 25, height: "100%" }}>
         {/* <Graph /> */}
-
         {loading ? (
           <div
             style={{
@@ -227,26 +185,17 @@ export const DriverPage = () => {
               form={form}
               name="test"
               onError={(err) => {
-                console.log("err", err);
+                // console.log("err", err);
               }}
               onFinish={handleSubmit}
               initialValues={initialValues}
-              onChange={(values) => {
-                console.log("form values", form.getFieldsValue());
-              }}
             >
-              {carrierForm({}).map((fieldCurrent: any, i: number) => {
-                const field = {
-                  ...fieldCurrent,
-                  disabled: state === PAGE_STATUS.VIEW,
-                };
-
+              {mechanicForm({}).map((field: any, i: number) => {
                 if (field.type === InputType.ADD_DYNAMIC) {
                   return (
                     <CommonInput
                     currentIndex={currentIndex}
                     fields={fields}
-
                     key={i}
                     setCurrentIndex={setCurrentIndex}
                     {...field}
@@ -255,14 +204,8 @@ export const DriverPage = () => {
                     // prettier-ignore
                   );
                 }
-                return (
-                  <CommonInput
-                    key={i}
-                    {...field}
-                    form={form}
-                    showDocsList={true}
-                  />
-                );
+                // prettier-ignore
+                return <CommonInput key={i} {...field} form={form} />
               })}
               <Form.Item style={{ width: "100%", display: "flex" }}>
                 <Button
@@ -271,7 +214,7 @@ export const DriverPage = () => {
                   className="orange"
                   style={{ width: "65px", marginRight: 12 }}
                 >
-                  Save
+                  Submit
                 </Button>
                 <Button
                   className="grey"

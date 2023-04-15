@@ -24,6 +24,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getLoggedInUserReq());
+    console.log("env", process.env.REACT_APP_API);
   }, []);
 
   if (loading) {

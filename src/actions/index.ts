@@ -13,3 +13,5 @@ export * from "./driver";
 export * from "./report";
 export * from "./unit";
 export * from "./carrier";
+export * from "./driver_group";
+export * from "./mechanic";

@@ -21,6 +21,9 @@ import { InputMultiUploadV2 } from "./InputMultiUpload";
 // DriverDocumentsList
 import { DriverDocumentsList } from "../../modules/driver/fields/DriverDocumentsList";
 
+// Driver group
+import { CarrierDynamicDriverGroupField } from "../../modules/driver_group/fields/CarrierDynamicDriverGroupField";
+
 export const CommonInputV2 = (props: any) => {
   const { type } = props;
   switch (type) {
@@ -62,6 +65,9 @@ export const CommonInputV2 = (props: any) => {
       return <InputTimePickerV2 {...props} />;
     case InputType.DRIVER_SELECT_TERMINAL:
       return <InputDriverSelecetAdress {...props} />;
+    //DRIVER GROUP FIELDS
+    case InputType.CARRIER_DYNAMIC_DRIVER_GROUP:
+      return <CarrierDynamicDriverGroupField {...props} />;
     default:
       return null;
   }

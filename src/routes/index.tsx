@@ -24,6 +24,16 @@ import { UsersPage } from "../components/modules/user/UsersPage";
 import { UserPage } from "../components/modules/user/User";
 import { UsersList } from "../components/modules/user/UsersList";
 
+import { DriverGroupsPage } from "../components/modules/driver_group/DriverGroupPage";
+import { DriverGroupPage } from "../components/modules/driver_group/DriverGroup";
+import { DriverGroupCreatePage } from "../components/modules/driver_group/CreateDriverGroup";
+import { DriverGroupList } from "../components/modules/driver_group/DriverGroupList";
+
+import { MechanicsPage } from "../components/modules/mechanic/MechanicsPage";
+import { MechanicPage } from "../components/modules/mechanic/Mechanic";
+import { MechanicCreatePage } from "../components/modules/mechanic/CreateMechanic";
+import { MechanicsList } from "../components/modules/mechanic/MechanicList";
+
 export const MainRouter = () => {
   const navigate = useNavigate();
   return (
@@ -72,6 +82,18 @@ export const MainRouter = () => {
             <Route index element={<DriversList />} />;
             <Route path={`create`} element={<DriverCreatePage />} />
             <Route path={`:driverid`} element={<DriverPage />} />
+          </Route>
+          {/* DRIVER GROUP ROUTES */}
+          <Route path={ROUTES.DRIVER_GROUP} element={<DriverGroupsPage />}>
+            <Route index element={<DriverGroupList />} />;
+            <Route path={`create`} element={<DriverGroupCreatePage />} />
+            <Route path={`:driverGroupId`} element={<DriverGroupPage />} />
+          </Route>
+          {/* MECHANIC ROUTES */}
+          <Route path={ROUTES.MECHANIC} element={<MechanicsPage />}>
+            <Route index element={<MechanicsList />} />;
+            <Route path={`create`} element={<MechanicCreatePage />} />
+            <Route path={`:mechanicId`} element={<MechanicPage />} />
           </Route>
           {/* USERS ROUTE */}
           <Route path={`/client/users`} element={<UsersPage />}>

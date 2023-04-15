@@ -3,190 +3,187 @@ import { createReducer } from "@reduxjs/toolkit";
 import { STATUS } from "../literals";
 
 import {
-  getDriverReq,
-  getDriverSuccess,
-  getDriverFailed,
-  createDriverReq,
-  createDriverSuccess,
-  createDriverFailed,
-  updateDriverReq,
-  updateDriverSuccess,
-  updateDriverFailed,
-  deleteDriverReq,
-  deleteDriverSuccess,
-  deleteDriverFailed,
-  getDriverListReq,
-  getDriverListSuccess,
-  getDriverListFailed,
-  setCurrentCarrier,
-  deleteDriverDocumentReq,
-  deleteDriverDocumentSuccess,
-  deleteDriverDocumentFailed,
+  getMechanicReq,
+  getMechanicSuccess,
+  getMechanicFailed,
+  createMechanicReq,
+  createMechanicSuccess,
+  createMechanicFailed,
+  updateMechanicReq,
+  updateMechanicSuccess,
+  updateMechanicFailed,
+  deleteMechanicReq,
+  deleteMechanicSuccess,
+  deleteMechanicFailed,
+  getMechanicListReq,
+  getMechanicListSuccess,
+  getMechanicListFailed,
+  setCurrentMechanicCarrier,
+  getMechanicListRootReq,
+  getMechanicListRootSuccess,
+  getMechanicListRootFailed,
 } from "../actions";
 
 // import { UserState } from "../types";
 
-export const driverState = {
+export const mechanicState = {
   status: STATUS.IDLE,
-  driver: {},
-  driverList: [],
+  mechanic: {},
+  mechanicList: [],
   loading: false,
   errorMessage: "",
   currentCarrier: {},
   documents: [],
-  documentsLoading: false,
+  mechanicListRoot: [],
 };
 
 export default {
-  driver: createReducer<any>(driverState, (builder) => {
-    // GET DRIVER
+  mechanic: createReducer<any>(mechanicState, (builder) => {
+    // GET MECHANIC
     builder
-      .addCase(getDriverReq, (state) => {
+      .addCase(getMechanicReq, (state) => {
         return {
           ...state,
           loading: true,
           errorMessage: "",
         };
       })
-      .addCase(getDriverSuccess, (state, { payload }) => {
+      .addCase(getMechanicSuccess, (state, { payload }) => {
         return {
           ...state,
-          driver: {
-            ...payload.data,
-            cargo_type: payload.data?.cargo_type?.map((ct: any) => +ct),
-          },
+          mechanic: payload.data,
           documents: payload.data?.documents,
           loading: false,
         };
       })
-      .addCase(getDriverFailed, (state, { payload }) => {
+      .addCase(getMechanicFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,
           loading: false,
         };
       });
-    // CREATE DRIVER
+    // CREATE MECHANIC
     builder
-      .addCase(createDriverReq, (state) => {
+      .addCase(createMechanicReq, (state) => {
         return {
           ...state,
           loading: true,
           errorMessage: "",
         };
       })
-      .addCase(createDriverSuccess, (state, { payload }) => {
+      .addCase(createMechanicSuccess, (state, { payload }) => {
         return {
           ...state,
-          driver: payload,
+          mechanic: payload,
           loading: false,
         };
       })
-      .addCase(createDriverFailed, (state, { payload }) => {
+      .addCase(createMechanicFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,
           loading: false,
         };
       });
-    // UPDATE DRIVER
+    // UPDATE MECHANIC
     builder
-      .addCase(updateDriverReq, (state) => {
+      .addCase(updateMechanicReq, (state) => {
         return {
           ...state,
           loading: true,
           errorMessage: "",
         };
       })
-      .addCase(updateDriverSuccess, (state, { payload }) => {
+      .addCase(updateMechanicSuccess, (state, { payload }) => {
         return {
           ...state,
           // driver: payload,
           loading: false,
         };
       })
-      .addCase(updateDriverFailed, (state, { payload }) => {
+      .addCase(updateMechanicFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,
           loading: false,
         };
       });
-    // DELETE DRIVER
+    // DELETE MECHANIC
     builder
-      .addCase(deleteDriverReq, (state) => {
+      .addCase(deleteMechanicReq, (state) => {
         return {
           ...state,
           loading: true,
           errorMessage: "",
         };
       })
-      .addCase(deleteDriverSuccess, (state, { payload }) => {
+      .addCase(deleteMechanicSuccess, (state, { payload }) => {
         return {
           ...state,
-          driver: payload,
+          mechanic: payload,
           loading: false,
         };
       })
-      .addCase(deleteDriverFailed, (state, { payload }) => {
+      .addCase(deleteMechanicFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,
           loading: false,
         };
       });
-    // GET LIST OF DRIVERS
+    // GET LIST OF MECHANIC
     builder
-      .addCase(getDriverListReq, (state) => {
+      .addCase(getMechanicListReq, (state) => {
         return {
           ...state,
           loading: true,
           errorMessage: "",
         };
       })
-      .addCase(getDriverListSuccess, (state, { payload }) => {
+      .addCase(getMechanicListSuccess, (state, { payload }) => {
         return {
           ...state,
-          driverList: payload.data,
+          mechanicList: payload.data,
           loading: false,
           count: payload?.params?.items?.count || 20,
         };
       })
-      .addCase(getDriverListFailed, (state, { payload }) => {
+      .addCase(getMechanicListFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,
           loading: false,
         };
       });
-    builder.addCase(setCurrentCarrier, (state, { payload }) => {
+    builder.addCase(setCurrentMechanicCarrier, (state, { payload }) => {
       return {
         ...state,
         currentCarrier: payload,
       };
     });
-    // DELETE DRIVER DOCUMENT
+    // GET LIST OF MECHANIC ROOT
     builder
-      .addCase(deleteDriverDocumentReq, (state) => {
+      .addCase(getMechanicListRootReq, (state) => {
         return {
           ...state,
-          documentsLoading: true,
+          loading: true,
           errorMessage: "",
         };
       })
-      .addCase(deleteDriverDocumentSuccess, (state, { payload }) => {
+      .addCase(getMechanicListRootSuccess, (state, { payload }) => {
         return {
           ...state,
-          documentsLoading: false,
-
-          documents: payload,
+          mechanicList: payload.data,
+          loading: false,
+          count: payload?.params?.items?.count || 10,
         };
       })
-      .addCase(deleteDriverDocumentFailed, (state, { payload }) => {
+      .addCase(getMechanicListRootFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,
-          documentsLoading: false,
+          loading: false,
         };
       });
   }),

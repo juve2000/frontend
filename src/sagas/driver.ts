@@ -12,10 +12,11 @@ import {
   deleteDriverFailed,
   getDriverListSuccess,
   getDriverListFailed,
+  deleteDriverDocumentFailed,
+  deleteDriverDocumentSuccess,
 } from "../actions";
 
 export function* getDriverSaga({ payload }: any): any {
-  console.log("PAYLOAD", payload);
   try {
     const { data } = yield call(request.get, `/driver/${payload.driverId}`, {
       params: payload.queryParams,
@@ -86,6 +87,27 @@ export function* getDriverListSaga({ payload }: any): any {
   }
 }
 
+export function* deleteDriverDocumentSaga({ payload }: any): any {
+  try {
+    const { data } = yield call(
+      request.delete,
+      `/driver_docs/${payload.documentId}`
+    );
+    const { data: dataDocs } = yield call(
+      request.get,
+      `/driver/${payload.driverId}`,
+      {
+        params: {
+          with: ["documents"],
+        },
+      }
+    );
+    yield put(deleteDriverDocumentSuccess(dataDocs.data.documents));
+  } catch (e: any) {
+    yield put(deleteDriverFailed(e.message));
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(DriverActionTypes.GET_DRIVER_REQUEST, getDriverSaga),
@@ -93,5 +115,9 @@ export default function* root() {
     takeLatest(DriverActionTypes.UPDATE_DRIVER_REQUEST, updateDriverSaga),
     takeLatest(DriverActionTypes.DELETE_DRIVER_REQUEST, deleteDriverSaga),
     takeLatest(DriverActionTypes.GET_DRIVER_LIST_REQUEST, getDriverListSaga),
+    takeLatest(
+      DriverActionTypes.DELETE_DRIVER_DOCUMENT_REQ,
+      deleteDriverDocumentSaga
+    ),
   ]);
 }

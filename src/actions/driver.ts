@@ -20,6 +20,9 @@ const ActionTypes = keyMirror({
   GET_DRIVER_LIST_SUCCESS: undefined,
   GET_DRIVER_LIST_FAILURE: undefined,
   SET_CURRENT_CARRIER: undefined,
+  DELETE_DRIVER_DOCUMENT_REQ: undefined,
+  DELETE_DRIVER_DOCUMENT_SUCCESS: undefined,
+  DELETE_DRIVER_DOCUMENT_FAILED: undefined,
 });
 
 export const DriverActionTypes = ActionTypes;
@@ -137,6 +140,28 @@ export const getDriverListFailed = createAction(
 
 export const setCurrentCarrier = createAction(
   ActionTypes.SET_CURRENT_CARRIER,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+// DELETE DRIVER DOCUMENT
+
+export const deleteDriverDocumentReq = createAction(
+  ActionTypes.DELETE_DRIVER_DOCUMENT_REQ,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+export const deleteDriverDocumentSuccess = createAction(
+  ActionTypes.DELETE_DRIVER_DOCUMENT_SUCCESS,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+export const deleteDriverDocumentFailed = createAction(
+  ActionTypes.DELETE_DRIVER_DOCUMENT_FAILED,
   (payload: any) => {
     return actionPayload(payload);
   }

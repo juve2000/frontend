@@ -90,6 +90,18 @@ export const SideBar = (props: any) => {
             "/drivers",
             <span className="icon-fi-rr-user"></span>
           ),
+          getItem(
+            "Driver Group",
+            "driver_group",
+            "/driver_group",
+            <span className="icon-fi-rr-folder"></span>
+          ),
+          getItem(
+            "Support Personal",
+            "mechanic",
+            "/mechanic",
+            <span className="icon-fi-rr-label"></span>
+          ),
         ]
       ),
       getItem(

@@ -23,10 +23,6 @@ export const InputMultiUploadV2 = (props: any) => {
   const isRequired = rules.find((rule: any) => rule.required);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  React.useEffect(() => {
-    console.log("props", props);
-  }, [props]);
-
   const normFile = (e: any) => {
     if (Array.isArray(e)) {
       return e;
@@ -70,30 +66,7 @@ export const InputMultiUploadV2 = (props: any) => {
         )
       ) : null}
       <Row>
-        {/* <Col span={6}>
-          {form.getFieldValue(name) && (
-            <>
-              <img
-                style={{ width: "80%", borderRadius: 10, cursor: "pointer" }}
-                src={"https://dev.hgrs.us/" + form.getFieldValue(name)}
-                onClick={() => setIsModalOpen(true)}
-              />
-              <Modal
-                // title="Basic Modal"
-                open={isModalOpen}
-                onOk={() => setIsModalOpen(true)}
-                onCancel={() => setIsModalOpen(false)}
-                footer={false}
-              >
-                <img
-                  style={{ width: "80%", borderRadius: 10 }}
-                  src={"https://dev.hgrs.us/" + form.getFieldValue(name)}
-                />
-              </Modal>
-            </>
-          )}
-        </Col> */}
-        <Col span={18}>
+        <Col span={span}>
           <Form.Item
             rules={[{ required: false }]}
             name={name}

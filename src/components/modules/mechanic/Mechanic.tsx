@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, useLocation, useSearchParams } from "react-router-dom";
 import { getCarriersListReq } from "../../../actions/carrier";
 import {
-  updateDriverReq,
-  getDriverReq,
-  setCurrentCarrier,
-} from "../../../actions/driver";
+  updateMechanicReq,
+  getMechanicReq,
+  setCurrentMechanicCarrier,
+} from "../../../actions/mechanic";
 
 import { Row, Col, Form, Button, Input, Spin } from "antd";
 import { CommonInput } from "../../common/inputs";
-import { carrierForm } from "./carrier-form";
+import { mechanicForm } from "./mechanic-form";
 import { InputType } from "../../../constants/inputs";
 import { PAGE_STATUS, getDocumentByType } from "./constant";
 
@@ -43,7 +43,7 @@ function jsonToFormData(data: any) {
   return formData;
 }
 
-export const DriverPage = () => {
+export const MechanicPage = () => {
   const [form] = Form.useForm();
   const params = useParams();
   const location = useLocation();
@@ -82,8 +82,8 @@ export const DriverPage = () => {
     driver_group: null,
     password: "",
   });
-  const { loading, driver, currentCarrier } = useSelector(
-    (state: any) => state.driver
+  const { loading, mechanic, currentCarrier } = useSelector(
+    (state: any) => state.mechanic
   );
   const { loading: carrierLoading, carrierList } = useSelector(
     (state: any) => state.carrier
@@ -94,16 +94,19 @@ export const DriverPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    if (driver?.carrier?.id) {
+    if (mechanic?.carrier?.id) {
       const foundCarrier = carrierList.find(
-        (carrier: any) => carrier.id === driver.carrier.id
+        (carrier: any) => carrier.id === mechanic?.carrier.id
       );
 
       dispatch(
-        setCurrentCarrier({ ...foundCarrier, defaultSavedCarrier: true })
+        setCurrentMechanicCarrier({
+          ...foundCarrier,
+          defaultSavedCarrier: true,
+        })
       );
     }
-  }, [carrierList, driver]);
+  }, [carrierList, mechanic]);
 
   React.useEffect(() => {
     setStateValue(search.get("state"));
@@ -132,10 +135,10 @@ export const DriverPage = () => {
 
   useEffect(() => {
     dispatch(
-      getDriverReq({
-        driverId: params.driverid,
+      getMechanicReq({
+        mechanicId: params.mechanicId,
         queryParams: {
-          with: ["terminal", "group", "carrier", "documents"],
+          // with: ["terminal", "group", "carrier", "documents"],
         },
       })
     );
@@ -148,37 +151,12 @@ export const DriverPage = () => {
       .substring(1);
     const data = jsonToFormData({
       ...values,
-      company: user.company.id,
-      cdl_state: `${values.cdl_state}`,
-      offices: [...user.offices].map((office) => office.id),
-      documents: [
-        ...(values?.documents_MC?.length > 0
-          ? values?.documents_MC?.map((doc: any) => {
-              return {
-                type: getDocumentByType(doc.fileType) || 2,
-                file: doc.originFileObj,
-                driver: params.driverId,
-              };
-            })
-          : []),
-        ...(values?.documents_CDL?.length > 0
-          ? values?.documents_CDL?.map((doc: any) => {
-              return {
-                type: getDocumentByType(doc.fileType) || 1,
-                file: doc.originFileObj,
-                driver: params.driverId,
-              };
-            })
-          : []),
-      ],
-      documents_MC: undefined,
-      documents_CDL: undefined,
     });
 
     dispatch(
-      updateDriverReq({
+      updateMechanicReq({
         values: data,
-        driverId: params.driverid,
+        mechanicId: params.mechanicid,
       })
     );
   };
@@ -186,22 +164,17 @@ export const DriverPage = () => {
   React.useEffect(() => {
     setInitialValues({
       ...initialValues,
-      ...driver,
-      carrier: driver?.carrier?.id,
-      terminal: driver?.terminal?.id,
-      driver_group: driver?.group?.id,
-      cargo_type: driver?.cargo_type?.map((ct: any) => +ct),
+      ...mechanic,
+      carrier: mechanic?.carrier?.id,
+      terminal: mechanic?.terminal?.id,
     });
     form.setFieldsValue({
       ...initialValues,
-      ...driver,
-      carrier: driver?.carrier?.id,
-      terminal: driver?.terminal?.id,
-      driver_group: driver?.group?.id,
-      cargo_type: driver?.cargo_type?.map((ct: any) => +ct),
-      group: driver?.group?.id,
+      ...mechanic,
+      carrier: mechanic?.carrier?.id,
+      terminal: mechanic?.terminal?.id,
     });
-  }, [driver]);
+  }, [mechanic]);
 
   return (
     <>
@@ -235,7 +208,7 @@ export const DriverPage = () => {
                 console.log("form values", form.getFieldsValue());
               }}
             >
-              {carrierForm({}).map((fieldCurrent: any, i: number) => {
+              {mechanicForm({}).map((fieldCurrent: any, i: number) => {
                 const field = {
                   ...fieldCurrent,
                   disabled: state === PAGE_STATUS.VIEW,
