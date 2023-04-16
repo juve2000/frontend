@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Input, Col, Row } from "antd";
 import { CommonInputV2 } from "./index";
 import { InputType } from "../../../constants/inputs";
-import { CARRIER_SELECT_DISABLED } from "./utils";
+import { CARRIER_SELECT_DISABLED, EDIT_DISABLAED_FIELDS } from "./utils";
 
 export const MultiInputV2 = (props: any) => {
   const {
@@ -21,6 +21,7 @@ export const MultiInputV2 = (props: any) => {
     form,
     showDocsList = false,
     isReadonlyCarrier = false,
+    isIdentificatorDisabled = false,
   } = props;
 
   return (
@@ -58,6 +59,20 @@ export const MultiInputV2 = (props: any) => {
                   key={i}
                   form={form}
                   disabled={disabled}
+                  isReadonlyCarrier={true}
+                />
+              );
+            }
+            if (
+              EDIT_DISABLAED_FIELDS.includes(field?.name) &&
+              isIdentificatorDisabled
+            ) {
+              return (
+                <CommonInputV2
+                  {...field}
+                  key={i}
+                  form={form}
+                  disabled={true}
                   isReadonlyCarrier={true}
                 />
               );

@@ -33,6 +33,7 @@ export const SideBar = (props: any) => {
     "mechanic",
     "vehicle",
     "trailer",
+    "device",
   ];
 
   const getDefaultKey = (pathname: string): any => {
@@ -132,6 +133,12 @@ export const SideBar = (props: any) => {
             "trailer",
             "/trailer",
             <span className="icon-fi-rr-folder"></span>
+          ),
+          getItem(
+            "Devices",
+            "device",
+            "/device",
+            <span className="icon-fi-rr-smartphone"></span>
           ),
         ]
       ),

@@ -237,7 +237,7 @@ export const DriverGroupList: React.FC = () => {
       getDriverGroupListReq({
         queryParams: {
           ...getParams(tableParams),
-          with: ["terminal", "carrier", "group"],
+          with: ["carrier"],
         },
       })
     );

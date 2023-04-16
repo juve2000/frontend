@@ -10,20 +10,17 @@ import {
   getCarrierPasswordReq,
 } from "../../../actions/carrier";
 import {
-  getVehicleListReq,
-  getVehicleListRootReq,
+  getDeviceListReq,
   // getCarrierPasswordReq,
-} from "../../../actions/vehicle";
+} from "../../../actions/device";
 import { getParams } from "../../../routes/utils";
 import { InputSearch } from "../../common/doubleinput/InputSearch";
 import { getOrderFromTableParams } from "../../../hooks/utils";
 import { InputPageTitle } from "../../common/doubleinput/InputPageTitle";
-import { SetPassword } from "./modals/CarrierSetPassword";
-import { InputCallToCall } from "../../common/doubleinput/InputCallToCall";
 
 import ResetSort from "../../../img/resetSort.svg";
 import ResetFilter from "../../../img/resetFilter.svg";
-import { carrierData } from "./constant";
+import { carrierData } from "../driver/constant";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 // generateArrayOfYears
 import { generateArrayOfYears } from "../../../hooks/utils";
@@ -31,7 +28,7 @@ import { LogoCarrier } from "../../common/LogoCarrier";
 
 dayjs.extend(customParseFormat);
 
-export const VehicleList: React.FC = () => {
+export const DeviceList: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -48,11 +45,11 @@ export const VehicleList: React.FC = () => {
     clearCustomFilter,
     setCustomFilter,
   } = useTableParams({});
-  const vehicles = useSelector((state: any) => state.vehicle.vehicleList);
+  const devices = useSelector((state: any) => state.device.deviceList);
   const carriers = useSelector((state: any) => state.carrier.carrierList);
 
-  const count = useSelector((state: any) => state.vehicle.count);
-  const loading = useSelector((state: any) => state.vehicle.loading);
+  const count = useSelector((state: any) => state.device.count);
+  const loading = useSelector((state: any) => state.device.loading);
   const [accautnModalOpen, setAccauntModalOpen] = useState(false);
   const [currentCarrier, setCurrentCarrier] = useState({
     id: "",
@@ -72,12 +69,12 @@ export const VehicleList: React.FC = () => {
   const columns: ColumnsType<any> = [
     Table.SELECTION_COLUMN,
     {
-      title: "Vehicle ID",
-      key: "identificator",
-      dataIndex: "identificator",
-      sortOrder: getOrderFromTableParams("identificator", tableParams),
+      title: "Device Name",
+      key: "name",
+      dataIndex: "name",
+      sortOrder: getOrderFromTableParams("name", tableParams),
       sorter: {
-        compare: (a: any, b: any) => a.identificator - b.identificator,
+        compare: (a: any, b: any) => a.name - b.name,
         multiple: 5,
       },
       render: (name, record, index) => {
@@ -88,7 +85,7 @@ export const VehicleList: React.FC = () => {
               navigate(`${location.pathname}/${record.id}`);
             }}
           >
-            {`${record.identificator}`}
+            {`${record.name}`}
           </div>
         );
       },
@@ -96,21 +93,75 @@ export const VehicleList: React.FC = () => {
       ellipsis: true,
     },
     {
-      title: "VIN",
-      dataIndex: "vin",
-      key: "vin",
-      sortOrder: getOrderFromTableParams("vin", tableParams),
+      title: "Device Type",
+      dataIndex: "type",
+      key: "type",
+      sortOrder: getOrderFromTableParams("type", tableParams),
       sorter: {
-        compare: (a: any, b: any) => a.email - b.email,
+        compare: (a: any, b: any) => a.type - b.type,
         multiple: 5,
       },
+      filters: [1, 2, 3].map((st: any) => {
+        return {
+          text: st,
+          value: st,
+        };
+      }),
+      filteredValue: tableParams?.filters?.type || null,
       render: (name, record, index) => {
         return (
           <div
             className="ubuntu orange"
             style={{ color: "#141029", cursor: "pointer" }}
           >
-            {`${record.vin}`}
+            {`${record.type}`}
+          </div>
+        );
+      },
+      ellipsis: true,
+      width: "20%",
+    },
+    {
+      title: "Serial Number",
+      key: "serial_number",
+      dataIndex: "serial_number",
+      sortOrder: getOrderFromTableParams("serial_number", tableParams),
+      sorter: {
+        compare: (a: any, b: any) => a.serial_number - b.serial_number,
+        multiple: 5,
+      },
+      render: (name, record, index) => {
+        return (
+          <div
+            className="orange ubuntu"
+            onClick={() => {
+              navigate(`${location.pathname}/${record.id}`);
+            }}
+          >
+            {`${record.serial_number}`}
+          </div>
+        );
+      },
+      width: 300,
+      ellipsis: true,
+    },
+    {
+      title: "MAC Address",
+      dataIndex: "mac_address",
+      key: "mac_address",
+      sortOrder: getOrderFromTableParams("mac_address", tableParams),
+      sorter: {
+        compare: (a: any, b: any) => a.mac_address - b.mac_address,
+        multiple: 5,
+      },
+
+      render: (name, record, index) => {
+        return (
+          <div
+            className="ubuntu orange"
+            style={{ color: "#141029", cursor: "pointer" }}
+          >
+            {`${record.mac_address}`}
           </div>
         );
       },
@@ -184,32 +235,7 @@ export const VehicleList: React.FC = () => {
 
       filteredValue: tableParams?.filters?.carrier || null,
     },
-    {
-      title: "Make",
-      dataIndex: "make",
-      sortOrder: getOrderFromTableParams("make", tableParams),
-      key: "make",
-      sorter: {
-        compare: (a: any, b: any) => a.make - b.make,
-        multiple: 5,
-      },
-      width: "10%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return (
-          <div className="orange ubuntu" style={{ cursor: "pointer" }}>
-            {`${record?.make}`}
-          </div>
-        );
-      },
-      filters: generateArrayOfYears().map((st: any) => {
-        return {
-          text: st,
-          value: st,
-        };
-      }),
-      filteredValue: tableParams?.filters?.make || null,
-    },
+
     {
       title: "Model",
       dataIndex: "model",
@@ -228,7 +254,7 @@ export const VehicleList: React.FC = () => {
           </div>
         );
       },
-      filters: generateArrayOfYears().map((st: any) => {
+      filters: [1, 2, 3].map((st: any) => {
         return {
           text: st,
           value: st,
@@ -236,79 +262,7 @@ export const VehicleList: React.FC = () => {
       }),
       filteredValue: tableParams?.filters?.model || null,
     },
-    {
-      title: "Fuel Type",
-      dataIndex: "fuel_type",
-      sortOrder: getOrderFromTableParams("fuel_type", tableParams),
-      key: "fuel_type",
-      sorter: {
-        compare: (a: any, b: any) => a.fuel_type - b.fuel_type,
-        multiple: 5,
-      },
-      width: "25%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return (
-          <div className="orange ubuntu" style={{ cursor: "pointer" }}>
-            {`${record?.fuel_type}`}
-          </div>
-        );
-      },
-      filters: generateArrayOfYears().map((st: any) => {
-        return {
-          text: st,
-          value: st,
-        };
-      }),
-      filteredValue: tableParams?.filters?.group || null,
-    },
-    {
-      title: "License No",
-      dataIndex: "license_issuing",
-      sortOrder: getOrderFromTableParams("license_issuing", tableParams),
-      sorter: {
-        compare: (a: any, b: any) => a.license_issuing - b.license_issuing,
-        multiple: 5,
-      },
-      key: "license_issuing",
-      // sorter: true,
-      render: (value, record, index) => {
-        return <div>{record?.license_issuing}</div>;
-      },
-      width: "15%",
-      ellipsis: true,
-    },
-    {
-      title: "License Expiration",
-      dataIndex: "license_expiration",
-      sortOrder: getOrderFromTableParams("license_expiration", tableParams),
-      key: "license_expiration",
-      sorter: {
-        compare: (a: any, b: any) => a.cdl_state - b.cdl_state,
-        multiple: 5,
-      },
-      width: "9%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        const state = carrierData.states.find(
-          (st) => st.key === +record.cdl_state
-        );
-        const dateParsed = dayjs(record.license_expiration);
 
-        return (
-          <div
-            className="ubuntu"
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <span>{dateParsed.format("MM-DD-YYYY")} </span>
-            <span
-              className="icon-fi-rr-calendar"
-              style={{ marginLeft: "10px" }}
-            ></span>
-          </div>
-        );
-      },
-    },
     {
       title: "Status",
       dataIndex: "status",
@@ -388,13 +342,7 @@ export const VehicleList: React.FC = () => {
                   key: "3",
                   label: (
                     <div
-                      onClick={() => {
-                        setCurrentCarrier({
-                          id: record.id,
-                          name: record.name,
-                        });
-                        setAccauntModalOpen(true);
-                      }}
+                      onClick={() => {}}
                       style={{ display: "flex", alignItems: "center" }}
                     >
                       <span
@@ -417,7 +365,7 @@ export const VehicleList: React.FC = () => {
 
   useEffect(() => {
     dispatch(
-      getVehicleListRootReq({
+      getDeviceListReq({
         queryParams: {
           ...getParams(tableParams),
           with: ["terminal", "carrier", "group"],
@@ -430,11 +378,7 @@ export const VehicleList: React.FC = () => {
     <>
       <Row>
         <Col span={12}>
-          <InputPageTitle
-            fields={["Vehicles"]}
-            route="/client/vehicle"
-            vehicles
-          />
+          <InputPageTitle fields={["Devices"]} route="/client/device" devices />
         </Col>
         <Col
           span={12}
@@ -510,7 +454,7 @@ export const VehicleList: React.FC = () => {
       <Table
         columns={columns}
         rowKey={(record) => record.id}
-        dataSource={vehicles?.map((carrier: any, index: any) => {
+        dataSource={devices?.map((carrier: any, index: any) => {
           return {
             ...carrier,
           };

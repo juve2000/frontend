@@ -224,7 +224,7 @@ export const MechanicsList: React.FC = () => {
     },
 
     {
-      title: "status",
+      title: "Status",
       dataIndex: "status",
       sortOrder: getOrderFromTableParams("status", tableParams),
       key: "status",

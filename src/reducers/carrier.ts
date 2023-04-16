@@ -33,7 +33,7 @@ export const carrierState = {
   carrierList: [],
   loading: false,
   errorMessage: "",
-  count: 0,
+  count: 10,
 };
 
 export default {

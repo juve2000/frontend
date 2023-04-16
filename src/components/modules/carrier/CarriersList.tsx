@@ -154,7 +154,7 @@ export const CarriersList: React.FC = () => {
       ellipsis: true,
     },
     {
-      title: "status",
+      title: "Status",
       dataIndex: "status",
       sortOrder: getOrderFromTableParams("status", tableParams),
       key: "status",

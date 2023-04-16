@@ -107,10 +107,6 @@ export const MechanicPage = () => {
     form.setFieldsValue({
       ...form.getFieldsValue(),
       ...(!currentCarrier.defaultSavedCarrier ? currentCarrier?.settings : {}),
-      cargo_type: form.getFieldValue("cargo_type"),
-      driver_group: currentCarrier?.defaultSavedCarrier
-        ? form.getFieldValue("driver_group")
-        : null,
     });
   }, [currentCarrier]);
 
@@ -119,14 +115,13 @@ export const MechanicPage = () => {
       getMechanicReq({
         mechanicId: params.mechanicId,
         queryParams: {
-          // with: ["terminal", "group", "carrier", "documents"],
+          with: ["terminal", "group", "carrier", "documents"],
         },
       })
     );
   }, []);
 
   const handleSubmit = async (values: any) => {
-    console.log("values", values);
     const f = Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);

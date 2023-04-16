@@ -1,30 +1,9 @@
 import { InputType } from "../../../../constants/inputs";
-import {
-  VALIDATION_RULES,
-  validate,
-  VALIDATION_TYPE,
-  getValidation,
-} from "../../../../utils/validation";
-import {
-  carrierStatusOptions,
-  CarrierField,
-  carrierCheckboxGroup,
-  DriverField,
-  carrierData,
-} from "../constant";
+import { VALIDATION_TYPE, getValidation } from "../../../../utils/validation";
 
-const {
-  ALPHABETICAL,
-  REQUIRED,
-  MIN,
-  MAX,
-  NUMERIC,
-  PASSWORD,
-  EMAIL,
-  NOT_EMPTY,
-  NAME,
-  PHONE,
-} = VALIDATION_TYPE;
+import { carrierData, CarrierField } from "../../driver/constant";
+
+const { REQUIRED } = VALIDATION_TYPE;
 
 export const CarrierFieldInput = {
   type: InputType.CARRIER_DYNAMIC_VEHICLE,

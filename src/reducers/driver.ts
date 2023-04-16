@@ -35,6 +35,7 @@ export const driverState = {
   currentCarrier: {},
   documents: [],
   documentsLoading: false,
+  count: 10,
 };
 
 export default {
@@ -149,7 +150,7 @@ export default {
           ...state,
           driverList: payload.data,
           loading: false,
-          count: payload?.params?.items?.count || 20,
+          count: payload?.params?.items?.count || 10,
         };
       })
       .addCase(getDriverListFailed, (state, { payload }) => {

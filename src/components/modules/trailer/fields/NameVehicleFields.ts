@@ -11,11 +11,21 @@ import {
   CarrierField,
   carrierCheckboxGroup,
   carrierData,
-  VehicleField,
-} from "../constant";
+} from "../../driver/constant";
 
-const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL, NAME } =
-  VALIDATION_TYPE;
+import { TrailerField } from "../constant";
+
+const {
+  ALPHABETICAL,
+  REQUIRED,
+  MIN,
+  MAX,
+  NUMERIC,
+  PASSWORD,
+  EMAIL,
+  NAME,
+  ALPHABETICAL_NUMBERS,
+} = VALIDATION_TYPE;
 
 export const NameDriverFields = {
   type: InputType.MULTI,
@@ -24,7 +34,18 @@ export const NameDriverFields = {
   fields: [
     {
       type: InputType.TEXT_V2,
-      name: VehicleField.IDENTIFICATOR,
+      name: TrailerField.NAME,
+      label: "Trailer Name",
+      rules: [getValidation(REQUIRED, "name")],
+      placeholder: "Trailer Name",
+      hasFeedback: true,
+      title: "Trailer Name*",
+      span: 24,
+      width: "100%",
+    },
+    {
+      type: InputType.TEXT_V2,
+      name: TrailerField.IDENTIFICATOR,
       label: "Vehicle ID",
       rules: [getValidation(REQUIRED, "name")],
       placeholder: "Vehicle ID",
@@ -34,30 +55,30 @@ export const NameDriverFields = {
       width: "95%",
     },
 
-    // {
-    //   type: InputType.TEXT_V2,
-    //   name: VehicleField.MAKE,
-    //   rules: [getValidation(REQUIRED, "name")],
-
-    //   placeholder: "Make",
-    //   hasFeedback: true,
-    //   span: 12,
-    //   width: "100%",
-    //   title: "Make*",
-    // },
     {
       type: InputType.TEXT_V2,
-      name: VehicleField.MODEL,
-      // rules: [getValidation(REQUIRED, "username")],
-      placeholder: "Model",
+      name: TrailerField.MAKE,
+      rules: [getValidation(REQUIRED, "name")],
+
+      placeholder: "Make",
       hasFeedback: true,
       span: 12,
       width: "100%",
+      title: "Make*",
+    },
+    {
+      type: InputType.TEXT_V2,
+      name: TrailerField.MODEL,
+      rules: [getValidation(REQUIRED, "username")],
+      placeholder: "Model",
+      hasFeedback: true,
+      span: 12,
+      width: "95%",
       title: "Model*",
     },
     {
       type: InputType.SELECT_V2,
-      name: VehicleField.MAKE,
+      name: TrailerField.YEAR,
       hasGenerate: true,
       title: "Year*",
       rules: [getValidation(REQUIRED, "Status")],

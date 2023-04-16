@@ -146,7 +146,7 @@ export default {
           ...state,
           mechanicList: payload.data,
           loading: false,
-          count: payload?.params?.items?.count || 20,
+          count: payload?.params?.items?.count || 10,
         };
       })
       .addCase(getMechanicListFailed, (state, { payload }) => {

@@ -15,3 +15,4 @@ export * from "./unit";
 export * from "./carrier";
 export * from "./driver_group";
 export * from "./mechanic";
+export * from "./device";

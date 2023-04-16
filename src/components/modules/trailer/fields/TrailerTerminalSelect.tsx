@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, Row, Col, Select } from "antd";
-import { carrierData } from "../constant";
+// import { carrierData } from "../constant";
+import { carrierData } from "../../driver/constant";
 import { useSelector } from "react-redux";
 import { InputType } from "../../../../constants/inputs";
-import { DriverField } from "../constant";
+import { DriverField } from "../../driver/constant";
 import {
   validate,
   VALIDATION_TYPE,

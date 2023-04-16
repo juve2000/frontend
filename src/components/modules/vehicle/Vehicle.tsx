@@ -187,6 +187,7 @@ export const VehiclePage = () => {
                   ...fieldCurrent,
                   disabled: state === PAGE_STATUS.VIEW,
                   isReadonlyCarrier: true,
+                  isIdentificatorDisabled: true,
                 };
 
                 if (CARRIER_SELECT_DISABLED.includes(field.type)) {

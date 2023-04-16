@@ -1,33 +1,13 @@
 import { InputType } from "../../../constants/inputs";
-import {
-  VALIDATION_RULES,
-  validate,
-  VALIDATION_TYPE,
-  getValidation,
-} from "../../../utils/validation";
-import {
-  carrierStatusOptions,
-  CarrierField,
-  carrierCheckboxGroup,
-  DriverField,
-} from "./constant";
+
 import { NameDriverFields } from "./fields/NameVehicleFields";
-import {
-  GroupsStatusFields,
-  CarrierFieldInput,
-} from "./fields/VehicleStatusFields";
-import {
-  TerminalCarrierFields,
-  VehicleNotice,
-} from "./fields/TerminalCarrierFields";
+import { CarrierFieldInput } from "./fields/TrailerStatusFields";
+import { VehicleNotice } from "./fields/TerminalCarrierFields";
 
-import { DriverLicense } from "./fields/VehicleLicense";
-//MedicalCardDriverFields
+import { DriverLicense } from "./fields/TrailerLicense";
+import { TrailerTypeField } from "./fields/TrailerType";
 
-const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL } =
-  VALIDATION_TYPE;
-
-export const carrierForm = (options: any) => {
+export const trailerForm = (options: any) => {
   return [
     {
       type: InputType.PAGE_TITLE,
@@ -44,18 +24,9 @@ export const carrierForm = (options: any) => {
 
     //LICENSE
     { ...DriverLicense },
-    //MEDICAL CARD
     // // PREFERENCES
     { ...CarrierFieldInput },
     { ...VehicleNotice },
-
-    // // CARRIER TERMINAL
-    // {
-    //   type: InputType.TITLE,
-    //   label: "Adress & Timezone",
-    // },
-    // { ...TerminalCarrierFields },
+    { ...TrailerTypeField },
   ];
 };
-
-// const { rules = [], name = "", icon, placeholder = "", label = "" } = props;

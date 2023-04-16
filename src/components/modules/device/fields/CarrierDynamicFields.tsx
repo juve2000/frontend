@@ -1,28 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Col, Row } from "antd";
-// import { CommonInputV2 } from "./index";
 import { InputFetchCarrierSelectV2 } from "../../../common/doubleinput/InputFetchCarrierSelect";
 import { InputSelectV2 } from "../../../common/doubleinput";
-import { carrierData, DriverField } from "../../driver/constant";
-import { setCurrentVehicleCarrier } from "../../../../actions";
+import { carrierData } from "../../driver/constant";
+import { setCurrentDeviceCarrier } from "../../../../actions";
 
-import {
-  getValidation,
-  VALIDATION_TYPE,
-  validate,
-} from "../../../../utils/validation";
+import { getValidation, VALIDATION_TYPE } from "../../../../utils/validation";
+import { DeviceField } from "../constant";
 const { REQUIRED } = VALIDATION_TYPE;
 
-export const CarrierDynamicTrailerField = (props: any) => {
+export const CarrierDynamicDeviceField = (props: any) => {
   const { isRequired = false, isReadonlyCarrier = false, form } = props;
 
   const dispatch = useDispatch();
-  const { loading, trailer } = useSelector((state: any) => state.trailer);
+  const { loading, vehicle } = useSelector((state: any) => state.device);
   const { loading: carrierLoading, carrierList } = useSelector(
     (state: any) => state.carrier
   );
-  const { currentCarrier } = useSelector((state: any) => state.trailer);
+  const { currentCarrier } = useSelector((state: any) => state.device);
 
   // const [currentCarrier, setCurrentCarrier] = useState<any>({});
   const [carrierOptions, setCarrierOptions] = useState([]);
@@ -54,9 +50,9 @@ export const CarrierDynamicTrailerField = (props: any) => {
 
   const StatusProps = {
     name: "status",
-    title: "Trailer Status*",
+    title: "Vehicle Status*",
     rules: [getValidation(REQUIRED, "Status")],
-    placeholder: "Trailer Status",
+    placeholder: "Vehicle Status",
     hasFeedback: true,
     span: 12,
     width: "100%",
@@ -83,7 +79,7 @@ export const CarrierDynamicTrailerField = (props: any) => {
             <InputFetchCarrierSelectV2
               {...props}
               rules={[getValidation(REQUIRED, "Status")]}
-              name={DriverField.CARRIER}
+              name={DeviceField.CARRIER}
               title={"Carrier*"}
               placeholder="Carrier"
               options={carrierOptions}
@@ -97,7 +93,7 @@ export const CarrierDynamicTrailerField = (props: any) => {
                 form.setFieldValue("status", null);
 
                 dispatch(
-                  setCurrentVehicleCarrier({
+                  setCurrentDeviceCarrier({
                     ...foundCarrier,
                     defaultCarrier: false,
                   })

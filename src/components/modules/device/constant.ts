@@ -19,22 +19,16 @@ export const PAGE_STATUS = {
   EDIT: "EDIT",
 };
 
-export const TrailerField = {
-  NAME: "NAME",
-  IDENTIFICATOR: "identificator",
-  VIN: "vin",
-  MAKE: "make",
+export const DeviceField = {
+  identificator: "identificator",
+  TYPE: "type",
+  MAC_ADDRESS: "mac_address",
   MODEL: "model",
   FUEL_TYPE: "fuel_type",
   CARRIER: "carrier",
   STATUS: "status",
+  SERIAL_NUMBER: "serial_number",
+  FIRMWARE: "firmware",
   NOTES: "notes",
-  LICENSE_PLATE: "license_plate",
-  LICENSE_ISSUING: "license_issuing",
-  LICENSE_EXPIRATION: "license_expiration",
-  LICENSE_NUMBER: "license_number",
-  LICENSE_STATE: "license_state",
-  TYPE: "type",
-  OWNERSHIP: "ownership",
-  YEAR: "YEAR",
+  NAME: "name",
 };

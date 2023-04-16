@@ -26,6 +26,8 @@ import { CarrierDynamicDriverGroupField } from "../../modules/driver_group/field
 // Mechanid carrier select
 import { CarrierDynamicMechanicField } from "../../modules/mechanic/fields/CarrierDynamicFields";
 import { InputMechanicSelecetAdress } from "../../modules/mechanic/fields/DriverTerminalSelect";
+//CarrierDynamicDeviceField
+import { CarrierDynamicDeviceField } from "../../modules/device/fields/CarrierDynamicFields";
 
 export const CommonInputV2 = (props: any) => {
   const { type } = props;
@@ -76,6 +78,9 @@ export const CommonInputV2 = (props: any) => {
       return <CarrierDynamicMechanicField {...props} />;
     case InputType.MECHANIC_SELECT_TERMINAL:
       return <InputMechanicSelecetAdress {...props} />;
+    //DEVICE FIELDS
+    case InputType.CARRIER_DYNAMIC_DEVICE:
+      return <CarrierDynamicDeviceField {...props} />;
     default:
       return null;
   }

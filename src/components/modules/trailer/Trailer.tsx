@@ -11,9 +11,9 @@ import { CARRIER_SELECT_DISABLED } from "../../common/doubleinput/utils";
 
 import { Row, Col, Form, Button, Input, Spin } from "antd";
 import { CommonInput } from "../../common/inputs";
-import { carrierForm } from "./trailer-form";
+import { trailerForm } from "./trailer-form";
 import { InputType } from "../../../constants/inputs";
-import { PAGE_STATUS, getDocumentByType } from "./constant";
+import { PAGE_STATUS } from "./constant";
 import { jsonToFormData } from "../../../hooks/utils";
 
 export const TrailerPage = () => {
@@ -153,11 +153,12 @@ export const TrailerPage = () => {
                 console.log("form values", form.getFieldsValue());
               }}
             >
-              {carrierForm({}).map((fieldCurrent: any, i: number) => {
+              {trailerForm({}).map((fieldCurrent: any, i: number) => {
                 const field = {
                   ...fieldCurrent,
                   disabled: state === PAGE_STATUS.VIEW,
                   isReadonlyCarrier: true,
+                  isIdentificatorDisabled: true,
                 };
 
                 if (CARRIER_SELECT_DISABLED.includes(field.type)) {

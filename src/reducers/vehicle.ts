@@ -33,6 +33,7 @@ export const vehicleState = {
   loading: false,
   errorMessage: "",
   currentCarrier: {},
+  count: 10,
 };
 
 export default {
@@ -166,6 +167,7 @@ export default {
           ...state,
           vehicleList: payload,
           loading: false,
+          count: payload?.params?.items?.count || 10,
         };
       })
       .addCase(getVehicleListRootFailed, (state, { payload }) => {

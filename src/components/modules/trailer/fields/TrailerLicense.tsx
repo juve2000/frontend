@@ -14,8 +14,9 @@ import {
   DocumentType,
   getDocumentByType,
   getDocumentNameByType,
-  VehicleField,
-} from "../constant";
+} from "../../driver/constant";
+
+import { TrailerField } from "../constant";
 
 const {
   ALPHABETICAL,
@@ -44,7 +45,7 @@ export const DriverLicense = {
   fields: [
     {
       type: InputType.TEXT_V2,
-      name: VehicleField.VIN,
+      name: TrailerField.VIN,
       label: "VIN*",
       rules: [getValidation(REQUIRED, ""), validate("", VIN)],
       placeholder: "VIN",
@@ -54,19 +55,19 @@ export const DriverLicense = {
       width: "95%",
     },
     {
-      type: InputType.SELECT_V2,
-      name: VehicleField.FUEL_TYPE,
-      title: "Fuel Type*",
+      type: InputType.TEXT_V2,
+      name: TrailerField.LICENSE_NUMBER,
+      title: "License No*",
       rules: [getValidation(REQUIRED, "Fuel type")],
-      placeholder: "Fuel Type",
-      options: [{ key: "Gas", value: "Gas" }],
+      placeholder: "License No",
+      // options: [{ key: "Gas", value: "Gas" }],
       hasFeedback: true,
       span: 12,
       width: "100%",
     },
     {
       type: InputType.DATE_PICKER_SINGLE,
-      name: VehicleField.LICENSE_EXPIRATION,
+      name: TrailerField.LICENSE_EXPIRATION,
       title: "License Plate Expiration Date*",
       rules: [getValidation(REQUIRED, "Status")],
       placeholder: "License Plate Expiration Date",
@@ -77,7 +78,7 @@ export const DriverLicense = {
     },
     {
       type: InputType.SELECT_V2,
-      name: VehicleField.LICENSE_PLATE,
+      name: TrailerField.LICENSE_PLATE,
       title: "License Plate Issuing State*",
       rules: [getValidation(REQUIRED, "CDL Issuing State")],
       placeholder: "License Plate Issuing State",

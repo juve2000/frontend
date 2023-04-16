@@ -33,6 +33,7 @@ export const ClientLayout = () => {
     "mechanic",
     "vehicle",
     "trailer",
+    "device",
   ];
 
   const getLayout = React.useCallback(() => {

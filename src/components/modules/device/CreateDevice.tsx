@@ -5,20 +5,23 @@ import { getCarriersListReq } from "../../../actions/carrier";
 
 import { Row, Col, Form, Button, Input, Spin } from "antd";
 import { CommonInput } from "../../common/inputs";
-import { trailerForm } from "./trailer-form";
+import { deviceForm } from "./device-form";
 import { Graph } from "../../common/graph/Graph";
 import { InputType } from "../../../constants/inputs";
 
-import { createTrailerReq } from "../../../actions/trailer";
-import { jsonToFormData } from "../../../hooks/utils";
-import { setCurrentCarrierTrailer } from "../../../actions";
+import {
+  createDeviceReq,
+  setCurrentDeviceCarrier,
+} from "../../../actions/device";
 
-export const TrailerCreatePage = () => {
+import { jsonToFormData } from "../../../hooks/utils";
+
+export const DeviceCreatePage = () => {
   const [form] = Form.useForm();
   const params = useParams();
   const dispatch = useDispatch();
-  const { loading, trailer, currentCarrier } = useSelector(
-    (state: any) => state.trailer
+  const { loading, device, currentCarrier } = useSelector(
+    (state: any) => state.device
   );
   const { loading: carrierLoading, carrierList } = useSelector(
     (state: any) => state.carrier
@@ -28,17 +31,15 @@ export const TrailerCreatePage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const [initialValues, setInitialValues] = useState({
-    identificator: "",
-    vin: "",
-    make: null,
+    name: "",
     model: "",
-    fuel_type: null,
     carrier: null,
     status: null,
     notes: "",
-    license_plate: null,
-    license_issuing: "",
-    license_expiration: "",
+    mac_address: null,
+    serial_number: "",
+    type: null,
+    firmware: "",
   });
 
   React.useEffect(() => {
@@ -66,11 +67,11 @@ export const TrailerCreatePage = () => {
       ...values,
     });
     dispatch(
-      createTrailerReq({
+      createDeviceReq({
         values: data,
         onSuccess: () => {
           form.setFieldsValue(initialValues);
-          setCurrentCarrierTrailer({});
+          setCurrentDeviceCarrier({});
         },
       })
     );
@@ -107,7 +108,7 @@ export const TrailerCreatePage = () => {
                 console.log("form values", form.getFieldsValue());
               }}
             >
-              {trailerForm({}).map((field: any, i: number) => {
+              {deviceForm({}).map((field: any, i: number) => {
                 if (field.type === InputType.ADD_DYNAMIC) {
                   return (
                     <CommonInput

@@ -305,7 +305,7 @@ export const DriversList: React.FC = () => {
       filteredValue: tableParams?.filters?.group || null,
     },
     {
-      title: "status",
+      title: "Status",
       dataIndex: "status",
       sortOrder: getOrderFromTableParams("status", tableParams),
       key: "status",

@@ -1,21 +1,14 @@
 import { InputType } from "../../../../constants/inputs";
+import { DeviceField } from "../constant";
 
-import { TrailerField } from "../constant";
-
-export const TerminalCarrierFields = {
-  type: InputType.DRIVER_SELECT_TERMINAL,
-  label: "Terminal",
-  isRequired: true,
-};
-
-export const VehicleNotice = {
+export const DeviceNotice = {
   type: InputType.MULTI,
   label: "Notice",
   isRequired: false,
   fields: [
     {
       type: InputType.TEXT_AREA,
-      name: TrailerField.NOTES,
+      name: DeviceField.NOTES,
       label: "Notice",
       rules: [],
       placeholder: "Notice",
@@ -26,4 +19,10 @@ export const VehicleNotice = {
       styles: { height: "120px" },
     },
   ],
+};
+
+export const DeviceCarrier = {
+  type: InputType.CARRIER_DYNAMIC_DEVICE,
+  label: "Carrier",
+  isRequired: false,
 };

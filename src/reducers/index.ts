@@ -13,6 +13,7 @@ import report, { reportState } from "./report";
 import carrier, { carrierState } from "./carrier";
 import driverGroup, { driverGroupState } from "./driver_group";
 import mechanic, { mechanicState } from "./mechanic";
+import device, { deviceState } from "./device";
 
 export const initialState = {
   alerts: alertsState,
@@ -30,6 +31,7 @@ export const initialState = {
   carrier: carrierState,
   driverGroup: driverGroupState,
   mechanic: mechanicState,
+  device: deviceState,
 };
 
 export default {
@@ -48,4 +50,5 @@ export default {
   ...carrier,
   ...driverGroup,
   ...mechanic,
+  ...device,
 };

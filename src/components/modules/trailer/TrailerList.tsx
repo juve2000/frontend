@@ -6,10 +6,7 @@ import type { ColumnsType } from "antd/es/table";
 import { useTableParams } from "../../../hooks/useTableParams";
 import dayjs from "dayjs";
 import { getCarriersListReq } from "../../../actions/carrier";
-import {
-  getTrailerListReq,
-  // getCarrierPasswordReq,
-} from "../../../actions/trailer";
+import { getTrailerListReq } from "../../../actions/trailer";
 import { getParams } from "../../../routes/utils";
 import { InputSearch } from "../../common/doubleinput/InputSearch";
 import { getOrderFromTableParams } from "../../../hooks/utils";
@@ -17,9 +14,8 @@ import { InputPageTitle } from "../../common/doubleinput/InputPageTitle";
 
 import ResetSort from "../../../img/resetSort.svg";
 import ResetFilter from "../../../img/resetFilter.svg";
-import { carrierData } from "./constant";
+import { carrierData } from "../carrier/constant";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-// generateArrayOfYears
 import { generateArrayOfYears } from "../../../hooks/utils";
 import { LogoCarrier } from "../../common/LogoCarrier";
 
@@ -304,7 +300,7 @@ export const TrailerList: React.FC = () => {
       },
     },
     {
-      title: "status",
+      title: "Status",
       dataIndex: "status",
       sortOrder: getOrderFromTableParams("status", tableParams),
       key: "status",

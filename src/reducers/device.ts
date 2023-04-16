@@ -3,159 +3,156 @@ import { createReducer } from "@reduxjs/toolkit";
 import { STATUS } from "../literals";
 
 import {
-  getTrailerReq,
-  getTrailerSuccess,
-  getTrailerFailed,
-  createTrailerReq,
-  createTrailerSuccess,
-  createTrailerFailed,
-  updateTrailerReq,
-  updateTrailerSuccess,
-  updateTrailerFailed,
-  deleteTrailerReq,
-  deleteTrailerSuccess,
-  deleteTrailerFailed,
-  getTrailerListReq,
-  getTrailerListSuccess,
-  getTrailerListFailed,
-  setCurrentCarrierTrailer,
+  getDeviceReq,
+  getDeviceSuccess,
+  getDeviceFailed,
+  createDeviceReq,
+  createDeviceSuccess,
+  createDeviceFailed,
+  updateDeviceReq,
+  updateDeviceSuccess,
+  updateDeviceFailed,
+  deleteDeviceReq,
+  deleteDeviceSuccess,
+  deleteDeviceFailed,
+  getDeviceListReq,
+  getDeviceListSuccess,
+  getDeviceListFailed,
+  setCurrentDeviceCarrier,
 } from "../actions";
 
-// import { UserState } from "../types";
-
-export const trailerState = {
+export const deviceState = {
   status: STATUS.IDLE,
-  trailer: {},
-  trailerList: [],
+  device: {},
+  deviceList: [],
   loading: false,
   errorMessage: "",
   currentCarrier: {},
-  count: 10,
 };
 
 export default {
-  trailer: createReducer<any>(trailerState, (builder) => {
-    // GET TRAILER
+  device: createReducer<any>(deviceState, (builder) => {
+    // GET DEVICE
     builder
-      .addCase(getTrailerReq, (state) => {
+      .addCase(getDeviceReq, (state) => {
         return {
           ...state,
           loading: true,
           errorMessage: "",
         };
       })
-      .addCase(getTrailerSuccess, (state, { payload }) => {
+      .addCase(getDeviceSuccess, (state, { payload }) => {
         return {
           ...state,
-          trailer: payload,
+          device: {
+            ...payload.data,
+          },
           loading: false,
         };
       })
-      .addCase(getTrailerFailed, (state, { payload }) => {
+      .addCase(getDeviceFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,
           loading: false,
         };
       });
-    // CREATE TRAILER
+    // CREATE DEVICE
     builder
-      .addCase(createTrailerReq, (state) => {
+      .addCase(createDeviceReq, (state) => {
         return {
           ...state,
           loading: true,
           errorMessage: "",
         };
       })
-      .addCase(createTrailerSuccess, (state, { payload }) => {
+      .addCase(createDeviceSuccess, (state, { payload }) => {
         return {
           ...state,
-          trailer: payload,
+          device: payload,
           loading: false,
         };
       })
-      .addCase(createTrailerFailed, (state, { payload }) => {
+      .addCase(createDeviceFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,
           loading: false,
         };
       });
-    // UPDATE TRAILER
+    // UPDATE DEVICE
     builder
-      .addCase(updateTrailerReq, (state) => {
+      .addCase(updateDeviceReq, (state) => {
         return {
           ...state,
           loading: true,
           errorMessage: "",
         };
       })
-      .addCase(updateTrailerSuccess, (state, { payload }) => {
+      .addCase(updateDeviceSuccess, (state, { payload }) => {
         return {
           ...state,
-          trailer: payload,
+          // driver: payload,
           loading: false,
         };
       })
-      .addCase(updateTrailerFailed, (state, { payload }) => {
+      .addCase(updateDeviceFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,
           loading: false,
         };
       });
-    // DELETE TRAILER
+    // DELETE DEVICE
     builder
-      .addCase(deleteTrailerReq, (state) => {
+      .addCase(deleteDeviceReq, (state) => {
         return {
           ...state,
           loading: true,
           errorMessage: "",
         };
       })
-      .addCase(deleteTrailerSuccess, (state, { payload }) => {
+      .addCase(deleteDeviceSuccess, (state, { payload }) => {
         return {
           ...state,
-          trailer: payload,
+          device: payload,
           loading: false,
         };
       })
-      .addCase(deleteTrailerFailed, (state, { payload }) => {
+      .addCase(deleteDeviceFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,
           loading: false,
         };
       });
-    // GET LIST OF TRAILERS
+    // GET LIST OF DEVICES
     builder
-      .addCase(getTrailerListReq, (state) => {
+      .addCase(getDeviceListReq, (state) => {
         return {
           ...state,
           loading: true,
           errorMessage: "",
         };
       })
-      .addCase(getTrailerListSuccess, (state, { payload }) => {
+      .addCase(getDeviceListSuccess, (state, { payload }) => {
         return {
           ...state,
-          trailerList: payload,
+          deviceList: payload.data,
           loading: false,
           count: payload?.params?.items?.count || 10,
         };
       })
-      .addCase(getTrailerListFailed, (state, { payload }) => {
+      .addCase(getDeviceListFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,
           loading: false,
         };
       });
-    builder.addCase(setCurrentCarrierTrailer, (state, { payload }) => {
+    builder.addCase(setCurrentDeviceCarrier, (state, { payload }) => {
       return {
         ...state,
-        loading: true,
-        errorMessage: "",
         currentCarrier: payload,
       };
     });

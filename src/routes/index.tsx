@@ -44,6 +44,11 @@ import { TrailerPage } from "../components/modules/trailer/Trailer";
 import { TrailerCreatePage } from "../components/modules/trailer/CreateTrailer";
 import { TrailerList } from "../components/modules/trailer/TrailerList";
 
+import { DevicesPage } from "../components/modules/device/DevicesPage";
+import { DevicePage } from "../components/modules/device/Device";
+import { DeviceCreatePage } from "../components/modules/device/CreateDevice";
+import { DeviceList } from "../components/modules/device/DeviceList";
+
 export const MainRouter = () => {
   const navigate = useNavigate();
   return (
@@ -116,6 +121,12 @@ export const MainRouter = () => {
             <Route index element={<TrailerList />} />;
             <Route path={`create`} element={<TrailerCreatePage />} />
             <Route path={`:trailerId`} element={<TrailerPage />} />
+          </Route>
+          {/* DEVICES ROUTES */}
+          <Route path={ROUTES.DEVICE} element={<DevicesPage />}>
+            <Route index element={<DeviceList />} />;
+            <Route path={`create`} element={<DeviceCreatePage />} />
+            <Route path={`:deviceId`} element={<DevicePage />} />
           </Route>
           {/* USERS ROUTE */}
           <Route path={`/client/users`} element={<UsersPage />}>
