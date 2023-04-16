@@ -62,7 +62,7 @@ export const TrailerList: React.FC = () => {
   const columns: ColumnsType<any> = [
     Table.SELECTION_COLUMN,
     {
-      title: "Vehicle ID",
+      title: "Trailer ID",
       key: "identificator",
       dataIndex: "identificator",
       sortOrder: getOrderFromTableParams("identificator", tableParams),
@@ -226,32 +226,7 @@ export const TrailerList: React.FC = () => {
       }),
       filteredValue: tableParams?.filters?.model || null,
     },
-    {
-      title: "Fuel Type",
-      dataIndex: "fuel_type",
-      sortOrder: getOrderFromTableParams("fuel_type", tableParams),
-      key: "fuel_type",
-      sorter: {
-        compare: (a: any, b: any) => a.fuel_type - b.fuel_type,
-        multiple: 5,
-      },
-      width: "25%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return (
-          <div className="orange ubuntu" style={{ cursor: "pointer" }}>
-            {`${record?.fuel_type}`}
-          </div>
-        );
-      },
-      filters: generateArrayOfYears().map((st: any) => {
-        return {
-          text: st,
-          value: st,
-        };
-      }),
-      filteredValue: tableParams?.filters?.group || null,
-    },
+
     {
       title: "License No",
       dataIndex: "license_issuing",
