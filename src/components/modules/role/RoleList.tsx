@@ -1,29 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Table, Dropdown, Row, Col, Popover } from "antd";
+import { Table, Dropdown, Row, Col, Select, Button } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useTableParams } from "../../../hooks/useTableParams";
+import dayjs from "dayjs";
 import {
   getCarriersListReq,
   getCarrierPasswordReq,
 } from "../../../actions/carrier";
+import {
+  getRoleListReq,
+  // getCarrierPasswordReq,
+} from "../../../actions/role";
 import { getParams } from "../../../routes/utils";
-import { carrierData } from "./constant";
 import { InputSearch } from "../../common/doubleinput/InputSearch";
 import { getOrderFromTableParams } from "../../../hooks/utils";
 import { InputPageTitle } from "../../common/doubleinput/InputPageTitle";
-import { SetPassword } from "./modals/CarrierSetPassword";
-import { ENV } from "../../../utils/constants";
-import { AllPermissionsType } from "../role/constant";
-import { usePermissions } from "../../../hooks/usePermissions";
 
 import ResetSort from "../../../img/resetSort.svg";
 import ResetFilter from "../../../img/resetFilter.svg";
+import { carrierData } from "../driver/constant";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+// generateArrayOfYears
+import { generateArrayOfYears } from "../../../hooks/utils";
 import { LogoCarrier } from "../../common/LogoCarrier";
-import { NoPermission } from "../../common/NoPermission";
 
-export const CarriersList: React.FC = () => {
+dayjs.extend(customParseFormat);
+
+export const RoleList: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -37,27 +42,19 @@ export const CarriersList: React.FC = () => {
     hasFiltersOrOrder,
     clearFilter,
     clearOrder,
+    clearCustomFilter,
+    setCustomFilter,
   } = useTableParams({});
-  const carriers = useSelector((state: any) => state.carrier.carrierList);
-  const count = useSelector((state: any) => state.carrier.count);
-  const loading = useSelector((state: any) => state.carrier.loading);
-  const [accautnModalOpen, setAccauntModalOpen] = useState(false);
-  const [currentCarrier, setCurrentCarrier] = useState({
-    id: "",
-    name: "",
-  });
+  const roles = useSelector((state: any) => state.role.roleList);
 
-  React.useEffect(() => {
-    dispatch(
-      getCarriersListReq({
-        // queryParams: getParams(tableParams),
-      })
-    );
-  }, []);
+  const count = useSelector((state: any) => state.role.count);
+  const loading = useSelector((state: any) => state.role.loading);
+  const [accautnModalOpen, setAccauntModalOpen] = useState(false);
 
   const columns: ColumnsType<any> = [
+    Table.SELECTION_COLUMN,
     {
-      title: "Name",
+      title: "Role Name",
       key: "name",
       dataIndex: "name",
       sortOrder: getOrderFromTableParams("name", tableParams),
@@ -68,11 +65,12 @@ export const CarriersList: React.FC = () => {
       render: (name, record, index) => {
         return (
           <div
+            className="orange ubuntu"
             onClick={() => {
               navigate(`${location.pathname}/${record.id}`);
             }}
           >
-            {record.name}
+            {`${record.name}`}
           </div>
         );
       },
@@ -80,82 +78,76 @@ export const CarriersList: React.FC = () => {
       ellipsis: true,
     },
     {
-      title: "Logo",
-      key: "logo",
-      dataIndex: "logo",
+      title: "Assigned Users",
+      dataIndex: "type",
+      key: "type",
+      sortOrder: getOrderFromTableParams("type", tableParams),
+      sorter: {
+        compare: (a: any, b: any) => a.type - b.type,
+        multiple: 5,
+      },
 
       render: (name, record, index) => {
         return (
-          <LogoCarrier
-            logo={record?.logo}
-            onClick={() => null}
-            styles={{ width: 40, height: 40 }}
-          />
-        );
-      },
-      width: "5%",
-      ellipsis: true,
-    },
-
-    {
-      title: "USDOT",
-      dataIndex: "usdot",
-      key: "usdot",
-      sortOrder: getOrderFromTableParams("usdot", tableParams),
-      sorter: {
-        compare: (a: any, b: any) => a.usdot - b.usdot,
-        multiple: 5,
-      },
-      ellipsis: true,
-      width: "12%",
-    },
-    {
-      title: "MC",
-      dataIndex: "mcnumber",
-      key: "mcnumber",
-      width: "12%",
-      // render: (value) => `${value.mcnumber}`,
-      sortOrder: getOrderFromTableParams("mcnumber", tableParams),
-
-      sorter: {
-        compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
-        multiple: 5,
-      },
-      ellipsis: true,
-    },
-    {
-      title: "Carrier Time Zone",
-      dataIndex: ["terminals", "0"],
-      // sorter: true,
-      render: (value, record, index) => {
-        const {
-          address_index,
-          country,
-          state,
-          number_street,
-          area = "",
-        } = record?.terminals?.[0]?.address || {};
-        const stateFound = carrierData.states.find(
-          (st: any) => st.key === state
-        );
-        const countryFound = carrierData.countries.find(
-          (st: any) => st.key === country
-        );
-
-        return (
-          <div style={{ display: "flex" }}>
-            <div style={{ marginRight: 2 }}>{number_street}</div>
-            <div style={{ marginRight: 2 }}>{area},</div>
-            <div style={{ marginRight: 2 }}>({stateFound?.code}),</div>
-            <div style={{ marginRight: 2 }}>{countryFound?.value},</div>
-
-            <div style={{ marginRight: 2 }}>{address_index}</div>
+          <div
+            className="ubuntu orange"
+            style={{ color: "#141029", cursor: "pointer" }}
+          >
+            {`TBD`}
           </div>
         );
       },
-      width: "30%",
+      ellipsis: true,
+      width: "20%",
+    },
+    {
+      title: "Data Modified",
+      key: "serial_number",
+      dataIndex: "serial_number",
+      sortOrder: getOrderFromTableParams("serial_number", tableParams),
+      sorter: {
+        compare: (a: any, b: any) => a.serial_number - b.serial_number,
+        multiple: 5,
+      },
+      render: (name, record, index) => {
+        return (
+          <div
+            className="orange ubuntu"
+            onClick={() => {
+              navigate(`${location.pathname}/${record.id}`);
+            }}
+          >
+            {`TBD`}
+          </div>
+        );
+      },
+      width: 300,
       ellipsis: true,
     },
+    {
+      title: "Permissions",
+      dataIndex: "mac_address",
+      key: "mac_address",
+      sortOrder: getOrderFromTableParams("mac_address", tableParams),
+      sorter: {
+        compare: (a: any, b: any) => a.mac_address - b.mac_address,
+        multiple: 5,
+      },
+
+      render: (name, record, index) => {
+        return (
+          <div
+            className="ubuntu orange"
+            style={{ color: "#141029", cursor: "pointer" }}
+          >
+            {`TBD`}
+          </div>
+        );
+      },
+      ellipsis: true,
+      width: "20%",
+    },
+
     {
       title: "Status",
       dataIndex: "status",
@@ -179,44 +171,6 @@ export const CarriersList: React.FC = () => {
         };
       }),
       filteredValue: tableParams?.filters?.status || null,
-    },
-    {
-      title: "Account",
-      dataIndex: "account",
-      // sortOrder: getOrderFromTableParams("account", tableParams),
-      key: "account",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.account - b.account,
-      //   multiple: 5,
-      // },
-      width: "9%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        const status = carrierData.status.find((st) => st.key === value);
-        return (
-          <div
-            style={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {record?.with_account ? (
-              <span className="icon-fi-rr-check orange" />
-            ) : (
-              <span className="icon-fi-rr-minus-small" />
-            )}
-          </div>
-        );
-      },
-      filters: carrierData.status.map((st: any) => {
-        return {
-          text: st.value,
-          value: st.key,
-        };
-      }),
-      filteredValue: tableParams?.filters?.account || null,
     },
     {
       title: "Action",
@@ -273,20 +227,14 @@ export const CarriersList: React.FC = () => {
                   key: "3",
                   label: (
                     <div
-                      onClick={() => {
-                        setCurrentCarrier({
-                          id: record.id,
-                          name: record.name,
-                        });
-                        setAccauntModalOpen(true);
-                      }}
+                      onClick={() => {}}
                       style={{ display: "flex", alignItems: "center" }}
                     >
                       <span
-                        className="icon-fi-rr-lock"
+                        className="icon-fi-rr-trash"
                         style={{ marginRight: "10px" }}
                       ></span>{" "}
-                      Set password
+                      Delete
                     </div>
                   ),
                 },
@@ -302,45 +250,24 @@ export const CarriersList: React.FC = () => {
 
   useEffect(() => {
     dispatch(
-      getCarriersListReq({
+      getRoleListReq({
         queryParams: {
           ...getParams(tableParams),
-          with: ["terminals", "driver_groups"],
+          with: ["terminal", "carrier", "group"],
         },
       })
     );
   }, [tableParams]);
 
-  const { checkPermission } = usePermissions();
-
-  return checkPermission(AllPermissionsType.CARRIER_LIST) ? (
+  return (
     <>
       <Row>
-        <SetPassword
-          currentItem={currentCarrier}
-          isOpen={accautnModalOpen}
-          toggleModal={(status: any) => setAccauntModalOpen(status)}
-          onSubmit={(payload: any) => {
-            dispatch(
-              getCarrierPasswordReq({
-                data: payload,
-                onSuccess: () => {
-                  dispatch(
-                    getCarriersListReq({
-                      queryParams: {
-                        ...getParams(tableParams),
-                        with: ["terminals", "driver_groups"],
-                      },
-                    })
-                  );
-                  setAccauntModalOpen(false);
-                },
-              })
-            );
-          }}
-        />
         <Col span={12}>
-          <InputPageTitle fields={["Carriers"]} route="/client" carriers />
+          <InputPageTitle
+            fields={["Roles and Permissions"]}
+            route="/client/role"
+            devices
+          />
         </Col>
         <Col
           span={12}
@@ -416,7 +343,7 @@ export const CarriersList: React.FC = () => {
       <Table
         columns={columns}
         rowKey={(record) => record.id}
-        dataSource={carriers.map((carrier: any, index: any) => {
+        dataSource={roles?.map((carrier: any, index: any) => {
           return {
             ...carrier,
           };
@@ -428,13 +355,11 @@ export const CarriersList: React.FC = () => {
         }}
         loading={loading}
         onChange={handleTableChange}
-        rowSelection={{ ...rowSelection, columnWidth: "40px" }}
+        rowSelection={{ ...rowSelection, columnWidth: 10 }}
         className="table-custom"
         //   sticky
         //   scroll={{ y: window.innerHeight - 235 }}
       />
     </>
-  ) : (
-    <NoPermission />
   );
 };

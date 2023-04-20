@@ -34,6 +34,7 @@ export const SideBar = (props: any) => {
     "vehicle",
     "trailer",
     "device",
+    "role",
   ];
 
   const getDefaultKey = (pathname: string): any => {
@@ -154,6 +155,12 @@ export const SideBar = (props: any) => {
             "/company",
             <span className="icon-fi-rr-folder"></span>
           ),
+          getItem(
+            "Roles & Permissions",
+            "role",
+            "/role",
+            <span className="icon-fi-rr-key"></span>
+          ),
         ]
       ),
       getItem("Navigation One", "sub1", "/", <MailOutlined />, [
@@ -169,7 +176,7 @@ export const SideBar = (props: any) => {
       <Menu
         className="ubuntu"
         defaultSelectedKeys={getDefaultKey(pathname)}
-        defaultOpenKeys={["units", "manage"]}
+        defaultOpenKeys={["company_account", "manage"]}
         mode="inline"
         // theme="dark"
         onClick={(item) => {

@@ -61,6 +61,7 @@ export const InputSelectV2 = (props: any) => {
           style={{ width, ...styles }}
           placeholder={placeholder}
           onChange={onChange}
+          showSearch
         >
           {options.map((item: any, i: number) => {
             return (

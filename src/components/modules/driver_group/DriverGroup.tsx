@@ -14,6 +14,9 @@ import { driverGroupForm } from "./driver-group-form";
 import { InputType } from "../../../constants/inputs";
 import { PAGE_STATUS } from "./constant";
 import { CARRIER_SELECT_DISABLED } from "../../common/doubleinput/utils";
+import { usePermissions } from "../../../hooks/usePermissions";
+import { AllPermissionsType } from "../role/constant";
+import { NoPermission } from "../../common/NoPermission";
 
 function buildFormData(formData: any, data: any, parentKey?: any) {
   if (
@@ -147,46 +150,51 @@ export const DriverGroupPage = () => {
     });
   }, [driverGroup]);
 
+  const { checkPermission } = usePermissions();
+
   return (
     <>
-      <Row style={{ paddingLeft: 23, paddingRight: 25, height: "100%" }}>
-        {loading ? (
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              minHeight: 600,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Spin />
-          </div>
-        ) : (
-          <Col span={16}>
-            <Form
-              form={form}
-              name="test"
-              onError={(err) => {
-                console.log("err", err);
-              }}
-              onFinish={handleSubmit}
-              initialValues={initialValues}
-              onChange={(values) => {
-                console.log("form values", form.getFieldsValue());
+      {checkPermission(AllPermissionsType.DRIVER_GROUP_SHOW) ? (
+        <Row style={{ paddingLeft: 23, paddingRight: 25, height: "100%" }}>
+          {loading ? (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                minHeight: 600,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              {driverGroupForm({}).map((fieldCurrent: any, i: number) => {
-                const field = {
-                  ...fieldCurrent,
-                  disabled: state === PAGE_STATUS.VIEW,
-                  isReadonlyCarrier: true,
-                };
+              <Spin />
+            </div>
+          ) : (
+            <Col span={16}>
+              <Form
+                form={form}
+                name="test"
+                onError={(err) => {
+                  console.log("err", err);
+                }}
+                onFinish={handleSubmit}
+                initialValues={initialValues}
+                onChange={(values) => {
+                  console.log("form values", form.getFieldsValue());
+                }}
+              >
+                {driverGroupForm({}).map((fieldCurrent: any, i: number) => {
+                  const field = {
+                    ...fieldCurrent,
+                    disabled:
+                      state === PAGE_STATUS.VIEW ||
+                      !checkPermission(AllPermissionsType.DRIVER_GROUP_EDIT),
+                    isReadonlyCarrier: true,
+                  };
 
-                if (CARRIER_SELECT_DISABLED.includes(field.type)) {
-                  return (
-                    <CommonInput
+                  if (CARRIER_SELECT_DISABLED.includes(field.type)) {
+                    return (
+                      <CommonInput
                     currentIndex={currentIndex}
                     fields={fields}
 
@@ -196,13 +204,13 @@ export const DriverGroupPage = () => {
                     form={form}
                     isReadonlyCarrier={true}
                   />
-                    // prettier-ignore
-                  );
-                }
+                      // prettier-ignore
+                    );
+                  }
 
-                if (field.type === InputType.ADD_DYNAMIC) {
-                  return (
-                    <CommonInput
+                  if (field.type === InputType.ADD_DYNAMIC) {
+                    return (
+                      <CommonInput
                     currentIndex={currentIndex}
                     fields={fields}
 
@@ -211,41 +219,44 @@ export const DriverGroupPage = () => {
                     {...field}
                     form={form}
                   />
-                    // prettier-ignore
+                      // prettier-ignore
+                    );
+                  }
+                  return (
+                    <CommonInput
+                      key={i}
+                      {...field}
+                      form={form}
+                      showDocsList={true}
+                    />
                   );
-                }
-                return (
-                  <CommonInput
-                    key={i}
-                    {...field}
-                    form={form}
-                    showDocsList={true}
-                  />
-                );
-              })}
-              <Form.Item style={{ width: "100%", display: "flex" }}>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  className="orange"
-                  style={{ width: "65px", marginRight: 12 }}
-                >
-                  Save
-                </Button>
-                <Button
-                  className="grey"
-                  style={{ width: "85px", marginRight: 12 }}
-                  onClick={() => {
-                    form.setFieldsValue(initialValues);
-                  }}
-                >
-                  Cancel
-                </Button>
-              </Form.Item>
-            </Form>
-          </Col>
-        )}
-      </Row>
+                })}
+                <Form.Item style={{ width: "100%", display: "flex" }}>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    className="orange"
+                    style={{ width: "65px", marginRight: 12 }}
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    className="grey"
+                    style={{ width: "85px", marginRight: 12 }}
+                    onClick={() => {
+                      form.setFieldsValue(initialValues);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </Form.Item>
+              </Form>
+            </Col>
+          )}
+        </Row>
+      ) : (
+        <NoPermission />
+      )}
     </>
   );
 };

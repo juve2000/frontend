@@ -23,6 +23,9 @@ import ResetSort from "../../../img/resetSort.svg";
 import ResetFilter from "../../../img/resetFilter.svg";
 import { carrierData } from "./constant";
 import { LogoCarrier } from "../../common/LogoCarrier";
+import { usePermissions } from "../../../hooks/usePermissions";
+import { AllPermissionsType } from "../role/constant";
+import { NoPermission } from "../../common/NoPermission";
 
 export const DriversList: React.FC = () => {
   const location = useLocation();
@@ -421,123 +424,132 @@ export const DriversList: React.FC = () => {
     );
   }, [tableParams]);
 
+  const { checkPermission } = usePermissions();
+
   return (
     <>
-      <Row>
-        <SetPassword
-          currentItem={currentCarrier}
-          isOpen={accautnModalOpen}
-          toggleModal={(status: any) => setAccauntModalOpen(status)}
-          onSubmit={(payload: any) => {
-            dispatch(
-              getCarrierPasswordReq({
-                data: payload,
-                onSuccess: () => {
-                  dispatch(
-                    getCarriersListReq({
-                      queryParams: getParams(tableParams),
-                    })
-                  );
-                  setAccauntModalOpen(false);
-                },
-              })
-            );
-          }}
-        />
-        <Col span={12}>
-          <InputPageTitle fields={["Drivers"]} route="/client" drivers />
-        </Col>
-        <Col
-          span={12}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-          }}
-        >
-          <InputSearch
-            onChange={setSearchParam}
-            onClear={clearOrderFilters}
-            hasFilters={hasFiltersOrOrder}
+      {checkPermission(AllPermissionsType.DRIVER_LIST) ? (
+        <>
+          {" "}
+          <Row>
+            <SetPassword
+              currentItem={currentCarrier}
+              isOpen={accautnModalOpen}
+              toggleModal={(status: any) => setAccauntModalOpen(status)}
+              onSubmit={(payload: any) => {
+                dispatch(
+                  getCarrierPasswordReq({
+                    data: payload,
+                    onSuccess: () => {
+                      dispatch(
+                        getCarriersListReq({
+                          queryParams: getParams(tableParams),
+                        })
+                      );
+                      setAccauntModalOpen(false);
+                    },
+                  })
+                );
+              }}
+            />
+            <Col span={12}>
+              <InputPageTitle fields={["Drivers"]} route="/client" drivers />
+            </Col>
+            <Col
+              span={12}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+              }}
+            >
+              <InputSearch
+                onChange={setSearchParam}
+                onClear={clearOrderFilters}
+                hasFilters={hasFiltersOrOrder}
+              />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <span className="icon-fi-rr-plus ubuntu orange" />
+                <div
+                  className="orange ubuntu"
+                  style={{
+                    fontWeight: 500,
+                    fontSize: 12,
+                    marginLeft: 8,
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    navigate(`${location.pathname}/create`);
+                  }}
+                >
+                  Create
+                </div>
+              </div>
+              <div style={{ marginLeft: 20, display: "flex" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                  }}
+                  onClick={clearOrder}
+                >
+                  <div style={{ marginRight: 5 }}>
+                    <img src={ResetSort} />
+                  </div>
+                  <div
+                    className="ubuntu"
+                    style={{ color: "#8A8996", fontSize: 12 }}
+                  >
+                    Reset sorting
+                  </div>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    marginLeft: 10,
+                  }}
+                  onClick={clearFilter}
+                >
+                  <div style={{ marginRight: 5 }}>
+                    <img src={ResetFilter} />
+                  </div>
+                  <div
+                    className="ubuntu"
+                    style={{ color: "#8A8996", fontSize: 12 }}
+                  >
+                    Reset filter
+                  </div>
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <Table
+            columns={columns}
+            rowKey={(record) => record.id}
+            dataSource={drivers.map((carrier: any, index: any) => {
+              return {
+                ...carrier,
+              };
+            })}
+            pagination={{
+              ...tableParams.pagination,
+              position: ["bottomCenter"],
+              total: count,
+            }}
+            loading={loading}
+            onChange={handleTableChange}
+            rowSelection={{ ...rowSelection, columnWidth: 10 }}
+            className="table-custom"
+            //   sticky
+            //   scroll={{ y: window.innerHeight - 235 }}
           />
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <span className="icon-fi-rr-plus ubuntu orange" />
-            <div
-              className="orange ubuntu"
-              style={{
-                fontWeight: 500,
-                fontSize: 12,
-                marginLeft: 8,
-                cursor: "pointer",
-              }}
-              onClick={() => {
-                navigate(`${location.pathname}/create`);
-              }}
-            >
-              Create
-            </div>
-          </div>
-          <div style={{ marginLeft: 20, display: "flex" }}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                cursor: "pointer",
-              }}
-              onClick={clearOrder}
-            >
-              <div style={{ marginRight: 5 }}>
-                <img src={ResetSort} />
-              </div>
-              <div
-                className="ubuntu"
-                style={{ color: "#8A8996", fontSize: 12 }}
-              >
-                Reset sorting
-              </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                cursor: "pointer",
-                marginLeft: 10,
-              }}
-              onClick={clearFilter}
-            >
-              <div style={{ marginRight: 5 }}>
-                <img src={ResetFilter} />
-              </div>
-              <div
-                className="ubuntu"
-                style={{ color: "#8A8996", fontSize: 12 }}
-              >
-                Reset filter
-              </div>
-            </div>
-          </div>
-        </Col>
-      </Row>
-      <Table
-        columns={columns}
-        rowKey={(record) => record.id}
-        dataSource={drivers.map((carrier: any, index: any) => {
-          return {
-            ...carrier,
-          };
-        })}
-        pagination={{
-          ...tableParams.pagination,
-          position: ["bottomCenter"],
-          total: count,
-        }}
-        loading={loading}
-        onChange={handleTableChange}
-        rowSelection={{ ...rowSelection, columnWidth: 10 }}
-        className="table-custom"
-        //   sticky
-        //   scroll={{ y: window.innerHeight - 235 }}
-      />
+        </>
+      ) : (
+        <NoPermission />
+      )}
     </>
   );
 };

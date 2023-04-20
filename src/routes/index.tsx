@@ -49,6 +49,11 @@ import { DevicePage } from "../components/modules/device/Device";
 import { DeviceCreatePage } from "../components/modules/device/CreateDevice";
 import { DeviceList } from "../components/modules/device/DeviceList";
 
+import { RolesPage } from "../components/modules/role/RolesPage";
+import { RolePage } from "../components/modules/role/Role";
+import { RoleCreatePage } from "../components/modules/role/CreateRole";
+import { RoleList } from "../components/modules/role/RoleList";
+
 export const MainRouter = () => {
   const navigate = useNavigate();
   return (
@@ -127,6 +132,12 @@ export const MainRouter = () => {
             <Route index element={<DeviceList />} />;
             <Route path={`create`} element={<DeviceCreatePage />} />
             <Route path={`:deviceId`} element={<DevicePage />} />
+          </Route>
+          {/* ROLES ROUTES */}
+          <Route path={ROUTES.ROLE} element={<RolesPage />}>
+            <Route index element={<RoleList />} />;
+            <Route path={`create`} element={<RoleCreatePage />} />
+            <Route path={`:roleId`} element={<RolePage />} />
           </Route>
           {/* USERS ROUTE */}
           <Route path={`/client/users`} element={<UsersPage />}>

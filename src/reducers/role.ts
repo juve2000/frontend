@@ -31,6 +31,7 @@ export const roleState = {
   roleList: [],
   loading: false,
   errorMessage: "",
+  count: 10,
 };
 
 export default {
@@ -139,8 +140,9 @@ export default {
       .addCase(getRoleListSuccess, (state, { payload }) => {
         return {
           ...state,
-          roleList: payload,
+          roleList: payload.data,
           loading: false,
+          count: payload?.count || 10,
         };
       })
       .addCase(getRoleListFailed, (state, { payload }) => {

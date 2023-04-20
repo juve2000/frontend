@@ -96,7 +96,7 @@ export const InputImageUploadV2 = (props: any) => {
               }}
               maxCount={1}
             >
-              <Button className="white ubuntu">
+              <Button className="white ubuntu" disabled={disabled}>
                 {" "}
                 <span
                   className="icon-fi-rr-upload orange"

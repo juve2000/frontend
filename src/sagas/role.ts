@@ -1,4 +1,5 @@
 import { all, put, takeLatest, call } from "redux-saga/effects";
+import { notification } from "antd";
 import request from "../utils/request";
 import { RoleActionTypes } from "../actions/role";
 import {
@@ -15,6 +16,13 @@ import {
   getRoleListSuccess,
   getRoleListFailed,
 } from "../actions";
+
+notification.config({
+  placement: "topRight",
+  bottom: 50,
+  duration: 5,
+  // rtl: true,
+});
 
 export function* getRoleSaga({ payload }: any): any {
   try {
@@ -36,18 +44,35 @@ export function* getDefaultRoleSaga({ payload }: any): any {
 
 export function* createRoleSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.post, "/access", {
-      payload,
+    const { data } = yield call(request.post, "/access/", payload.values, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     });
     yield put(createRoleSuccess(data));
+    yield call(notification.success, {
+      message: "Role created successfully",
+    });
   } catch (e: any) {
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
     yield put(createRoleFailed(e.message));
   }
 }
 
 export function* updateRoleSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.put, `/access/${payload.id}`, payload);
+    const { data } = yield call(
+      request.put,
+      `/access/${payload.roleId}`,
+      payload.values,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
     yield put(updateRoleSuccess(data));
   } catch (e: any) {
     yield put(updateRoleFailed(e.message));
@@ -65,7 +90,7 @@ export function* deleteRoleSaga({ payload }: any): any {
 
 export function* getRoleListSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.get, `/access/${payload.id}`);
+    const { data } = yield call(request.get, `/access/`);
     yield put(getRoleListSuccess(data));
   } catch (e: any) {
     yield put(getRoleListFailed(e.message));

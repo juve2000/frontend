@@ -89,6 +89,7 @@ export const InputMultiUploadV2 = (props: any) => {
               maxCount={3}
             >
               <Button
+                disabled={disabled}
                 className="hoverWhite white ubuntu"
                 style={{ padding: "0px 0px" }}
               >

@@ -16,6 +16,9 @@ import { InputType } from "../../../constants/inputs";
 import { PAGE_STATUS } from "./constant";
 
 import { jsonToFormData } from "../../../hooks/utils";
+import { usePermissions } from "../../../hooks/usePermissions";
+import { AllPermissionsType } from "../role/constant";
+import { NoPermission } from "../../common/NoPermission";
 
 export const DevicePage = () => {
   const [form] = Form.useForm();
@@ -120,49 +123,54 @@ export const DevicePage = () => {
     });
   }, [device]);
 
+  const { checkPermission } = usePermissions();
+
   return (
     <>
-      <Row style={{ paddingLeft: 23, paddingRight: 25, height: "100%" }}>
-        {/* <Graph /> */}
+      {checkPermission(AllPermissionsType.DEVICE_SHOW) ? (
+        <Row style={{ paddingLeft: 23, paddingRight: 25, height: "100%" }}>
+          {/* <Graph /> */}
 
-        {loading ? (
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              minHeight: 600,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Spin />
-          </div>
-        ) : (
-          <Col span={16}>
-            <Form
-              form={form}
-              name="test"
-              onError={(err) => {
-                console.log("err", err);
-              }}
-              onFinish={handleSubmit}
-              initialValues={initialValues}
-              onChange={(values) => {
-                console.log("form values", form.getFieldsValue());
+          {loading ? (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                minHeight: 600,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              {deviceForm({}).map((fieldCurrent: any, i: number) => {
-                const field = {
-                  ...fieldCurrent,
-                  disabled: state === PAGE_STATUS.VIEW,
-                  isReadonlyCarrier: true,
-                  isIdentificatorDisabled: true,
-                };
+              <Spin />
+            </div>
+          ) : (
+            <Col span={16}>
+              <Form
+                form={form}
+                name="test"
+                onError={(err) => {
+                  console.log("err", err);
+                }}
+                onFinish={handleSubmit}
+                initialValues={initialValues}
+                onChange={(values) => {
+                  console.log("form values", form.getFieldsValue());
+                }}
+              >
+                {deviceForm({}).map((fieldCurrent: any, i: number) => {
+                  const field = {
+                    ...fieldCurrent,
+                    disabled:
+                      state === PAGE_STATUS.VIEW ||
+                      !checkPermission(AllPermissionsType.DEVICE_EDIT),
+                    isReadonlyCarrier: true,
+                    isIdentificatorDisabled: true,
+                  };
 
-                if (CARRIER_SELECT_DISABLED.includes(field.type)) {
-                  return (
-                    <CommonInput
+                  if (CARRIER_SELECT_DISABLED.includes(field.type)) {
+                    return (
+                      <CommonInput
                     currentIndex={currentIndex}
                     fields={fields}
 
@@ -172,13 +180,13 @@ export const DevicePage = () => {
                     form={form}
                     isReadonlyCarrier={true}
                   />
-                    // prettier-ignore
-                  );
-                }
+                      // prettier-ignore
+                    );
+                  }
 
-                if (field.type === InputType.ADD_DYNAMIC) {
-                  return (
-                    <CommonInput
+                  if (field.type === InputType.ADD_DYNAMIC) {
+                    return (
+                      <CommonInput
                     currentIndex={currentIndex}
                     fields={fields}
 
@@ -187,41 +195,44 @@ export const DevicePage = () => {
                     {...field}
                     form={form}
                   />
-                    // prettier-ignore
+                      // prettier-ignore
+                    );
+                  }
+                  return (
+                    <CommonInput
+                      key={i}
+                      {...field}
+                      form={form}
+                      showDocsList={true}
+                    />
                   );
-                }
-                return (
-                  <CommonInput
-                    key={i}
-                    {...field}
-                    form={form}
-                    showDocsList={true}
-                  />
-                );
-              })}
-              <Form.Item style={{ width: "100%", display: "flex" }}>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  className="orange"
-                  style={{ width: "65px", marginRight: 12 }}
-                >
-                  Save
-                </Button>
-                <Button
-                  className="grey"
-                  style={{ width: "85px", marginRight: 12 }}
-                  onClick={() => {
-                    form.setFieldsValue(initialValues);
-                  }}
-                >
-                  Cancel
-                </Button>
-              </Form.Item>
-            </Form>
-          </Col>
-        )}
-      </Row>
+                })}
+                <Form.Item style={{ width: "100%", display: "flex" }}>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    className="orange"
+                    style={{ width: "65px", marginRight: 12 }}
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    className="grey"
+                    style={{ width: "85px", marginRight: 12 }}
+                    onClick={() => {
+                      form.setFieldsValue(initialValues);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </Form.Item>
+              </Form>
+            </Col>
+          )}
+        </Row>
+      ) : (
+        <NoPermission />
+      )}
     </>
   );
 };

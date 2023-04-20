@@ -15,6 +15,9 @@ import {
 } from "../../../actions/device";
 
 import { jsonToFormData } from "../../../hooks/utils";
+import { usePermissions } from "../../../hooks/usePermissions";
+import { AllPermissionsType } from "../role/constant";
+import { NoPermission } from "../../common/NoPermission";
 
 export const DeviceCreatePage = () => {
   const [form] = Form.useForm();
@@ -77,41 +80,44 @@ export const DeviceCreatePage = () => {
     );
   };
 
+  const { checkPermission } = usePermissions();
+
   return (
     <>
-      <Row style={{ paddingLeft: 23, paddingRight: 25, height: "100%" }}>
-        {/* <Graph /> */}
-        {loading ? (
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              minHeight: 600,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Spin />
-          </div>
-        ) : (
-          <Col span={16}>
-            <Form
-              form={form}
-              name="test"
-              onError={(err) => {
-                // console.log("err", err);
-              }}
-              onFinish={handleSubmit}
-              initialValues={initialValues}
-              onChange={() => {
-                console.log("form values", form.getFieldsValue());
+      {checkPermission(AllPermissionsType.DEVICE_CREATE) ? (
+        <Row style={{ paddingLeft: 23, paddingRight: 25, height: "100%" }}>
+          {/* <Graph /> */}
+          {loading ? (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                minHeight: 600,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              {deviceForm({}).map((field: any, i: number) => {
-                if (field.type === InputType.ADD_DYNAMIC) {
-                  return (
-                    <CommonInput
+              <Spin />
+            </div>
+          ) : (
+            <Col span={16}>
+              <Form
+                form={form}
+                name="test"
+                onError={(err) => {
+                  // console.log("err", err);
+                }}
+                onFinish={handleSubmit}
+                initialValues={initialValues}
+                onChange={() => {
+                  console.log("form values", form.getFieldsValue());
+                }}
+              >
+                {deviceForm({}).map((field: any, i: number) => {
+                  if (field.type === InputType.ADD_DYNAMIC) {
+                    return (
+                      <CommonInput
                     currentIndex={currentIndex}
                     fields={fields}
                     key={i}
@@ -119,35 +125,38 @@ export const DeviceCreatePage = () => {
                     {...field}
                     form={form}
                   />
-                    // prettier-ignore
-                  );
-                }
-                // prettier-ignore
-                return <CommonInput key={i} {...field} form={form} />
-              })}
-              <Form.Item style={{ width: "100%", display: "flex" }}>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  className="orange"
-                  style={{ width: "65px", marginRight: 12 }}
-                >
-                  Submit
-                </Button>
-                <Button
-                  className="grey"
-                  style={{ width: "85px", marginRight: 12 }}
-                  onClick={() => {
-                    form.setFieldsValue(initialValues);
-                  }}
-                >
-                  Cancel
-                </Button>
-              </Form.Item>
-            </Form>
-          </Col>
-        )}
-      </Row>
+                      // prettier-ignore
+                    );
+                  }
+                  // prettier-ignore
+                  return <CommonInput key={i} {...field} form={form} />
+                })}
+                <Form.Item style={{ width: "100%", display: "flex" }}>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    className="orange"
+                    style={{ width: "65px", marginRight: 12 }}
+                  >
+                    Submit
+                  </Button>
+                  <Button
+                    className="grey"
+                    style={{ width: "85px", marginRight: 12 }}
+                    onClick={() => {
+                      form.setFieldsValue(initialValues);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </Form.Item>
+              </Form>
+            </Col>
+          )}
+        </Row>
+      ) : (
+        <NoPermission />
+      )}
     </>
   );
 };

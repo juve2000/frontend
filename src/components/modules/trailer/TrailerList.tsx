@@ -18,6 +18,9 @@ import { carrierData } from "../carrier/constant";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { generateArrayOfYears } from "../../../hooks/utils";
 import { LogoCarrier } from "../../common/LogoCarrier";
+import { usePermissions } from "../../../hooks/usePermissions";
+import { AllPermissionsType } from "../role/constant";
+import { NoPermission } from "../../common/NoPermission";
 
 dayjs.extend(customParseFormat);
 
@@ -391,107 +394,115 @@ export const TrailerList: React.FC = () => {
     );
   }, [tableParams]);
 
+  const { checkPermission } = usePermissions();
+
   return (
     <>
-      <Row>
-        <Col span={12}>
-          <InputPageTitle
-            fields={["Trailers"]}
-            route="/client/trailer"
-            vehicles
-          />
-        </Col>
-        <Col
-          span={12}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-          }}
-        >
-          <InputSearch
-            onChange={setSearchParam}
-            onClear={clearOrderFilters}
-            hasFilters={hasFiltersOrOrder}
-          />
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <span className="icon-fi-rr-plus ubuntu orange" />
-            <div
-              className="orange ubuntu"
-              style={{
-                fontWeight: 500,
-                fontSize: 12,
-                marginLeft: 8,
-                cursor: "pointer",
-              }}
-              onClick={() => {
-                navigate(`${location.pathname}/create`);
-              }}
-            >
-              Create
-            </div>
-          </div>
-          <div style={{ marginLeft: 20, display: "flex" }}>
-            <div
+      {checkPermission(AllPermissionsType.TRAILER_LIST) ? (
+        <>
+          <Row>
+            <Col span={12}>
+              <InputPageTitle
+                fields={["Trailers"]}
+                route="/client/trailer"
+                vehicles
+              />
+            </Col>
+            <Col
+              span={12}
               style={{
                 display: "flex",
                 alignItems: "center",
-                cursor: "pointer",
+                justifyContent: "flex-end",
               }}
-              onClick={clearOrder}
             >
-              <div style={{ marginRight: 5 }}>
-                <img src={ResetSort} />
+              <InputSearch
+                onChange={setSearchParam}
+                onClear={clearOrderFilters}
+                hasFilters={hasFiltersOrOrder}
+              />
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <span className="icon-fi-rr-plus ubuntu orange" />
+                <div
+                  className="orange ubuntu"
+                  style={{
+                    fontWeight: 500,
+                    fontSize: 12,
+                    marginLeft: 8,
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    navigate(`${location.pathname}/create`);
+                  }}
+                >
+                  Create
+                </div>
               </div>
-              <div
-                className="ubuntu"
-                style={{ color: "#8A8996", fontSize: 12 }}
-              >
-                Reset sorting
+              <div style={{ marginLeft: 20, display: "flex" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                  }}
+                  onClick={clearOrder}
+                >
+                  <div style={{ marginRight: 5 }}>
+                    <img src={ResetSort} />
+                  </div>
+                  <div
+                    className="ubuntu"
+                    style={{ color: "#8A8996", fontSize: 12 }}
+                  >
+                    Reset sorting
+                  </div>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    marginLeft: 10,
+                  }}
+                  onClick={clearFilter}
+                >
+                  <div style={{ marginRight: 5 }}>
+                    <img src={ResetFilter} />
+                  </div>
+                  <div
+                    className="ubuntu"
+                    style={{ color: "#8A8996", fontSize: 12 }}
+                  >
+                    Reset filter
+                  </div>
+                </div>
               </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                cursor: "pointer",
-                marginLeft: 10,
-              }}
-              onClick={clearFilter}
-            >
-              <div style={{ marginRight: 5 }}>
-                <img src={ResetFilter} />
-              </div>
-              <div
-                className="ubuntu"
-                style={{ color: "#8A8996", fontSize: 12 }}
-              >
-                Reset filter
-              </div>
-            </div>
-          </div>
-        </Col>
-      </Row>
-      <Table
-        columns={columns}
-        rowKey={(record) => record.id}
-        dataSource={trailers?.map((carrier: any, index: any) => {
-          return {
-            ...carrier,
-          };
-        })}
-        pagination={{
-          ...tableParams.pagination,
-          position: ["bottomCenter"],
-          total: count,
-        }}
-        loading={loading}
-        onChange={handleTableChange}
-        rowSelection={{ ...rowSelection, columnWidth: 10 }}
-        className="table-custom"
-        //   sticky
-        //   scroll={{ y: window.innerHeight - 235 }}
-      />
+            </Col>
+          </Row>
+          <Table
+            columns={columns}
+            rowKey={(record) => record.id}
+            dataSource={trailers?.map((carrier: any, index: any) => {
+              return {
+                ...carrier,
+              };
+            })}
+            pagination={{
+              ...tableParams.pagination,
+              position: ["bottomCenter"],
+              total: count,
+            }}
+            loading={loading}
+            onChange={handleTableChange}
+            rowSelection={{ ...rowSelection, columnWidth: 10 }}
+            className="table-custom"
+            //   sticky
+            //   scroll={{ y: window.innerHeight - 235 }}
+          />
+        </>
+      ) : (
+        <NoPermission />
+      )}
     </>
   );
 };

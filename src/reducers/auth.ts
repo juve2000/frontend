@@ -24,6 +24,7 @@ import {
   getLoggedInUserResFailed,
   getLoggedInUserResSuccess,
 } from "../actions";
+import { ALL_PERMISSION } from "../components/modules/role/constant";
 
 // import { UserState } from "../types";
 import {
@@ -37,7 +38,8 @@ export const authState = {
   loading: true,
   errorMessage: "",
   user: {},
-  permissions: generateAllPermissions(ALL_PERMISSION_TYPES),
+  // permissions: generateAllPermissions(ALL_PERMISSION_TYPES),
+  permissions: ALL_PERMISSION,
 };
 
 export default {

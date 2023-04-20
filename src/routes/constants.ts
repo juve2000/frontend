@@ -21,6 +21,9 @@ const TRAILER_PAGE = `${VEHICLE}/:id`;
 const DEVICE = `${Root}/device`;
 const DEVICE_PAGE = `${DEVICE}/:id`;
 
+const ROLE = `${Root}/role`;
+const ROLE_PAGE = `${ROLE}/:id`;
+
 export const ROUTES = {
   Root,
   CARRIERS,
@@ -37,4 +40,6 @@ export const ROUTES = {
   TRAILER_PAGE,
   DEVICE,
   DEVICE_PAGE,
+  ROLE,
+  ROLE_PAGE,
 };
