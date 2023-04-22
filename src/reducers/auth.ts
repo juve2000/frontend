@@ -95,7 +95,11 @@ export default {
         return {
           ...state,
           isAuthenticated: true,
-          user: payload,
+          user: {
+            ...payload,
+            //TODO: REMOVE HARDCODED ROLE
+            role: "SUPER_ADMIN",
+          },
           loading: false,
         };
       })

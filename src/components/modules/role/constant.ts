@@ -58,6 +58,7 @@ export const ROLES = {
   USER: "USER",
   DIRECTOR: "DIRECTOR",
   ADMIN: "ADMIN",
+  SUPER_ADMIN: "SUPER_ADMIN" || "Super admin" || 1,
 };
 
 export const CarrierPermission = {
@@ -257,6 +258,20 @@ export const ALL_PERMISSION = [
   ...SUPER_ADMIN,
 ];
 
+export const STRICT_PERMISSION = [
+  ...CARRIER_PERMISSIONS,
+  ...USER_PERMISSIONS,
+  ...COMPANY_PERMISSIONS,
+  ...OFFICE_PERMISSIONS,
+  ...DRIVER_PERMISSIONS,
+  ...VEHICLE_PERMISSIONS,
+  ...TRAILER_PERMISSIONS,
+  ...DEVICE_PERMISSIONS,
+  ...DRIVER_GROUP_PERMISSIONS,
+  ...MECHANIC_PERMISSIONS,
+  ...ROLE_PERMISSIONS,
+];
+
 export const AllPermissionsType = {
   ...CarrierPermission,
   ...UserPermission,
@@ -270,4 +285,13 @@ export const AllPermissionsType = {
   ...MechanicPermission,
   ...RolePermission,
   ...SuperAdminPermission,
+};
+
+export const getPermissionsListByRole = (role: any) => {
+  switch (role) {
+    case ROLES.SUPER_ADMIN:
+      return [...ALL_PERMISSION];
+    default:
+      return [...STRICT_PERMISSION];
+  }
 };

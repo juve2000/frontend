@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Checkbox, Row, Col } from "antd";
 import { InputTitle } from "./InputTitle";
 import {
@@ -21,46 +21,21 @@ import {
 import { AllPermissionsType } from "../../modules/role/constant";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { isArray } from "lodash";
+import { setRole } from "../../../actions";
 
 const PermissionRow = (props: any) => {
   const { value, checked, handleChange, handleRemove } = props;
   return (
-    <Row
-      style={{
-        width: "100%",
-        borderBottom: "1px solid rgba(249, 251, 255, 1)",
-      }}
-    >
-      <Col
-        span={12}
-        style={{ display: "flex", alignItems: "center", paddingLeft: 12 }}
-      >
-        <Checkbox
-          value={value}
-          style={{ lineHeight: "32px" }}
-          checked={checked}
-          onChange={(e) => {
-            handleChange(e.target.value);
-          }}
-        >
-          <div>{value}</div>
-        </Checkbox>
-      </Col>
-      <Col
-        span={12}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+    <Col span={4} className="table-role-cell">
+      <Checkbox
+        value={value}
+        style={{ lineHeight: "32px" }}
+        checked={checked}
+        onChange={(e) => {
+          handleChange(e.target.value);
         }}
-      >
-        {checked ? (
-          <span className="icon-fi-rr-check orange" />
-        ) : (
-          <span className="icon-fi-rr-minus-small" />
-        )}
-      </Col>
-    </Row>
+      ></Checkbox>
+    </Col>
   );
 };
 
@@ -77,73 +52,46 @@ const PermissionTable = (props: any) => {
   } = props;
 
   return (
-    <Row
-      style={{
-        width: "100%",
-        marginBottom: 20,
-        boxShadow: "0px 4px 34px rgba(0, 0, 0, 0.04)",
-      }}
-    >
-      <Col span={24}>
-        <Row
-          style={{
-            borderBottom: "1px solid rgba(249, 251, 255, 1)",
-            background: "rgba(239, 246, 255, 0.6)",
+    <Col span={24} className="table-role-row">
+      <Row style={{ width: "100%" }}>
+        <Col
+          span={4}
+          className="table-role-cell"
+          onClick={() => {
+            handleChangeAllByType(permissionsItems, !checked);
           }}
+          style={{ cursor: "pointer" }}
         >
-          <Col
-            span={12}
-            style={{ display: "flex", alignItems: "center", paddingLeft: 12 }}
-          >
-            <Checkbox
-              //   value={value}
-              style={{ lineHeight: "32px" }}
-              checked={checked}
-              onChange={(e) => {
-                handleChangeAllByType(permissionsItems, e.target.checked);
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <span className="icon-fi-rr-plus-small ubuntu" />
-                <span className="ubuntu" style={{ fontSize: 12 }}>
-                  {type}
-                </span>
-              </div>
-            </Checkbox>
-          </Col>
-          <Col
-            span={12}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+          <Checkbox
+            //   value={value}
+            style={{ lineHeight: "32px" }}
+            checked={checked}
+            onChange={(e) => {
+              handleChangeAllByType(permissionsItems, e.target.checked);
             }}
-          >
-            <span className="icon-fi-rr-check" />
-
-            <span className="ubuntu" style={{ fontSize: 12, marginLeft: 10 }}>
-              Permission
-            </span>
-          </Col>
-        </Row>
-      </Col>
-      {permissionsItems.map((p: any) => {
-        return (
-          <PermissionRow
-            value={p}
-            checked={permissions?.includes(p)}
-            handleChange={handleChange}
-          />
-        );
-      })}
-    </Row>
+          ></Checkbox>
+          <span style={{ marginLeft: 10 }}>{type}</span>
+        </Col>
+        {permissionsItems.map((p: any) => {
+          return (
+            <PermissionRow
+              value={p}
+              checked={permissions?.includes(p)}
+              handleChange={handleChange}
+            />
+          );
+        })}
+      </Row>
+    </Col>
   );
 };
 
-export const InputRole = (props: any) => {
+export const TableRole = (props: any) => {
   const { name, label, form, isCreate = false } = props;
   const [permissions, setPermissions] = useState<any>([]);
   const { ALL_PERMISSION_TYPES = [], role } = usePermissions();
+
+  const dispatch = useDispatch();
 
   const rolePermissions = useSelector(
     (state: any) => state?.role?.role?.permissions
@@ -160,7 +108,20 @@ export const InputRole = (props: any) => {
   };
 
   React.useEffect(() => {
+    console.log("props", props);
+  }, [props]);
+
+  React.useEffect(() => {
+    console.log("set role", isCreate);
+
     if (isCreate) {
+      dispatch(setRole({}));
+    }
+  }, [isCreate]);
+
+  React.useEffect(() => {
+    if (isCreate) {
+      setPermissions([]);
       return;
     }
     if (isArray(rolePermissions) && !isCreate) {
@@ -217,12 +178,12 @@ export const InputRole = (props: any) => {
   return (
     <div style={{ width: "100%" }}>
       <InputTitle label={label} />
+
       <Form.Item name={name} style={{ width: "100%" }}>
         <Row>
-          <Col span={24}>
+          <Col span={4} className="table-role-header">
             <Checkbox
               //   value={value}
-              style={{ lineHeight: "32px" }}
               checked={permissions?.length === ALL_PERMISSION_TYPES?.length}
               onChange={(e) => {
                 handleChangeAll(e.target.checked);
@@ -230,14 +191,24 @@ export const InputRole = (props: any) => {
             >
               <div style={{ display: "flex", alignItems: "center" }}>
                 <span className="icon-fi-rr-plus-small ubuntu" />
-                <span
-                  className="ubuntu"
-                  style={{ fontSize: 16, fontWeight: "bold" }}
-                >
-                  Select all
-                </span>
+                <span className="ubuntu">All</span>
               </div>
             </Checkbox>
+          </Col>
+          <Col span={4} className="table-role-header">
+            List
+          </Col>
+          <Col span={4} className="table-role-header">
+            Show
+          </Col>
+          <Col span={4} className="table-role-header">
+            Edit
+          </Col>
+          <Col span={4} className="table-role-header">
+            Delete
+          </Col>
+          <Col span={4} className="table-role-header">
+            Create
           </Col>
         </Row>
         <Row style={{ width: "100%" }}>

@@ -1,4 +1,4 @@
-export const users = [
+export const carriers = [
   {
     id: 0,
     name: "Carrier 0",

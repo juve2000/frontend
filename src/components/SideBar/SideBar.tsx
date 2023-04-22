@@ -161,6 +161,12 @@ export const SideBar = (props: any) => {
             "/role",
             <span className="icon-fi-rr-key"></span>
           ),
+          getItem(
+            "Users",
+            "user",
+            "/user",
+            <span className="icon-fi-rr-user"></span>
+          ),
         ]
       ),
       getItem("Navigation One", "sub1", "/", <MailOutlined />, [

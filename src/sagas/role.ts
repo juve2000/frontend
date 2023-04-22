@@ -26,8 +26,8 @@ notification.config({
 
 export function* getRoleSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.get, `/access/${payload.id}`);
-    yield put(getRoleSuccess(data));
+    const { data } = yield call(request.get, `/access/${payload.roleId}`);
+    yield put(getRoleSuccess(data.data));
   } catch (e: any) {
     yield put(getRoleFailed(e.message));
   }
@@ -74,7 +74,16 @@ export function* updateRoleSaga({ payload }: any): any {
       }
     );
     yield put(updateRoleSuccess(data));
+    yield call(notification.success, {
+      message: "Role updated successfully",
+    });
+    if (payload?.onSuccess) {
+      payload?.onSuccess();
+    }
   } catch (e: any) {
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
     yield put(updateRoleFailed(e.message));
   }
 }
@@ -83,7 +92,13 @@ export function* deleteRoleSaga({ payload }: any): any {
   try {
     const { data } = yield call(request.delete, `/access/${payload.id}`);
     yield put(deleteRoleSuccess(data));
+    yield call(notification.success, {
+      message: "Role deleted successfully",
+    });
   } catch (e: any) {
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
     yield put(deleteRoleFailed(e.message));
   }
 }
@@ -92,7 +107,13 @@ export function* getRoleListSaga({ payload }: any): any {
   try {
     const { data } = yield call(request.get, `/access/`);
     yield put(getRoleListSuccess(data));
+    if (payload?.onSuccess) {
+      payload?.onSuccess();
+    }
   } catch (e: any) {
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
     yield put(getRoleListFailed(e.message));
   }
 }

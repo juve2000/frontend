@@ -18,6 +18,9 @@ import {
   getOfficeListReq,
   getOfficeListSuccess,
   getOfficeListFailed,
+  getOfficeListRootReq,
+  getOfficeListRootSuccess,
+  getOfficeListRootFailed,
 } from "../actions";
 
 // import { UserState } from "../types";
@@ -28,11 +31,12 @@ export const officeState = {
   officeList: [],
   loading: false,
   errorMessage: "",
+  count: 10,
 };
 
 export default {
   office: createReducer<any>(officeState, (builder) => {
-    // GET COMPANY
+    // GET OFFICE
     builder
       .addCase(getOfficeReq, (state) => {
         return {
@@ -55,7 +59,7 @@ export default {
           loading: false,
         };
       });
-    // CREATE COMPANY
+    // CREATE OFFICE
     builder
       .addCase(createOfficeReq, (state) => {
         return {
@@ -78,7 +82,7 @@ export default {
           loading: false,
         };
       });
-    // UPDATE COMPANY
+    // UPDATE OFFICE
     builder
       .addCase(updateOfficeReq, (state) => {
         return {
@@ -101,7 +105,7 @@ export default {
           loading: false,
         };
       });
-    // DELETE COMPANY
+    // DELETE OFFICE
     builder
       .addCase(deleteOfficeReq, (state) => {
         return {
@@ -124,7 +128,7 @@ export default {
           loading: false,
         };
       });
-    // GET LIST OF COMPANIES
+    // GET LIST OF OFFICES
     builder
       .addCase(getOfficeListReq, (state) => {
         return {
@@ -136,11 +140,34 @@ export default {
       .addCase(getOfficeListSuccess, (state, { payload }) => {
         return {
           ...state,
-          officeList: payload,
+          officeList: payload.data,
           loading: false,
         };
       })
       .addCase(getOfficeListFailed, (state, { payload }) => {
+        return {
+          ...state,
+          errorMessage: payload,
+          loading: false,
+        };
+      });
+    // GET LIST OF OFFICES ROOT
+    builder
+      .addCase(getOfficeListRootReq, (state) => {
+        return {
+          ...state,
+          loading: true,
+          errorMessage: "",
+        };
+      })
+      .addCase(getOfficeListRootSuccess, (state, { payload }) => {
+        return {
+          ...state,
+          officeList: payload.data,
+          loading: false,
+        };
+      })
+      .addCase(getOfficeListRootFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,

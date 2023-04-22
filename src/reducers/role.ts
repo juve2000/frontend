@@ -21,6 +21,7 @@ import {
   getRoleListReq,
   getRoleListSuccess,
   getRoleListFailed,
+  setRole,
 } from "../actions";
 
 // import { UserState } from "../types";
@@ -175,5 +176,12 @@ export default {
           loading: false,
         };
       });
+    // SET ROLE
+    builder.addCase(setRole, (state, { payload }) => {
+      return {
+        ...state,
+        role: payload,
+      };
+    });
   }),
 };

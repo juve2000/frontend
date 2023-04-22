@@ -10,8 +10,19 @@ export const PermissionsFields = {
   label: "Permissions List",
   isRequired: true,
   fields: [
+    // {
+    //   type: InputType.INPUT_ROLE,
+    //   name: RoleField.PERMISSIONS,
+    //   label: "Permissions*",
+    //   rules: [getValidation(REQUIRED, "")],
+    //   placeholder: "Permissions",
+    //   hasFeedback: true,
+    //   title: "Permissions*",
+    //   span: 24,
+    //   width: "100%",
+    // },
     {
-      type: InputType.INPUT_ROLE,
+      type: InputType.TABLE_ROLE,
       name: RoleField.PERMISSIONS,
       label: "Permissions*",
       rules: [getValidation(REQUIRED, "")],

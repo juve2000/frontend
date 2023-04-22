@@ -220,6 +220,10 @@ export const CarrierPage = () => {
                     htmlType="submit"
                     className="orange"
                     style={{ width: "65px", marginRight: 12 }}
+                    disabled={
+                      state === PAGE_STATUS.VIEW ||
+                      !checkPermission(AllPermissionsType.CARRIER_EDIT)
+                    }
                   >
                     Save
                   </Button>
@@ -229,6 +233,10 @@ export const CarrierPage = () => {
                     onClick={() => {
                       form.setFieldsValue(initialValues);
                     }}
+                    disabled={
+                      state === PAGE_STATUS.VIEW ||
+                      !checkPermission(AllPermissionsType.CARRIER_EDIT)
+                    }
                   >
                     Cancel
                   </Button>

@@ -3,6 +3,7 @@ import { Form, Select, Button, Upload, Col, Input, Row, Modal } from "antd";
 import downloadIcon from "../../../img/download.svg";
 import uploadIcon from "../../../img/upload.svg";
 import { ENV } from "../../../utils/constants";
+import { LogoCarrier } from "../LogoCarrier";
 
 export const InputImageUploadV2 = (props: any) => {
   const {
@@ -53,7 +54,7 @@ export const InputImageUploadV2 = (props: any) => {
       ) : null}
       <Row>
         <Col span={4}>
-          {form.getFieldValue(name) && (
+          {form.getFieldValue(name) ? (
             <>
               <img
                 style={{
@@ -78,6 +79,8 @@ export const InputImageUploadV2 = (props: any) => {
                 />
               </Modal>
             </>
+          ) : (
+            <LogoCarrier logo={form.getFieldValue(name)} />
           )}
         </Col>
         <Col span={20}>

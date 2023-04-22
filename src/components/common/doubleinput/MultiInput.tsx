@@ -49,6 +49,28 @@ export const MultiInputV2 = (props: any) => {
             ) {
               return null;
             }
+            if (field?.type === InputType.INPUT_ROLE && props?.isCreate) {
+              return (
+                <CommonInputV2
+                  {...field}
+                  key={i}
+                  form={form}
+                  disabled={disabled}
+                  isCreate={props?.isCreate}
+                />
+              );
+            }
+            if (field?.type === InputType.TABLE_ROLE && props?.isCreate) {
+              return (
+                <CommonInputV2
+                  {...field}
+                  key={i}
+                  form={form}
+                  disabled={disabled}
+                  isCreate={props?.isCreate}
+                />
+              );
+            }
             if (
               CARRIER_SELECT_DISABLED.includes(field?.type) &&
               isReadonlyCarrier
@@ -82,7 +104,7 @@ export const MultiInputV2 = (props: any) => {
                 {...field}
                 key={i}
                 form={form}
-                disabled={disabled}
+                disabled={disabled || field?.isReadonly}
               />
             );
           })}

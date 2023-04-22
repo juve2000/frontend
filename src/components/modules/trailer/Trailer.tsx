@@ -214,6 +214,10 @@ export const TrailerPage = () => {
                     htmlType="submit"
                     className="orange"
                     style={{ width: "65px", marginRight: 12 }}
+                    disabled={
+                      state === PAGE_STATUS.VIEW ||
+                      !checkPermission(AllPermissionsType.TRAILER_EDIT)
+                    }
                   >
                     Save
                   </Button>
@@ -223,6 +227,10 @@ export const TrailerPage = () => {
                     onClick={() => {
                       form.setFieldsValue(initialValues);
                     }}
+                    disabled={
+                      state === PAGE_STATUS.VIEW ||
+                      !checkPermission(AllPermissionsType.TRAILER_EDIT)
+                    }
                   >
                     Cancel
                   </Button>

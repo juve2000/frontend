@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Table, Dropdown, Row, Col, Select, Button } from "antd";
+import { Table, Dropdown, Row, Col, Modal } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useTableParams } from "../../../hooks/useTableParams";
 import dayjs from "dayjs";
-import {
-  getCarriersListReq,
-  getCarrierPasswordReq,
-} from "../../../actions/carrier";
-import {
-  getRoleListReq,
-  // getCarrierPasswordReq,
-} from "../../../actions/role";
+
+import { getRoleListReq } from "../../../actions/role";
 import { getParams } from "../../../routes/utils";
 import { InputSearch } from "../../common/doubleinput/InputSearch";
 import { getOrderFromTableParams } from "../../../hooks/utils";
@@ -22,9 +16,7 @@ import ResetSort from "../../../img/resetSort.svg";
 import ResetFilter from "../../../img/resetFilter.svg";
 import { carrierData } from "../driver/constant";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-// generateArrayOfYears
-import { generateArrayOfYears } from "../../../hooks/utils";
-import { LogoCarrier } from "../../common/LogoCarrier";
+import { ViewPermissions } from "./fields/ViewPermissions";
 
 dayjs.extend(customParseFormat);
 
@@ -50,6 +42,7 @@ export const RoleList: React.FC = () => {
   const count = useSelector((state: any) => state.role.count);
   const loading = useSelector((state: any) => state.role.loading);
   const [accautnModalOpen, setAccauntModalOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const columns: ColumnsType<any> = [
     Table.SELECTION_COLUMN,
@@ -66,6 +59,7 @@ export const RoleList: React.FC = () => {
         return (
           <div
             className="orange ubuntu"
+            style={{ cursor: "pointer" }}
             onClick={() => {
               navigate(`${location.pathname}/${record.id}`);
             }}
@@ -77,29 +71,7 @@ export const RoleList: React.FC = () => {
       width: 300,
       ellipsis: true,
     },
-    {
-      title: "Assigned Users",
-      dataIndex: "type",
-      key: "type",
-      sortOrder: getOrderFromTableParams("type", tableParams),
-      sorter: {
-        compare: (a: any, b: any) => a.type - b.type,
-        multiple: 5,
-      },
 
-      render: (name, record, index) => {
-        return (
-          <div
-            className="ubuntu orange"
-            style={{ color: "#141029", cursor: "pointer" }}
-          >
-            {`TBD`}
-          </div>
-        );
-      },
-      ellipsis: true,
-      width: "20%",
-    },
     {
       title: "Data Modified",
       key: "serial_number",
@@ -126,8 +98,8 @@ export const RoleList: React.FC = () => {
     },
     {
       title: "Permissions",
-      dataIndex: "mac_address",
-      key: "mac_address",
+      dataIndex: "permissions",
+      key: "permissions",
       sortOrder: getOrderFromTableParams("mac_address", tableParams),
       sorter: {
         compare: (a: any, b: any) => a.mac_address - b.mac_address,
@@ -140,7 +112,33 @@ export const RoleList: React.FC = () => {
             className="ubuntu orange"
             style={{ color: "#141029", cursor: "pointer" }}
           >
-            {`TBD`}
+            <span className="ubuntu organe" onClick={() => setOpenModal(true)}>
+              View
+            </span>
+            <Modal
+              title={`Role: ${record.name} > Permissions`}
+              open={openModal}
+              onOk={() => setOpenModal(false)}
+              onCancel={() => setOpenModal(false)}
+              width={"90%"}
+              footer={false}
+            >
+              <ViewPermissions
+                {...record}
+                onClose={() => setOpenModal(false)}
+                permissionsList={Object.values(record?.permissions)}
+                onSuccess={() => {
+                  dispatch(
+                    getRoleListReq({
+                      queryParams: {
+                        ...getParams(tableParams),
+                        with: ["terminal", "carrier", "group"],
+                      },
+                    })
+                  );
+                }}
+              />
+            </Modal>
           </div>
         );
       },

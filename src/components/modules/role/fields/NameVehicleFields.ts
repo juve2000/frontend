@@ -1,17 +1,9 @@
 import { InputType } from "../../../../constants/inputs";
-import { generateArrayOfYears } from "../../../../hooks/utils";
-import {
-  VALIDATION_RULES,
-  validate,
-  VALIDATION_TYPE,
-  getValidation,
-} from "../../../../utils/validation";
-import { VehicleField } from "../../vehicle/constant";
+import { VALIDATION_TYPE, getValidation } from "../../../../utils/validation";
 
-import { DeviceField, RoleField } from "../constant";
+import { RoleField } from "../constant";
 
-const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL, NAME } =
-  VALIDATION_TYPE;
+const { REQUIRED } = VALIDATION_TYPE;
 
 export const NameDriverFields = {
   type: InputType.MULTI,

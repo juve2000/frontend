@@ -15,14 +15,11 @@ import { CarriersPage } from "../components/modules/carrier/CarriersPage";
 import { CarrierPage } from "../components/modules/carrier/Carrier";
 import { CarrierCreatePage } from "../components/modules/carrier/CarrierCreate";
 import { CarriersList } from "../components/modules/carrier/CarriersList";
+
 import { DriversPage } from "../components/modules/driver/DriversPage";
 import { DriverPage } from "../components/modules/driver/Driver";
 import { DriverCreatePage } from "../components/modules/driver/CreateDriver";
 import { DriversList } from "../components/modules/driver/DriverList";
-
-import { UsersPage } from "../components/modules/user/UsersPage";
-import { UserPage } from "../components/modules/user/User";
-import { UsersList } from "../components/modules/user/UsersList";
 
 import { DriverGroupsPage } from "../components/modules/driver_group/DriverGroupPage";
 import { DriverGroupPage } from "../components/modules/driver_group/DriverGroup";
@@ -53,6 +50,11 @@ import { RolesPage } from "../components/modules/role/RolesPage";
 import { RolePage } from "../components/modules/role/Role";
 import { RoleCreatePage } from "../components/modules/role/CreateRole";
 import { RoleList } from "../components/modules/role/RoleList";
+
+import { UsersPage } from "../components/modules/user/UsersPage";
+import { UserPage } from "../components/modules/user/User";
+import { UserCreatePage } from "../components/modules/user/CreateUser";
+import { UserList } from "../components/modules/user/UserList";
 
 export const MainRouter = () => {
   const navigate = useNavigate();
@@ -139,10 +141,11 @@ export const MainRouter = () => {
             <Route path={`create`} element={<RoleCreatePage />} />
             <Route path={`:roleId`} element={<RolePage />} />
           </Route>
-          {/* USERS ROUTE */}
-          <Route path={`/client/users`} element={<UsersPage />}>
-            <Route index element={<UsersList />} />;
-            <Route path={`:userid`} element={<UserPage />} />
+          {/* USERS ROUTES */}
+          <Route path={ROUTES.USER} element={<UsersPage />}>
+            <Route index element={<UserList />} />;
+            <Route path={`create`} element={<UserCreatePage />} />
+            <Route path={`:userId`} element={<UserPage />} />
           </Route>
 
           <Route path={`/client/drivers`} element={<div>drivers </div>} />

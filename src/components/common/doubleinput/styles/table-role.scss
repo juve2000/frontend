@@ -1,0 +1,28 @@
+.table-role-header {
+  font-family: "Ubuntu" !important;
+  font-size: 14px;
+  background-color: rgba(239, 246, 255, 0.4);
+  padding: 10px 10px;
+  display: flex;
+  align-items: center;
+  //   justify-content: center;
+  border-bottom: 1px solid $title_color;
+  font-weight: 500;
+}
+
+.table-role-cell {
+  font-family: "Ubuntu" !important;
+  font-size: 14px;
+  //   background-color: $title_color;
+  padding: 10px 10px;
+  display: flex;
+  align-items: center;
+  //   justify-content: center;
+}
+
+.table-role-row {
+  border-bottom: 1px solid $title_color;
+  &:hover {
+    background-color: $text !important;
+  }
+}

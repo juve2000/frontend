@@ -93,14 +93,16 @@ export const DriverGroupPage = () => {
   }, [search]);
 
   React.useEffect(() => {
-    dispatch(
-      getCarriersListReq({
-        queryParams: {
-          with: ["settings", "terminals", "driver_groups", "documents"],
-        },
-      })
-    );
-  }, []);
+    if (carrierList?.length === 0) {
+      dispatch(
+        getCarriersListReq({
+          queryParams: {
+            with: ["settings", "terminals", "driver_groups", "documents"],
+          },
+        })
+      );
+    }
+  }, [carrierList]);
 
   useEffect(() => {
     form.setFieldsValue({
@@ -237,6 +239,10 @@ export const DriverGroupPage = () => {
                     htmlType="submit"
                     className="orange"
                     style={{ width: "65px", marginRight: 12 }}
+                    disabled={
+                      state === PAGE_STATUS.VIEW ||
+                      !checkPermission(AllPermissionsType.DRIVER_GROUP_EDIT)
+                    }
                   >
                     Save
                   </Button>
@@ -246,6 +252,10 @@ export const DriverGroupPage = () => {
                     onClick={() => {
                       form.setFieldsValue(initialValues);
                     }}
+                    disabled={
+                      state === PAGE_STATUS.VIEW ||
+                      !checkPermission(AllPermissionsType.DRIVER_GROUP_EDIT)
+                    }
                   >
                     Cancel
                   </Button>

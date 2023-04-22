@@ -24,6 +24,9 @@ const DEVICE_PAGE = `${DEVICE}/:id`;
 const ROLE = `${Root}/role`;
 const ROLE_PAGE = `${ROLE}/:id`;
 
+const USER = `${Root}/user`;
+const USER_PAGE = `${ROLE}/:id`;
+
 export const ROUTES = {
   Root,
   CARRIERS,
@@ -42,4 +45,6 @@ export const ROUTES = {
   DEVICE_PAGE,
   ROLE,
   ROLE_PAGE,
+  USER,
+  USER_PAGE,
 };

@@ -1,51 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, useLocation, useSearchParams } from "react-router-dom";
-import { updateRoleReq, getRoleReq } from "../../../actions/role";
-import { CARRIER_SELECT_DISABLED } from "../../common/doubleinput/utils";
+import { useParams } from "react-router-dom";
+import { createCarrierReq, getCarriersListReq } from "../../../actions/carrier";
 
 import { Row, Col, Form, Button, Input, Spin } from "antd";
 import { CommonInput } from "../../common/inputs";
-import { roleForm } from "./role-form";
+import { userForm } from "./user-form";
 import { InputType } from "../../../constants/inputs";
-import { AllPermissionsType, PAGE_STATUS } from "./constant";
 
-import { jsonToFormData } from "../../../hooks/utils";
+import { getCreateUserReq } from "../../../actions/user";
 import { usePermissions } from "../../../hooks/usePermissions";
+import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
+import { jsonToFormData } from "../../../hooks/utils";
 
-export const RolePage = () => {
+export const UserCreatePage = () => {
   const [form] = Form.useForm();
   const params = useParams();
-  const [search, setSearch] = useSearchParams();
-  const [state, setStateValue] = React.useState(search.get("state"));
   const dispatch = useDispatch();
-  const [initialValues, setInitialValues] = useState({
-    name: "",
-    description: "",
-    users: [],
-    permissions: [],
-  });
-  const { loading, role } = useSelector((state: any) => state.role);
+  const { loading } = useSelector((state: any) => state.user);
+
+  const { checkPermission } = usePermissions();
 
   const { user } = useSelector((state: any) => state.auth);
   const [fields, setFields] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  React.useEffect(() => {
-    setStateValue(search.get("state"));
-  }, [search]);
-
-  useEffect(() => {
-    dispatch(
-      getRoleReq({
-        roleId: params.roleId,
-        queryParams: {
-          with: ["terminal", "group", "carrier", "documents"],
-        },
-      })
-    );
-  }, []);
+  const [initialValues, setInitialValues] = useState({
+    first_name: "",
+    last_usdot: "",
+    phone: "",
+    role: null,
+    email: "",
+    personal_email: "",
+    status: null,
+    note: "",
+    offices: [],
+    password: "",
+    username: "",
+    company: user.company,
+  });
 
   const handleSubmit = async (values: any) => {
     const f = Math.floor((1 + Math.random()) * 0x10000)
@@ -53,35 +47,24 @@ export const RolePage = () => {
       .substring(1);
     const data = jsonToFormData({
       ...values,
+      company: user.company.id,
+      offices: [...user.offices].map((office) => office.id),
     });
-
     dispatch(
-      updateRoleReq({
+      getCreateUserReq({
         values: data,
-        roleId: params.roleId,
+        onSuccess: () => {
+          form.setFieldsValue(initialValues);
+        },
       })
     );
   };
 
-  React.useEffect(() => {
-    setInitialValues({
-      ...initialValues,
-      ...role,
-    });
-    form.setFieldsValue({
-      ...initialValues,
-      ...role,
-    });
-  }, [role]);
-
-  const { checkPermission } = usePermissions();
-
   return (
     <>
-      {checkPermission(AllPermissionsType.ROLE_SHOW) ? (
+      {checkPermission(AllPermissionsType.USER_CREATE) ? (
         <Row style={{ paddingLeft: 23, paddingRight: 25, height: "100%" }}>
           {/* <Graph /> */}
-
           {loading ? (
             <div
               style={{
@@ -101,46 +84,20 @@ export const RolePage = () => {
                 form={form}
                 name="test"
                 onError={(err) => {
-                  console.log("err", err);
+                  // console.log("err", err);
                 }}
                 onFinish={handleSubmit}
                 initialValues={initialValues}
-                onChange={(values) => {
+                onChange={() => {
                   console.log("form values", form.getFieldsValue());
                 }}
               >
-                {roleForm({}).map((fieldCurrent: any, i: number) => {
-                  const field = {
-                    ...fieldCurrent,
-                    disabled:
-                      state === PAGE_STATUS.VIEW ||
-                      !checkPermission(AllPermissionsType.ROLE_EDIT),
-                    isReadonlyCarrier: true,
-                    isIdentificatorDisabled: true,
-                  };
-
-                  if (CARRIER_SELECT_DISABLED.includes(field.type)) {
-                    return (
-                      <CommonInput
-                    currentIndex={currentIndex}
-                    fields={fields}
-
-                    key={i}
-                    setCurrentIndex={setCurrentIndex}
-                    {...field}
-                    form={form}
-                    isReadonlyCarrier={true}
-                  />
-                      // prettier-ignore
-                    );
-                  }
-
+                {userForm({}).map((field: any, i: number) => {
                   if (field.type === InputType.ADD_DYNAMIC) {
                     return (
                       <CommonInput
                     currentIndex={currentIndex}
                     fields={fields}
-
                     key={i}
                     setCurrentIndex={setCurrentIndex}
                     {...field}
@@ -149,14 +106,8 @@ export const RolePage = () => {
                       // prettier-ignore
                     );
                   }
-                  return (
-                    <CommonInput
-                      key={i}
-                      {...field}
-                      form={form}
-                      showDocsList={true}
-                    />
-                  );
+                  // prettier-ignore
+                  return <CommonInput key={i} {...field} form={form} />
                 })}
                 <Form.Item style={{ width: "100%", display: "flex" }}>
                   <Button
@@ -164,12 +115,8 @@ export const RolePage = () => {
                     htmlType="submit"
                     className="orange"
                     style={{ width: "65px", marginRight: 12 }}
-                    disabled={
-                      !checkPermission(AllPermissionsType.ROLE_EDIT) ||
-                      state === PAGE_STATUS.VIEW
-                    }
                   >
-                    Save
+                    Submit
                   </Button>
                   <Button
                     className="grey"
@@ -177,10 +124,6 @@ export const RolePage = () => {
                     onClick={() => {
                       form.setFieldsValue(initialValues);
                     }}
-                    disabled={
-                      !checkPermission(AllPermissionsType.ROLE_EDIT) ||
-                      state === PAGE_STATUS.VIEW
-                    }
                   >
                     Cancel
                   </Button>

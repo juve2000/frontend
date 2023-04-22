@@ -64,15 +64,15 @@ export const DevicePage = () => {
     setStateValue(search.get("state"));
   }, [search]);
 
-  React.useEffect(() => {
-    dispatch(
-      getCarriersListReq({
-        queryParams: {
-          with: ["settings", "terminals", "driver_groups", "documents"],
-        },
-      })
-    );
-  }, []);
+  // React.useEffect(() => {
+  //   dispatch(
+  //     getCarriersListReq({
+  //       queryParams: {
+  //         with: ["settings", "terminals", "driver_groups", "documents"],
+  //       },
+  //     })
+  //   );
+  // }, []);
 
   useEffect(() => {
     form.setFieldsValue({
@@ -213,6 +213,10 @@ export const DevicePage = () => {
                     htmlType="submit"
                     className="orange"
                     style={{ width: "65px", marginRight: 12 }}
+                    disabled={
+                      state === PAGE_STATUS.VIEW ||
+                      !checkPermission(AllPermissionsType.DEVICE_EDIT)
+                    }
                   >
                     Save
                   </Button>
@@ -222,6 +226,10 @@ export const DevicePage = () => {
                     onClick={() => {
                       form.setFieldsValue(initialValues);
                     }}
+                    disabled={
+                      state === PAGE_STATUS.VIEW ||
+                      !checkPermission(AllPermissionsType.DEVICE_EDIT)
+                    }
                   >
                     Cancel
                   </Button>

@@ -243,6 +243,10 @@ export const VehiclePage = () => {
                     htmlType="submit"
                     className="orange"
                     style={{ width: "65px", marginRight: 12 }}
+                    disabled={
+                      state === PAGE_STATUS.VIEW ||
+                      !checkPermission(AllPermissionsType.VEHICLE_EDIT)
+                    }
                   >
                     Save
                   </Button>
@@ -252,6 +256,10 @@ export const VehiclePage = () => {
                     onClick={() => {
                       form.setFieldsValue(initialValues);
                     }}
+                    disabled={
+                      state === PAGE_STATUS.VIEW ||
+                      !checkPermission(AllPermissionsType.VEHICLE_EDIT)
+                    }
                   >
                     Cancel
                   </Button>

@@ -13,7 +13,7 @@ import { PermissionsFields } from "./fields/PermissionsField";
 const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL } =
   VALIDATION_TYPE;
 
-export const deviceForm = (options: any) => {
+export const roleForm = (options: any) => {
   return [
     {
       type: InputType.PAGE_TITLE,

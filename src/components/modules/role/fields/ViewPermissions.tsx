@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { Form, Checkbox, Row, Col } from "antd";
-import { InputTitle } from "./InputTitle";
+import { useSelector, useDispatch } from "react-redux";
+import { Form, Checkbox, Row, Col, Button } from "antd";
 import {
+  ALL_PERMISSION,
   CARRIER_PERMISSIONS,
   USER_PERMISSIONS,
   VEHICLE_PERMISSIONS,
@@ -15,12 +15,14 @@ import {
   COMPANY_PERMISSIONS,
   OFFICE_PERMISSIONS,
   CarrierPermission,
-  ROLES,
   SUPER_ADMIN,
-} from "../../modules/role/constant";
-import { AllPermissionsType } from "../../modules/role/constant";
-import { usePermissions } from "../../../hooks/usePermissions";
-import { isArray } from "lodash";
+  ROLES,
+} from "../constant";
+
+import { jsonToFormData } from "../../../../hooks/utils";
+
+import { updateRoleReq } from "../../../../actions";
+import { usePermissions } from "../../../../hooks/usePermissions";
 
 const PermissionRow = (props: any) => {
   const { value, checked, handleChange, handleRemove } = props;
@@ -130,8 +132,9 @@ const PermissionTable = (props: any) => {
       {permissionsItems.map((p: any) => {
         return (
           <PermissionRow
+            key={p}
             value={p}
-            checked={permissions?.includes(p)}
+            checked={permissions.includes(p)}
             handleChange={handleChange}
           />
         );
@@ -140,14 +143,13 @@ const PermissionTable = (props: any) => {
   );
 };
 
-export const InputRole = (props: any) => {
-  const { name, label, form, isCreate = false } = props;
-  const [permissions, setPermissions] = useState<any>([]);
+export const ViewPermissions = (props: any) => {
+  const { permissionsList = [""], onClose, onSuccess } = props;
+  const [initialValues, setInitialValues] = useState();
+  const { name, label, form, onSave } = props;
+  const [permissions, setPermissions] = useState<any>(permissionsList);
+  const dispatch = useDispatch();
   const { ALL_PERMISSION_TYPES = [], role } = usePermissions();
-
-  const rolePermissions = useSelector(
-    (state: any) => state?.role?.role?.permissions
-  );
 
   const handleChange = (value: any) => {
     if (!permissions.includes(value)) {
@@ -160,23 +162,9 @@ export const InputRole = (props: any) => {
   };
 
   React.useEffect(() => {
-    if (isCreate) {
-      return;
-    }
-    if (isArray(rolePermissions) && !isCreate) {
-      setPermissions([...rolePermissions]);
-
-      return;
-    } else {
-      if (!isCreate && !isArray(rolePermissions)) {
-        if (!rolePermissions) {
-          setPermissions([]);
-        } else {
-          setPermissions(Object.values(rolePermissions));
-        }
-      }
-    }
-  }, [rolePermissions]);
+    setPermissions(permissionsList);
+    setInitialValues(permissionsList);
+  }, [permissionsList]);
 
   const handleChangeAll = (value: any) => {
     if (value) {
@@ -197,50 +185,60 @@ export const InputRole = (props: any) => {
     }
   };
 
-  const arrayContainsArray = React.useCallback(
-    (allItems: any, typeItems: any) => {
-      console.log("all items");
-      if (0 === typeItems.length) {
-        return false;
-      }
-      return typeItems.every(function (value: any) {
-        return allItems?.indexOf(value) >= 0;
-      });
-    },
-    [permissions]
-  );
+  const arrayContainsArray = (allItems: any, typeItems: any) => {
+    if (0 === typeItems.length) {
+      return false;
+    }
+    return typeItems.every(function (value: any) {
+      return allItems.indexOf(value) >= 0;
+    });
+  };
 
-  React.useEffect(() => {
-    form.setFieldValue(name, permissions);
-  }, [permissions]);
+  const handleSubmit = async (values: any) => {
+    const data = jsonToFormData({
+      name: props?.name,
+      description: props?.description,
+      permissions,
+    });
+
+    dispatch(
+      updateRoleReq({
+        values: data,
+        roleId: props?.id,
+        onSuccess: () => {
+          onSuccess();
+          onClose();
+        },
+      })
+    );
+  };
 
   return (
     <div style={{ width: "100%" }}>
-      <InputTitle label={label} />
-      <Form.Item name={name} style={{ width: "100%" }}>
-        <Row>
-          <Col span={24}>
-            <Checkbox
-              //   value={value}
-              style={{ lineHeight: "32px" }}
-              checked={permissions?.length === ALL_PERMISSION_TYPES?.length}
-              onChange={(e) => {
-                handleChangeAll(e.target.checked);
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <span className="icon-fi-rr-plus-small ubuntu" />
-                <span
-                  className="ubuntu"
-                  style={{ fontSize: 16, fontWeight: "bold" }}
-                >
-                  Select all
-                </span>
-              </div>
-            </Checkbox>
-          </Col>
-        </Row>
-        <Row style={{ width: "100%" }}>
+      <Row>
+        <Col span={24}>
+          <Checkbox
+            //   value={value}
+            style={{ lineHeight: "32px" }}
+            checked={permissions.length === ALL_PERMISSION_TYPES.length}
+            onChange={(e) => {
+              handleChangeAll(e.target.checked);
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <span className="icon-fi-rr-plus-small ubuntu" />
+              <span
+                className="ubuntu"
+                style={{ fontSize: 16, fontWeight: "bold" }}
+              >
+                Select all
+              </span>
+            </div>
+          </Checkbox>
+        </Col>
+      </Row>
+      <Row style={{ width: "100%" }}>
+        <Col span={12}>
           <PermissionTable
             permissions={permissions}
             permissionsItems={CARRIER_PERMISSIONS}
@@ -249,6 +247,8 @@ export const InputRole = (props: any) => {
             checked={arrayContainsArray(permissions, CARRIER_PERMISSIONS)}
             type={"Carrier"}
           />
+        </Col>
+        <Col span={11} offset={1}>
           <PermissionTable
             permissions={permissions}
             permissionsItems={USER_PERMISSIONS}
@@ -257,6 +257,8 @@ export const InputRole = (props: any) => {
             checked={arrayContainsArray(permissions, USER_PERMISSIONS)}
             type={"User"}
           />
+        </Col>
+        <Col span={12}>
           <PermissionTable
             permissions={permissions}
             permissionsItems={VEHICLE_PERMISSIONS}
@@ -265,6 +267,8 @@ export const InputRole = (props: any) => {
             checked={arrayContainsArray(permissions, VEHICLE_PERMISSIONS)}
             type={"Vehicle"}
           />
+        </Col>
+        <Col span={11} offset={1}>
           <PermissionTable
             permissions={permissions}
             permissionsItems={TRAILER_PERMISSIONS}
@@ -273,6 +277,8 @@ export const InputRole = (props: any) => {
             checked={arrayContainsArray(permissions, TRAILER_PERMISSIONS)}
             type={"Trailer"}
           />
+        </Col>
+        <Col span={12}>
           <PermissionTable
             permissions={permissions}
             permissionsItems={DRIVER_PERMISSIONS}
@@ -281,6 +287,8 @@ export const InputRole = (props: any) => {
             checked={arrayContainsArray(permissions, DRIVER_PERMISSIONS)}
             type={"Driver"}
           />
+        </Col>
+        <Col span={11} offset={1}>
           <PermissionTable
             permissions={permissions}
             permissionsItems={DRIVER_GROUP_PERMISSIONS}
@@ -289,6 +297,8 @@ export const InputRole = (props: any) => {
             checked={arrayContainsArray(permissions, DRIVER_GROUP_PERMISSIONS)}
             type={"Driver Group"}
           />
+        </Col>
+        <Col span={12}>
           <PermissionTable
             permissions={permissions}
             permissionsItems={MECHANIC_PERMISSIONS}
@@ -297,6 +307,8 @@ export const InputRole = (props: any) => {
             checked={arrayContainsArray(permissions, MECHANIC_PERMISSIONS)}
             type={"Mechanic"}
           />
+        </Col>
+        <Col span={11} offset={1}>
           <PermissionTable
             permissions={permissions}
             permissionsItems={DEVICE_PERMISSIONS}
@@ -305,6 +317,8 @@ export const InputRole = (props: any) => {
             checked={arrayContainsArray(permissions, DEVICE_PERMISSIONS)}
             type={"Device"}
           />
+        </Col>
+        <Col span={12}>
           <PermissionTable
             permissions={permissions}
             permissionsItems={ROLE_PERMISSIONS}
@@ -313,6 +327,8 @@ export const InputRole = (props: any) => {
             checked={arrayContainsArray(permissions, ROLE_PERMISSIONS)}
             type={"Role"}
           />
+        </Col>
+        <Col span={24}>
           {role === ROLES.SUPER_ADMIN && (
             <PermissionTable
               permissions={permissions}
@@ -323,8 +339,28 @@ export const InputRole = (props: any) => {
               type={"Super Admin"}
             />
           )}
-        </Row>
-      </Form.Item>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24} style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            className="white"
+            style={{ width: 80, marginRight: 20 }}
+            onClick={() => {
+              onClose();
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            className="orange"
+            style={{ width: 80 }}
+            onClick={handleSubmit}
+          >
+            Save
+          </Button>
+        </Col>
+      </Row>
     </div>
   );
 };

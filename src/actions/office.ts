@@ -19,6 +19,9 @@ export const OfficeActionTypes = keyMirror({
   GET_OFFICE_LIST_REQUEST: undefined,
   GET_OFFICE_LIST_SUCCESS: undefined,
   GET_OFFICE_LIST_FAILURE: undefined,
+  GET_OFFICE_LIST_ROOT_REQUEST: undefined,
+  GET_OFFICE_LIST_ROOT_SUCCESS: undefined,
+  GET_OFFICE_LIST_ROOT_FAILURE: undefined,
 });
 
 // get office
@@ -126,6 +129,28 @@ export const getOfficeListSuccess = createAction(
 
 export const getOfficeListFailed = createAction(
   OfficeActionTypes.GET_OFFICE_LIST_FAILURE,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+// get office list root
+
+export const getOfficeListRootReq = createAction(
+  OfficeActionTypes.GET_OFFICE_LIST_ROOT_REQUEST,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+export const getOfficeListRootSuccess = createAction(
+  OfficeActionTypes.GET_OFFICE_LIST_ROOT_SUCCESS,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+export const getOfficeListRootFailed = createAction(
+  OfficeActionTypes.GET_OFFICE_LIST_ROOT_FAILURE,
   (payload: any) => {
     return actionPayload(payload);
   }

@@ -134,7 +134,7 @@ export const DriverCreatePage = () => {
               return {
                 type: getDocumentByType(doc.fileType),
                 file: doc.originFileObj,
-                driver: params.driverId,
+                driver: params.driverid,
               };
             })
           : []),
@@ -143,7 +143,7 @@ export const DriverCreatePage = () => {
               return {
                 type: getDocumentByType(doc.fileType),
                 file: doc.originFileObj,
-                driver: params.driverId,
+                driver: params.driverid,
               };
             })
           : []),

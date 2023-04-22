@@ -22,6 +22,7 @@ export const RoleActionTypes = keyMirror({
   GET_ROLE_LIST_REQUEST: undefined,
   GET_ROLE_LIST_SUCCESS: undefined,
   GET_ROLE_LIST_FAILURE: undefined,
+  SET_ROLE: undefined,
 });
 
 // get role
@@ -151,6 +152,14 @@ export const getRoleListSuccess = createAction(
 
 export const getRoleListFailed = createAction(
   RoleActionTypes.GET_ROLE_LIST_FAILURE,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+// set role
+export const setRole = createAction(
+  RoleActionTypes.SET_ROLE,
   (payload: any) => {
     return actionPayload(payload);
   }

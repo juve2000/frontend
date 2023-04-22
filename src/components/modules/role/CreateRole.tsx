@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getCarriersListReq } from "../../../actions/carrier";
 
 import { Row, Col, Form, Button, Input, Spin } from "antd";
 import { CommonInput } from "../../common/inputs";
-import { deviceForm } from "./device-form";
-import { Graph } from "../../common/graph/Graph";
+import { roleForm } from "./role-form";
 import { InputType } from "../../../constants/inputs";
 
 import { createRoleReq } from "../../../actions/role";
@@ -17,12 +15,8 @@ export const RoleCreatePage = () => {
   const [form] = Form.useForm();
   const params = useParams();
   const dispatch = useDispatch();
-  const { loading, device, currentCarrier } = useSelector(
-    (state: any) => state.device
-  );
-  const { loading: carrierLoading, carrierList } = useSelector(
-    (state: any) => state.carrier
-  );
+  const { loading } = useSelector((state: any) => state.role);
+
   const { user } = useSelector((state: any) => state.auth);
   const [fields, setFields] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -33,23 +27,6 @@ export const RoleCreatePage = () => {
     users: [],
     permissions: [],
   });
-
-  React.useEffect(() => {
-    dispatch(
-      getCarriersListReq({
-        queryParams: {
-          with: ["settings", "terminals", "driver_groups"],
-        },
-      })
-    );
-  }, []);
-
-  useEffect(() => {
-    form.setFieldsValue({
-      ...form.getFieldsValue(),
-      // ...(!currentCarrier.defaultSavedCarrier ? currentCarrier?.settings : {}),
-    });
-  }, [currentCarrier]);
 
   const handleSubmit = async (values: any) => {
     const f = Math.floor((1 + Math.random()) * 0x10000)
@@ -99,7 +76,7 @@ export const RoleCreatePage = () => {
                 console.log("form values", form.getFieldsValue());
               }}
             >
-              {deviceForm({}).map((field: any, i: number) => {
+              {roleForm({}).map((field: any, i: number) => {
                 if (field.type === InputType.ADD_DYNAMIC) {
                   return (
                     <CommonInput
@@ -114,7 +91,7 @@ export const RoleCreatePage = () => {
                   );
                 }
                 // prettier-ignore
-                return <CommonInput key={i} {...field} form={form} />
+                return <CommonInput key={i} {...field} form={form} isCreate={true}/>
               })}
               <Form.Item style={{ width: "100%", display: "flex" }}>
                 <Button

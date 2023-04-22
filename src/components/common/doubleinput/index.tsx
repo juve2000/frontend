@@ -30,6 +30,11 @@ import { InputMechanicSelecetAdress } from "../../modules/mechanic/fields/Driver
 import { CarrierDynamicDeviceField } from "../../modules/device/fields/CarrierDynamicFields";
 //ROLE
 import { InputRole } from "./InputRole";
+import { InputSelectRole } from "./InputSelectRole";
+import { TableRole } from "./TableRole";
+//OFFICE
+
+import { OfficeSelectInput } from "./OfficeSelectInput";
 
 export const CommonInputV2 = (props: any) => {
   const { type } = props;
@@ -86,6 +91,13 @@ export const CommonInputV2 = (props: any) => {
     //ROLE FIELD
     case InputType.INPUT_ROLE:
       return <InputRole {...props} />;
+    case InputType.ROLE_SELECT:
+      return <InputSelectRole {...props} />;
+    case InputType.TABLE_ROLE:
+      return <TableRole {...props} />;
+    //OFFICE SELECT FIELD
+    case InputType.OFFICE_SELECT:
+      return <OfficeSelectInput {...props} />;
     default:
       return null;
   }

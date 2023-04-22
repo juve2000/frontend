@@ -140,7 +140,7 @@ export const CarrierCreatePage = () => {
               <Spin />
             </div>
           ) : (
-            <Col span={24}>
+            <Col span={16}>
               <Form
                 form={form}
                 name="test"

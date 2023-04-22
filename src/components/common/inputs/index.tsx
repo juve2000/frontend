@@ -25,6 +25,8 @@ import { CarrierDynamicTrailerField } from "../../modules/trailer/fields/Carrier
 import { CarrierDynamicDeviceField } from "../../modules/device/fields/CarrierDynamicFields";
 //ROLE FIELD
 import { InputRole } from "../doubleinput/InputRole";
+import { InputSelectRole } from "../doubleinput/InputSelectRole";
+import { TableRole } from "../doubleinput/TableRole";
 
 export const CommonInput = (props: any) => {
   const { type } = props;
@@ -73,6 +75,10 @@ export const CommonInput = (props: any) => {
     //ROLE FIELD
     case InputType.INPUT_ROLE:
       return <InputRole {...props} />;
+    case InputType.ROLE_SELECT:
+      return <InputSelectRole {...props} />;
+    case InputType.TABLE_ROLE:
+      return <TableRole {...props} />;
     default:
       return null;
   }

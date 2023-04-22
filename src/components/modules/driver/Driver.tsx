@@ -114,13 +114,15 @@ export const DriverPage = () => {
   }, [search]);
 
   React.useEffect(() => {
-    dispatch(
-      getCarriersListReq({
-        queryParams: {
-          with: ["settings", "terminals", "driver_groups", "documents"],
-        },
-      })
-    );
+    if (carrierList?.length === 0) {
+      dispatch(
+        getCarriersListReq({
+          queryParams: {
+            with: ["settings", "terminals", "driver_groups", "documents"],
+          },
+        })
+      );
+    }
   }, []);
 
   useEffect(() => {
@@ -161,7 +163,7 @@ export const DriverPage = () => {
               return {
                 type: getDocumentByType(doc.fileType) || 2,
                 file: doc.originFileObj,
-                driver: params.driverId,
+                driver: params.driverid,
               };
             })
           : []),
@@ -170,7 +172,7 @@ export const DriverPage = () => {
               return {
                 type: getDocumentByType(doc.fileType) || 1,
                 file: doc.originFileObj,
-                driver: params.driverId,
+                driver: params.driverid,
               };
             })
           : []),
@@ -296,6 +298,10 @@ export const DriverPage = () => {
                     htmlType="submit"
                     className="orange"
                     style={{ width: "65px", marginRight: 12 }}
+                    disabled={
+                      state === PAGE_STATUS.VIEW ||
+                      !checkPermission(AllPermissionsType.DRIVER_EDIT)
+                    }
                   >
                     Save
                   </Button>
@@ -305,6 +311,10 @@ export const DriverPage = () => {
                     onClick={() => {
                       form.setFieldsValue(initialValues);
                     }}
+                    disabled={
+                      state === PAGE_STATUS.VIEW ||
+                      !checkPermission(AllPermissionsType.DRIVER_EDIT)
+                    }
                   >
                     Cancel
                   </Button>
