@@ -19,6 +19,7 @@ import {
   forgotPasswordResFailed,
   getLoggedInUserResFailed,
   getLoggedInUserResSuccess,
+  getCompanySuccess,
 } from "../actions";
 
 export function* loginSaga({ payload }: any) {
@@ -97,6 +98,7 @@ export function* getLoggedInUserSaga({ payload }: any): any {
 
     if (data.status === "success") {
       yield put(getLoggedInUserResSuccess(data.data));
+      yield put(getCompanySuccess(data.data.company));
     }
   } catch (e: any) {
     yield put(getLoggedInUserResFailed(e.message));

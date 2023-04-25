@@ -45,4 +45,5 @@ export const InputType = {
   TABLE_ROLE: "TABLE_ROLE",
   // OFFICE
   OFFICE_SELECT: "OFFICE_SELECT",
+  ADDRESS_V3: "ADDRESS_V3",
 };

@@ -35,6 +35,9 @@ export const SideBar = (props: any) => {
     "trailer",
     "device",
     "role",
+    "company",
+    "role",
+    "user",
   ];
 
   const getDefaultKey = (pathname: string): any => {

@@ -35,6 +35,8 @@ import { TableRole } from "./TableRole";
 //OFFICE
 
 import { OfficeSelectInput } from "./OfficeSelectInput";
+//ADDRESS
+import { Address } from "./Address";
 
 export const CommonInputV2 = (props: any) => {
   const { type } = props;
@@ -98,6 +100,8 @@ export const CommonInputV2 = (props: any) => {
     //OFFICE SELECT FIELD
     case InputType.OFFICE_SELECT:
       return <OfficeSelectInput {...props} />;
+    case InputType.ADDRESS_V3:
+      return <Address {...props} />;
     default:
       return null;
   }

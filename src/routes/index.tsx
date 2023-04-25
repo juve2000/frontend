@@ -56,6 +56,11 @@ import { UserPage } from "../components/modules/user/User";
 import { UserCreatePage } from "../components/modules/user/CreateUser";
 import { UserList } from "../components/modules/user/UserList";
 
+import { CompaniesPage } from "../components/modules/company/CompaniesPage";
+import { CompanyPage } from "../components/modules/company/Company";
+import { CompanyCreatePage } from "../components/modules/company/CreateCompany";
+import { CompanyList } from "../components/modules/company/CompanyList";
+
 export const MainRouter = () => {
   const navigate = useNavigate();
   return (
@@ -148,7 +153,12 @@ export const MainRouter = () => {
             <Route path={`:userId`} element={<UserPage />} />
           </Route>
 
-          <Route path={`/client/drivers`} element={<div>drivers </div>} />
+          {/* COMPANY ROUTES */}
+          <Route path={ROUTES.COMPANY} element={<UsersPage />}>
+            <Route index element={<CompanyList />} />;
+            <Route path={`create`} element={<CompanyCreatePage />} />
+            <Route path={`:companyId`} element={<CompanyPage />} />
+          </Route>
         </Route>
       </Routes>
     </>

@@ -66,19 +66,28 @@ export const InputSelectV2 = (props: any) => {
           filterOption={(input: any, option: any) =>
             (option?.label?.toLowerCase() ?? "").includes(input)
           }
-          filterSort={(optionA: any, optionB: any) =>
-            (optionA?.label.option?.label?.toLowerCase() ?? "")
-              .toLowerCase()
-              .localeCompare(
-                (optionB?.label?.toLowerCase() ?? "").toLowerCase()
-              )
+          filterSort={(optionA: any, optionB: any) => {
+            if (optionA?.label && optionB?.label) {
+              return (optionA?.label.option?.label?.toLowerCase() ?? "")
+                .toLowerCase()
+                .localeCompare(
+                  (optionB?.label?.toLowerCase() ?? "").toLowerCase()
+                );
+            }
+          }}
+          options={
+            options?.length
+              ? options?.map((o: any) => {
+                  return {
+                    value: o.key,
+                    label: `${o.value}`,
+                  };
+                })
+              : [
+                  { value: "", label: "" },
+                  { value: "", label: "" },
+                ]
           }
-          options={options.map((o: any) => {
-            return {
-              value: o.key,
-              label: o.value,
-            };
-          })}
         />
         {/* {options.map((item: any, i: number) => {
             return (

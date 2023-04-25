@@ -27,6 +27,7 @@ import { CarrierDynamicDeviceField } from "../../modules/device/fields/CarrierDy
 import { InputRole } from "../doubleinput/InputRole";
 import { InputSelectRole } from "../doubleinput/InputSelectRole";
 import { TableRole } from "../doubleinput/TableRole";
+import { Address } from "../doubleinput/Address";
 
 export const CommonInput = (props: any) => {
   const { type } = props;
@@ -79,6 +80,8 @@ export const CommonInput = (props: any) => {
       return <InputSelectRole {...props} />;
     case InputType.TABLE_ROLE:
       return <TableRole {...props} />;
+    case InputType.ADDRESS_V3:
+      return <Address {...props} />;
     default:
       return null;
   }

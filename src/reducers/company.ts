@@ -6,18 +6,24 @@ import {
   getCompanyReq,
   getCompanySuccess,
   getCompanyFailed,
-  createCompanyReq,
-  createCompanySuccess,
-  createCompanyFailed,
+  getCompanyRootReq,
+  getCompanyRootSuccess,
+  getCompanyRootFailed,
+  createCompanyRootReq,
+  createCompanyRootSuccess,
+  createCompanyRootFailed,
   updateCompanyReq,
   updateCompanySuccess,
   updateCompanyFailed,
-  deleteCompanyReq,
-  deleteCompanySuccess,
-  deleteCompanyFailed,
-  getCompaniesListReq,
-  getCompaniesListSuccess,
-  getCompaniesListFailed,
+  updateCompanyRootReq,
+  updateCompanyRootSuccess,
+  updateCompanyRootFailed,
+  deleteCompanyRootReq,
+  deleteCompanyRootSuccess,
+  deleteCompanyRootFailed,
+  getCompaniesListRootReq,
+  getCompaniesListRootSuccess,
+  getCompaniesListRootFailed,
 } from "../actions";
 
 // import { UserState } from "../types";
@@ -28,6 +34,8 @@ export const companyState = {
   companiesList: [],
   loading: false,
   errorMessage: "",
+  count: 10,
+  companyRoot: {},
 };
 
 export default {
@@ -55,23 +63,46 @@ export default {
           loading: false,
         };
       });
-    // CREATE COMPANY
+    // GET COMPANY ROOT
     builder
-      .addCase(createCompanyReq, (state) => {
+      .addCase(getCompanyRootReq, (state) => {
         return {
           ...state,
           loading: true,
           errorMessage: "",
         };
       })
-      .addCase(createCompanySuccess, (state, { payload }) => {
+      .addCase(getCompanyRootSuccess, (state, { payload }) => {
+        return {
+          ...state,
+          companyRoot: payload,
+          loading: false,
+        };
+      })
+      .addCase(getCompanyRootFailed, (state, { payload }) => {
+        return {
+          ...state,
+          errorMessage: payload,
+          loading: false,
+        };
+      });
+    // CREATE COMPANY ROOT
+    builder
+      .addCase(createCompanyRootReq, (state) => {
+        return {
+          ...state,
+          loading: true,
+          errorMessage: "",
+        };
+      })
+      .addCase(createCompanyRootSuccess, (state, { payload }) => {
         return {
           ...state,
           company: payload,
           loading: false,
         };
       })
-      .addCase(createCompanyFailed, (state, { payload }) => {
+      .addCase(createCompanyRootFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,
@@ -101,46 +132,70 @@ export default {
           loading: false,
         };
       });
-    // DELETE COMPANY
+    // UPDATE COMPANY ROOT
     builder
-      .addCase(deleteCompanyReq, (state) => {
+      .addCase(updateCompanyRootReq, (state) => {
         return {
           ...state,
           loading: true,
           errorMessage: "",
         };
       })
-      .addCase(deleteCompanySuccess, (state, { payload }) => {
+      .addCase(updateCompanyRootSuccess, (state, { payload }) => {
         return {
           ...state,
           company: payload,
           loading: false,
         };
       })
-      .addCase(deleteCompanyFailed, (state, { payload }) => {
+      .addCase(updateCompanyRootFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,
           loading: false,
         };
       });
-    // GET LIST OF COMPANIES
+    // DELETE COMPANY
     builder
-      .addCase(getCompaniesListReq, (state) => {
+      .addCase(deleteCompanyRootReq, (state) => {
         return {
           ...state,
           loading: true,
           errorMessage: "",
         };
       })
-      .addCase(getCompaniesListSuccess, (state, { payload }) => {
+      .addCase(deleteCompanyRootSuccess, (state, { payload }) => {
         return {
           ...state,
-          companiesList: payload,
+          company: payload,
           loading: false,
         };
       })
-      .addCase(getCompaniesListFailed, (state, { payload }) => {
+      .addCase(deleteCompanyRootFailed, (state, { payload }) => {
+        return {
+          ...state,
+          errorMessage: payload,
+          loading: false,
+        };
+      });
+    // GET LIST OF COMPANIES ROOT
+    builder
+      .addCase(getCompaniesListRootReq, (state) => {
+        return {
+          ...state,
+          loading: true,
+          errorMessage: "",
+        };
+      })
+      .addCase(getCompaniesListRootSuccess, (state, { payload }) => {
+        return {
+          ...state,
+          companiesList: payload.data,
+          loading: false,
+          count: payload.count || 10,
+        };
+      })
+      .addCase(getCompaniesListRootFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,

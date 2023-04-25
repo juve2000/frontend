@@ -58,7 +58,6 @@ export const NameDriverFields = {
     {
       type: InputType.SELECT_V2,
       name: VehicleField.MAKE,
-      hasGenerate: true,
       title: "Year*",
       rules: [getValidation(REQUIRED, "Status")],
       placeholder: "Year",
@@ -66,12 +65,14 @@ export const NameDriverFields = {
       hasFeedback: true,
       span: 12,
       width: "95%",
-      options: generateArrayOfYears().map((y: any) => {
-        return {
-          key: y,
-          value: y,
-        };
-      }),
+      options: [
+        ...generateArrayOfYears()?.map((y: any) => {
+          return {
+            label: y,
+            value: y,
+          };
+        }),
+      ],
     },
   ],
 };

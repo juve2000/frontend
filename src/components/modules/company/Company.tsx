@@ -1,188 +1,67 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useLocation, useSearchParams } from "react-router-dom";
-import { getCarriersListReq } from "../../../actions/carrier";
-import {
-  updateDriverReq,
-  getDriverReq,
-  setCurrentCarrier,
-} from "../../../actions/driver";
+import { updateCompanyReq } from "../../../actions/company";
 import { CARRIER_SELECT_DISABLED } from "../../common/doubleinput/utils";
 
 import { Row, Col, Form, Button, Input, Spin } from "antd";
 import { CommonInput } from "../../common/inputs";
-import { carrierForm } from "./carrier-form";
+import { companyForm } from "./company-form";
 import { InputType } from "../../../constants/inputs";
-import { PAGE_STATUS, getDocumentByType } from "./constant";
+import { PAGE_STATUS } from "./constant";
+
+import { jsonToFormData } from "../../../hooks/utils";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
 
-function buildFormData(formData: any, data: any, parentKey?: any) {
-  if (
-    data &&
-    typeof data === "object" &&
-    !(data instanceof Date) &&
-    !(data instanceof File)
-  ) {
-    Object.keys(data).forEach((key) => {
-      buildFormData(
-        formData,
-        data[key],
-        parentKey ? `${parentKey}[${key}]` : key
-      );
-    });
-  } else {
-    const value = data == null ? "" : data;
-
-    formData.append(parentKey, value);
-  }
-}
-
-function jsonToFormData(data: any) {
-  const formData = new FormData();
-
-  buildFormData(formData, data);
-
-  return formData;
-}
-
-export const DriverPage = () => {
+export const CompanyPage = () => {
   const [form] = Form.useForm();
   const params = useParams();
-  const location = useLocation();
   const [search, setSearch] = useSearchParams();
   const [state, setStateValue] = React.useState(search.get("state"));
   const dispatch = useDispatch();
   const [initialValues, setInitialValues] = useState({
     name: "",
     usdot: "",
-    phone: "",
-    mcnumber: "",
+    address: {
+      number_street: "number_street",
+      country: "country",
+      state: "state",
+      area: "area",
+      address_index: "address_index",
+    },
     email: "",
+    phone: "",
     person: "",
-    status: null,
-    notes: "",
-    email_second: "",
-    measurement_system: null,
-    dst: null,
-    first_day: null,
-    compliance_mode: null,
-    motion_treshold: null,
-    cargo_type: [],
-    restart: null,
-    rest_break: null,
-    short_haul: false,
-    personal_conveyance: false,
-    adverse_conditions: false,
-    unlimited_documents: false,
-    unlimited_trailers: false,
-    yard_move: false,
-    exempt_driver: false,
-    exempt_driver_notice: false,
-    period_starting_time: "",
-    motion_trashhold: "",
-    terminal: null,
-    driver_group: null,
-    password: "",
+    website: "",
+    favicon: "",
+    logo: "",
+    background: "",
+    offices: [],
   });
-  const { loading, driver, currentCarrier } = useSelector(
-    (state: any) => state.driver
-  );
-  const { loading: carrierLoading, carrierList } = useSelector(
-    (state: any) => state.carrier
-  );
+  const { loading, company } = useSelector((state: any) => state.company);
 
   const { user } = useSelector((state: any) => state.auth);
   const [fields, setFields] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    if (driver?.carrier?.id) {
-      const foundCarrier = carrierList.find(
-        (carrier: any) => carrier.id === driver.carrier.id
-      );
-
-      dispatch(
-        setCurrentCarrier({ ...foundCarrier, defaultSavedCarrier: true })
-      );
-    }
-  }, [carrierList, driver]);
-
   React.useEffect(() => {
     setStateValue(search.get("state"));
   }, [search]);
 
-  React.useEffect(() => {
-    dispatch(
-      getCarriersListReq({
-        queryParams: {
-          with: ["settings", "terminals", "driver_groups", "documents"],
-        },
-      })
-    );
-  }, []);
-
-  useEffect(() => {
-    form.setFieldsValue({
-      ...form.getFieldsValue(),
-      ...(!currentCarrier.defaultSavedCarrier ? currentCarrier?.settings : {}),
-      cargo_type: form.getFieldValue("cargo_type"),
-      driver_group: currentCarrier?.defaultSavedCarrier
-        ? form.getFieldValue("driver_group")
-        : null,
-    });
-  }, [currentCarrier]);
-
-  useEffect(() => {
-    dispatch(
-      getDriverReq({
-        driverId: params.driverid,
-        queryParams: {
-          with: ["terminal", "group", "carrier", "documents"],
-        },
-      })
-    );
-  }, []);
-
   const handleSubmit = async (values: any) => {
-    console.log("values", values);
     const f = Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
     const data = jsonToFormData({
       ...values,
-      company: user.company.id,
-      cdl_state: `${values.cdl_state}`,
-      offices: [...user.offices].map((office) => office.id),
-      documents: [
-        ...(values?.documents_MC?.length > 0
-          ? values?.documents_MC?.map((doc: any) => {
-              return {
-                type: getDocumentByType(doc.fileType) || 2,
-                file: doc.originFileObj,
-                driver: params.driverid,
-              };
-            })
-          : []),
-        ...(values?.documents_CDL?.length > 0
-          ? values?.documents_CDL?.map((doc: any) => {
-              return {
-                type: getDocumentByType(doc.fileType) || 1,
-                file: doc.originFileObj,
-                driver: params.driverid,
-              };
-            })
-          : []),
-      ],
-      documents_MC: undefined,
-      documents_CDL: undefined,
     });
 
     dispatch(
-      updateDriverReq({
+      updateCompanyReq({
         values: data,
-        driverId: params.driverid,
+        companyId: params.companyId,
       })
     );
   };
@@ -190,28 +69,29 @@ export const DriverPage = () => {
   React.useEffect(() => {
     setInitialValues({
       ...initialValues,
-      ...driver,
-      carrier: driver?.carrier?.id,
-      terminal: driver?.terminal?.id,
-      driver_group: driver?.group?.id,
-      cargo_type: driver?.cargo_type?.map((ct: any) => +ct),
+      ...company,
+      ...{
+        offices: company?.offices
+          ? [...company?.offices]?.map((office) => office.id)
+          : [],
+      },
     });
     form.setFieldsValue({
       ...initialValues,
-      ...driver,
-      carrier: driver?.carrier?.id,
-      terminal: driver?.terminal?.id,
-      driver_group: driver?.group?.id,
-      cargo_type: driver?.cargo_type?.map((ct: any) => +ct),
-      group: driver?.group?.id,
+      ...company,
+      ...{
+        offices: company?.offices
+          ? [...company?.offices]?.map((office) => office.id)
+          : [],
+      },
     });
-  }, [driver]);
+  }, [company]);
 
   const { checkPermission } = usePermissions();
 
   return (
     <>
-      {checkPermission(AllPermissionsType.DRIVER_SHOW) ? (
+      {checkPermission(AllPermissionsType.COMPANY_SHOW) ? (
         <Row style={{ paddingLeft: 23, paddingRight: 25, height: "100%" }}>
           {/* <Graph /> */}
 
@@ -242,13 +122,14 @@ export const DriverPage = () => {
                   console.log("form values", form.getFieldsValue());
                 }}
               >
-                {carrierForm({}).map((fieldCurrent: any, i: number) => {
+                {companyForm({}).map((fieldCurrent: any, i: number) => {
                   const field = {
                     ...fieldCurrent,
                     disabled:
                       state === PAGE_STATUS.VIEW ||
-                      !checkPermission(AllPermissionsType.DRIVER_EDIT),
+                      !checkPermission(AllPermissionsType.COMPANY_EDIT),
                     isReadonlyCarrier: true,
+                    isIdentificatorDisabled: true,
                   };
 
                   if (CARRIER_SELECT_DISABLED.includes(field.type)) {
@@ -298,7 +179,7 @@ export const DriverPage = () => {
                     style={{ width: "65px", marginRight: 12 }}
                     disabled={
                       state === PAGE_STATUS.VIEW ||
-                      !checkPermission(AllPermissionsType.DRIVER_EDIT)
+                      !checkPermission(AllPermissionsType.COMPANY_EDIT)
                     }
                   >
                     Save
@@ -311,7 +192,7 @@ export const DriverPage = () => {
                     }}
                     disabled={
                       state === PAGE_STATUS.VIEW ||
-                      !checkPermission(AllPermissionsType.DRIVER_EDIT)
+                      !checkPermission(AllPermissionsType.COMPANY_EDIT)
                     }
                   >
                     Cancel
