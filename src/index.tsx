@@ -1,17 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
+import { createBrowserHistory } from 'history'
 import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import { configStore } from "./store";
-import * as dotenv from "dotenv";
 import "antd/dist/reset.css";
 
-// dotenv.config({ path: "../.env" });
+export const history = createBrowserHistory()
+
 
 const { persistor, store } = configStore();
 

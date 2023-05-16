@@ -92,17 +92,17 @@ export const UserCreatePage = () => {
                   console.log("form values", form.getFieldsValue());
                 }}
               >
-                {userForm({}).map((field: any, i: number) => {
+                {userForm?.map((field: any, i: number) => {
                   if (field.type === InputType.ADD_DYNAMIC) {
                     return (
                       <CommonInput
-                    currentIndex={currentIndex}
-                    fields={fields}
-                    key={i}
-                    setCurrentIndex={setCurrentIndex}
-                    {...field}
-                    form={form}
-                  />
+                        currentIndex={currentIndex}
+                        fields={fields}
+                        key={i}
+                        setCurrentIndex={setCurrentIndex}
+                        {...field}
+                        form={form}
+                      />
                       // prettier-ignore
                     );
                   }

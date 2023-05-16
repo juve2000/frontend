@@ -15,7 +15,7 @@ export const InputPageTitle = (props: any) => {
         if (i === 0) {
           return (
             <div
-              style={{ fontSize: 18, fontWeight: "bold", cursor: "pointer" }}
+              style={{ fontSize: 26, fontWeight: "bold", cursor: "pointer" }}
               onClick={() => {
                 navigate(props.route);
               }}

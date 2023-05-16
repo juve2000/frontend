@@ -2,8 +2,17 @@
   position: fixed;
   top: 0px;
   width: 100%;
-  background-color: white;
+  // background-color: rgba(230, 241, 255, 0.4);
   //   padding-left: 23px;
   //   padding-right: 25px;
   z-index: 100;
+}
+
+.app-container .right-side-client {
+  background-color: '#FFFFFF' !important;
+  border-radius: 10px;
+  padding-right: 25px;
+  padding-bottom: 25px;
+  // margin-left: 25px;
+  margin-top: 25px;
 }

@@ -88,12 +88,15 @@ export const ClientLayout = () => {
         </Col>
         <Col
           span={secondColumn}
-          style={{
-            paddingLeft: 25,
-            paddingTop: 25,
-          }}
+
         >
-          <Outlet />
+          <div style={{ marginLeft: 50, backgroundColor: '#FFFFFF', paddingLeft: 25, paddingTop: 25 }}
+
+            className="right-side-client"
+
+          >
+            <Outlet />
+          </div>
         </Col>
         {lastColumn > 0 ? (
           <Col span={lastColumn}>

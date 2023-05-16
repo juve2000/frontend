@@ -71,31 +71,22 @@ export const CarriersList: React.FC = () => {
             onClick={() => {
               navigate(`${location.pathname}/${record.id}`);
             }}
+            style={{ display: 'flex', alignItems: 'center' }}
           >
-            {record.name}
+            <LogoCarrier
+              logo={record?.logo}
+              onClick={() => null}
+              styles={{ width: 40, height: 40 }}
+            />
+
+            <span style={{ marginLeft: 10 }}>{record.name}</span>
           </div>
         );
       },
       width: 300,
       ellipsis: true,
     },
-    {
-      title: "Logo",
-      key: "logo",
-      dataIndex: "logo",
 
-      render: (name, record, index) => {
-        return (
-          <LogoCarrier
-            logo={record?.logo}
-            onClick={() => null}
-            styles={{ width: 40, height: 40 }}
-          />
-        );
-      },
-      width: "5%",
-      ellipsis: true,
-    },
 
     {
       title: "USDOT",
@@ -430,8 +421,8 @@ export const CarriersList: React.FC = () => {
         onChange={handleTableChange}
         rowSelection={{ ...rowSelection, columnWidth: "40px" }}
         className="table-custom"
-        //   sticky
-        //   scroll={{ y: window.innerHeight - 235 }}
+      //   sticky
+      //   scroll={{ y: window.innerHeight - 235 }}
       />
     </>
   ) : (
