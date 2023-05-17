@@ -29,7 +29,7 @@ export const InputTitleDynamic = ({
           {label}
         </Col>
         <Col span={14} style={{ display: "flex" }}>
-          <Row style={{ width: "100%" }}>
+          <Row style={{ width: "100%", display: 'flex', alignItems: 'center' }}>
             {items?.length &&
               items.map((item: any, i: any) => {
                 return (
@@ -64,6 +64,7 @@ export const InputTitleDynamic = ({
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",
+              height: '100%'
             }}
           >
             <span

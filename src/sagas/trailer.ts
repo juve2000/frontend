@@ -1,6 +1,7 @@
 import { all, put, takeLatest, call } from "redux-saga/effects";
 import { notification } from "antd";
-import request from "../utils/request";
+import request from "../utils/requestCarrier";
+
 import { TrailerActionTypes } from "../actions/trailer";
 import {
   getTrailerSuccess,
@@ -87,7 +88,7 @@ export function* getTrailerListSaga({ payload }: any): any {
     const { data } = yield call(request.get, `/trailer/`, {
       params: payload.querParams,
     });
-    yield put(getTrailerListSuccess(data));
+    yield put(getTrailerListSuccess(data.data));
   } catch (e: any) {
     yield call(notification.error, {
       message: "Something went wrong, try again later",

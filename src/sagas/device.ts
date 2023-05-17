@@ -104,8 +104,10 @@ export function* deleteDeviceSaga({ payload }: any): any {
 }
 
 export function* getDeviceListSaga({ payload }: any): any {
+  console.log('payload', payload)
+  const path = 'device'
   try {
-    const { data } = yield call(request.get, `/device`, {
+    const { data } = yield call(request.get, `/${path}`, {
       params: payload.queryParams,
     });
     yield put(getDeviceListSuccess(data));
