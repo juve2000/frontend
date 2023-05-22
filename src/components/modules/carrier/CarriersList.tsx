@@ -68,10 +68,11 @@ export const CarriersList: React.FC = () => {
       render: (name, record, index) => {
         return (
           <div
+            className="pointer"
             onClick={() => {
               navigate(`${location.pathname}/${record.id}`);
             }}
-            style={{ display: 'flex', alignItems: 'center' }}
+            style={{ display: "flex", alignItems: "center" }}
           >
             <LogoCarrier
               logo={record?.logo}
@@ -86,7 +87,6 @@ export const CarriersList: React.FC = () => {
       width: 300,
       ellipsis: true,
     },
-
 
     {
       title: "USDOT",
@@ -421,8 +421,8 @@ export const CarriersList: React.FC = () => {
         onChange={handleTableChange}
         rowSelection={{ ...rowSelection, columnWidth: "40px" }}
         className="table-custom"
-      //   sticky
-      //   scroll={{ y: window.innerHeight - 235 }}
+        //   sticky
+        //   scroll={{ y: window.innerHeight - 235 }}
       />
     </>
   ) : (

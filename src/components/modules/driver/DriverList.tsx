@@ -79,7 +79,7 @@ export const DriversList: React.FC = () => {
       render: (name, record, index) => {
         return (
           <div
-            className="orange ubuntu"
+            className="orange ubuntu pointer"
             onClick={() => {
               navigate(`${location.pathname}/${record.id}`);
             }}

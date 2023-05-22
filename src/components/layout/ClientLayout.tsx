@@ -1,6 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Outlet, Route, Routes, Navigate, useLocation } from "react-router-dom";
+import {
+  Outlet,
+  Route,
+  Routes,
+  Navigate,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import { Row, Col, Form, Button, Input } from "antd";
 import { Header } from "../header/header";
 import { SideBar } from "../SideBar/SideBar";
@@ -14,11 +21,35 @@ export const ClientLayout = () => {
   const [isOpenSidebar, setIsOpenSidebar] = React.useState(true);
   const auth = useSelector((state: any) => state.auth);
   const [defaultKey, setDefaultKey] = React.useState("");
+  const params = useParams();
+
+  const {
+    carrierid,
+    driverid,
+    driverGroupId,
+    roleId,
+    mechanincId,
+    deviceId,
+    trailerId,
+    vehicleId,
+    userId,
+  } = params;
+
+  const excludedParamsScreen = [
+    carrierid,
+    driverid,
+    driverGroupId,
+    roleId,
+    mechanincId,
+    deviceId,
+    trailerId,
+    vehicleId,
+    userId,
+  ];
 
   const location = useLocation();
 
   React.useEffect(() => {
-    console.log("location", location);
     fullScreenRoutes.forEach((route: any) => {
       if (location.pathname.indexOf(route) > -1) {
         setDefaultKey(route);
@@ -49,6 +80,24 @@ export const ClientLayout = () => {
       secondColumn: 17,
       lastColumn: 4,
     };
+
+    if (location.pathname.includes("create")) {
+      let fullScreenRoute = false;
+      return {
+        firstColumn: 3,
+        secondColumn: 16,
+        lastColumn: 4,
+      };
+    }
+
+    if (excludedParamsScreen.some((item: any) => !!item)) {
+      let fullScreenRoute = false;
+      return {
+        firstColumn: 3,
+        secondColumn: 16,
+        lastColumn: 4,
+      };
+    }
     if (isOpenSidebar) {
       obj = {
         firstColumn: 3,
@@ -71,7 +120,7 @@ export const ClientLayout = () => {
       };
     }
     return obj;
-  }, [isOpenSidebar, location]);
+  }, [isOpenSidebar, location, params]);
 
   const { firstColumn, secondColumn, lastColumn } = getLayout();
 
@@ -86,14 +135,15 @@ export const ClientLayout = () => {
         <Col span={firstColumn}>
           <SideBar isOpen={isOpenSidebar} />
         </Col>
-        <Col
-          span={secondColumn}
-
-        >
-          <div style={{ marginLeft: 50, backgroundColor: '#FFFFFF', paddingLeft: 25, paddingTop: 25 }}
-
+        <Col span={secondColumn}>
+          <div
+            style={{
+              marginLeft: 50,
+              backgroundColor: "#FFFFFF",
+              paddingLeft: 25,
+              paddingTop: 25,
+            }}
             className="right-side-client"
-
           >
             <Outlet />
           </div>

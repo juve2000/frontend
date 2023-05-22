@@ -18,7 +18,7 @@ export const LogOut = () => {
 
   return (
     <>
-      <Button className="" onClick={handleLogOut}>
+      <Button className="white" onClick={handleLogOut}>
         Log out
       </Button>
     </>

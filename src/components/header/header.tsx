@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "antd";
 import { Logo } from "./logo";
+import { UserSettings } from "./UserSettings";
 import { LogOut } from "../access/LogOut";
 import menuCollapse from "../../img/menu-collapse.svg";
 
@@ -16,7 +17,7 @@ export const Header = (props: any) => {
           <Logo />
         </div>
       </Col>
-      <Col span={16}>
+      <Col span={12}>
         <div style={{ display: "flex", alignItems: "center", height: "100%" }}>
           <img
             src={menuCollapse}
@@ -25,8 +26,8 @@ export const Header = (props: any) => {
           />
         </div>
       </Col>
-      <Col span={4}>
-        <LogOut />
+      <Col span={8}>
+        <UserSettings />
       </Col>
     </Row>
   );

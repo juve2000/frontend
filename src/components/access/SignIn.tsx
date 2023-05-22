@@ -85,7 +85,7 @@ export const SignIn = () => {
             <div style={{ textAlign: "left" }}>
               <div className="access-item-wrapper">Email</div>
               <Input
-                prefix={<span className="icon-icon-user orange"></span>}
+                // prefix={<span className="icon-icon-user orange"></span>}
                 placeholder="Your Email"
                 style={{ width: 360 }}
               />
@@ -108,7 +108,7 @@ export const SignIn = () => {
             <div style={{ textAlign: "left" }}>
               <div className="access-item-wrapper">Password</div>
               <Input.Password
-                prefix={<span className="icon-icon-lock orange"></span>}
+                // prefix={<span className="icon-icon-lock orange"></span>}
                 placeholder="Your Password"
                 style={{ width: 360 }}
               />

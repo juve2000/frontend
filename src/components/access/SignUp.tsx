@@ -98,7 +98,7 @@ export const SignUp = () => {
               <div style={{ textAlign: "left" }}>
                 <div className="access-item-wrapper">First Name</div>
                 <Input
-                  prefix={<span className="icon-icon-user orange"></span>}
+                  // prefix={<span className="icon-icon-user orange"></span>}
                   placeholder="First name"
                   style={{ width: 300 }}
                 />
@@ -115,7 +115,7 @@ export const SignUp = () => {
               <div style={{ textAlign: "left" }}>
                 <div className="access-item-wrapper">Last Name</div>
                 <Input
-                  prefix={<span className="icon-icon-user orange"></span>}
+                  // prefix={<span className="icon-icon-user orange"></span>}
                   placeholder="Last name"
                   style={{ width: 300 }}
                 />
@@ -133,7 +133,7 @@ export const SignUp = () => {
               <div style={{ textAlign: "left" }}>
                 <div className="access-item-wrapper">Company</div>
                 <Input
-                  prefix={<span className="icon-icon-user orange"></span>}
+                  // prefix={<span className="icon-icon-user orange"></span>}
                   placeholder="Company"
                   style={{ width: 300 }}
                 />
@@ -148,7 +148,7 @@ export const SignUp = () => {
               <div style={{ textAlign: "left" }}>
                 <div className="access-item-wrapper">USDOT</div>
                 <Input
-                  prefix={<span className="icon-icon-user orange"></span>}
+                  // prefix={<span className="icon-icon-user orange"></span>}
                   placeholder="USDOT"
                   style={{ width: 300 }}
                 />
@@ -166,7 +166,7 @@ export const SignUp = () => {
               <div style={{ textAlign: "left" }}>
                 <div className="access-item-wrapper">Email</div>
                 <Input
-                  prefix={<span className="icon-icon-user orange"></span>}
+                  // prefix={<span className="icon-icon-user orange"></span>}
                   placeholder="Email"
                   style={{ width: 300 }}
                 />
@@ -184,7 +184,7 @@ export const SignUp = () => {
               <div style={{ textAlign: "left" }}>
                 <div className="access-item-wrapper">Phone</div>
                 <Input
-                  prefix={<span className="icon-icon-lock orange"></span>}
+                  // prefix={<span className="icon-icon-lock orange"></span>}
                   placeholder="Phone"
                   style={{ width: 300 }}
                 />
@@ -205,7 +205,7 @@ export const SignUp = () => {
               <div style={{ textAlign: "left" }}>
                 <div className="access-item-wrapper">Password</div>
                 <Input.Password
-                  prefix={<span className="icon-icon-lock orange"></span>}
+                  // prefix={<span className="icon-icon-lock orange"></span>}
                   placeholder="Password"
                   style={{ width: 300 }}
                 />
@@ -235,7 +235,7 @@ export const SignUp = () => {
               <div style={{ textAlign: "left" }}>
                 <div className="access-item-wrapper">Confirm Password</div>
                 <Input.Password
-                  prefix={<span className="icon-icon-lock orange"></span>}
+                  // prefix={<span className="icon-icon-lock orange"></span>}
                   placeholder="Confirm password"
                   style={{ width: 300 }}
                 />
