@@ -86,6 +86,12 @@ export const SideBar = (props: any) => {
   const items = React.useMemo(() => {
     return [
       getItem(
+        "Dashboards",
+        "dashboards",
+        getPath("dashboards"),
+        <span className="icon-fi-rr-apps"></span>
+      ),
+      getItem(
         "Units",
         "units",
         getPath("units"),

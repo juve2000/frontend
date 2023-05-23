@@ -18,6 +18,9 @@ export const UserSettings = (props: any) => {
       <div style={{ marginRight: 20 }}>
         <Button className="orange">Create unit</Button>
       </div>
+      {/* <div style={{ marginRight: 20, fontSize: 20, color: "black" }}>
+        <span className="icon-fi-rr-bell-ring" />
+      </div> */}
       <div>
         <UserInitials />
       </div>
