@@ -24,3 +24,21 @@ export const LogOut = () => {
     </>
   );
 };
+
+export const LogOutNoButton = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogOut = (values: any) => {
+    dispatch(
+      logOut({
+        navigate,
+      })
+    );
+  };
+
+  return (
+    <>
+      <span onClick={handleLogOut}>Logout</span>
+    </>
+  );
+};

@@ -103,6 +103,23 @@ export const UserSettings = (props: any) => {
                 </div>
               ),
             },
+            {
+              key: "6",
+              label: (
+                <div
+                  onClick={() => {
+                    navigate(`/client/driver_group/create`);
+                  }}
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <span
+                    className="icon-fi-rr-folder"
+                    style={{ marginRight: "10px" }}
+                  ></span>{" "}
+                  Group
+                </div>
+              ),
+            },
           ],
         }}
       >
@@ -129,9 +146,9 @@ export const UserSettings = (props: any) => {
       <div>
         <UserInitials />
       </div>
-      <div style={{ marginLeft: 20, marginRight: 20 }}>
+      {/* <div style={{ marginLeft: 20, marginRight: 20 }}>
         <LogOut />
-      </div>
+      </div> */}
     </Row>
   );
 };

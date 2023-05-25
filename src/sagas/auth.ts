@@ -34,6 +34,7 @@ export function* loginSaga({ payload }: any) {
     );
     yield call(notification.open, { message: "text", type: "info" });
     payload.navigate("/client");
+    window.location.reload();
   } catch (e: any) {
     yield put(loginFailed(e.message));
   }
