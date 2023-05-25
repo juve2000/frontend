@@ -1,0 +1,99 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?9r05vx');
+  src:  url('fonts/icomoon.eot?9r05vx#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?9r05vx') format('truetype'),
+    url('fonts/icomoon.woff?9r05vx') format('woff'),
+    url('fonts/icomoon.svg?9r05vx#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-ff-rr-manage:before {
+  content: "\e900";
+}
+.icon-fi-rr-bell-ring:before {
+  content: "\e901";
+  color: #374957;
+}
+.icon-fi-rr-building:before {
+  content: "\e902";
+  color: #706e7e;
+}
+.icon-fi-rr-data-transfer:before {
+  content: "\e903";
+}
+.icon-fi-rr-document-signed:before {
+  content: "\e904";
+  color: #706e7e;
+}
+.icon-fi-rr-home:before {
+  content: "\e905";
+}
+.icon-fi-rr-inbox:before {
+  content: "\e906";
+  color: #fff;
+}
+.icon-fi-rr-interactive .path1:before {
+  content: "\e907";
+  color: rgb(112, 110, 126);
+}
+.icon-fi-rr-interactive .path2:before {
+  content: "\e908";
+  margin-left: -1em;
+  color: rgb(139, 138, 151);
+}
+.icon-fi-rr-interactive .path3:before {
+  content: "\e909";
+  margin-left: -1em;
+  color: rgb(139, 138, 151);
+}
+.icon-fi-rr-layers .path1:before {
+  content: "\e90a";
+  color: rgb(112, 110, 126);
+}
+.icon-fi-rr-layers .path2:before {
+  content: "\e90b";
+  margin-left: -1em;
+  color: rgb(139, 138, 151);
+}
+.icon-fi-rr-layers .path3:before {
+  content: "\e90c";
+  margin-left: -1em;
+  color: rgb(139, 138, 151);
+}
+.icon-fi-rr-marker-time:before {
+  content: "\e90d";
+}
+.icon-fi-rr-mode-portrait:before {
+  content: "\e90e";
+  color: #374957;
+}
+.icon-fi-rr-settings .path1:before {
+  content: "\e90f";
+  color: rgb(112, 110, 126);
+}
+.icon-fi-rr-settings .path2:before {
+  content: "\e910";
+  margin-left: -1em;
+  color: rgb(139, 138, 151);
+}
+.icon-fi-rr-trailer:before {
+  content: "\e911";
+}

@@ -89,18 +89,30 @@ export const SideBar = (props: any) => {
         "Dashboards",
         "dashboards",
         getPath("dashboards"),
-        <span className="icon-fi-rr-apps"></span>
+        <span className="icon-fi-rr-home"></span>
       ),
       getItem(
         "Units",
         "units",
         getPath("units"),
 
-        null,
+        <span className="icon-fi-rr-layers">
+          <span className="path1"></span>
+          <span className="path2"></span>
+          <span className="path3"></span>
+        </span>,
         [
-          getItem("All Units", "allunits", "/allunits", <MailOutlined />),
-          getItem("Logs", "logs", "/logs", <MailOutlined />),
+          getItem("TBD", "allunits", "/allunits", <MailOutlined />),
+          getItem("TBD", "logs", "/logs", <MailOutlined />),
         ]
+      ),
+      getItem(
+        "Reports",
+        "reports",
+        getPath("reports"),
+
+        <span className="icon-fi-rr-document-signed"></span>,
+        [getItem("TBD", "reports", "/reports", <MailOutlined />)]
       ),
       getItem(
         "Manage",
@@ -112,7 +124,7 @@ export const SideBar = (props: any) => {
             "Carriers",
             "carriers",
             "/carriers",
-            <span className="icon-fi-rr-briefcase"></span>
+            <span className="icon-fi-rr-inbox"></span>
           ),
           getItem(
             "Drivers",
@@ -130,7 +142,7 @@ export const SideBar = (props: any) => {
             "Support Personal",
             "mechanic",
             "/mechanic",
-            <span className="icon-fi-rr-label"></span>
+            <span className="icon-fi-rr-mode-portrait"></span>
           ),
           getItem(
             "Vehicles",
@@ -142,13 +154,13 @@ export const SideBar = (props: any) => {
             "Trailers",
             "trailer",
             "/trailer",
-            <span className="icon-fi-rr-folder"></span>
+            <span className="icon-fi-rr-trailer"></span>
           ),
           getItem(
             "Devices",
             "device",
             "/device",
-            <span className="icon-fi-rr-smartphone"></span>
+            <span className="icon-fi-rr-data-transfer"></span>
           ),
         ]
       ),
@@ -156,7 +168,7 @@ export const SideBar = (props: any) => {
         "Company Account",
         "company_account",
         getPath("company_account"),
-        <span className="icon-fi-rr-comment-user"></span>,
+        <span className="icon-fi-rr-building"></span>,
         [
           getItem(
             "Company",
@@ -178,11 +190,37 @@ export const SideBar = (props: any) => {
           ),
         ]
       ),
-      getItem("Navigation One", "sub1", "/", <MailOutlined />, [
-        ...usersList.map((user: any) => {
-          return getItem(user.email, `/client/${user.id}`);
-        }),
-      ]),
+      getItem(
+        "Maintenance",
+        "maintenance",
+        getPath("maintenance"),
+        <span className="icon-fi-rr-building"></span>,
+        [
+          getItem(
+            "TBD",
+            "TBD",
+            "/maintence",
+            <span className="icon-fi-rr-folder"></span>
+          ),
+        ]
+      ),
+      getItem(
+        "Settings",
+        "settings",
+        getPath("settings"),
+        <span className="icon-fi-rr-settings">
+          <span className="path1"></span>
+          <span className="path2"></span>
+        </span>,
+        [
+          getItem(
+            "TBD",
+            "TBD",
+            "/settings",
+            <span className="icon-fi-rr-folder"></span>
+          ),
+        ]
+      ),
     ];
   }, []);
 

@@ -194,3 +194,124 @@ $ubuntu-font: "../../fonts/Ubuntu";
 .icon-fi-rr-bell-ring:before {
   content: "\e9fb";
 }
+
+@font-face {
+  font-family: "icomoon";
+  src: url("../../fonts/Ubuntu/icomoon1.eot?bm81qm");
+  src: url("../../fonts/Ubuntu/icomoon1.eot?bm81qm#iefix")
+      format("embedded-opentype"),
+    url("../../fonts/Ubuntu/icomoon1.ttf?bm81qm") format("truetype"),
+    url("../../fonts/Ubuntu/icomoon1.woff?bm81qm") format("woff"),
+    url("../../fonts/Ubuntu/icomoon1.svg?bm81qm#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "icomoon" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// icomoon1
+
+.icon-fi-rr-trailer:before {
+  content: "\e911";
+}
+
+.icon-fi-rr-document-signed:before {
+  content: "\e904";
+}
+
+.icon-fi-rr-home:before {
+  content: "\e905";
+}
+
+.icon-fi-rr-layers .path1:before {
+  content: "\e90a";
+  color: #706e7e;
+}
+.icon-fi-rr-layers .path2:before {
+  content: "\e90b";
+  color: #8b8a97;
+  margin-left: -1em;
+}
+.icon-fi-rr-layers .path3:before {
+  content: "\e90c";
+  color: #8b8a97;
+  margin-left: -1em;
+}
+
+//<span class="icon-fi-rr-layers"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+
+.icon-fi-rr-interactive .path1:before {
+  content: "\e907";
+  color: #706e7e;
+}
+.icon-fi-rr-interactive .path2:before {
+  content: "\e908";
+  color: #8b8a97;
+  margin-left: -1em;
+}
+.icon-fi-rr-interactive .path3:before {
+  content: "\e909";
+  color: #8b8a97;
+  margin-left: -1em;
+}
+
+//<span class="icon-fi-rr-interactive"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+
+.icon-fi-rr-inbox:before {
+  content: "\e906";
+}
+
+.icon-fi-rr-marker-time:before {
+  content: "\e90d";
+}
+
+.icon-fi-rr-mode-portrait:before {
+  content: "\e90e";
+}
+
+.icon-fi-rr-settings .path1:before {
+  content: "\e90f";
+  color: #706e7e;
+}
+.icon-fi-rr-settings .path2:before {
+  content: "\e910";
+  color: #8b8a97;
+  margin-left: -1em;
+}
+
+//<span class="icon-fi-rr-settings"><span class="path1"></span><span class="path2"></span></span>
+
+.icon-fi-rr-trailer:before {
+  content: "\e911";
+}
+
+.icon-fi-rr-data-transfer:before {
+  content: "\e903";
+}
+
+.icon-fi-rr-building:before {
+  content: "\e902";
+}
+
+.icon-ff-rr-manage:before {
+  content: "\e900";
+}
+
+.icon-fi-rr-bell-ring:before {
+  content: "\e901";
+}
