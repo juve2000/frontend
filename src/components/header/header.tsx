@@ -19,14 +19,14 @@ export const Header = (props: any) => {
       </Col>
       <Col span={12}>
         <div style={{ display: "flex", alignItems: "center", height: "100%" }}>
-          <img
+          {/* <img
             src={menuCollapse}
             style={{ cursor: "pointer" }}
             onClick={toggleMenu}
-          />
+          /> */}
         </div>
       </Col>
-      <Col span={8} style={{ paddingRight: 20 }}>
+      <Col span={8} style={{ paddingRight: 25 }}>
         <UserSettings />
       </Col>
     </Row>
