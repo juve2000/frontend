@@ -245,7 +245,7 @@ export const SideBar = (props: any) => {
   }, [isOpen, pathname]);
 
   return (
-    <Row className="side-bar ubuntu">
+    <Row className="side-bar ubuntu" style={{ position: "fixed" }}>
       <Col span={24}>{FirstMenu}</Col>
     </Row>
   );

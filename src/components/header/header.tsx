@@ -26,7 +26,7 @@ export const Header = (props: any) => {
           />
         </div>
       </Col>
-      <Col span={8}>
+      <Col span={8} style={{ paddingRight: 20 }}>
         <UserSettings />
       </Col>
     </Row>

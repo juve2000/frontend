@@ -150,7 +150,7 @@ export const ClientLayout = () => {
         </Col>
         {lastColumn > 0 ? (
           <Col span={lastColumn}>
-            <div>widget</div>
+            {/* <div>widget</div> */}
             {/* {!auth.user.company.name && <Navigate to="/client/company" />} */}
           </Col>
         ) : null}
