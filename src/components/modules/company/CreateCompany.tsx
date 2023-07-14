@@ -8,6 +8,7 @@ import { CommonInput } from "../../common/inputs";
 import { companyForm } from "./company-form";
 import { Graph } from "../../common/graph/Graph";
 import { InputType } from "../../../constants/inputs";
+// import { Office } from "./Office";
 
 import {
   createDeviceReq,
@@ -131,6 +132,7 @@ export const CompanyCreatePage = () => {
                   // prettier-ignore
                   return <CommonInput key={i} {...field} form={form} />
                 })}
+                {/* <Office /> */}
                 <Form.Item style={{ width: "100%", display: "flex" }}>
                   <Button
                     type="primary"

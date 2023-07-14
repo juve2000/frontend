@@ -183,6 +183,12 @@ export const SideBar = (props: any) => {
             <span className="icon-fi-rr-key"></span>
           ),
           getItem(
+            "Offices",
+            "office",
+            "/office",
+            <span className="icon-fi-rr-folder"></span>
+          ),
+          getItem(
             "Users",
             "user",
             "/user",

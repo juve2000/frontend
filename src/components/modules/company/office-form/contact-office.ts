@@ -1,24 +1,45 @@
 import { InputType } from "../../../../constants/inputs";
 import {
+  VALIDATION_RULES,
   validate,
-  getValidation,
   VALIDATION_TYPE,
+  getValidation,
 } from "../../../../utils/validation";
-import { CompanyField } from "../constant";
+import { CarrierField } from "../../carrier/constant";
 
-const { REQUIRED, PHONE, EMAIL } = VALIDATION_TYPE;
+const {
+  ALPHABETICAL,
+  REQUIRED,
+  MIN,
+  MAX,
+  NUMERIC,
+  PASSWORD,
+  EMAIL,
+  NOT_EMPTY,
+  NAME,
+  PHONE,
+} = VALIDATION_TYPE;
 
-export const ContactCompanyFields = {
+export const ContactsOfficeFields = {
   type: InputType.MULTI,
   label: "Contacts",
   isRequired: true,
   fields: [
     {
       type: InputType.PHONE,
-      name: CompanyField.PHONE,
+      name: CarrierField.PHONE,
       label: "Phone Number*",
+      // rules: [
+      //   getValidation(MAX, 9),
 
-      rules: [validate("", PHONE), getValidation(REQUIRED, "")],
+      //   validate("", NUMERIC),
+      //   getValidation(REQUIRED, "DOT Number"),
+      // ],
+      rules: [
+        // validate("", NOT_EMPTY),
+        validate("", PHONE),
+        getValidation(REQUIRED, ""),
+      ],
       placeholder: "Phone Number",
       hasFeedback: true,
       title: "Phone Number*",
@@ -27,7 +48,7 @@ export const ContactCompanyFields = {
     },
     {
       type: InputType.TEXT_V2,
-      name: CompanyField.EMAIL,
+      name: CarrierField.EMAIL,
       label: "Email",
       rules: [getValidation(REQUIRED, ""), validate("", VALIDATION_TYPE.EMAIL)],
       placeholder: "Email",
@@ -38,26 +59,13 @@ export const ContactCompanyFields = {
     },
     {
       type: InputType.TEXT_V2,
-      name: CompanyField.PERSON,
-      label: "Contact Person*",
-
+      name: CarrierField.PERSON,
       rules: [getValidation(REQUIRED, "")],
-      placeholder: "Phone Number",
+      placeholder: "Contact Person",
       hasFeedback: true,
-      title: "Contact Person*",
-      span: 12,
-      width: "95%",
-    },
-    {
-      type: InputType.TEXT_V2,
-      name: CompanyField.WEBSITE,
-      label: "Website",
-      // rules: [getValidation(REQUIRED, ""), validate("", VALIDATION_TYPE.EMAIL)],
-      placeholder: "Website",
-      hasFeedback: true,
-      title: "Website",
-      span: 12,
+      span: 24,
       width: "100%",
+      title: "Contact Person*",
     },
   ],
 };

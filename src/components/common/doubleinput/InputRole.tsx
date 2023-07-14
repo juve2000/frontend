@@ -313,6 +313,14 @@ export const InputRole = (props: any) => {
             checked={arrayContainsArray(permissions, ROLE_PERMISSIONS)}
             type={"Role"}
           />
+          <PermissionTable
+            permissions={permissions}
+            permissionsItems={OFFICE_PERMISSIONS}
+            handleChange={handleChange}
+            handleChangeAllByType={handleChangeAllByType}
+            checked={arrayContainsArray(permissions, OFFICE_PERMISSIONS)}
+            type={"Office"}
+          />
           {role === ROLES.SUPER_ADMIN && (
             <PermissionTable
               permissions={permissions}

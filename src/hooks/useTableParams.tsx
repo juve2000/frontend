@@ -23,10 +23,6 @@ export const useTableParams = (props: any) => {
     },
   });
 
-  useEffect(() => {
-    console.log("tableParams", tableParams);
-  }, [tableParams]);
-
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
   };

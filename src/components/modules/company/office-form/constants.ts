@@ -19,21 +19,7 @@ export const PAGE_STATUS = {
   EDIT: "EDIT",
 };
 
-export const DeviceField = {
-  identificator: "identificator",
-  TYPE: "type",
-  MAC_ADDRESS: "mac_address",
-  MODEL: "model",
-  FUEL_TYPE: "fuel_type",
-  CARRIER: "carrier",
-  STATUS: "status",
-  SERIAL_NUMBER: "serial_number",
-  FIRMWARE: "firmware",
-  NOTES: "notes",
-  NAME: "name",
-};
-
-export const CompanyField = {
+export const OfficeField = {
   ADDRESS: "address",
   NOTES: "notes",
   NAME: "name",
@@ -48,6 +34,15 @@ export const CompanyField = {
   PHONE: "phone",
   STATUS: "status",
   BILLING_PLAN: "billing_plan",
-  MC_NUMBER: "mcnumber",
-  COMPANY: "company_id",
+  DST: "dst",
+  first_day: "first_day",
+  date_format: "date_format",
+  distance_geofence: "distance_geofence",
+  map_source: "map_source",
+  geodata_source: "geodata_source",
+  address_format: "address_format",
+  min_city_radius: "min_city_radius",
+  max_distance: "max_distance",
+  measurement: "measurement",
+  tz: "tz",
 };

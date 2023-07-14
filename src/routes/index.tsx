@@ -61,6 +61,11 @@ import { CompanyPage } from "../components/modules/company/Company";
 import { CompanyCreatePage } from "../components/modules/company/CreateCompany";
 import { CompanyList } from "../components/modules/company/CompanyList";
 
+import { OfficesMainPage } from "../components/modules/company/OfficeMainPage";
+import { OfficePage } from "../components/modules/company/Office";
+import { OfficeCreatePage } from "../components/modules/company/CreateOffice";
+import { OfficeList } from "../components/modules/company/OfficeList";
+
 export const MainRouter = () => {
   const navigate = useNavigate();
   return (
@@ -158,6 +163,12 @@ export const MainRouter = () => {
             <Route index element={<CompanyList />} />;
             <Route path={`create`} element={<CompanyCreatePage />} />
             <Route path={`:companyId`} element={<CompanyPage />} />
+          </Route>
+          {/* OFFICE ROUTES */}
+          <Route path={ROUTES.OFFICE} element={<OfficesMainPage />}>
+            <Route index element={<OfficeList />} />;
+            <Route path={`create`} element={<OfficeCreatePage />} />
+            <Route path={`:officeId`} element={<OfficePage />} />
           </Route>
         </Route>
       </Routes>

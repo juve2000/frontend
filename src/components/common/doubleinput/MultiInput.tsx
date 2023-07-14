@@ -22,6 +22,7 @@ export const MultiInputV2 = (props: any) => {
     showDocsList = false,
     isReadonlyCarrier = false,
     isIdentificatorDisabled = false,
+    isSuperAdmin,
   } = props;
 
   return (
@@ -46,6 +47,12 @@ export const MultiInputV2 = (props: any) => {
             if (
               field?.type === InputType.DRIVER_DOCUMENTS_LIST &&
               !showDocsList
+            ) {
+              return null;
+            }
+            if (
+              field.type === InputType.FETCH_COMPANY_SELECT &&
+              !isSuperAdmin
             ) {
               return null;
             }

@@ -26,8 +26,10 @@ notification.config({
 
 export function* getOfficeSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.get, `/office/${payload.officeId}`);
-    yield put(getOfficeSuccess(data));
+    const { data } = yield call(request.get, `/office/${payload.officeId}`, {
+      params: payload.queryParams,
+    });
+    yield put(getOfficeSuccess(data.data));
   } catch (e: any) {
     yield call(notification.error, {
       message: "Something went wrong, try again later",
@@ -96,8 +98,11 @@ export function* deleteOfficeSaga({ payload }: any): any {
 
 export function* getOfficeListSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.get, `/office/`);
+    const { data } = yield call(request.get, `/office`, {
+      params: payload.queryParams,
+    });
     yield put(getOfficeListSuccess(data));
+    console.log("data", data);
   } catch (e: any) {
     yield call(notification.error, {
       message: "Something went wrong, try again later",
@@ -118,11 +123,62 @@ export function* getOfficeListRootSaga({ payload }: any): any {
   }
 }
 
+export function* createOfficeRootSaga({ payload }: any): any {
+  try {
+    const { data } = yield call(request.post, "/office/root", payload.values, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    yield put(createOfficeSuccess(data));
+    yield call(notification.success, {
+      message: "Office created successfully",
+    });
+  } catch (e: any) {
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
+    yield put(createOfficeFailed(e.message));
+  }
+}
+
+export function* updateOfficeRootSaga({ payload }: any): any {
+  try {
+    const { data } = yield call(
+      request.put,
+      `/office/root/${payload.officeId}`,
+      payload.values,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    yield put(updateOfficeSuccess(data));
+    yield call(notification.success, {
+      message: "Office updated successfully",
+    });
+  } catch (e: any) {
+    yield call(notification.error, {
+      message: "Something went wrong, try again later",
+    });
+    yield put(updateOfficeFailed(e.message));
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(OfficeActionTypes.GET_OFFICE_REQUEST, getOfficeSaga),
     takeLatest(OfficeActionTypes.CREATE_OFFICE_REQUEST, createOfficeSaga),
     takeLatest(OfficeActionTypes.UPDATE_OFFICE_REQUEST, updateOfficeSaga),
+    takeLatest(
+      OfficeActionTypes.CREATE_OFFICE_ROOT_REQUEST,
+      createOfficeRootSaga
+    ),
+    takeLatest(
+      OfficeActionTypes.UPDATE_OFFICE_ROOT_REQUEST,
+      updateOfficeRootSaga
+    ),
     takeLatest(OfficeActionTypes.DELETE_OFFICE_REQUEST, deleteOfficeSaga),
     takeLatest(OfficeActionTypes.GET_OFFICE_LIST_REQUEST, getOfficeListSaga),
     takeLatest(

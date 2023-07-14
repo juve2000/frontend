@@ -328,6 +328,16 @@ export const ViewPermissions = (props: any) => {
             type={"Role"}
           />
         </Col>
+        <Col span={12}>
+          <PermissionTable
+            permissions={permissions}
+            permissionsItems={OFFICE_PERMISSIONS}
+            handleChange={handleChange}
+            handleChangeAllByType={handleChangeAllByType}
+            checked={arrayContainsArray(permissions, OFFICE_PERMISSIONS)}
+            type={"Office"}
+          />
+        </Col>
         <Col span={24}>
           {role === ROLES.SUPER_ADMIN && (
             <PermissionTable

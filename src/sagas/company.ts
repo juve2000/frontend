@@ -104,7 +104,7 @@ export function* deleteCompanyRootSaga({ payload }: any): any {
 export function* getCompaniesListRootSaga({ payload }: any): any {
   try {
     //TODO: decide which route will be used for fetsh companies list '/' or '/root'
-    const { data } = yield call(request.get, `/company`, {
+    const { data } = yield call(request.get, `/company/root`, {
       params: payload.queryParams,
     });
 

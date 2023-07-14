@@ -21,6 +21,12 @@ import {
   getOfficeListRootReq,
   getOfficeListRootSuccess,
   getOfficeListRootFailed,
+  createOfficeRootReq,
+  createOfficeRootSuccess,
+  createOfficeRootFailed,
+  updateOfficeRootReq,
+  updateOfficeRootSuccess,
+  updateOfficeRootFailed,
 } from "../actions";
 
 // import { UserState } from "../types";
@@ -168,6 +174,52 @@ export default {
         };
       })
       .addCase(getOfficeListRootFailed, (state, { payload }) => {
+        return {
+          ...state,
+          errorMessage: payload,
+          loading: false,
+        };
+      });
+    // CREATE OFFICE ROOT
+    builder
+      .addCase(createOfficeRootReq, (state) => {
+        return {
+          ...state,
+          loading: true,
+          errorMessage: "",
+        };
+      })
+      .addCase(createOfficeRootSuccess, (state, { payload }) => {
+        return {
+          ...state,
+          office: payload,
+          loading: false,
+        };
+      })
+      .addCase(createOfficeRootFailed, (state, { payload }) => {
+        return {
+          ...state,
+          errorMessage: payload,
+          loading: false,
+        };
+      });
+    // UPDATE OFFICE ROOT
+    builder
+      .addCase(updateOfficeRootReq, (state) => {
+        return {
+          ...state,
+          loading: true,
+          errorMessage: "",
+        };
+      })
+      .addCase(updateOfficeRootSuccess, (state, { payload }) => {
+        return {
+          ...state,
+          office: payload,
+          loading: false,
+        };
+      })
+      .addCase(updateOfficeRootFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,

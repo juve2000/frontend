@@ -11,6 +11,7 @@ import { InputImageUploadV2 } from "./InputImageUpload";
 import { TextInputPassword } from "./InputPassword";
 import { InputTextArea } from "./InputTextArea";
 import { InputFetchCarrierSelectV2 } from "./InputFetchCarrierSelect";
+import { InputFetchCompanySelectV2 } from "./InputFetchCompanySelecet";
 import { InputTimePickerV2 } from "./InputTimePicker";
 import { InputPhone } from "./InputPhone";
 import { InputSelectMultiV2 } from "./InputMultiSelect";
@@ -53,6 +54,8 @@ export const CommonInputV2 = (props: any) => {
       return <InputPhone {...props} />;
     case InputType.FETCH_CARRIER_SELECT:
       return <InputFetchCarrierSelectV2 {...props} />;
+    case InputType.FETCH_COMPANY_SELECT:
+      return <InputFetchCompanySelectV2 {...props} />;
     case InputType.SELECT_MULTI:
       return <InputSelectMultiV2 {...props} />;
     case InputType.TEXT_AREA:

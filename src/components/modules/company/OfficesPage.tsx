@@ -17,6 +17,7 @@ import { getParams } from "../../../routes/utils";
 import { InputSearch } from "../../common/doubleinput/InputSearch";
 import { getOrderFromTableParams } from "../../../hooks/utils";
 import { InputPageTitle } from "../../common/doubleinput/InputPageTitle";
+import { getOfficeListReq } from "../../../actions";
 
 import ResetSort from "../../../img/resetSort.svg";
 import ResetFilter from "../../../img/resetFilter.svg";
@@ -30,10 +31,11 @@ import { NoPermission } from "../../common/NoPermission";
 
 dayjs.extend(customParseFormat);
 
-export const CompanyList: React.FC = () => {
+export const OfficesPage: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  console.log("foffi");
   const {
     handleTableChange,
     onSuccess,
@@ -47,10 +49,26 @@ export const CompanyList: React.FC = () => {
     clearCustomFilter,
     setCustomFilter,
   } = useTableParams({});
+  const offices = useSelector((state: any) => state.office.officeList);
   const companies = useSelector((state: any) => state.company.companiesList);
 
-  const count = useSelector((state: any) => state.company.count);
-  const loading = useSelector((state: any) => state.company.loading);
+  const count = useSelector((state: any) => state.office.count);
+  const loading = useSelector((state: any) => state.office.loading);
+  const { checkPermission } = usePermissions();
+  const isSuperAdmin = checkPermission(AllPermissionsType.SUPER_ADMIN);
+
+  useEffect(() => {
+    if (isSuperAdmin && companies?.length < 1) {
+      dispatch(
+        getCompaniesListRootReq({
+          queryParams: {
+            ...getParams(tableParams),
+            // with: ["offices"],
+          },
+        })
+      );
+    }
+  }, [isSuperAdmin]);
 
   const columns: ColumnsType<any> = [
     Table.SELECTION_COLUMN,
@@ -78,29 +96,7 @@ export const CompanyList: React.FC = () => {
       width: 300,
       ellipsis: true,
     },
-    {
-      title: "USDOT",
-      dataIndex: "usdot",
-      key: "usdot",
-      sortOrder: getOrderFromTableParams("usdot", tableParams),
-      sorter: {
-        compare: (a: any, b: any) => a.type - b.type,
-        multiple: 5,
-      },
 
-      render: (name, record, index) => {
-        return (
-          <div
-            className="ubuntu"
-            style={{ color: "#141029", cursor: "pointer" }}
-          >
-            {`${record.usdot}`}
-          </div>
-        );
-      },
-      ellipsis: true,
-      width: "20%",
-    },
     {
       title: "Authority adress",
       key: "address",
@@ -113,55 +109,70 @@ export const CompanyList: React.FC = () => {
       ellipsis: true,
     },
     {
-      title: "Billing plan",
-      dataIndex: "billing_plan",
-      key: "billing_plan",
-      sortOrder: getOrderFromTableParams("billing_plan", tableParams),
+      title: "Company",
+      dataIndex: "company",
+      sortOrder: getOrderFromTableParams("company", tableParams),
+      key: "company",
       sorter: {
-        compare: (a: any, b: any) => a.billing_plan - b.billing_plan,
+        compare: (a: any, b: any) => a.carrier - b.carrier,
         multiple: 5,
       },
-
-      render: (name, record, index) => {
+      width: "20%",
+      ellipsis: true,
+      render: (value, record, index) => {
         return (
           <div
-            className="ubuntu"
-            style={{ color: "#141029", cursor: "pointer" }}
+            className="orange ubuntu"
+            style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
+            onClick={() => {
+              navigate(`/client/company/${record?.company?.id}`);
+            }}
           >
-            {/* {`${record.billing_plan}`} */}
-            TBD
+            <LogoCarrier
+              logo={record?.company?.logo}
+              onClick={() => null}
+              styles={{ width: 30, height: 30 }}
+            />
+            <div style={{ marginLeft: 20 }}>{`${record?.company?.name}`}</div>
           </div>
         );
       },
-      ellipsis: true,
-      width: "20%",
-    },
-
-    {
-      title: "Status",
-      dataIndex: "status",
-      sortOrder: getOrderFromTableParams("status", tableParams),
-      key: "status",
-      sorter: {
-        compare: (a: any, b: any) => a.status - b.status,
-        multiple: 5,
-      },
-      width: "9%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        const status = carrierData.status.find(
-          (st) => st.key === record.status
+      filterDropdown: () => {
+        return (
+          <div style={{ padding: 10 }}>
+            <div>
+              <Select
+                style={{ width: 200, marginBottom: 20 }}
+                value={tableParams.filters?.carrier}
+                onChange={(value) => {
+                  clearCustomFilter("group");
+                  setCustomFilter("company", value);
+                }}
+              >
+                {companies?.map((company: any) => {
+                  return (
+                    <Select.Option key={company.id} value={company.id}>
+                      {company.name}
+                    </Select.Option>
+                  );
+                })}
+              </Select>
+            </div>
+            <Button
+              style={{ width: 80, height: 40 }}
+              className="orange"
+              onClick={() => {
+                clearCustomFilter("company");
+                clearCustomFilter("group");
+              }}
+            >
+              Reset
+            </Button>
+          </div>
         );
-
-        return <div>{status?.value}</div>;
       },
-      filters: carrierData.status.map((st: any) => {
-        return {
-          text: st.value,
-          value: st.key,
-        };
-      }),
-      filteredValue: tableParams?.filters?.status || null,
+
+      filteredValue: tableParams?.filters?.carrier || null,
     },
     {
       title: "Action",
@@ -240,17 +251,26 @@ export const CompanyList: React.FC = () => {
   ];
 
   useEffect(() => {
-    dispatch(
-      getCompaniesListRootReq({
-        queryParams: {
-          ...getParams(tableParams),
-          // with: ["offices"],
-        },
-      })
-    );
-  }, [tableParams]);
-
-  const { checkPermission } = usePermissions();
+    if (isSuperAdmin) {
+      dispatch(
+        getOfficeListReq({
+          queryParams: {
+            ...getParams(tableParams),
+            // with: ["offices"],
+          },
+        })
+      );
+    } else {
+      dispatch(
+        getOfficeListReq({
+          queryParams: {
+            ...getParams(tableParams),
+            // with: ["offices"],
+          },
+        })
+      );
+    }
+  }, [tableParams, isSuperAdmin]);
 
   return (
     <>
@@ -259,8 +279,8 @@ export const CompanyList: React.FC = () => {
           <Row>
             <Col span={12}>
               <InputPageTitle
-                fields={["Companies"]}
-                route="/client/company"
+                fields={["Offices"]}
+                route="/client/office"
                 devices
               />
             </Col>
@@ -338,7 +358,7 @@ export const CompanyList: React.FC = () => {
           <Table
             columns={columns}
             rowKey={(record) => record.id}
-            dataSource={companies?.map((carrier: any, index: any) => {
+            dataSource={offices?.map((carrier: any, index: any) => {
               return {
                 ...carrier,
               };

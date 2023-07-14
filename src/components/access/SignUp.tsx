@@ -135,6 +135,24 @@ export const SignUp = () => {
                 <Input
                   prefix={<span></span>}
                   placeholder="Company"
+                  style={{ width: 610 }}
+                />
+              </div>
+            </Form.Item>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Form.Item
+              name="company_mc"
+              colon={false}
+              rules={[
+                { required: false, message: "Please input your mc number!" },
+              ]}
+            >
+              <div style={{ textAlign: "left" }}>
+                <div className="access-item-wrapper">MC number</div>
+                <Input
+                  prefix={<span></span>}
+                  placeholder="MC number"
                   style={{ width: 300 }}
                 />
               </div>
@@ -143,7 +161,7 @@ export const SignUp = () => {
             <Form.Item
               style={{ width: "100%" }}
               name="company_usdot"
-              rules={[{ required: true, message: "Please input your usdot!" }]}
+              rules={[{ required: false, message: "Please input your usdot!" }]}
             >
               <div style={{ textAlign: "left" }}>
                 <div className="access-item-wrapper">USDOT</div>

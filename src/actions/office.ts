@@ -22,6 +22,12 @@ export const OfficeActionTypes = keyMirror({
   GET_OFFICE_LIST_ROOT_REQUEST: undefined,
   GET_OFFICE_LIST_ROOT_SUCCESS: undefined,
   GET_OFFICE_LIST_ROOT_FAILURE: undefined,
+  CREATE_OFFICE_ROOT_REQUEST: undefined,
+  CREATE_OFFICE_ROOT_SUCCESS: undefined,
+  CREATE_OFFICE_ROOT_FAILURE: undefined,
+  UPDATE_OFFICE_ROOT_REQUEST: undefined,
+  UPDATE_OFFICE_ROOT_SUCCESS: undefined,
+  UPDATE_OFFICE_ROOT_FAILURE: undefined,
 });
 
 // get office
@@ -151,6 +157,50 @@ export const getOfficeListRootSuccess = createAction(
 
 export const getOfficeListRootFailed = createAction(
   OfficeActionTypes.GET_OFFICE_LIST_ROOT_FAILURE,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+// create office root
+
+export const createOfficeRootReq = createAction(
+  OfficeActionTypes.CREATE_OFFICE_ROOT_REQUEST,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+export const createOfficeRootSuccess = createAction(
+  OfficeActionTypes.CREATE_OFFICE_ROOT_SUCCESS,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+export const createOfficeRootFailed = createAction(
+  OfficeActionTypes.CREATE_OFFICE_ROOT_FAILURE,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+// update office
+
+export const updateOfficeRootReq = createAction(
+  OfficeActionTypes.UPDATE_OFFICE_ROOT_REQUEST,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+export const updateOfficeRootSuccess = createAction(
+  OfficeActionTypes.UPDATE_OFFICE_ROOT_SUCCESS,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+export const updateOfficeRootFailed = createAction(
+  OfficeActionTypes.UPDATE_OFFICE_ROOT_FAILURE,
   (payload: any) => {
     return actionPayload(payload);
   }

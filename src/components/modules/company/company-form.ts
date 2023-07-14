@@ -12,6 +12,7 @@ import { NameCompanyFields } from "./fields/NameCompanyFields";
 
 import { DeviceNotice } from "./fields/TerminalCarrierFields";
 import { DeviceCarrier } from "./fields/TerminalCarrierFields";
+import { LogoCompanyFields } from "./fields/LogoCompanyFields";
 
 //MedicalCardDriverFields
 
@@ -28,12 +29,13 @@ export const companyForm = (options: any) => {
 
     {
       type: InputType.TITLE,
-      label: "Device Basics",
+      label: "Company Basics",
     },
     // // COMPANY NAME DETAILS
     { ...NameCompanyFields },
     { ...AddressCompanyFields },
     { ...ContactCompanyFields },
+    { ...LogoCompanyFields },
     //LICENSE
     // // PREFERENCES
     { ...DeviceNotice },

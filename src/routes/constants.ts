@@ -30,6 +30,9 @@ const USER_PAGE = `${ROLE}/:id`;
 const COMPANY = `${Root}/company`;
 const COMPANY_PAGE = `${ROLE}/:id`;
 
+const OFFICE = `${Root}/office`;
+const OFFICE_PAGE = `${ROLE}/:id`;
+
 export const ROUTES = {
   Root,
   CARRIERS,
@@ -52,4 +55,6 @@ export const ROUTES = {
   USER_PAGE,
   COMPANY,
   COMPANY_PAGE,
+  OFFICE,
+  OFFICE_PAGE,
 };
