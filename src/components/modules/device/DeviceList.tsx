@@ -418,10 +418,10 @@ export const DeviceList: React.FC = () => {
                     navigate(`${location.pathname}/create`);
                   }}
                 >
-                  Create
+                  Create Device
                 </div>
               </div>
-              <div style={{ marginLeft: 20, display: "flex" }}>
+              <div style={{ marginLeft: 25, display: "flex" }}>
                 <div
                   style={{
                     display: "flex",
@@ -445,7 +445,7 @@ export const DeviceList: React.FC = () => {
                     display: "flex",
                     alignItems: "center",
                     cursor: "pointer",
-                    marginLeft: 10,
+                    marginLeft: 25,
                   }}
                   onClick={clearFilter}
                 >

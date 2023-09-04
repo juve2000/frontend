@@ -166,7 +166,7 @@ export const VehicleCreatePage = () => {
                     type="primary"
                     htmlType="submit"
                     className="orange"
-                    style={{ width: "65px", marginRight: 12 }}
+                    style={{ width: "85px", marginRight: 12 }}
                   >
                     Submit
                   </Button>

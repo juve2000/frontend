@@ -44,7 +44,7 @@ export const UserInitials = (props: any) => {
               ),
             },
             {
-              key: "1",
+              key: "2",
               label: (
                 <div
                   onClick={() => {
@@ -65,7 +65,10 @@ export const UserInitials = (props: any) => {
         <div
           style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
         >
-          <div className="user-initials ubuntu" style={{ marginRight: 10 }}>
+          <div
+            className="user-initials ubuntu"
+            style={{ marginRight: 10, fontSize: 13 }}
+          >
             {firstName.toUpperCase()} {lastName.toUpperCase()}
           </div>
           <div style={{ color: "#2B3D4DB2" }}>

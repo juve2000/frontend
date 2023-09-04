@@ -36,7 +36,7 @@ export const MultiInputV2 = (props: any) => {
           <div className="input-item-wrapper">
             <div>
               {label}
-              {isRequired && " *"}
+              {/* {isRequired} */}
             </div>
           </div>
         )}

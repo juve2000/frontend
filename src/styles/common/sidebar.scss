@@ -1,4 +1,5 @@
 .side-bar {
+  width: 14%;
   .ant-menu-inline-collapsed {
     width: 50px !important;
   }
@@ -7,7 +8,7 @@
     border-inline-end: none !important;
   }
   .ant-menu-submenu-title {
-    background-color: $card;
+    // background-color: $card;
     padding: 0px 16px !important;
     color: #706e7e;
     height: 30px !important;
@@ -16,7 +17,7 @@
   }
   .ant-menu-item {
     background-color: transparent !important;
-    padding-left: 16px !important;
+    padding-left: 36px !important;
     color: #403e54;
   }
   .ant-menu.ant-menu-sub.ant-menu-inline {

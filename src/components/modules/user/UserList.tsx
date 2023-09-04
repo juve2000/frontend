@@ -323,7 +323,7 @@ export const UserList: React.FC = () => {
                     navigate(`${location.pathname}/create`);
                   }}
                 >
-                  Create
+                  Create User
                 </div>
               </div>
               <div style={{ marginLeft: 20, display: "flex" }}>
@@ -332,6 +332,7 @@ export const UserList: React.FC = () => {
                     display: "flex",
                     alignItems: "center",
                     cursor: "pointer",
+                    marginLeft: 25,
                   }}
                   onClick={clearOrder}
                 >
@@ -350,7 +351,7 @@ export const UserList: React.FC = () => {
                     display: "flex",
                     alignItems: "center",
                     cursor: "pointer",
-                    marginLeft: 10,
+                    marginLeft: 25,
                   }}
                   onClick={clearFilter}
                 >

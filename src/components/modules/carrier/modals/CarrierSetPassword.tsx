@@ -73,7 +73,7 @@ export const SetPassword = (props: any): React.ReactElement => {
               type="primary"
               htmlType="submit"
               className="orange"
-              style={{ width: "65px" }}
+              style={{ width: "85px", marginRight: 20 }}
             >
               Save
             </Button>
@@ -83,7 +83,7 @@ export const SetPassword = (props: any): React.ReactElement => {
               }}
               type="primary"
               className="white"
-              style={{ width: "65px" }}
+              style={{ width: "85px" }}
             >
               Cancel
             </Button>

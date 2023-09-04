@@ -43,28 +43,13 @@ export const InputAdress = (props: any) => {
 
       <Col span={18}>
         <Row style={{ width: "100%" }}>
-          <TextInputV2
-            title="Street Number"
-            icon={icon}
-            span={24}
-            width="100%"
-            placeholder={`${placeholder} Street Number`}
-            rules={[
-              ...rules,
-              { required: true, message: "Street number is required" },
-            ]}
-            name={getName(name, "number_street")}
-            hasFeedback={true}
-            styles={{ margin: "8px 0px" }}
-            disabled={disabled}
-          />
           <InputSelectV2
-            title="Country"
+            title="Country*"
             icon={icon}
             span={12}
             width="95%"
             disabled={disabled}
-            placeholder={`${placeholder} country`}
+            placeholder={`Select Country`}
             rules={[
               ...rules,
               { required: true, message: "Country is required" },
@@ -78,12 +63,12 @@ export const InputAdress = (props: any) => {
             }}
           />
           <InputSelectV2
-            title="State"
+            title="State*"
             icon={icon}
             span={12}
             width="100%"
             disabled={disabled}
-            placeholder={`${placeholder} state`}
+            placeholder={`Select State`}
             rules={[...rules, { required: true, message: "State is required" }]}
             name={getName(name, "state")}
             hasFeedback={true}
@@ -97,11 +82,11 @@ export const InputAdress = (props: any) => {
           />
 
           <TextInputV2
-            title="City"
+            title="City*"
             icon={icon}
             span={12}
             width="95%"
-            placeholder={`${placeholder} City`}
+            placeholder={`Enter City`}
             rules={[
               ...rules,
               { required: true, message: "City is required" },
@@ -113,12 +98,12 @@ export const InputAdress = (props: any) => {
             disabled={disabled}
           />
           <TextInputV2
-            title="Index"
+            title="Index*"
             icon={icon}
             span={12}
             width="100%"
             disabled={disabled}
-            placeholder={`${placeholder} Index`}
+            placeholder={`Enter Index`}
             rules={[
               ...rules,
               { required: true, message: "Index is required" },
@@ -127,6 +112,21 @@ export const InputAdress = (props: any) => {
             name={getName(name, "address_index")}
             hasFeedback={true}
             styles={{ margin: "8px 0px" }}
+          />
+          <TextInputV2
+            title="Street*"
+            icon={icon}
+            span={24}
+            width="100%"
+            placeholder={`${placeholder} Street Number`}
+            rules={[
+              ...rules,
+              { required: true, message: "Street number is required" },
+            ]}
+            name={getName(name, "number_street")}
+            hasFeedback={true}
+            styles={{ margin: "8px 0px" }}
+            disabled={disabled}
           />
         </Row>
       </Col>

@@ -190,7 +190,7 @@ export const carrierData = {
       key: 2,
       value: "ELog",
     },
-  ],
+  ].reverse(),
   dst: [
     {
       key: 0,
@@ -272,12 +272,13 @@ export const carrierData = {
       key: 2,
       value: "Blocked",
     },
-  ],
+  ].reverse(),
   countries: [
     {
       key: 1,
       value: "USA",
     },
+    { key: 2, value: "Canada" },
   ],
   states: [
     {

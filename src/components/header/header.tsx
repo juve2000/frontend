@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Row, Col } from "antd";
 import { Logo } from "./logo";
 import { UserSettings } from "./UserSettings";
@@ -10,10 +11,14 @@ import "./header.scss";
 
 export const Header = (props: any) => {
   const { toggleMenu } = props;
+  const navigate = useNavigate();
   return (
     <Row className="header">
       <Col className="flex-start" span={4}>
-        <div style={{ marginLeft: 25 }}>
+        <div
+          style={{ marginLeft: 25, cursor: "pointer" }}
+          onClick={() => navigate("/")}
+        >
           <Logo />
         </div>
       </Col>

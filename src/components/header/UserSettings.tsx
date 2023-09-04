@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Button, Dropdown } from "antd";
+import { Row, Col, Button, Dropdown, Space } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { DownOutlined } from "@ant-design/icons";
@@ -11,13 +11,30 @@ export const UserSettings = (props: any) => {
   const location = useLocation();
   const UnitMenu = () => {
     return (
-      <Dropdown.Button
+      <Dropdown
         placement="bottomLeft"
         trigger={["click"]}
         className="menu-option orange"
-        icon={<DownOutlined />}
+        // icon={<DownOutlined />}
         menu={{
           items: [
+            {
+              key: "0",
+              label: (
+                <div
+                  onClick={() => {
+                    navigate(`/client/units/create`);
+                  }}
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <span
+                    className="icon-fi-rr-folder"
+                    style={{ marginRight: "10px" }}
+                  ></span>{" "}
+                  Unit
+                </div>
+              ),
+            },
             {
               key: "1",
               label: (
@@ -123,8 +140,12 @@ export const UserSettings = (props: any) => {
           ],
         }}
       >
-        Create unit
-      </Dropdown.Button>
+        <Button>
+          <Space>
+            Create Assert <DownOutlined />
+          </Space>
+        </Button>
+      </Dropdown>
     );
   };
   const user = useSelector((state: any) => state.auth.user);

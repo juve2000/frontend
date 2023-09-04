@@ -58,14 +58,17 @@ export const ClientLayout = () => {
   }, [location]);
 
   const fullScreenRoutes = [
-    "carrier",
-    "driver",
+    "carriers",
+    "drivers",
     "driver_group",
     "mechanic",
     "vehicle",
     "trailer",
     "device",
     "role",
+    "company",
+    "role",
+    "user",
   ];
 
   const getLayout = React.useCallback(() => {

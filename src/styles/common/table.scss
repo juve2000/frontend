@@ -1,12 +1,25 @@
 .ant-table-wrapper .ant-table-thead > tr > th {
-  background-color: rgba(239, 246, 255, 0.4);
+  background-color: rgba(207, 228, 255, 0.8);
   font-family: "Ubuntu";
-  color: #a9bbd1;
-  font-size: 12px;
+  color: #5e6874;
+  font-size: 13px;
   font-style: normal;
   font-weight: 500;
   //   padding: 8px 0px 8px 16px;
   border-bottom: none;
+}
+
+.ant-table-wrapper {
+  .ant-table-content {
+    border: 2px solid #afafaf;
+    border-radius: 10px;
+  }
+  td {
+    font-size: 13px;
+  }
+}
+.ant-dropdown-menu-item {
+  font-size: 12px !important;
 }
 
 // .ant-table-wrapper {

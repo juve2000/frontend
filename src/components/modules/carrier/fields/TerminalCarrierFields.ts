@@ -29,14 +29,15 @@ export const TerminalCarrierFields = (options: any) => {
           {
             type: InputType.TEXT_V2,
             name: CarrierField.NAME,
-            label: "Terminal name",
+            label: "Terminal name*",
+            isRequired: true,
             rules: [
               // validate("", VALIDATION_TYPE.ALPHABETICAL),
               getValidation(REQUIRED, "name"),
             ],
-            placeholder: "Terminal Name",
+            placeholder: "Enter Terminal Name",
             hasFeedback: true,
-            title: " ",
+            title: "Terminal name*",
             span: 24,
             width: "100%",
           },
@@ -47,14 +48,15 @@ export const TerminalCarrierFields = (options: any) => {
       {
         type: InputType.ADDRESS,
         name: "address",
-        label: "Carrier Address",
+        label: "Terminal Address",
         rules: [],
         placeholder: "Carrier",
         hasFeedback: true,
       },
+
       {
         type: InputType.MULTI,
-        label: "Time Zone",
+        label: "",
         isRequired: true,
         fields: [
           {
@@ -65,9 +67,10 @@ export const TerminalCarrierFields = (options: any) => {
               // validate("", VALIDATION_TYPE.ALPHABETICAL),
               getValidation(REQUIRED, "Time zone"),
             ],
-            placeholder: "Time Zone",
+            placeholder: "Select Time Zone",
             hasFeedback: true,
-            title: " ",
+            title: "Time Zone*",
+            label: "Time Zone*",
             span: 24,
             width: "100%",
             options: carrierData.tz,

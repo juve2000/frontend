@@ -53,7 +53,7 @@ export const InputImageUploadV2 = (props: any) => {
         )
       ) : null}
       <Row>
-        <Col span={4}>
+        <Col span={form.getFieldValue(name) ? 4 : 0}>
           {form.getFieldValue(name) ? (
             <>
               <img
@@ -83,7 +83,7 @@ export const InputImageUploadV2 = (props: any) => {
             <LogoCarrier logo={form.getFieldValue(name)} />
           )}
         </Col>
-        <Col span={20}>
+        <Col span={form.getFieldValue(name) ? 20 : 24}>
           <Form.Item
             rules={rules}
             name={name}

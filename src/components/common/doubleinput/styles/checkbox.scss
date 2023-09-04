@@ -1,7 +1,8 @@
 .input-checkbox {
   .ant-checkbox-wrapper {
     font-family: "Ubuntu" !important;
-    font-size: 16px;
+    font-size: 13px;
+    color: rgba(20, 16, 41, 0.4) !important;
   }
   .ant-checkbox-disabled .ant-checkbox-inner {
     background-color: transparent;
@@ -26,5 +27,11 @@
       border-left: 0;
       border-radius: 1px;
     }
+  }
+}
+
+.ant-form {
+  button {
+    font-size: 14px !important;
   }
 }

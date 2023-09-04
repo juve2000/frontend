@@ -11,7 +11,12 @@ export const InputPageTitle = (props: any) => {
   return (
     <div
       className="ubuntu"
-      style={{ display: "flex", alignItems: "center", padding: "12px 0px" }}
+      style={{
+        display: "flex",
+        alignItems: "baseline",
+        padding: "12px 0px",
+        // marginLeft: "-30px",
+      }}
     >
       {props.fields.map((field: any, i: any) => {
         if (i === 0) {
@@ -22,7 +27,7 @@ export const InputPageTitle = (props: any) => {
                 fontWeight: "bold",
                 cursor: "pointer",
                 display: "flex",
-                alignItems: "center",
+                alignItems: "baseline",
               }}
               onClick={() => {
                 navigate(props.route);
@@ -35,19 +40,20 @@ export const InputPageTitle = (props: any) => {
               <div
                 style={{
                   fontSize: 14,
-                  margin: "0px 16px",
+                  margin: "0px 8px",
                   fontWeight: "normal",
                 }}
-                className="orange"
               >
-                All {field}
+                <span style={{ fontWeight: "bold" }}>/</span>{" "}
+                <span className="orange">All {field}</span>
               </div>
             </div>
           );
         }
         return (
-          <div style={{ fontSize: 14, margin: "0px 16px" }} className="orange">
-            {field}
+          <div style={{ fontSize: 14, margin: "0px 8px" }}>
+            <span style={{ fontWeight: "bold" }}>/</span>{" "}
+            <span className="orange">{field}</span>
           </div>
         );
       })}

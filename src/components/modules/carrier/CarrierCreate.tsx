@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getCarrierReq, createCarrierReq } from "../../../actions/carrier";
 
-import { Row, Col, Form, Button, Input, Spin } from "antd";
+import { Row, Col, Form, Button, Input, Spin, Popconfirm, Modal } from "antd";
 import { CommonInput } from "../../common/inputs";
 import { carrierForm } from "./carrier-form";
 import { Graph } from "../../common/graph/Graph";
@@ -49,7 +49,8 @@ export const CarrierCreatePage = () => {
   const { user } = useSelector((state: any) => state.auth);
   const [fields, setFields] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const [open, setOpen] = useState(false);
+  // const [confirmLoading, setConfirmLoading] = useState(false);
   const [initialValues, setInitialValues] = useState({
     name: "",
 
@@ -62,14 +63,14 @@ export const CarrierCreatePage = () => {
     notes: "",
     email_second: "",
     settings: {
-      measurement_system: null,
-      dst: null,
-      first_day: null,
-      compliance_mode: null,
-      motion_treshold: null,
-      cargo_type: null,
-      restart: null,
-      rest_break: null,
+      measurement_system: 2,
+      dst: 1,
+      first_day: 1,
+      compliance_mode: 1,
+      motion_treshold: 5,
+      cargo_type: [1],
+      restart: 2,
+      rest_break: 1,
       short_haul: false,
       personal_conveyance: false,
       adverse_conditions: false,
@@ -79,7 +80,8 @@ export const CarrierCreatePage = () => {
       exempt_driver: false,
       exempt_driver_notice: false,
       period_starting_time: "",
-      motion_trashhold: "",
+      motion_trashhold: 5,
+      hos_rules: 1,
     },
     terminals: [
       {
@@ -94,7 +96,9 @@ export const CarrierCreatePage = () => {
     ],
   });
 
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = async () => {
+    const values = form.getFieldsValue();
+    console.log("values", values);
     const f = Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
@@ -112,6 +116,7 @@ export const CarrierCreatePage = () => {
         },
       })
     );
+    setOpen(false);
   };
 
   // React.useEffect(() => {
@@ -147,7 +152,9 @@ export const CarrierCreatePage = () => {
                 onError={(err) => {
                   console.log("err", err);
                 }}
-                onFinish={handleSubmit}
+                onFinish={() => {
+                  setOpen(true);
+                }}
                 initialValues={initialValues}
               >
                 {carrierForm({}).map((field: any, i: number) => {
@@ -172,7 +179,7 @@ export const CarrierCreatePage = () => {
                     type="primary"
                     htmlType="submit"
                     className="orange"
-                    style={{ width: "65px", marginRight: 12 }}
+                    style={{ width: "85px", marginRight: 12 }}
                   >
                     Submit
                   </Button>
@@ -187,6 +194,21 @@ export const CarrierCreatePage = () => {
                   </Button>
                 </Form.Item>
               </Form>
+              <Modal
+                title="Confirm Save Changes"
+                open={open}
+                onOk={handleSubmit}
+                onCancel={() => setOpen(false)}
+                okText="Save"
+                cancelText="Cancel"
+              >
+                Are you sure you want to save the changes made to the Carrier
+                Profile?
+                <div>
+                  Any modifications you have made will be saved. This action
+                  cannot be undone.
+                </div>
+              </Modal>
             </Col>
           )}
         </Row>

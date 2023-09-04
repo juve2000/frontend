@@ -89,7 +89,7 @@ export const CarriersList: React.FC = () => {
     },
 
     {
-      title: "USDOT",
+      title: "DOT#",
       dataIndex: "usdot",
       key: "usdot",
       sortOrder: getOrderFromTableParams("usdot", tableParams),
@@ -101,7 +101,7 @@ export const CarriersList: React.FC = () => {
       width: "12%",
     },
     {
-      title: "MC",
+      title: "MC#",
       dataIndex: "mcnumber",
       key: "mcnumber",
       width: "12%",
@@ -115,8 +115,9 @@ export const CarriersList: React.FC = () => {
       ellipsis: true,
     },
     {
-      title: "Carrier Time Zone",
+      title: "Carrier Adress",
       dataIndex: ["terminals", "0"],
+
       // sorter: true,
       render: (value, record, index) => {
         const {
@@ -281,6 +282,40 @@ export const CarriersList: React.FC = () => {
                     </div>
                   ),
                 },
+                {
+                  key: "4",
+                  label: (
+                    <div
+                      onClick={() => {
+                        console.log("TODO: ACTIVATE");
+                      }}
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      <span
+                        className="icon-fi-rr-eye"
+                        style={{ marginRight: "10px" }}
+                      ></span>{" "}
+                      Activate Carrier
+                    </div>
+                  ),
+                },
+                {
+                  key: "5",
+                  label: (
+                    <div
+                      onClick={() => {
+                        console.log("TODO: DEACTIVATE ACTIVATE");
+                      }}
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      <span
+                        className="icon-fi-rr-lock"
+                        style={{ marginRight: "10px" }}
+                      ></span>{" "}
+                      Deactivate Carrier
+                    </div>
+                  ),
+                },
               ],
             }}
           >
@@ -360,10 +395,10 @@ export const CarriersList: React.FC = () => {
                 navigate(`${location.pathname}/create`);
               }}
             >
-              Create
+              Create Carrier
             </div>
           </div>
-          <div style={{ marginLeft: 20, display: "flex" }}>
+          <div style={{ marginLeft: 25, display: "flex" }}>
             <div
               style={{
                 display: "flex",
@@ -387,7 +422,7 @@ export const CarriersList: React.FC = () => {
                 display: "flex",
                 alignItems: "center",
                 cursor: "pointer",
-                marginLeft: 10,
+                marginLeft: 25,
               }}
               onClick={clearFilter}
             >

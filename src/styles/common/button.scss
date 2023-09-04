@@ -89,3 +89,12 @@
     border: none;
   }
 }
+
+.ant-modal-content {
+  font-family: "Ubuntu" !important;
+  .ant-btn-pramary {
+    color: "Ubuntu" !important;
+    background-color: $orange;
+    color: $white;
+  }
+}

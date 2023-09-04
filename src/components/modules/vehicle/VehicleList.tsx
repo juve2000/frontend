@@ -470,7 +470,7 @@ export const VehicleList: React.FC = () => {
                     navigate(`${location.pathname}/create`);
                   }}
                 >
-                  Create
+                  Create Vehicle
                 </div>
               </div>
               <div style={{ marginLeft: 20, display: "flex" }}>
@@ -479,6 +479,7 @@ export const VehicleList: React.FC = () => {
                     display: "flex",
                     alignItems: "center",
                     cursor: "pointer",
+                    marginLeft: 25,
                   }}
                   onClick={clearOrder}
                 >
@@ -497,7 +498,7 @@ export const VehicleList: React.FC = () => {
                     display: "flex",
                     alignItems: "center",
                     cursor: "pointer",
-                    marginLeft: 10,
+                    marginLeft: 25,
                   }}
                   onClick={clearFilter}
                 >
