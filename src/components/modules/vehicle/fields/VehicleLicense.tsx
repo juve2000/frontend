@@ -39,7 +39,7 @@ export const DriverLicense2 = {
 
 export const DriverLicense = {
   type: InputType.MULTI,
-  label: "License",
+  label: "Vin & License",
   isRequired: true,
   fields: [
     {
@@ -59,9 +59,69 @@ export const DriverLicense = {
       title: "Fuel Type*",
       rules: [getValidation(REQUIRED, "Fuel type")],
       placeholder: "Fuel Type",
-      options: [{ key: "Gas", value: "Gas" }],
+      options: [
+        {
+          key: 0,
+          value: "Diesel",
+        },
+        {
+          key: 1,
+          value: "Gasoline",
+        },
+        {
+          key: 2,
+          value: "Propane",
+        },
+        {
+          key: 3,
+          value: "Liquid Natural Gas",
+        },
+        {
+          key: 4,
+          value: "Compressed Natural Gas",
+        },
+        {
+          key: 5,
+          value: "Ethanol",
+        },
+        {
+          key: 6,
+          value: "Methanol",
+        },
+        {
+          key: 7,
+          value: "E-85",
+        },
+        {
+          key: 8,
+          value: "M-85",
+        },
+        {
+          key: 9,
+          value: "A55",
+        },
+        {
+          key: 10,
+          value: "Biodiesel",
+        },
+        {
+          key: 11,
+          value: "Other",
+        },
+      ],
       hasFeedback: true,
       span: 12,
+      width: "100%",
+    },
+    {
+      type: InputType.TEXT_V2,
+      name: VehicleField.LICENSE_PLATE,
+      label: "License Plate# *",
+      rules: [getValidation(REQUIRED, ""), validate("", ALPHABETICAL)],
+      placeholder: "License Plate",
+      hasFeedback: true,
+      title: "License Plate# *",
+      span: 24,
       width: "100%",
     },
     {

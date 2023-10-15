@@ -35,6 +35,8 @@ export const ClientLayout = () => {
     trailerId,
     vehicleId,
     userId,
+    companyId,
+    officeId,
   } = params;
 
   const excludedParamsScreen = [
@@ -47,6 +49,8 @@ export const ClientLayout = () => {
     trailerId,
     vehicleId,
     userId,
+    companyId,
+    officeId,
   ];
 
   const location = useLocation();

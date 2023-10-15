@@ -29,6 +29,7 @@ export const OfficePage = () => {
   const [initialValues, setInitialValues] = useState({
     name: "",
     company_id: "",
+    status: null,
     address: {
       number_street: "number_street",
       country: "country",

@@ -37,7 +37,7 @@ export const carrierForm = (options: any) => {
 
     {
       type: InputType.TITLE,
-      label: "Vehicle Basics",
+      label: "Name & Details",
     },
     // // DRIVER NAME DETAILS
     { ...NameDriverFields },

@@ -33,8 +33,9 @@ export const companyForm = (options: any) => {
     },
     // // COMPANY NAME DETAILS
     { ...NameCompanyFields },
-    { ...AddressCompanyFields },
     { ...ContactCompanyFields },
+    { ...AddressCompanyFields },
+
     { ...LogoCompanyFields },
     //LICENSE
     // // PREFERENCES

@@ -16,7 +16,7 @@ export const LogoCompanyFields = {
     {
       type: InputType.UPLOAD_V2,
       name: CompanyField.LOGO,
-      title: "Logo*",
+      title: "Logo",
       // rules: [getValidation(REQUIRED, "Status")],
       placeholder: "Carrier Status",
       // options: carrierData.status,

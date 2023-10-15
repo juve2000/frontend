@@ -54,7 +54,9 @@ export const CarrierDynamicVehicleField = (props: any) => {
   // const [currentCarrier, setCurrentCarrier] = useState<any>({});
   const [carrierOptions, setCarrierOptions] = useState([]);
 
-  const [statusOptions, setStatusOptions] = useState(carrierData.status);
+  const [statusOptions, setStatusOptions] = useState(
+    carrierData.status.filter((item) => item.value !== "Blocked").reverse()
+  );
 
   useEffect(() => {
     setCarrierOptions(
@@ -73,7 +75,9 @@ export const CarrierDynamicVehicleField = (props: any) => {
     );
 
     if (currentCarrier?.status === 1) {
-      setStatusOptions(carrierData.status);
+      setStatusOptions(
+        carrierData.status.filter((item) => item.value !== "Blocked").reverse()
+      );
     } else {
       setStatusOptions(inactiveStatus);
     }
@@ -81,9 +85,9 @@ export const CarrierDynamicVehicleField = (props: any) => {
 
   const StatusProps = {
     name: VehicleField.STATUS,
-    title: "Vehicle Status*",
+    title: "Status*",
     rules: [getValidation(REQUIRED, "Status")],
-    placeholder: "Vehicle Status",
+    placeholder: "Status",
     hasFeedback: true,
     span: 12,
     width: "100%",

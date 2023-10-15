@@ -33,6 +33,7 @@ import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
 import { BurgerIcon } from "../../header/logo";
+import { companyStatys } from "./constant";
 
 dayjs.extend(customParseFormat);
 
@@ -106,15 +107,10 @@ export const OfficeList: React.FC = () => {
             className="orange ubuntu"
             style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
             onClick={() => {
-              navigate(`/client/company/${record?.company?.id}`);
+              navigate(`/client/office/${record?.company?.id}`);
             }}
           >
-            <LogoCarrier
-              logo={record?.company?.logo}
-              onClick={() => null}
-              styles={{ width: 30, height: 30 }}
-            />
-            <div style={{ marginLeft: 20 }}>{`${record?.company?.name}`}</div>
+            <div>{`${record?.company?.name}`}</div>
           </div>
         );
       },
@@ -171,12 +167,12 @@ export const OfficeList: React.FC = () => {
             className="ubuntu"
             style={{ color: "#141029", cursor: "pointer" }}
           >
-            {`${record.company.usdot}`}
+            {`${record?.company?.usdot || ""}`}
           </div>
         );
       },
       ellipsis: true,
-      width: "20%",
+      width: "15%",
     },
     {
       title: "MC#",
@@ -189,20 +185,21 @@ export const OfficeList: React.FC = () => {
       },
 
       render: (name, record, index) => {
+        console.log("record", record);
         return (
           <div
             className="ubuntu"
             style={{ color: "#141029", cursor: "pointer" }}
           >
-            {`${record.company.mcnumber}`}
+            {`${record?.company?.mcnumber || ""}`}
           </div>
         );
       },
       ellipsis: true,
-      width: "20%",
+      width: "15%",
     },
     {
-      title: "Name",
+      title: "Office Name",
       key: "name",
       dataIndex: "name",
       sortOrder: getOrderFromTableParams("name", tableParams),
@@ -214,6 +211,7 @@ export const OfficeList: React.FC = () => {
         return (
           <div
             className="orange ubuntu"
+            style={{ cursor: "pointer" }}
             onClick={() => {
               navigate(`${location.pathname}/${record.id}`);
             }}
@@ -265,6 +263,32 @@ export const OfficeList: React.FC = () => {
       },
       width: "30%",
       ellipsis: true,
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      sortOrder: getOrderFromTableParams("status", tableParams),
+      key: "status",
+      sorter: {
+        compare: (a: any, b: any) => a.status - b.status,
+        multiple: 5,
+      },
+      width: "9%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        const status = companyStatys.find(
+          (st) => st.key === record.company.status
+        );
+
+        return <div>{status?.value}</div>;
+      },
+      filters: companyStatys.map((st: any) => {
+        return {
+          text: st.value,
+          value: st.key,
+        };
+      }),
+      filteredValue: tableParams?.filters?.status || null,
     },
     {
       title: "Action",

@@ -9,7 +9,7 @@ import {
 import { carrierData } from "../../carrier/constant";
 import { VehicleField } from "../../vehicle/constant";
 
-import { CompanyField, DeviceField } from "../constant";
+import { CompanyField, companyStatys, DeviceField } from "../constant";
 
 const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL, NAME } =
   VALIDATION_TYPE;
@@ -24,7 +24,7 @@ export const NameCompanyFields = {
       name: CompanyField.NAME,
       label: "Company Name*",
       rules: [getValidation(REQUIRED, "")],
-      placeholder: "Company Name",
+      placeholder: "Enter Company Name",
       hasFeedback: true,
       title: "Company Name*",
       span: 12,
@@ -41,14 +41,14 @@ export const NameCompanyFields = {
       title: "Status*",
       span: 12,
       width: "100%",
-      options: carrierData.status,
+      options: companyStatys,
     },
     {
       type: InputType.TEXT_V2,
       name: CompanyField.USDOT,
-      title: "USDOT*",
+      title: "DOT#*",
       rules: [getValidation(REQUIRED, "Fuel type"), validate("", MIN)],
-      placeholder: "USDOT",
+      placeholder: "Enter DOT#",
       hasFeedback: true,
       span: 12,
       width: "95%",
@@ -56,10 +56,9 @@ export const NameCompanyFields = {
     {
       type: InputType.TEXT_V2,
       name: CompanyField.MC_NUMBER,
-      title: "MC Number*",
+      title: "MC# *",
       rules: [getValidation(REQUIRED, "MC Number")],
-      placeholder: "MC Number",
-      options: [{ key: "1", value: 1 }],
+      placeholder: "Enter MC#",
       hasFeedback: true,
       span: 12,
       width: "100%",

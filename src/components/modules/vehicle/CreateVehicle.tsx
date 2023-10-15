@@ -73,6 +73,7 @@ export const VehicleCreatePage = () => {
     license_plate: null,
     license_issuing: "",
     license_expiration: "",
+    yaer: 1990,
   });
 
   React.useEffect(() => {

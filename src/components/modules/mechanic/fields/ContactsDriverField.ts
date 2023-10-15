@@ -59,7 +59,7 @@ export const NoticeMechanicFields = {
       type: InputType.TEXT_AREA,
       name: CarrierField.NOTES,
       label: "Notice",
-      styles: { height: "120px" },
+      styles: { height: "60px" },
 
       // rules: [validate("", PHONE), getValidation(REQUIRED, "")],
       placeholder: "Notice",

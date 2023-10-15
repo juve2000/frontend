@@ -12,7 +12,11 @@ import { DeviceField } from "../constant";
 
 const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL, NAME } =
   VALIDATION_TYPE;
-
+export const DeviceTypes = [
+  { key: 1, value: "ELD" },
+  { key: 2, value: "GPS Tracker" },
+  { key: 3, value: "Dash Cam" },
+];
 export const NameDriverFields = {
   type: InputType.MULTI,
   label: "Details",
@@ -21,11 +25,11 @@ export const NameDriverFields = {
     {
       type: InputType.TEXT_V2,
       name: DeviceField.NAME,
-      label: "Device Name*",
+      label: "Device *",
       rules: [getValidation(REQUIRED, "")],
-      placeholder: "Device Name",
+      placeholder: "Enter Device Name",
       hasFeedback: true,
-      title: "Device Name*",
+      title: "Device *",
       span: 12,
       width: "95%",
     },
@@ -35,7 +39,7 @@ export const NameDriverFields = {
       title: "Device Type*",
       rules: [getValidation(REQUIRED, "Fuel type")],
       placeholder: "Device Type",
-      options: [{ key: "1", value: 1 }],
+      options: [{ key: 1, value: "ELD" }],
       hasFeedback: true,
       span: 12,
       width: "100%",
@@ -43,11 +47,11 @@ export const NameDriverFields = {
     {
       type: InputType.TEXT_V2,
       name: DeviceField.SERIAL_NUMBER,
-      label: "Serial Number*",
+      label: "SN*",
       rules: [getValidation(REQUIRED, "")],
-      placeholder: "Serial Number",
+      placeholder: "Enter SN",
       hasFeedback: true,
-      title: "Serial Number*",
+      title: "SN*",
       span: 12,
       width: "95%",
     },
@@ -56,8 +60,7 @@ export const NameDriverFields = {
       name: DeviceField.MAC_ADDRESS,
       title: "MAC Address*",
       rules: [getValidation(REQUIRED, "MAC Address")],
-      placeholder: "MAC Address",
-      options: [{ key: "1", value: 1 }],
+      placeholder: "Enter MAC Address",
       hasFeedback: true,
       span: 12,
       width: "100%",

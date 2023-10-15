@@ -26,7 +26,7 @@ export const deviceForm = (options: any) => {
 
     {
       type: InputType.TITLE,
-      label: "Device Basics",
+      label: "Name & Details",
     },
     // // DRIVER NAME DETAILS
     { ...NameDriverFields },

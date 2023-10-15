@@ -49,6 +49,7 @@ export const VehicleField = {
   LICENSE_PLATE: "license_plate",
   LICENSE_ISSUING: "license_issuing",
   LICENSE_EXPIRATION: "license_expiration",
+  YEAR: "year",
 };
 
 export const DriverField = {

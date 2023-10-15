@@ -51,3 +51,18 @@ export const CompanyField = {
   MC_NUMBER: "mcnumber",
   COMPANY: "company_id",
 };
+
+export const companyStatys = [
+  {
+    key: 1,
+    value: "Active",
+  },
+  {
+    key: 0,
+    value: "Inactive",
+  },
+  {
+    key: 2,
+    value: "Temporary",
+  },
+];

@@ -82,6 +82,7 @@ export const InputDatePickerSingleV2 = (props: any) => {
         placeholder={placeholder}
         style={{ width, ...styles, position: "absolute", top: 30 }}
         disabled={disabled}
+        clearIcon={false}
         // format={FORMAT}
         value={selectedTime}
         // defaultValue={dayjs(selectedTime, FORMAT)}

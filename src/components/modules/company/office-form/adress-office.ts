@@ -9,7 +9,7 @@ import {
 import { VehicleField } from "../../vehicle/constant";
 import { carrierData } from "../../carrier/constant";
 
-import { DeviceField, CompanyField } from "../constant";
+import { DeviceField, CompanyField, companyStatys } from "../constant";
 
 const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL, NAME } =
   VALIDATION_TYPE;
@@ -28,7 +28,7 @@ const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL, NAME } =
 
 export const AddressOfficeFields = {
   type: InputType.MULTI,
-  label: "Office Address",
+  label: "Name & Company",
   isRequired: false,
   fields: [
     {
@@ -42,6 +42,18 @@ export const AddressOfficeFields = {
       span: 24,
       width: "100%",
     },
+    // {
+    //   type: InputType.SELECT_V2,
+    //   name: [CompanyField.STATUS],
+    //   label: "Status*",
+    //   rules: [getValidation(REQUIRED, "")],
+    //   placeholder: "Status*",
+    //   hasFeedback: true,
+    //   title: "Status*",
+    //   span: 24,
+    //   width: "100%",
+    //   options: companyStatys,
+    // },
     {
       type: InputType.ADDRESS_V3,
       name: [CompanyField.ADDRESS],

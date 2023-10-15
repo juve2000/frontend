@@ -12,6 +12,7 @@ export const VALIDATION_RULES = {
   NOT_EMPTY: /^(\w+\S+)$/,
   ALPHABETICAL_NUMBERS: /[^A-Za-z0-9]+/,
   VIN: /\b[(a-hA-H|j-nJ-N|pP|r-zR-Z|0-9)]{17}\b/,
+  // VIN: (?i)(?<VIN>[A-Z0-9^IOQioq_]{11}\d{6}),
 };
 
 export const VALIDATION_TYPE = {

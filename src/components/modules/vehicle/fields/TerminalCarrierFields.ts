@@ -26,7 +26,7 @@ export const VehicleNotice = {
       title: " ",
       span: 24,
       width: "100%",
-      styles: { height: "120px" },
+      styles: { height: "60px" },
     },
   ],
 };

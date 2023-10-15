@@ -28,6 +28,7 @@ import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
 import { BurgerIcon } from "../../header/logo";
+import { companyStatys } from "./constant";
 
 dayjs.extend(customParseFormat);
 
@@ -56,7 +57,7 @@ export const CompanyList: React.FC = () => {
   const columns: ColumnsType<any> = [
     Table.SELECTION_COLUMN,
     {
-      title: "Name",
+      title: "Company Name",
       key: "name",
       dataIndex: "name",
       sortOrder: getOrderFromTableParams("name", tableParams),
@@ -80,14 +81,14 @@ export const CompanyList: React.FC = () => {
       ellipsis: true,
     },
     {
-      title: "USDOT",
+      title: "DOT#",
       dataIndex: "usdot",
       key: "usdot",
-      sortOrder: getOrderFromTableParams("usdot", tableParams),
-      sorter: {
-        compare: (a: any, b: any) => a.type - b.type,
-        multiple: 5,
-      },
+      // sortOrder: getOrderFromTableParams("usdot", tableParams),
+      // sorter: {
+      //   compare: (a: any, b: any) => a.type - b.type,
+      //   multiple: 5,
+      // },
 
       render: (name, record, index) => {
         return (
@@ -100,10 +101,34 @@ export const CompanyList: React.FC = () => {
         );
       },
       ellipsis: true,
-      width: "20%",
+      width: "15%",
     },
     {
-      title: "Authority adress",
+      title: "MC#",
+      dataIndex: "mcnumber",
+      key: "mcnumber",
+      // sortOrder: getOrderFromTableParams("usdot", tableParams),
+      // sorter: {
+      //   compare: (a: any, b: any) => a.type - b.type,
+      //   multiple: 5,
+      // },
+
+      render: (name, record, index) => {
+        console.log("record", record);
+        return (
+          <div
+            className="ubuntu"
+            style={{ color: "#141029", cursor: "pointer" }}
+          >
+            {`${record.mcnumber}`}
+          </div>
+        );
+      },
+      ellipsis: true,
+      width: "15%",
+    },
+    {
+      title: "Authority address",
       key: "address",
       dataIndex: "address",
 
@@ -117,11 +142,17 @@ export const CompanyList: React.FC = () => {
       title: "Billing plan",
       dataIndex: "billing_plan",
       key: "billing_plan",
-      sortOrder: getOrderFromTableParams("billing_plan", tableParams),
-      sorter: {
-        compare: (a: any, b: any) => a.billing_plan - b.billing_plan,
-        multiple: 5,
-      },
+      filters: [{ key: 1, value: "Billing plan TBD#1" }].map((st: any) => {
+        return {
+          text: st.value,
+          value: st.key,
+        };
+      }),
+      // sortOrder: getOrderFromTableParams("billing_plan", tableParams),
+      // sorter: {
+      //   compare: (a: any, b: any) => a.billing_plan - b.billing_plan,
+      //   multiple: 5,
+      // },
 
       render: (name, record, index) => {
         return (
@@ -150,13 +181,11 @@ export const CompanyList: React.FC = () => {
       width: "9%",
       ellipsis: true,
       render: (value, record, index) => {
-        const status = carrierData.status.find(
-          (st) => st.key === record.status
-        );
+        const status = companyStatys.find((st) => st.key === record.status);
 
         return <div>{status?.value}</div>;
       },
-      filters: carrierData.status.map((st: any) => {
+      filters: companyStatys.map((st: any) => {
         return {
           text: st.value,
           value: st.key,
@@ -219,14 +248,46 @@ export const CompanyList: React.FC = () => {
                   key: "3",
                   label: (
                     <div
+                      onClick={() => {
+                        navigate(`/client/office`);
+                      }}
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      <span
+                        className="icon-fi-rr-folder"
+                        style={{ marginRight: "10px" }}
+                      ></span>{" "}
+                      View Offices
+                    </div>
+                  ),
+                },
+                {
+                  key: "4",
+                  label: (
+                    <div
                       onClick={() => {}}
                       style={{ display: "flex", alignItems: "center" }}
                     >
                       <span
-                        className="icon-fi-rr-trash"
+                        className="icon-fi-rr-folder"
                         style={{ marginRight: "10px" }}
                       ></span>{" "}
-                      Delete
+                      Activate
+                    </div>
+                  ),
+                },
+                {
+                  key: "5",
+                  label: (
+                    <div
+                      onClick={() => {}}
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      <span
+                        className="icon-fi-rr-folder"
+                        style={{ marginRight: "10px" }}
+                      ></span>{" "}
+                      Deactivate
                     </div>
                   ),
                 },

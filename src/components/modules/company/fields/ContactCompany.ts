@@ -19,7 +19,7 @@ export const ContactCompanyFields = {
       label: "Phone Number*",
 
       rules: [validate("", PHONE), getValidation(REQUIRED, "")],
-      placeholder: "Phone Number",
+      placeholder: "Phone number, e.g. +12345678901",
       hasFeedback: true,
       title: "Phone Number*",
       span: 12,
@@ -28,9 +28,9 @@ export const ContactCompanyFields = {
     {
       type: InputType.TEXT_V2,
       name: CompanyField.EMAIL,
-      label: "Email",
+      label: "Email *",
       rules: [getValidation(REQUIRED, ""), validate("", VALIDATION_TYPE.EMAIL)],
-      placeholder: "Email",
+      placeholder: "Email, e.g. username@domain.net",
       hasFeedback: true,
       title: "Email*",
       span: 12,
@@ -42,7 +42,7 @@ export const ContactCompanyFields = {
       label: "Contact Person*",
 
       rules: [getValidation(REQUIRED, "")],
-      placeholder: "Phone Number",
+      placeholder: "Contact Person",
       hasFeedback: true,
       title: "Contact Person*",
       span: 12,

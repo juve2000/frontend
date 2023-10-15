@@ -18,14 +18,14 @@ const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL } =
 
 export const PreferencesCarrierFields = {
   type: InputType.MULTI,
-  label: "Preferences",
+  label: "Preferences *",
   isRequired: true,
   fields: [
     {
       type: InputType.SELECT_V2,
       // TODO change field name
       name: DriverField.MEASUREMENT_SYSTEM,
-      label: "Measurment system",
+      label: "Measurement system",
       rules: [getValidation(REQUIRED, "Measurment system")],
       placeholder: "Measurment system",
       hasFeedback: true,
@@ -37,11 +37,11 @@ export const PreferencesCarrierFields = {
     {
       type: InputType.SELECT_V2,
       name: DriverField.DST,
-      label: "Daylight saving time",
+      label: "Daylight saving time *",
       rules: [getValidation(REQUIRED, "Daylight saving time")],
       placeholder: "Daylight saving time",
       hasFeedback: true,
-      title: "Daylight saving time",
+      title: "Daylight saving time *",
       span: 12,
       width: "100%",
       options: carrierData.dst,

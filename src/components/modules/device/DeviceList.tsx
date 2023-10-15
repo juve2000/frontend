@@ -29,6 +29,7 @@ import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
 import { BurgerIcon } from "../../header/logo";
+import { DeviceTypes } from "./fields/NameVehicleFields";
 
 dayjs.extend(customParseFormat);
 
@@ -73,7 +74,7 @@ export const DeviceList: React.FC = () => {
   const columns: ColumnsType<any> = [
     Table.SELECTION_COLUMN,
     {
-      title: "Device Name",
+      title: "Device",
       key: "name",
       dataIndex: "name",
       sortOrder: getOrderFromTableParams("name", tableParams),
@@ -93,7 +94,7 @@ export const DeviceList: React.FC = () => {
           </div>
         );
       },
-      width: 300,
+      width: "25%",
       ellipsis: true,
     },
     {
@@ -105,7 +106,7 @@ export const DeviceList: React.FC = () => {
         compare: (a: any, b: any) => a.type - b.type,
         multiple: 5,
       },
-      filters: [1, 2, 3].map((st: any) => {
+      filters: DeviceTypes.map((st: any) => {
         return {
           text: st,
           value: st,
@@ -113,20 +114,23 @@ export const DeviceList: React.FC = () => {
       }),
       filteredValue: tableParams?.filters?.type || null,
       render: (name, record, index) => {
+        const deviceType = DeviceTypes.find(
+          (item) => item.key === +record.type
+        );
         return (
           <div
             className="ubuntu orange"
             style={{ color: "#141029", cursor: "pointer" }}
           >
-            {`${record.type}`}
+            {`${deviceType || record.type}`}
           </div>
         );
       },
       ellipsis: true,
-      width: "20%",
+      width: "8%",
     },
     {
-      title: "Serial Number",
+      title: "SN",
       key: "serial_number",
       dataIndex: "serial_number",
       sortOrder: getOrderFromTableParams("serial_number", tableParams),
@@ -146,7 +150,7 @@ export const DeviceList: React.FC = () => {
           </div>
         );
       },
-      width: 300,
+      width: "25%",
       ellipsis: true,
     },
     {
@@ -182,7 +186,7 @@ export const DeviceList: React.FC = () => {
         compare: (a: any, b: any) => a.carrier - b.carrier,
         multiple: 5,
       },
-      width: "20%",
+      width: "25%",
       ellipsis: true,
       render: (value, record, index) => {
         return (
@@ -249,7 +253,7 @@ export const DeviceList: React.FC = () => {
         compare: (a: any, b: any) => a.model - b.model,
         multiple: 5,
       },
-      width: "25%",
+      width: "8%",
       ellipsis: true,
       render: (value, record, index) => {
         return (
@@ -270,12 +274,12 @@ export const DeviceList: React.FC = () => {
     {
       title: "Status",
       dataIndex: "status",
-      sortOrder: getOrderFromTableParams("status", tableParams),
+      // sortOrder: getOrderFromTableParams("status", tableParams),
       key: "status",
-      sorter: {
-        compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
-        multiple: 5,
-      },
+      // sorter: {
+      //   compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
+      //   multiple: 5,
+      // },
       width: "9%",
       ellipsis: true,
       render: (value, record, index) => {
@@ -346,14 +350,33 @@ export const DeviceList: React.FC = () => {
                   key: "3",
                   label: (
                     <div
-                      onClick={() => {}}
+                      onClick={() => {
+                        console.log("TODO: ACTIVATE");
+                      }}
                       style={{ display: "flex", alignItems: "center" }}
                     >
                       <span
-                        className="icon-fi-rr-trash"
+                        className="icon-fi-rr-eye"
                         style={{ marginRight: "10px" }}
                       ></span>{" "}
-                      Delete
+                      Activate
+                    </div>
+                  ),
+                },
+                {
+                  key: "4",
+                  label: (
+                    <div
+                      onClick={() => {
+                        console.log("TODO: DEACTIVATE ACTIVATE");
+                      }}
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      <span
+                        className="icon-fi-rr-lock"
+                        style={{ marginRight: "10px" }}
+                      ></span>{" "}
+                      Deactivate
                     </div>
                   ),
                 },
