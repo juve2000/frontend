@@ -22,6 +22,7 @@ import ResetSort from "../../../img/resetSort.svg";
 import ResetFilter from "../../../img/resetFilter.svg";
 import { LogoCarrier } from "../../common/LogoCarrier";
 import { NoPermission } from "../../common/NoPermission";
+import { BurgerIcon } from "../../header/logo";
 
 export const CarriersList: React.FC = () => {
   const location = useLocation();
@@ -92,11 +93,11 @@ export const CarriersList: React.FC = () => {
       title: "DOT#",
       dataIndex: "usdot",
       key: "usdot",
-      sortOrder: getOrderFromTableParams("usdot", tableParams),
-      sorter: {
-        compare: (a: any, b: any) => a.usdot - b.usdot,
-        multiple: 5,
-      },
+      // sortOrder: getOrderFromTableParams("usdot", tableParams),
+      // sorter: {
+      //   compare: (a: any, b: any) => a.usdot - b.usdot,
+      //   multiple: 5,
+      // },
       ellipsis: true,
       width: "12%",
     },
@@ -106,16 +107,16 @@ export const CarriersList: React.FC = () => {
       key: "mcnumber",
       width: "12%",
       // render: (value) => `${value.mcnumber}`,
-      sortOrder: getOrderFromTableParams("mcnumber", tableParams),
+      // sortOrder: getOrderFromTableParams("mcnumber", tableParams),
 
-      sorter: {
-        compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
-        multiple: 5,
-      },
+      // sorter: {
+      //   compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
+      //   multiple: 5,
+      // },
       ellipsis: true,
     },
     {
-      title: "Carrier Adress",
+      title: "Authority address",
       dataIndex: ["terminals", "0"],
 
       // sorter: true,
@@ -153,10 +154,10 @@ export const CarriersList: React.FC = () => {
       dataIndex: "status",
       sortOrder: getOrderFromTableParams("status", tableParams),
       key: "status",
-      sorter: {
-        compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
-        multiple: 5,
-      },
+      // sorter: {
+      //   compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
+      //   multiple: 5,
+      // },
       width: "9%",
       ellipsis: true,
       render: (value, record, index) => {
@@ -319,7 +320,9 @@ export const CarriersList: React.FC = () => {
               ],
             }}
           >
-            <span className="orange icon-fi-rr-menu-dots"></span>
+            <span>
+              <BurgerIcon />
+            </span>
           </Dropdown>
         );
       },
@@ -366,7 +369,7 @@ export const CarriersList: React.FC = () => {
           }}
         />
         <Col span={12}>
-          <InputPageTitle fields={["Carriers"]} route="/client" carriers />
+          <InputPageTitle fields={["Carriers"]} route="/carriers" carriers />
         </Col>
         <Col
           span={12}

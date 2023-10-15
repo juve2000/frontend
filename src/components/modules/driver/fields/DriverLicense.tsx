@@ -73,11 +73,11 @@ export const LicenseDriverFields = {
     {
       type: InputType.TEXT_V2,
       name: DriverField.CDL,
-      label: "CDL No*",
+      label: "CDL#*",
       rules: [getValidation(REQUIRED, "")],
-      placeholder: "CDL No",
+      placeholder: "Enter CDL#",
       hasFeedback: true,
-      title: "CDL No*",
+      title: "CDL#*",
       span: 24,
       width: "100%",
     },
@@ -85,14 +85,14 @@ export const LicenseDriverFields = {
       type: InputType.MULTI_UPLOAD,
       name: `${DriverField.DOCUMENTS}_${DocumentType.CDL}`,
       isMultiType: true,
-      label: "Documents*",
+      label: "CDL Photo*",
       rules: [],
       placeholder: "CDL Document",
       hasFeedback: true,
-      title: "CDL Document*",
+      title: "CDL Photo*",
       span: 24,
       width: "100%",
-      fileType: DocumentType.CDL,
+      fileType: `${DocumentType.CDL} Photo/Document`,
     },
     {
       type: InputType.DRIVER_DOCUMENTS_LIST,
@@ -108,6 +108,36 @@ export const LicenseDriverFields = {
       fileType: DocumentType.CDL,
       DocsType: getDocumentByType(DocumentType.CDL),
       documentName: getDocumentNameByType(2),
+    },
+    {
+      type: InputType.DATE_PICKER_SINGLE,
+      name: DriverField.CDL_EXPIRATION,
+      title: "CDL Expiration*",
+      rules: [getValidation(REQUIRED, "Status")],
+      placeholder: "CDL Expiration",
+      options: carrierData.status,
+      hasFeedback: true,
+      span: 12,
+      width: "95%",
+    },
+    {
+      type: InputType.SELECT_V2,
+      name: DriverField.CDL_STATE,
+      title: "CDL Issuing State*",
+      rules: [getValidation(REQUIRED, "CDL Issuing State")],
+      placeholder: "CDL Issuing State",
+      options: carrierData.states.sort((a, b) => {
+        if (a.value > b.value) {
+          return -1;
+        }
+        if (a.value < b.value) {
+          return 1;
+        }
+        return 0;
+      }),
+      hasFeedback: true,
+      span: 12,
+      width: "100%",
     },
   ],
 };

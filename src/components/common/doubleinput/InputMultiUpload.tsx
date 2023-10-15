@@ -97,7 +97,7 @@ export const InputMultiUploadV2 = (props: any) => {
                   className="icon-fi-rr-upload orange"
                   style={{ marginRight: 10 }}
                 ></span>
-                Upload document {fileType}
+                Upload {fileType}
               </Button>
             </Upload>
           </Form.Item>

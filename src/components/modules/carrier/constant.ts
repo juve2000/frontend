@@ -61,7 +61,8 @@ export const CarrierField = {
     EXEMPT_DRIVER: "exempt_driver",
     EXEMPT_DRIVER_NOTICE: "exempt_driver_notice",
     NOTES: "notes",
-
+    TIME_FORMAT: "time_format",
+    DATE_FORMAT: "date_format",
     PERIOD_STARTING_TIME: "period_starting_time",
     NOTICE: "notice",
   },
@@ -214,11 +215,11 @@ export const carrierData = {
   measurement_system: [
     {
       key: 1,
-      value: "Metric",
+      value: "Metric (km., km/h., l.,)",
     },
     {
       key: 2,
-      value: "Imperial",
+      value: "Imperial (mi., mph., gal.,)",
     },
     {
       key: 3,
@@ -262,16 +263,16 @@ export const carrierData = {
   status: [
     {
       key: 1,
-      value: "Active",
+      value: "Enabled",
     },
     {
       key: 0,
-      value: "Inactive",
+      value: "Disabled",
     },
-    {
-      key: 2,
-      value: "Blocked",
-    },
+    // {
+    //   key: 2,
+    //   value: "Blocked",
+    // },
   ].reverse(),
   countries: [
     {

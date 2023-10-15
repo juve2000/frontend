@@ -5,12 +5,15 @@ import {
   getCarrierReq,
   createCarrierReq,
   updateCarrierReq,
+  getCarriersListReq,
+  getCarrierPasswordReq,
 } from "../../../actions/carrier";
 
 import { Row, Col, Form, Button, Input, Spin } from "antd";
 import { CommonInput } from "../../common/inputs";
 import { carrierForm } from "./carrier-form";
 import { Graph } from "../../../components/common/graph/Graph";
+import { SetPassword } from "./modals/CarrierSetPassword";
 import { InputType } from "../../../constants/inputs";
 import { PAGE_STATUS } from "./constant";
 import dayjs from "dayjs";
@@ -18,6 +21,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
+import { getParams } from "../../../routes/utils";
 
 dayjs.extend(customParseFormat);
 
@@ -62,10 +66,19 @@ export const CarrierPage = () => {
   const [fields, setFields] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { checkPermission } = usePermissions();
+  const [accautnModalOpen, setAccauntModalOpen] = useState(false);
+  const [currentCarrier, setCurrentCarrier] = useState({
+    id: "",
+    name: "",
+  });
 
   React.useEffect(() => {
     setStateValue(search.get("state"));
   }, [search]);
+
+  React.useEffect(() => {
+    console.log("params", params);
+  }, [params]);
 
   const [initialValues, setInitialValues] = useState({
     name: "",
@@ -161,9 +174,62 @@ export const CarrierPage = () => {
   return (
     <>
       {checkPermission(AllPermissionsType.CARRIER_SHOW) ? (
-        <Row style={{ paddingLeft: 23, paddingRight: 25, height: "100%" }}>
+        <Row
+          style={{
+            paddingLeft: 23,
+            paddingRight: 25,
+            height: "100%",
+            position: "relative",
+          }}
+        >
           {/* <Graph /> */}
-
+          <div
+            onClick={() => {
+              setCurrentCarrier({
+                id: params?.carrierid || "",
+                name: initialValues.name,
+              });
+              setAccauntModalOpen(true);
+            }}
+            className="orange"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              position: "absolute",
+              right: 25,
+              top: 25,
+              cursor: "pointer",
+            }}
+          >
+            <span
+              className="icon-fi-rr-lock orange"
+              style={{ marginRight: "10px" }}
+            ></span>{" "}
+            Set Password
+          </div>
+          <SetPassword
+            currentItem={currentCarrier}
+            isOpen={accautnModalOpen}
+            toggleModal={(status: any) => setAccauntModalOpen(status)}
+            onSubmit={(payload: any) => {
+              dispatch(
+                getCarrierPasswordReq({
+                  data: payload,
+                  onSuccess: () => {
+                    // dispatch(
+                    //   getCarriersListReq({
+                    //     queryParams: {
+                    //       // ...getParams(tableParams),
+                    //       with: ["terminals", "driver_groups"],
+                    //     },
+                    //   })
+                    // );
+                    setAccauntModalOpen(false);
+                  },
+                })
+              );
+            }}
+          />
           {loading ? (
             <div
               style={{

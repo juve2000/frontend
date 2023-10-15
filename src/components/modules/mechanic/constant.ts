@@ -272,11 +272,11 @@ export const carrierData = {
   measurement_system: [
     {
       key: 1,
-      value: "Metric",
+      value: "Metric (km., km/h., l.,)",
     },
     {
       key: 2,
-      value: "Imperial",
+      value: "Imperial (mi., mph., gal.,)",
     },
     {
       key: 3,

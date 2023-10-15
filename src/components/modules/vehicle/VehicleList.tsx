@@ -31,6 +31,7 @@ import { LogoCarrier } from "../../common/LogoCarrier";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
+import { BurgerIcon } from "../../header/logo";
 
 dayjs.extend(customParseFormat);
 
@@ -75,7 +76,7 @@ export const VehicleList: React.FC = () => {
   const columns: ColumnsType<any> = [
     Table.SELECTION_COLUMN,
     {
-      title: "Vehicle ID",
+      title: "Vehicle",
       key: "identificator",
       dataIndex: "identificator",
       sortOrder: getOrderFromTableParams("identificator", tableParams),
@@ -102,11 +103,11 @@ export const VehicleList: React.FC = () => {
       title: "VIN",
       dataIndex: "vin",
       key: "vin",
-      sortOrder: getOrderFromTableParams("vin", tableParams),
-      sorter: {
-        compare: (a: any, b: any) => a.email - b.email,
-        multiple: 5,
-      },
+      // sortOrder: getOrderFromTableParams("vin", tableParams),
+      // sorter: {
+      //   compare: (a: any, b: any) => a.email - b.email,
+      //   multiple: 5,
+      // },
       render: (name, record, index) => {
         return (
           <div
@@ -213,66 +214,66 @@ export const VehicleList: React.FC = () => {
       }),
       filteredValue: tableParams?.filters?.make || null,
     },
+    // {
+    //   title: "Model",
+    //   dataIndex: "model",
+    //   sortOrder: getOrderFromTableParams("model", tableParams),
+    //   key: "model",
+    //   sorter: {
+    //     compare: (a: any, b: any) => a.model - b.model,
+    //     multiple: 5,
+    //   },
+    //   width: "25%",
+    //   ellipsis: true,
+    //   render: (value, record, index) => {
+    //     return (
+    //       <div className="orange ubuntu" style={{ cursor: "pointer" }}>
+    //         {`${record?.model}`}
+    //       </div>
+    //     );
+    //   },
+    //   filters: generateArrayOfYears().map((st: any) => {
+    //     return {
+    //       text: st,
+    //       value: st,
+    //     };
+    //   }),
+    //   filteredValue: tableParams?.filters?.model || null,
+    // },
+    // {
+    //   title: "Fuel Type",
+    //   dataIndex: "fuel_type",
+    //   sortOrder: getOrderFromTableParams("fuel_type", tableParams),
+    //   key: "fuel_type",
+    //   sorter: {
+    //     compare: (a: any, b: any) => a.fuel_type - b.fuel_type,
+    //     multiple: 5,
+    //   },
+    //   width: "25%",
+    //   ellipsis: true,
+    //   render: (value, record, index) => {
+    //     return (
+    //       <div className="orange ubuntu" style={{ cursor: "pointer" }}>
+    //         {`${record?.fuel_type}`}
+    //       </div>
+    //     );
+    //   },
+    //   filters: generateArrayOfYears().map((st: any) => {
+    //     return {
+    //       text: st,
+    //       value: st,
+    //     };
+    //   }),
+    //   filteredValue: tableParams?.filters?.group || null,
+    // },
     {
-      title: "Model",
-      dataIndex: "model",
-      sortOrder: getOrderFromTableParams("model", tableParams),
-      key: "model",
-      sorter: {
-        compare: (a: any, b: any) => a.model - b.model,
-        multiple: 5,
-      },
-      width: "25%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return (
-          <div className="orange ubuntu" style={{ cursor: "pointer" }}>
-            {`${record?.model}`}
-          </div>
-        );
-      },
-      filters: generateArrayOfYears().map((st: any) => {
-        return {
-          text: st,
-          value: st,
-        };
-      }),
-      filteredValue: tableParams?.filters?.model || null,
-    },
-    {
-      title: "Fuel Type",
-      dataIndex: "fuel_type",
-      sortOrder: getOrderFromTableParams("fuel_type", tableParams),
-      key: "fuel_type",
-      sorter: {
-        compare: (a: any, b: any) => a.fuel_type - b.fuel_type,
-        multiple: 5,
-      },
-      width: "25%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return (
-          <div className="orange ubuntu" style={{ cursor: "pointer" }}>
-            {`${record?.fuel_type}`}
-          </div>
-        );
-      },
-      filters: generateArrayOfYears().map((st: any) => {
-        return {
-          text: st,
-          value: st,
-        };
-      }),
-      filteredValue: tableParams?.filters?.group || null,
-    },
-    {
-      title: "License No",
+      title: "License#",
       dataIndex: "license_issuing",
-      sortOrder: getOrderFromTableParams("license_issuing", tableParams),
-      sorter: {
-        compare: (a: any, b: any) => a.license_issuing - b.license_issuing,
-        multiple: 5,
-      },
+      // sortOrder: getOrderFromTableParams("license_issuing", tableParams),
+      // sorter: {
+      //   compare: (a: any, b: any) => a.license_issuing - b.license_issuing,
+      //   multiple: 5,
+      // },
       key: "license_issuing",
       // sorter: true,
       render: (value, record, index) => {
@@ -315,12 +316,12 @@ export const VehicleList: React.FC = () => {
     {
       title: "Status",
       dataIndex: "status",
-      sortOrder: getOrderFromTableParams("status", tableParams),
+      // sortOrder: getOrderFromTableParams("status", tableParams),
       key: "status",
-      sorter: {
-        compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
-        multiple: 5,
-      },
+      // sorter: {
+      //   compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
+      //   multiple: 5,
+      // },
       width: "9%",
       ellipsis: true,
       render: (value, record, index) => {
@@ -390,28 +391,33 @@ export const VehicleList: React.FC = () => {
                 {
                   key: "3",
                   label: (
-                    <div
-                      onClick={() => {
-                        setCurrentCarrier({
-                          id: record.id,
-                          name: record.name,
-                        });
-                        setAccauntModalOpen(true);
-                      }}
-                      style={{ display: "flex", alignItems: "center" }}
-                    >
+                    <div style={{ display: "flex", alignItems: "center" }}>
                       <span
                         className="icon-fi-rr-trash"
                         style={{ marginRight: "10px" }}
                       ></span>{" "}
-                      Delete
+                      Activate
+                    </div>
+                  ),
+                },
+                {
+                  key: "4",
+                  label: (
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <span
+                        className="icon-fi-rr-trash"
+                        style={{ marginRight: "10px" }}
+                      ></span>{" "}
+                      Dectivate
                     </div>
                   ),
                 },
               ],
             }}
           >
-            <span className="orange icon-fi-rr-menu-dots"></span>
+            <span>
+              <BurgerIcon />
+            </span>
           </Dropdown>
         );
       },

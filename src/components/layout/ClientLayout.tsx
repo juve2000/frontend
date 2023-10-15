@@ -10,6 +10,8 @@ import {
 } from "react-router-dom";
 import { Row, Col, Form, Button, Input } from "antd";
 import { Header } from "../header/header";
+import { Footer } from "../header/footer";
+
 import { SideBar } from "../SideBar/SideBar";
 import { CommonInput } from "../common/inputs";
 import { validate } from "../../utils/validation";
@@ -134,7 +136,14 @@ export const ClientLayout = () => {
           <Header toggleMenu={() => setIsOpenSidebar(!isOpenSidebar)} />
         </Col>
       </Row>
-      <Row style={{ paddingLeft: 27, paddingRight: 25, paddingTop: 60 }}>
+      <Row
+        style={{
+          paddingLeft: 27,
+          paddingRight: 25,
+          paddingTop: 60,
+          marginBottom: 50,
+        }}
+      >
         <Col span={firstColumn}>
           <SideBar isOpen={isOpenSidebar} />
         </Col>
@@ -157,6 +166,11 @@ export const ClientLayout = () => {
             {/* {!auth.user.company.name && <Navigate to="/client/company" />} */}
           </Col>
         ) : null}
+      </Row>
+      <Row className="footer-container">
+        <Col span={24}>
+          <Footer />
+        </Col>
       </Row>
     </>
   );

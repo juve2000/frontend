@@ -3,7 +3,7 @@ import { Button, message, Space } from "antd";
 
 export function CopyToClipboard({
   copyText,
-  style = { top: 43, right: 10 },
+  style = { top: 43, right: 5 },
 }: any) {
   const [messageApi, contextHolder] = message.useMessage();
 

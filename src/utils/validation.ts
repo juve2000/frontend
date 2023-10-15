@@ -100,7 +100,7 @@ export const getRegExpByType = (type: any) => {
     case VALIDATION_TYPE.PASSWORD:
       return {
         pattern: VALIDATION_RULES.PASSWORD,
-        message: "Use at least: 8 characters, 1 uppercase letter, 1 digit !",
+        message: " 8+ characters, uppercase, digit, special char!",
       };
     case VALIDATION_TYPE.NOT_EMPTY:
       return {

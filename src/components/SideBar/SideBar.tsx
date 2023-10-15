@@ -89,7 +89,8 @@ export const SideBar = (props: any) => {
         "Dashboards",
         "dashboards",
         getPath("dashboards"),
-        <span className="icon-fi-rr-home"></span>
+        <span className="icon-fi-rr-home"></span>,
+        []
       ),
       getItem(
         "Units",
@@ -177,17 +178,18 @@ export const SideBar = (props: any) => {
             <span className="icon-fi-rr-folder"></span>
           ),
           getItem(
-            "Roles & Permissions",
-            "role",
-            "/role",
-            <span className="icon-fi-rr-key"></span>
-          ),
-          getItem(
             "Offices",
             "office",
             "/office",
             <span className="icon-fi-rr-folder"></span>
           ),
+          getItem(
+            "Roles & Permissions",
+            "role",
+            "/role",
+            <span className="icon-fi-rr-key"></span>
+          ),
+
           getItem(
             "Users",
             "user",

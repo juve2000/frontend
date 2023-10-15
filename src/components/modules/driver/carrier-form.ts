@@ -55,7 +55,7 @@ export const carrierForm = (options: any) => {
     { ...ContactsDriverFields },
     //LICENSE
     { ...LicenseDriverFields },
-    { ...DriverLicense },
+    // { ...DriverLicense },
     //MEDICAL CARD
     { ...MedicalCardDriverFields },
     // // PREFERENCES

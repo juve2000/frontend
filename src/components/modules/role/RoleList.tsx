@@ -17,6 +17,7 @@ import ResetFilter from "../../../img/resetFilter.svg";
 import { carrierData } from "../driver/constant";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { ViewPermissions } from "./fields/ViewPermissions";
+import { BurgerIcon } from "../../header/logo";
 
 dayjs.extend(customParseFormat);
 
@@ -239,7 +240,9 @@ export const RoleList: React.FC = () => {
               ],
             }}
           >
-            <span className="orange icon-fi-rr-menu-dots"></span>
+            <span>
+              <BurgerIcon />
+            </span>
           </Dropdown>
         );
       },

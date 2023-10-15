@@ -26,6 +26,7 @@ import { LogoCarrier } from "../../common/LogoCarrier";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
+import { BurgerIcon } from "../../header/logo";
 
 export const DriversList: React.FC = () => {
   const location = useLocation();
@@ -88,7 +89,7 @@ export const DriversList: React.FC = () => {
           </div>
         );
       },
-      width: 300,
+      width: "20%",
       ellipsis: true,
     },
     {
@@ -111,7 +112,7 @@ export const DriversList: React.FC = () => {
         );
       },
       ellipsis: true,
-      width: "20%",
+      width: "15%",
     },
     {
       title: "Phone",
@@ -119,19 +120,19 @@ export const DriversList: React.FC = () => {
       key: "phone",
       width: "15%",
       // render: (value) => `${value.mcnumber}`,
-      sortOrder: getOrderFromTableParams("phone", tableParams),
+      // sortOrder: getOrderFromTableParams("phone", tableParams),
 
-      sorter: {
-        compare: (a: any, b: any) => a.phone - b.phone,
-        multiple: 5,
-      },
+      // sorter: {
+      //   compare: (a: any, b: any) => a.phone - b.phone,
+      //   multiple: 5,
+      // },
       render: (name, record, index) => {
         return (
           <div
-            className="ubuntu"
+            className="ubuntu orange"
             style={{ color: "#141029", cursor: "pointer" }}
           >
-            <InputCallToCall phone={record.phone} />
+            <InputCallToCall phone={record.phone} className={"orange"} />
           </div>
         );
       },
@@ -144,7 +145,7 @@ export const DriversList: React.FC = () => {
       render: (value, record, index) => {
         return <div>{record?.cdl}</div>;
       },
-      width: "15%",
+      width: "10%",
       ellipsis: true,
     },
     {
@@ -245,7 +246,7 @@ export const DriversList: React.FC = () => {
       filteredValue: tableParams?.filters?.carrier || null,
     },
     {
-      title: "Group",
+      title: "Drivers Group",
       dataIndex: "group",
       sortOrder: getOrderFromTableParams("group", tableParams),
       key: "group",
@@ -279,6 +280,7 @@ export const DriversList: React.FC = () => {
               <Select
                 style={{ width: 200, marginBottom: 20 }}
                 value={tableParams.filters?.group}
+                placeholder="Select Group"
                 onChange={(value) => {
                   setCustomFilter("group", value);
                 }}
@@ -310,12 +312,12 @@ export const DriversList: React.FC = () => {
     {
       title: "Status",
       dataIndex: "status",
-      sortOrder: getOrderFromTableParams("status", tableParams),
+      // sortOrder: getOrderFromTableParams("status", tableParams),
       key: "status",
-      sorter: {
-        compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
-        multiple: 5,
-      },
+      // sorter: {
+      //   compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
+      //   multiple: 5,
+      // },
       width: "9%",
       ellipsis: true,
       render: (value, record, index) => {
@@ -385,28 +387,33 @@ export const DriversList: React.FC = () => {
                 {
                   key: "3",
                   label: (
-                    <div
-                      onClick={() => {
-                        setCurrentCarrier({
-                          id: record.id,
-                          name: record.name,
-                        });
-                        setAccauntModalOpen(true);
-                      }}
-                      style={{ display: "flex", alignItems: "center" }}
-                    >
+                    <div style={{ display: "flex", alignItems: "center" }}>
                       <span
-                        className="icon-fi-rr-lock"
+                        className="icon-fi-rr-user"
                         style={{ marginRight: "10px" }}
                       ></span>{" "}
-                      Set password
+                      Activate Driver
+                    </div>
+                  ),
+                },
+                {
+                  key: "4",
+                  label: (
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      <span
+                        className="icon-fi-rr-user"
+                        style={{ marginRight: "10px" }}
+                      ></span>{" "}
+                      Deactivate Driver
                     </div>
                   ),
                 },
               ],
             }}
           >
-            <span className="orange icon-fi-rr-menu-dots"></span>
+            <span>
+              <BurgerIcon />
+            </span>
           </Dropdown>
         );
       },
@@ -453,7 +460,11 @@ export const DriversList: React.FC = () => {
               }}
             />
             <Col span={12}>
-              <InputPageTitle fields={["Drivers"]} route="/client" drivers />
+              <InputPageTitle
+                fields={["Drivers"]}
+                route="/client/drivers"
+                drivers
+              />
             </Col>
             <Col
               span={12}

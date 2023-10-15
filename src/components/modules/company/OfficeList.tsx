@@ -32,6 +32,7 @@ import { LogoCarrier } from "../../common/LogoCarrier";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
+import { BurgerIcon } from "../../header/logo";
 
 dayjs.extend(customParseFormat);
 
@@ -334,7 +335,9 @@ export const OfficeList: React.FC = () => {
               ],
             }}
           >
-            <span className="orange icon-fi-rr-menu-dots"></span>
+            <span>
+              <BurgerIcon />
+            </span>
           </Dropdown>
         );
       },

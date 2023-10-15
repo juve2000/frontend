@@ -24,7 +24,7 @@ export const UserInitials = (props: any) => {
               label: (
                 <div
                   onClick={() => {
-                    navigate(`/client/carriers/create`);
+                    navigate(`/client/user/${user.id}`);
                   }}
                   style={{ display: "flex", alignItems: "center" }}
                 >

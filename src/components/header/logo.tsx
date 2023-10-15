@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "antd";
 import logo from "../../img/logo.svg";
 import logo2 from "../../img/Logo2.svg";
+import burger from "../../img/burger.svg";
 
 export const Logo = () => {
   return <img src={logo} style={{ width: "100%", maxWidth: "195px" }} />;
@@ -10,4 +11,13 @@ export const Logo = () => {
 
 export const Logo2 = () => {
   return <img src={logo2} style={{ width: "100%", maxWidth: "195px" }} />;
+};
+
+export const BurgerIcon = () => {
+  return (
+    <img
+      src={burger}
+      style={{ width: "15px", maxWidth: "195px", cursor: "pointer" }}
+    />
+  );
 };

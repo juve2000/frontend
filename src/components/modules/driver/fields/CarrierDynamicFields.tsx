@@ -103,12 +103,12 @@ export const CarrierDynamicField = (props: any) => {
 
   const groupProps = {
     name: DriverField.DRIVER_GROUP,
-    title: "Driver Group*",
+    title: "Driver Group",
     rules: [getValidation(REQUIRED, "Status")],
     placeholder: "Driver Group",
     hasFeedback: true,
     span: 12,
-    width: "95%",
+    width: "100%",
   };
 
   return (
@@ -123,7 +123,7 @@ export const CarrierDynamicField = (props: any) => {
           <div className="input-item-wrapper">
             <div>
               {"Carrier"}
-              {isRequired && " *"}
+              {/* {isRequired && " *"} */}
             </div>
           </div>
         </Col>
@@ -168,12 +168,12 @@ export const CarrierDynamicField = (props: any) => {
           className="input-item-wrapper"
           style={{ alignItems: "flex-start" }}
         >
-          <div className="input-item-wrapper">
+          {/* <div className="input-item-wrapper">
             <div>
               {"Groups and Status"}
               {isRequired && " *"}
             </div>
-          </div>
+          </div> */}
         </Col>
         <Col span={18}>
           <Row>

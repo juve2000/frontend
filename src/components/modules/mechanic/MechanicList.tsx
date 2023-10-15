@@ -26,6 +26,7 @@ import { LogoCarrier } from "../../common/LogoCarrier";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
+import { BurgerIcon } from "../../header/logo";
 
 export const MechanicsList: React.FC = () => {
   const location = useLocation();
@@ -319,7 +320,9 @@ export const MechanicsList: React.FC = () => {
               ],
             }}
           >
-            <span className="orange icon-fi-rr-menu-dots"></span>
+            <span>
+              <BurgerIcon />
+            </span>
           </Dropdown>
         );
       },

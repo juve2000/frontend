@@ -30,7 +30,6 @@ export const InputSelectV2 = (props: any) => {
   const getName = (name: any, pathName: any) => {
     return pathName ? [...pathName, name] : name;
   };
-
   return (
     <Col
       span={span}
@@ -61,6 +60,7 @@ export const InputSelectV2 = (props: any) => {
           style={{ width, ...styles }}
           placeholder={placeholder}
           onChange={onChange}
+          // value={form?.getFieldValue(getName(name, pathName))}
           showSearch
           optionFilterProp="children"
           filterOption={(input: any, option: any) =>

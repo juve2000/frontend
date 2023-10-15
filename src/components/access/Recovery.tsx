@@ -57,20 +57,20 @@ export const Recovery = () => {
           style={{ color: "#6F6F6F", marginBottom: 28, textAlign: "left" }}
           className="ubuntu"
         >
-          You will receive a link to the email you entered to continue your
-          password recovery
+          Password Recovery Enter your email. Follow the link sent to your email
+          to reset your password
         </div>
         <Form.Item
           name="email"
           rules={[
-            { required: true, message: "Please input your username!" },
+            { required: true, message: "Please enter a valid email" },
             { type: "email", message: "Should be an email" },
           ]}
         >
           <Input
-            prefix={<span className="icon-icon-user orange"></span>}
-            placeholder="Email"
-            style={{ width: 360 }}
+            // prefix={<span className="icon-icon-user orange"></span>}
+            placeholder="Your Email"
+            style={{ width: 360, height: 40, border: "none" }}
           />
         </Form.Item>
 

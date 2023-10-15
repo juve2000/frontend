@@ -19,6 +19,7 @@ import {
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
+import { DriverField } from "./constant";
 
 function buildFormData(formData: any, data: any, parentKey?: any) {
   if (
@@ -72,7 +73,7 @@ export const DriverCreatePage = () => {
     mcnumber: "",
     email: "",
     person: "",
-    status: null,
+    status: 1,
     notes: "",
     email_second: "",
     measurement_system: null,
@@ -96,6 +97,7 @@ export const DriverCreatePage = () => {
     terminal: null,
     driver_group: null,
     password: "",
+    carrier: null,
   });
 
   React.useEffect(() => {
@@ -209,7 +211,7 @@ export const DriverCreatePage = () => {
                     );
                   }
                   // prettier-ignore
-                  return <CommonInput key={i} {...field} form={form} />
+                  return <CommonInput key={i} {...field} form={form} isDriverCreate={true}/>
                 })}
                 <Form.Item style={{ width: "100%", display: "flex" }}>
                   <Button

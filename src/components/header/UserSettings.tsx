@@ -142,7 +142,7 @@ export const UserSettings = (props: any) => {
       >
         <Button>
           <Space>
-            Create Assert <DownOutlined />
+            Create Asset <DownOutlined />
           </Space>
         </Button>
       </Dropdown>

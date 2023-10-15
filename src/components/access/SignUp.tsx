@@ -86,7 +86,7 @@ export const SignUp = () => {
             }}
             className="ubuntu"
           >
-            Register your account
+            Register Your Company Account
           </div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <Form.Item
@@ -96,7 +96,7 @@ export const SignUp = () => {
               ]}
             >
               <div style={{ textAlign: "left" }}>
-                <div className="access-item-wrapper">First Name</div>
+                <div className="access-item-wrapper">First Name *</div>
                 <Input
                   prefix={<span></span>}
                   placeholder="First name"
@@ -113,7 +113,7 @@ export const SignUp = () => {
               ]}
             >
               <div style={{ textAlign: "left" }}>
-                <div className="access-item-wrapper">Last Name</div>
+                <div className="access-item-wrapper">Last Name *</div>
                 <Input
                   prefix={<span></span>}
                   placeholder="Last name"
@@ -131,10 +131,10 @@ export const SignUp = () => {
               ]}
             >
               <div style={{ textAlign: "left" }}>
-                <div className="access-item-wrapper">Company</div>
+                <div className="access-item-wrapper">Company *</div>
                 <Input
                   prefix={<span></span>}
-                  placeholder="Company"
+                  placeholder="Enter Company Name"
                   style={{ width: 610 }}
                 />
               </div>
@@ -144,15 +144,13 @@ export const SignUp = () => {
             <Form.Item
               name="company_mc"
               colon={false}
-              rules={[
-                { required: false, message: "Please input your mc number!" },
-              ]}
+              rules={[{ required: false, message: "Please input your MC#!" }]}
             >
               <div style={{ textAlign: "left" }}>
-                <div className="access-item-wrapper">MC number</div>
+                <div className="access-item-wrapper">MC# *</div>
                 <Input
                   prefix={<span></span>}
-                  placeholder="MC number"
+                  placeholder="MC#"
                   style={{ width: 300 }}
                 />
               </div>
@@ -161,13 +159,13 @@ export const SignUp = () => {
             <Form.Item
               style={{ width: "100%" }}
               name="company_usdot"
-              rules={[{ required: false, message: "Please input your usdot!" }]}
+              rules={[{ required: false, message: "Please input your DOT#!" }]}
             >
               <div style={{ textAlign: "left" }}>
-                <div className="access-item-wrapper">USDOT</div>
+                <div className="access-item-wrapper">DOT# *</div>
                 <Input
                   prefix={<span></span>}
-                  placeholder="USDOT"
+                  placeholder="DOT#"
                   style={{ width: 300 }}
                 />
               </div>
@@ -182,7 +180,7 @@ export const SignUp = () => {
               ]}
             >
               <div style={{ textAlign: "left" }}>
-                <div className="access-item-wrapper">Email</div>
+                <div className="access-item-wrapper">Your Email *</div>
                 <Input
                   prefix={<span></span>}
                   placeholder="Email"
@@ -197,10 +195,11 @@ export const SignUp = () => {
               rules={[
                 { required: true, message: "Please input your phone!" },
                 { min: 1, message: "Minimum 8 characters" },
+                validate("", "PHONE"),
               ]}
             >
               <div style={{ textAlign: "left" }}>
-                <div className="access-item-wrapper">Phone</div>
+                <div className="access-item-wrapper">Your Phone *</div>
                 <Input
                   prefix={<span></span>}
                   placeholder="Phone"
@@ -224,7 +223,7 @@ export const SignUp = () => {
                 <div className="access-item-wrapper">Password</div>
                 <Input.Password
                   // prefix={<span className="icon-icon-lock orange"></span>}
-                  placeholder="Password"
+                  placeholder="Your Password"
                   style={{ width: 300 }}
                 />
               </div>
@@ -254,7 +253,7 @@ export const SignUp = () => {
                 <div className="access-item-wrapper">Confirm Password</div>
                 <Input.Password
                   // prefix={<span className="icon-icon-lock orange"></span>}
-                  placeholder="Confirm password"
+                  placeholder="Confirm Your Password"
                   style={{ width: 300 }}
                 />
               </div>

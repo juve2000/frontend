@@ -3,6 +3,22 @@ import { Form, Input, Col, Row } from "antd";
 import { CommonInputV2 } from "./index";
 import { InputType } from "../../../constants/inputs";
 import { CARRIER_SELECT_DISABLED, EDIT_DISABLAED_FIELDS } from "./utils";
+import { DriverField } from "../../modules/driver/constant";
+
+const carrierDisabledFields = [
+  InputType.CHECKBOX_V2,
+  DriverField.NOTES,
+  DriverField.REST_BREAK,
+  DriverField.RESTART,
+  "hos_rules",
+  DriverField.CARGO_TYPE,
+  DriverField.MEASUREMENT_SYSTEM,
+  DriverField.DST,
+  DriverField.FIRST_DAY,
+  DriverField.PERIOD_STARTING_TIME,
+  DriverField.COMPLIANCE_MODE,
+  DriverField.MOTION_TRASHOLD,
+];
 
 export const MultiInputV2 = (props: any) => {
   const {
@@ -23,6 +39,7 @@ export const MultiInputV2 = (props: any) => {
     isReadonlyCarrier = false,
     isIdentificatorDisabled = false,
     isSuperAdmin,
+    isDriverCreate,
   } = props;
 
   return (
@@ -95,6 +112,22 @@ export const MultiInputV2 = (props: any) => {
             if (
               EDIT_DISABLAED_FIELDS.includes(field?.name) &&
               isIdentificatorDisabled
+            ) {
+              return (
+                <CommonInputV2
+                  {...field}
+                  key={i}
+                  form={form}
+                  disabled={true}
+                  isReadonlyCarrier={true}
+                />
+              );
+            }
+            if (
+              isDriverCreate &&
+              !form.getFieldValue("carrier") &&
+              (carrierDisabledFields?.includes(field.name) ||
+                field.type === InputType.CHECKBOX_V2)
             ) {
               return (
                 <CommonInputV2

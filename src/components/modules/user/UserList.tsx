@@ -24,6 +24,7 @@ import { carrierData } from "../carrier/constant";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType, ROLES } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
+import { BurgerIcon } from "../../header/logo";
 
 export const UserList: React.FC = () => {
   const location = useLocation();
@@ -238,7 +239,9 @@ export const UserList: React.FC = () => {
               ],
             }}
           >
-            <span className="orange icon-fi-rr-menu-dots"></span>
+            <span>
+              <BurgerIcon />
+            </span>
           </Dropdown>
         );
       },
@@ -294,7 +297,7 @@ export const UserList: React.FC = () => {
               }}
             />
             <Col span={12}>
-              <InputPageTitle fields={["Users"]} route="/client" users />
+              <InputPageTitle fields={["Users"]} route="/client/user" users />
             </Col>
             <Col
               span={12}

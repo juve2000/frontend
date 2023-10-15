@@ -13,7 +13,7 @@ const CallTypes = {
 };
 
 export const InputCallToCall = (props: any) => {
-  const { phone = "" } = props;
+  const { phone = "", className = "" } = props;
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -61,7 +61,10 @@ export const InputCallToCall = (props: any) => {
   const CallItem = (props: any) => {
     const options = getCallOptions(props.type, props.value);
     return (
-      <div style={{ display: "flex", marginBottom: "10px" }}>
+      <div
+        style={{ display: "flex", marginBottom: "10px" }}
+        className={className}
+      >
         <img style={{ width: "25px" }} src={options.icon} />
         <a style={{ marginLeft: 10 }} href={options.link}>
           {props.value}
@@ -88,7 +91,9 @@ export const InputCallToCall = (props: any) => {
         open={isOpen}
         onOpenChange={() => setIsOpen(false)}
       />
-      <div onClick={() => setIsOpen(true)}>{phone}</div>
+      <div onClick={() => setIsOpen(true)} className={className}>
+        {phone}
+      </div>
     </div>
   );
 };

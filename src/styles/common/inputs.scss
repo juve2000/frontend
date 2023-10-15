@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   font-family: "Ubuntu" !important;
-  color: #9c9ca8;
+  color: $input-text-color;
 }
 .ant-picker {
   background-color: $input-bg-color !important;
@@ -55,6 +55,7 @@
 
 .ant-input {
   background-color: $input-bg-color;
+  color: $input-text-color !important;
 }
 .ant-form-item-control-input-content {
   textarea {
@@ -93,3 +94,13 @@
     border-color: $orange !important;
   }
 }
+
+// .ant-upload-list-item {
+//   &:hover {
+//     // display: none !important;
+//   }
+// }
+
+// .ant-tooltip-open {
+//   display: none !important;
+// }
