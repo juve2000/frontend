@@ -88,7 +88,10 @@ td.ant-table-cell.ant-table-selection-column {
     cursor: pointer;
   }
   table {
-    table-layout: initial !important;
+    table-layout: fixed !important;
+    .ant-checkbox-wrapper {
+      display: none !important;
+    }
   }
 }
 
