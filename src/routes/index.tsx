@@ -170,6 +170,12 @@ export const MainRouter = () => {
             <Route path={`create`} element={<OfficeCreatePage />} />
             <Route path={`:officeId`} element={<OfficePage />} />
           </Route>
+          {/* ALERTS ROUTES */}
+          <Route path={ROUTES.ALERTS} element={<OfficesMainPage />}>
+            <Route index element={<OfficeList />} />;
+            <Route path={`create`} element={<OfficeCreatePage />} />
+            <Route path={`:allertId`} element={<OfficePage />} />
+          </Route>
         </Route>
       </Routes>
     </>

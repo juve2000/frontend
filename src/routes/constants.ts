@@ -25,13 +25,16 @@ const ROLE = `${Root}/role`;
 const ROLE_PAGE = `${ROLE}/:id`;
 
 const USER = `${Root}/user`;
-const USER_PAGE = `${ROLE}/:id`;
+const USER_PAGE = `${USER}/:id`;
 
 const COMPANY = `${Root}/company`;
-const COMPANY_PAGE = `${ROLE}/:id`;
+const COMPANY_PAGE = `${COMPANY}/:id`;
 
 const OFFICE = `${Root}/office`;
-const OFFICE_PAGE = `${ROLE}/:id`;
+const OFFICE_PAGE = `${OFFICE}/:id`;
+
+const ALERTS = `${Root}/alerts`;
+const ALERTS_PAGE = `${ALERTS}/:id`;
 
 export const ROUTES = {
   Root,
@@ -57,4 +60,6 @@ export const ROUTES = {
   COMPANY_PAGE,
   OFFICE,
   OFFICE_PAGE,
+  ALERTS,
+  ALERTS_PAGE,
 };

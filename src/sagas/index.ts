@@ -13,6 +13,7 @@ import carrier from "./carrier";
 import driver_group from "./driver_group";
 import mechanic from "./mechanic";
 import device from "./device";
+import alerts from "./alerts";
 
 /**
  * rootSaga
@@ -32,5 +33,6 @@ export default function* root() {
     fork(driver_group),
     fork(mechanic),
     fork(device),
+    fork(alerts),
   ]);
 }
