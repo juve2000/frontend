@@ -163,6 +163,12 @@ export const SideBar = (props: any) => {
             "/device",
             <span className="icon-fi-rr-data-transfer"></span>
           ),
+          getItem(
+            "Alerts",
+            "alerts",
+            "/alerts",
+            <span className="icon-fi-rr-folder"></span>
+          ),
         ]
       ),
       getItem(

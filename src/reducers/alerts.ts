@@ -27,7 +27,7 @@ import {
 // import { UserState } from "../types";
 
 export const alertsState = {
-  alerts: {},
+  alerts: [],
   loading: false,
   errorMessage: "",
   documents: [],
@@ -36,7 +36,7 @@ export const alertsState = {
 };
 
 export default {
-  driver: createReducer<any>(alertsState, (builder) => {
+  alerts: createReducer<any>(alertsState, (builder) => {
     // GET DRIVER ALERTS
     builder
       .addCase(getDriverAlertsReq, (state) => {
@@ -50,7 +50,7 @@ export default {
         console.log("payload", payload);
         return {
           ...state,
-          driver: {
+          alerts: {
             ...payload.data,
             cargo_type: payload.data?.cargo_type?.map((ct: any) => +ct),
           },

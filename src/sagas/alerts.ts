@@ -1,6 +1,6 @@
 import { all, put, takeLatest, call } from "redux-saga/effects";
 import { notification } from "antd";
-import request from "../utils/requestCarrier";
+import request from "../utils/requestAlerts";
 import { AlertActionTypes } from "../actions/alerts";
 import {
   getDriverAlertsSuccess,
@@ -24,7 +24,7 @@ notification.config({
 
 export function* getAlertSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.get, `/driver/notification/list`, {
+    const { data } = yield call(request.get, `/notification/list`, {
       params: payload.queryParams,
     });
     yield put(getDriverAlertsSuccess(data));

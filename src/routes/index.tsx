@@ -66,6 +66,11 @@ import { OfficePage } from "../components/modules/company/Office";
 import { OfficeCreatePage } from "../components/modules/company/CreateOffice";
 import { OfficeList } from "../components/modules/company/OfficeList";
 
+// import { DriversPage } from "../components/modules/driver/DriversPage";
+// import { DriverPage } from "../components/modules/driver/Driver";
+// import { DriverCreatePage } from "../components/modules/driver/CreateDriver";
+import { AlertsList } from "../components/modules/alerts/AlertsList";
+
 export const MainRouter = () => {
   const navigate = useNavigate();
   return (
@@ -171,8 +176,8 @@ export const MainRouter = () => {
             <Route path={`:officeId`} element={<OfficePage />} />
           </Route>
           {/* ALERTS ROUTES */}
-          <Route path={ROUTES.ALERTS} element={<OfficesMainPage />}>
-            <Route index element={<OfficeList />} />;
+          <Route path={ROUTES.ALERTS} element={<AlertsList />}>
+            <Route index element={<AlertsList />} />;
             <Route path={`create`} element={<OfficeCreatePage />} />
             <Route path={`:allertId`} element={<OfficePage />} />
           </Route>
