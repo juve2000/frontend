@@ -36,6 +36,9 @@ const OFFICE_PAGE = `${OFFICE}/:id`;
 const ALERTS = `${Root}/alerts`;
 const ALERTS_PAGE = `${ALERTS}/:id`;
 
+const UNITS = `${Root}/units`;
+const UNITS_PAGE = `${UNITS}/:id`;
+
 export const ROUTES = {
   Root,
   CARRIERS,
@@ -62,4 +65,6 @@ export const ROUTES = {
   OFFICE_PAGE,
   ALERTS,
   ALERTS_PAGE,
+  UNITS,
+  UNITS_PAGE,
 };

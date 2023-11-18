@@ -50,10 +50,7 @@ export default {
         console.log("payload", payload);
         return {
           ...state,
-          alerts: {
-            ...payload.data,
-            cargo_type: payload.data?.cargo_type?.map((ct: any) => +ct),
-          },
+          alerts: payload.data,
           documents: payload.data?.documents,
           loading: false,
         };

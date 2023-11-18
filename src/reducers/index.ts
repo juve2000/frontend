@@ -14,6 +14,7 @@ import carrier, { carrierState } from "./carrier";
 import driverGroup, { driverGroupState } from "./driver_group";
 import mechanic, { mechanicState } from "./mechanic";
 import device, { deviceState } from "./device";
+import units, { unitState } from "./unit";
 
 export const initialState = {
   alerts: alertsState,
@@ -32,6 +33,7 @@ export const initialState = {
   driverGroup: driverGroupState,
   mechanic: mechanicState,
   device: deviceState,
+  units: unitState,
 };
 
 export default {
@@ -51,4 +53,5 @@ export default {
   ...driverGroup,
   ...mechanic,
   ...device,
+  ...units,
 };

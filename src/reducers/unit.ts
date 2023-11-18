@@ -19,19 +19,20 @@ import {
   getUnitListSuccess,
   getUnitListFailed,
 } from "../actions";
+import { getColorByCode } from "../utils/utils";
 
 // import { UserState } from "../types";
 
 export const unitState = {
   status: STATUS.IDLE,
   unit: {},
-  unitList: [],
+  units: [],
   loading: false,
   errorMessage: "",
 };
 
 export default {
-  eld: createReducer<any>(unitState, (builder) => {
+  units: createReducer<any>(unitState, (builder) => {
     // GET UNIT
     builder
       .addCase(getUnitReq, (state) => {
@@ -124,7 +125,7 @@ export default {
           loading: false,
         };
       });
-    // GET LIST OF ELD
+    // GET LIST OF UNITS
     builder
       .addCase(getUnitListReq, (state) => {
         return {
@@ -136,7 +137,12 @@ export default {
       .addCase(getUnitListSuccess, (state, { payload }) => {
         return {
           ...state,
-          unitList: payload,
+          units: payload.data.map((unit: any) => {
+            return {
+              ...unit,
+              color: getColorByCode(unit.color),
+            };
+          }),
           loading: false,
         };
       })

@@ -66,10 +66,12 @@ import { OfficePage } from "../components/modules/company/Office";
 import { OfficeCreatePage } from "../components/modules/company/CreateOffice";
 import { OfficeList } from "../components/modules/company/OfficeList";
 
-// import { DriversPage } from "../components/modules/driver/DriversPage";
-// import { DriverPage } from "../components/modules/driver/Driver";
-// import { DriverCreatePage } from "../components/modules/driver/CreateDriver";
 import { AlertsList } from "../components/modules/alerts/AlertsList";
+
+import { UnitsPage } from "../components/modules/units/UnitsPage";
+import { UnitPage } from "../components/modules/units/Unit";
+import { UnitCreatePage } from "../components/modules/units/CreateUnit";
+import { UnitList } from "../components/modules/units/UnitList";
 
 export const MainRouter = () => {
   const navigate = useNavigate();
@@ -180,6 +182,12 @@ export const MainRouter = () => {
             <Route index element={<AlertsList />} />;
             <Route path={`create`} element={<OfficeCreatePage />} />
             <Route path={`:allertId`} element={<OfficePage />} />
+          </Route>
+          {/* UNITS ROUTES */}
+          <Route path={ROUTES.UNITS} element={<UnitsPage />}>
+            <Route index element={<UnitList />} />;
+            <Route path={`create`} element={<UnitCreatePage />} />
+            <Route path={`:unitid`} element={<UnitPage />} />
           </Route>
         </Route>
       </Routes>

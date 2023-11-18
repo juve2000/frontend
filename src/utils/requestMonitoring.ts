@@ -17,7 +17,7 @@ function getLocalRefreshToken() {
 }
 
 export const instance = axios.create({
-  baseURL: `${ENV}/api/support/v1`,
+  baseURL: `${ENV}/api/support/monitoring/v1`,
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${getLocalAccessToken()}`,

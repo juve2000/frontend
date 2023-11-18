@@ -14,6 +14,7 @@ import driver_group from "./driver_group";
 import mechanic from "./mechanic";
 import device from "./device";
 import alerts from "./alerts";
+import unit from "./unit";
 
 /**
  * rootSaga
@@ -34,5 +35,6 @@ export default function* root() {
     fork(mechanic),
     fork(device),
     fork(alerts),
+    fork(unit),
   ]);
 }

@@ -27,6 +27,7 @@ import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
 import { BurgerIcon } from "../../header/logo";
+import dayjs from "dayjs";
 
 export const AlertsList: React.FC = () => {
   const location = useLocation();
@@ -45,7 +46,7 @@ export const AlertsList: React.FC = () => {
     clearCustomFilter,
     setCustomFilter,
   } = useTableParams({});
-  const drivers = useSelector((state: any) => state.driver.driverList);
+  const alerts = useSelector((state: any) => state.alerts.alerts);
   const carriers = useSelector((state: any) => state.carrier.carrierList);
 
   const count = useSelector((state: any) => state.driver.count);
@@ -70,22 +71,27 @@ export const AlertsList: React.FC = () => {
     Table.SELECTION_COLUMN,
     {
       title: "Date & Time",
-      key: "first_name",
-      dataIndex: "first_name",
-      sortOrder: getOrderFromTableParams("first_name", tableParams),
+      key: "created_at",
+      dataIndex: "created_at",
+      sortOrder: getOrderFromTableParams("created_at", tableParams),
       sorter: {
-        compare: (a: any, b: any) => a.first_name - b.first_name,
+        compare: (a: any, b: any) => a.created_at - b.created_at,
         multiple: 5,
       },
-      render: (name, record, index) => {
+      render: (value, record, index) => {
+        console.log("record", record);
+        const dateParsed = dayjs(record.license_expiration);
+
         return (
           <div
-            className="orange ubuntu pointer"
-            onClick={() => {
-              navigate(`${location.pathname}/${record.id}`);
-            }}
+            className="ubuntu"
+            style={{ display: "flex", alignItems: "center" }}
           >
-            TBD
+            <span>{dateParsed.format("MM-DD-YYYY")} </span>
+            <span
+              className="icon-fi-rr-calendar"
+              style={{ marginLeft: "10px" }}
+            ></span>
           </div>
         );
       },
@@ -107,7 +113,7 @@ export const AlertsList: React.FC = () => {
             className="ubuntu"
             style={{ color: "#141029", cursor: "pointer" }}
           >
-            TBD
+            {record?.type}
           </div>
         );
       },
@@ -132,18 +138,19 @@ export const AlertsList: React.FC = () => {
             className="ubuntu orange"
             style={{ color: "#141029", cursor: "pointer" }}
           >
-            TBD
+            {record?.name}
           </div>
         );
       },
       ellipsis: true,
     },
     {
-      title: "Source.",
+      title: "Source",
       dataIndex: "source",
+      key: "source",
       // sorter: true,
       render: (value, record, index) => {
-        return <div>Source</div>;
+        return <div>{record?.source}</div>;
       },
       width: "10%",
       ellipsis: true,
@@ -163,7 +170,7 @@ export const AlertsList: React.FC = () => {
         const state = carrierData.states.find(
           (st) => st.key === +record.cdl_state
         );
-        return <div className="ubuntu">TBD</div>;
+        return <div className="ubuntu">{record.proprity}</div>;
       },
       filters: carrierData.states.map((st: any) => {
         return {
@@ -195,7 +202,7 @@ export const AlertsList: React.FC = () => {
             //   navigate(`/client/carriers/${record?.carrier?.id}`);
             // }}
           >
-            TBD
+            {record?.text}
           </div>
         );
       },
@@ -256,7 +263,7 @@ export const AlertsList: React.FC = () => {
             //   navigate(`/client/driver_groups/${record?.group?.id}`);
             // }}
           >
-            TBD
+            {record?.working}
           </div>
         );
       },
@@ -338,7 +345,7 @@ export const AlertsList: React.FC = () => {
               <InputPageTitle
                 fields={["Alerts"]}
                 route="/client/alerts"
-                drivers
+                alerts
               />
             </Col>
             <Col
@@ -399,7 +406,7 @@ export const AlertsList: React.FC = () => {
           <Table
             columns={columns}
             rowKey={(record) => record.id}
-            dataSource={drivers.map((carrier: any, index: any) => {
+            dataSource={alerts.map((carrier: any, index: any) => {
               return {
                 ...carrier,
               };

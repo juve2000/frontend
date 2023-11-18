@@ -103,7 +103,7 @@ export const SideBar = (props: any) => {
           <span className="path3"></span>
         </span>,
         [
-          getItem("TBD", "allunits", "/allunits", <MailOutlined />),
+          getItem("All Units", "units", "/units", <MailOutlined />),
           getItem("TBD", "logs", "/logs", <MailOutlined />),
         ]
       ),

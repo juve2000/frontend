@@ -13,7 +13,6 @@ export const InputPageTitle = (props: any) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
-  console.log("location", location);
   const { checkPermission } = usePermissions();
   const editCarrier =
     checkPermission(AllPermissionsType.CARRIER_EDIT) &&
