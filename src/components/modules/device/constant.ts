@@ -32,3 +32,20 @@ export const DeviceField = {
   NOTES: "notes",
   NAME: "name",
 };
+
+export const DeviceConstant = {
+  type: [
+    {
+      key: 1,
+      value: "ELD",
+    },
+    {
+      key: 2,
+      value: "GPS Tracker",
+    },
+    {
+      key: 3,
+      value: "Dash Cam",
+    },
+  ],
+};

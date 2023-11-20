@@ -26,12 +26,12 @@ notification.config({
 });
 
 export function* getCarrierSaga({ payload }: any): any {
-  console.log("psylosf", payload);
   try {
     const { data } = yield call(request.get, `/carrier/${payload.carrierId}`, {
       params: payload.queryParams,
     });
     yield put(getCarrierSuccess(data));
+    payload.onSuccess();
   } catch (e: any) {
     yield put(getCarrierFailed(e.message));
   }

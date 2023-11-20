@@ -16,7 +16,7 @@ import {
   getDocumentNameByType,
 } from "../../driver/constant";
 
-import { TrailerField } from "../constant";
+import { TrailerConstant, TrailerField } from "../constant";
 
 const {
   ALPHABETICAL,
@@ -49,7 +49,7 @@ export const TrailerTypeField = {
       title: "Trailer Type*",
       rules: [getValidation(REQUIRED, "CDL Issuing State")],
       placeholder: "Trailer Type",
-      options: [{ key: "type 1", value: 1 }],
+      options: TrailerConstant.type,
       hasFeedback: true,
       span: 12,
       width: "95%",
@@ -60,7 +60,7 @@ export const TrailerTypeField = {
       title: "Owner*",
       rules: [getValidation(REQUIRED, "CDL Issuing State")],
       placeholder: "Owner",
-      options: [{ key: "type 1", value: 1 }],
+      options: TrailerConstant.ownership,
       hasFeedback: true,
       span: 12,
       width: "100%",

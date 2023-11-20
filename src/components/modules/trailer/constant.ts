@@ -38,3 +38,62 @@ export const TrailerField = {
   OWNERSHIP: "ownership",
   YEAR: "YEAR",
 };
+
+export const TrailerConstant = {
+  type: [
+    {
+      key: 1,
+      value: "Enclosed/Dry Van",
+    },
+    {
+      key: 2,
+      value: "Standard Flatbed",
+    },
+    {
+      key: 3,
+      value: "Reefer",
+    },
+    {
+      key: 4,
+      value: "Conestoga",
+    },
+    {
+      key: 5,
+      value: "Drop-Desk/Step Deck",
+    },
+    {
+      key: 6,
+      value: "Hotshot",
+    },
+    {
+      key: 7,
+      value: "Extendable Drop-Deck",
+    },
+    {
+      key: 8,
+      value: "RGN",
+    },
+    {
+      key: 9,
+      value: "Extendable RGN",
+    },
+  ],
+  ownership: [
+    {
+      key: 1,
+      value: "Owned",
+    },
+    {
+      key: 2,
+      value: "Leased",
+    },
+    {
+      key: 3,
+      value: "Rented",
+    },
+    {
+      key: 4,
+      value: "3rd Party",
+    },
+  ],
+};

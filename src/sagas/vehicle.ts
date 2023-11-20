@@ -37,17 +37,11 @@ export function* getVehicleSaga({ payload }: any): any {
 
 export function* createVehicleSaga({ payload }: any): any {
   try {
-    const { data } = yield call(
-      request.post,
-      "/vehicle/",
-      //TODO: remove hard code mock
-      { ...payload.values, model: 1 },
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    const { data } = yield call(request.post, "/vehicle/", payload.values, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     yield put(createVehicleSuccess(data));
     yield call(notification.success, {
       message: "Vehicle created successfully",

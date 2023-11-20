@@ -8,7 +8,7 @@ import {
 } from "../../../../utils/validation";
 import { VehicleField } from "../../vehicle/constant";
 
-import { DeviceField } from "../constant";
+import { DeviceConstant, DeviceField } from "../constant";
 
 const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL, NAME } =
   VALIDATION_TYPE;
@@ -22,6 +22,17 @@ export const NameDriverFields = {
   label: "Details",
   isRequired: true,
   fields: [
+    {
+      type: InputType.TEXT_V2,
+      name: DeviceField.identificator,
+      label: "Device Identificator *",
+      rules: [getValidation(REQUIRED, "name")],
+      placeholder: "Enter Device Identificator",
+      hasFeedback: true,
+      title: "Device Identificator *",
+      span: 24,
+      width: "100%",
+    },
     {
       type: InputType.TEXT_V2,
       name: DeviceField.NAME,
@@ -39,7 +50,7 @@ export const NameDriverFields = {
       title: "Device Type*",
       rules: [getValidation(REQUIRED, "Fuel type")],
       placeholder: "Device Type",
-      options: [{ key: 1, value: "ELD" }],
+      options: DeviceConstant.type,
       hasFeedback: true,
       span: 12,
       width: "100%",

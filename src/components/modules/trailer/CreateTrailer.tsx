@@ -67,6 +67,7 @@ export const TrailerCreatePage = () => {
       .substring(1);
     const data = jsonToFormData({
       ...values,
+      license_expiration: values.license_expiration.split("T")[0],
     });
     dispatch(
       createTrailerReq({

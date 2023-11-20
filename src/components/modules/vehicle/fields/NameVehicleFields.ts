@@ -48,7 +48,7 @@ export const NameDriverFields = {
     {
       type: InputType.TEXT_V2,
       name: VehicleField.MODEL,
-      rules: [validate("", ALPHABETICAL)],
+      // rules: [validate("", ALPHABETICAL)],
       placeholder: "Model",
       hasFeedback: true,
       span: 12,

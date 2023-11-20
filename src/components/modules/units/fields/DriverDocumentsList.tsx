@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CaretRightOutlined } from "@ant-design/icons";
 import { Collapse, theme, Table, Row, Col, Dropdown } from "antd";
-import { getDocumentNameByType } from "../constant";
 import type { ColumnsType } from "antd/es/table";
 import { ENV } from "../../../../utils/constants";
 import { deleteDriverDocumentReq } from "../../../../actions";
@@ -88,14 +87,11 @@ export const DriverDocumentsList: React.FC = (props: any) => {
       //   sortOrder: getOrderFromTableParams("first_name", tableParams),
 
       render: (name, record, index) => {
-        const type = getDocumentNameByType(record.type);
         return (
           <div
             className="orange ubuntu"
             style={{ display: "flex", alignItems: "center" }}
-          >
-            <div>{`${type}`}</div>
-          </div>
+          ></div>
         );
       },
       width: "10%",
@@ -108,7 +104,6 @@ export const DriverDocumentsList: React.FC = (props: any) => {
       //   sortOrder: getOrderFromTableParams("first_name", tableParams),
 
       render: (name, record, index) => {
-        const type = getDocumentNameByType(record.type);
         const [_, fileName] = record.file.split(
           "/storage/app/public/driver/docs/"
         );

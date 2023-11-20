@@ -5,12 +5,6 @@ import {
   VALIDATION_TYPE,
   getValidation,
 } from "../../../../utils/validation";
-import {
-  carrierStatusOptions,
-  CarrierField,
-  carrierCheckboxGroup,
-  carrierData,
-} from "../constant";
 
 const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL } =
   VALIDATION_TYPE;

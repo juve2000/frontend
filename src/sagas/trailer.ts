@@ -39,12 +39,15 @@ export function* getTrailerSaga({ payload }: any): any {
 
 export function* createTrailerSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.post, "/trailer", payload.values, {
+    const { data } = yield call(request.post, "/trailer/", payload.values, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
     yield put(createTrailerSuccess(data));
+    yield call(notification.success, {
+      message: `Trailer created successfully`,
+    });
   } catch (e: any) {
     yield call(notification.error, {
       message: "Something went wrong, try again later",

@@ -67,7 +67,9 @@ export const DriverCreatePage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const [initialValues, setInitialValues] = useState({
-    name: "",
+    first_name: "",
+    last_name: "",
+    username: "",
     usdot: "",
     phone: "",
     mcnumber: "",
@@ -98,6 +100,7 @@ export const DriverCreatePage = () => {
     driver_group: null,
     password: "",
     carrier: null,
+    cdl_state: null,
   });
 
   React.useEffect(() => {
@@ -127,6 +130,8 @@ export const DriverCreatePage = () => {
       .substring(1);
     const data = jsonToFormData({
       ...values,
+      cdl_expiration: values.cdl_expiration.split("T")[0],
+      medical_card_expiration: values.medical_card_expiration.split("T")[0],
       company: user.company.id,
       cdl_state: `${values.cdl_state}`,
       offices: [...user.offices].map((office) => office.id),

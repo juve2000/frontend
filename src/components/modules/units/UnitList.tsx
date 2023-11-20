@@ -21,7 +21,6 @@ import { InputCallToCall } from "../../common/doubleinput/InputCallToCall";
 
 import ResetSort from "../../../img/resetSort.svg";
 import ResetFilter from "../../../img/resetFilter.svg";
-import { carrierData } from "./constant";
 import { LogoCarrier } from "../../common/LogoCarrier";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
@@ -36,11 +35,12 @@ const AnyReactComponent = ({ text }: any) => <div>{text}</div>;
 export default function MapApp() {
   const defaultProps = {
     center: {
-      lat: 10.99835602,
-      lng: 77.01502627,
+      lat: 26.513266263248372,
+      lng: -80.9255265001059,
     },
-    zoom: 11,
+    zoom: 6,
   };
+  //26.513266263248372, -80.9255265001059
 
   return (
     <div style={{ height: "600px", width: "100%" }}>
@@ -49,7 +49,11 @@ export default function MapApp() {
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
-        <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" />
+        <AnyReactComponent
+          lat={26.513266263248372}
+          lng={-80.9255265001059}
+          text="My Marker"
+        />
       </GoogleMapReact>
     </div>
   );

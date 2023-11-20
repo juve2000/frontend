@@ -4,9 +4,14 @@ import { Form, Input, Col, Row } from "antd";
 // import { CommonInputV2 } from "./index";
 import { InputFetchCarrierSelectV2 } from "../../../common/doubleinput/InputFetchCarrierSelect";
 import { InputSelectV2 } from "../../../common/doubleinput";
-import { DriverField } from "../constant";
-import { carrierData } from "../constant";
-import { setCurrentCarrier } from "../../../../actions";
+import {
+  setCurrentCarrier,
+  getCarriersListReq,
+  getDriverListReq,
+  getVehicleListReq,
+  getTrailerListReq,
+  getEldListReq,
+} from "../../../../actions";
 import { InputTitle } from "../../../common/doubleinput/InputTitle";
 import { isArray } from "lodash";
 import {
@@ -14,20 +19,9 @@ import {
   VALIDATION_TYPE,
   validate,
 } from "../../../../utils/validation";
-const {
-  ALPHABETICAL,
-  REQUIRED,
-  MIN,
-  MAX,
-  NUMERIC,
-  PASSWORD,
-  EMAIL,
-  NOT_EMPTY,
-  NAME,
-  PHONE,
-} = VALIDATION_TYPE;
+const { ALPHABETICAL, REQUIRED } = VALIDATION_TYPE;
 
-export const CarrierDynamicField = (props: any) => {
+export const UnitDynamicField = (props: any) => {
   const {
     rules = [],
     name = "",
@@ -55,8 +49,18 @@ export const CarrierDynamicField = (props: any) => {
   // const [currentCarrier, setCurrentCarrier] = useState<any>({});
   const [carrierOptions, setCarrierOptions] = useState([]);
 
-  const [statusOptions, setStatusOptions] = useState(carrierData.status);
+  const [statusOptions, setStatusOptions] = useState(1);
   const [driverGroupOptions, setDriverGroupOptions] = useState([]);
+
+  React.useEffect(() => {
+    dispatch(
+      getCarriersListReq({
+        queryParams: {
+          with: ["settings", "terminals", "driver_groups", "documents"],
+        },
+      })
+    );
+  }, []);
 
   useEffect(() => {
     setCarrierOptions(
@@ -68,48 +72,6 @@ export const CarrierDynamicField = (props: any) => {
       })
     );
   }, [carrierList]);
-
-  React.useEffect(() => {
-    const inactiveStatus = carrierData.status.filter(
-      (status: any) => status.key !== 1
-    );
-
-    if (currentCarrier?.driver_groups) {
-      setDriverGroupOptions(
-        currentCarrier?.driver_groups.map((group: any) => {
-          return {
-            key: group.id,
-            value: group.name,
-          };
-        })
-      );
-    }
-    if (currentCarrier?.status === 1) {
-      setStatusOptions(carrierData.status);
-    } else {
-      setStatusOptions(inactiveStatus);
-    }
-  }, [currentCarrier]);
-
-  const StatusProps = {
-    name: DriverField.STATUS,
-    title: "Driver Status*",
-    rules: [getValidation(REQUIRED, "Status")],
-    placeholder: "Driver Status",
-    hasFeedback: true,
-    span: 12,
-    width: "95%",
-  };
-
-  const groupProps = {
-    name: DriverField.DRIVER_GROUP,
-    title: "Driver Group",
-    rules: [],
-    placeholder: "Driver Group",
-    hasFeedback: true,
-    span: 12,
-    width: "100%",
-  };
 
   return (
     <>
@@ -132,7 +94,7 @@ export const CarrierDynamicField = (props: any) => {
             <InputFetchCarrierSelectV2
               {...props}
               rules={[getValidation(REQUIRED, "Status")]}
-              name={DriverField.CARRIER}
+              name={"carrier"}
               title={"Carrier*"}
               options={carrierOptions}
               span={24}
@@ -176,10 +138,10 @@ export const CarrierDynamicField = (props: any) => {
           </div> */}
         </Col>
         <Col span={18}>
-          <Row>
+          {/* <Row>
             <InputSelectV2 {...StatusProps} options={statusOptions} />
             <InputSelectV2 {...groupProps} options={driverGroupOptions} />
-          </Row>
+          </Row> */}
         </Col>
       </Row>
     </>

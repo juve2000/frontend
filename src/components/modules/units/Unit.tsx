@@ -13,7 +13,8 @@ import { Row, Col, Form, Button, Input, Spin } from "antd";
 import { CommonInput } from "../../common/inputs";
 import { carrierForm } from "./carrier-form";
 import { InputType } from "../../../constants/inputs";
-import { PAGE_STATUS, getDocumentByType } from "./constant";
+// import { PAGE_STATUS, getDocumentByType } from "./constant";
+import { PAGE_STATUS } from "../role/constant";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
@@ -113,15 +114,15 @@ export const UnitPage = () => {
     setStateValue(search.get("state"));
   }, [search]);
 
-  React.useEffect(() => {
-    dispatch(
-      getCarriersListReq({
-        queryParams: {
-          with: ["settings", "terminals", "driver_groups", "documents"],
-        },
-      })
-    );
-  }, []);
+  // React.useEffect(() => {
+  //   dispatch(
+  //     getCarriersListReq({
+  //       queryParams: {
+  //         with: ["settings", "terminals", "driver_groups", "documents"],
+  //       },
+  //     })
+  //   );
+  // }, []);
 
   useEffect(() => {
     form.setFieldsValue({
@@ -152,31 +153,6 @@ export const UnitPage = () => {
       .substring(1);
     const data = jsonToFormData({
       ...values,
-      company: user.company.id,
-      cdl_state: `${values.cdl_state}`,
-      offices: [...user.offices].map((office) => office.id),
-      documents: [
-        ...(values?.documents_MC?.length > 0
-          ? values?.documents_MC?.map((doc: any) => {
-              return {
-                type: getDocumentByType(doc.fileType) || 2,
-                file: doc.originFileObj,
-                driver: params.driverid,
-              };
-            })
-          : []),
-        ...(values?.documents_CDL?.length > 0
-          ? values?.documents_CDL?.map((doc: any) => {
-              return {
-                type: getDocumentByType(doc.fileType) || 1,
-                file: doc.originFileObj,
-                driver: params.driverid,
-              };
-            })
-          : []),
-      ],
-      documents_MC: undefined,
-      documents_CDL: undefined,
     });
 
     dispatch(

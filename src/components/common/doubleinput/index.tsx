@@ -29,6 +29,14 @@ import { CarrierDynamicMechanicField } from "../../modules/mechanic/fields/Carri
 import { InputMechanicSelecetAdress } from "../../modules/mechanic/fields/DriverTerminalSelect";
 //CarrierDynamicDeviceField
 import { CarrierDynamicDeviceField } from "../../modules/device/fields/CarrierDynamicFields";
+//UNIT
+import { UnitDynamicField } from "../../modules/units/fields/CarrierDynamicFields";
+import { DriverDynamicField } from "../../modules/units/fields/DriverDynamicField";
+import { CarrierDynamicFieldV2 } from "../../modules/units/fields/CarrierDynamicField";
+import { VehicleDynamicField } from "../../modules/units/fields/VehicleDynamicField";
+
+import { DeviceDynamicField } from "../../modules/units/fields/DeviceDynamicField";
+import { TrailerDynamicField } from "../../modules/units/fields/TrailerDynamicField";
 //ROLE
 import { InputRole } from "./InputRole";
 import { InputSelectRole } from "./InputSelectRole";
@@ -42,6 +50,18 @@ import { Address } from "./Address";
 export const CommonInputV2 = (props: any) => {
   const { type } = props;
   switch (type) {
+    case InputType.VEHICLE_DYNAMIC:
+      return <VehicleDynamicField {...props} />;
+    case InputType.TRAILER_DYNAMIC:
+      return <TrailerDynamicField {...props} />;
+    case InputType.DEVICE_DYNAMIC:
+      return <DeviceDynamicField {...props} />;
+    case InputType.CARRIER_DYNAMIC:
+      return <CarrierDynamicFieldV2 {...props} />;
+    case InputType.DRIVER_DYNAMIC:
+      return <DriverDynamicField {...props} />;
+    case InputType.CARRIER_DRIVER_VEHICLE_TRAILER:
+      return <UnitDynamicField {...props} />;
     case InputType.DRIVER_DOCUMENTS_LIST:
       return <DriverDocumentsList {...props} />;
     case InputType.MULTI_UPLOAD:

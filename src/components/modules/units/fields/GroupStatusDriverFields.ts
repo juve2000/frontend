@@ -1,17 +1,11 @@
 import { InputType } from "../../../../constants/inputs";
+import { getColorByCode } from "../../../../utils/utils";
 import {
   VALIDATION_RULES,
   validate,
   VALIDATION_TYPE,
   getValidation,
 } from "../../../../utils/validation";
-import {
-  carrierStatusOptions,
-  CarrierField,
-  carrierCheckboxGroup,
-  DriverField,
-  carrierData,
-} from "../constant";
 
 const {
   ALPHABETICAL,
@@ -26,39 +20,96 @@ const {
   PHONE,
 } = VALIDATION_TYPE;
 
-export const CarrierFieldInput = {
-  type: InputType.DRIVER_DYNAMIC_CARRIER,
+export const DriverFieldInput = {
+  type: InputType.DRIVER_DYNAMIC,
   // label: "Carrier",
   isRequired: true,
+  span: 12,
+  width: "100%",
 };
 
-export const GroupsStatusFields = {
+export const CarrierFieldInput = {
+  type: InputType.CARRIER_DYNAMIC,
+  // label: "Carrier",
+  isRequired: true,
+  span: 12,
+  width: "100%",
+};
+
+export const UnitDynamicFields = {
   type: InputType.MULTI,
-  label: "Group and Status",
+  label: "Unit",
   isRequired: true,
   fields: [
-    // {
-    //   type: InputType.SELECT_V2,
-    //   name: CarrierField.STATUS,
-    //   title: "Status",
-    //   // rules: [getValidation(REQUIRED, "Status")],
-    //   placeholder: "Carrier Status",
-    //   options: carrierData.status,
-    //   hasFeedback: true,
-    //   span: 12,
-    //   width: "95%",
-    // },
-    // {
-    //   type: InputType.SELECT_V2,
-    //   name: DriverField.DRIVER_GROUP,
-    //   title: "Driver Group",
-    //   // rules: [getValidation(REQUIRED, "Status")],
-    //   placeholder: "Driver Group",
-    //   // options: carrierData.status,
-    //   isRequired: false,
-    //   hasFeedback: true,
-    //   span: 12,
-    //   width: "95%",
-    // },
+    {
+      type: InputType.CARRIER_DYNAMIC,
+      // label: "Carrier",
+      isRequired: true,
+      span: 24,
+      width: "100%",
+    },
+    {
+      type: InputType.DRIVER_DYNAMIC,
+      // label: "Carrier",
+      isRequired: true,
+      span: 12,
+      width: "95%",
+    },
+    {
+      type: InputType.DEVICE_DYNAMIC,
+      // label: "Carrier",
+      isRequired: true,
+      span: 12,
+      width: "100%",
+    },
+    {
+      type: InputType.VEHICLE_DYNAMIC,
+      // label: "Carrier",
+      isRequired: true,
+      span: 12,
+      width: "95%",
+    },
+    {
+      type: InputType.TRAILER_DYNAMIC,
+      // label: "Carrier",
+      isRequired: true,
+      span: 12,
+      width: "100%",
+    },
   ],
+};
+export const UnitNotice = {
+  type: InputType.MULTI,
+  label: "Notice",
+  isRequired: false,
+  fields: [
+    {
+      type: InputType.TEXT_AREA,
+      name: "notes",
+      label: "Notice",
+      rules: [],
+      placeholder: "Notice",
+      hasFeedback: true,
+      title: " ",
+      span: 24,
+      width: "100%",
+      styles: { height: "60px" },
+    },
+  ],
+};
+
+export const UnitColor = {
+  type: InputType.RADIO_V2,
+  name: "color",
+  // pathName: ["settings"],
+  label: "Color*",
+  // rules: [getValidation(REQUIRED, "HOS Rules (Cycle Rules)")],
+  placeholder: "Color",
+  hasFeedback: true,
+  title: "Color",
+  span: 24,
+  width: "10%",
+  options: [0, 1, 2, 3, 4, 5, 6].map((item: any) => {
+    return { key: getColorByCode(item), value: getColorByCode(item) };
+  }),
 };

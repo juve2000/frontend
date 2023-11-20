@@ -52,6 +52,60 @@ export const VehicleField = {
   YEAR: "year",
 };
 
+export const VehicleConstant = {
+  make: [],
+  fuel_type: [
+    {
+      key: 1,
+      value: "Diesel",
+    },
+    {
+      key: 2,
+      value: "Gasoline",
+    },
+    {
+      key: 3,
+      value: "Propane",
+    },
+    {
+      key: 4,
+      value: "Liquid Natural Gas",
+    },
+    {
+      key: 5,
+      value: "Compressed Natural Gas",
+    },
+    {
+      key: 6,
+      value: "Ethanol",
+    },
+    {
+      key: 7,
+      value: "Methanol",
+    },
+    {
+      key: 8,
+      value: "E-85",
+    },
+    {
+      key: 9,
+      value: "M-85",
+    },
+    {
+      key: 10,
+      value: "A-55",
+    },
+    {
+      key: 11,
+      value: "Biodiesel",
+    },
+    {
+      key: 12,
+      value: "Other",
+    },
+  ],
+};
+
 export const DriverField = {
   CARRIER: "carrier",
   FIRST_NAME: "first_name",

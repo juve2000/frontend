@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { Form, Select, Col } from "antd";
 
-export const InputSelectV2 = (props: any) => {
+export const InputSelectColor = (props: any) => {
   const {
     rules = [],
     name = "",
@@ -19,7 +19,6 @@ export const InputSelectV2 = (props: any) => {
     form,
     onChange,
     onFocus = () => null,
-    onSelect,
   } = props;
 
   const { Option } = Select;
@@ -62,51 +61,36 @@ export const InputSelectV2 = (props: any) => {
           style={{ width, ...styles }}
           placeholder={placeholder}
           onChange={onChange}
-          // value={form?.getFieldValue(getName(name, pathName))}
           showSearch
           optionFilterProp="children"
-          filterOption={(input: any, option: any) =>
-            (option?.label?.toLowerCase() ?? "").includes(input)
-          }
-          filterSort={(optionA: any, optionB: any) => {
-            if (optionA?.label && optionB?.label) {
-              return (optionA?.label.option?.label?.toLowerCase() ?? "")
-                .toLowerCase()
-                .localeCompare(
-                  (optionB?.label?.toLowerCase() ?? "").toLowerCase()
-                );
-            }
-          }}
+          //   filterOption={(input: any, option: any) =>
+          //     (option?.label?.toLowerCase() ?? "").includes(input)
+          //   }
+          //   filterSort={(optionA: any, optionB: any) => {
+          //     if (optionA?.label && optionB?.label) {
+          //       return (optionA?.label.option?.label?.toLowerCase() ?? "")
+          //         .toLowerCase()
+          //         .localeCompare(
+          //           (optionB?.label?.toLowerCase() ?? "").toLowerCase()
+          //         );
+          //     }
+          //   }}
           onFocus={() => {
             onFocus();
           }}
-          options={
-            options?.length
-              ? options?.map((o: any) => {
-                  return {
-                    value: o.key,
-                    label: `${o.value}`,
-                  };
-                })
-              : [
-                  { value: "", label: "" },
-                  { value: "", label: "" },
-                ]
-          }
-          onSelect={(value) => {
-            if (onSelect) {
-              onSelect(value);
-            }
-          }}
-        />
-        {/* {options.map((item: any, i: number) => {
+        >
+          {options.map((item: any, i: number) => {
             return (
-              <Option key={i} value={item.key}>
+              <Option
+                key={i}
+                value={item.key}
+                style={{ backgroundColor: item.color }}
+              >
                 {item.value}
               </Option>
             );
           })}
-        </Select> */}
+        </Select>
       </Form.Item>
     </Col>
   );

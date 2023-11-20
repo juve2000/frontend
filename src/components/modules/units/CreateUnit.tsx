@@ -8,18 +8,15 @@ import { CommonInput } from "../../common/inputs";
 import { carrierForm } from "./carrier-form";
 import { Graph } from "../../common/graph/Graph";
 import { InputType } from "../../../constants/inputs";
-import { getDocumentByType } from "./constant";
 
 import {
-  updateDriverReq,
-  getDriverReq,
-  createDriverReq,
-  setCurrentCarrier,
-} from "../../../actions/driver";
+  updateUnitReq,
+  getUnitReq,
+  createUnitReq,
+} from "../../../actions/unit";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
-import { DriverField } from "./constant";
 
 function buildFormData(formData: any, data: any, parentKey?: any) {
   if (
@@ -67,37 +64,14 @@ export const UnitCreatePage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const [initialValues, setInitialValues] = useState({
-    name: "",
-    usdot: "",
-    phone: "",
-    mcnumber: "",
-    email: "",
-    person: "",
-    status: 1,
-    notes: "",
-    email_second: "",
-    measurement_system: null,
-    dst: null,
-    first_day: null,
-    compliance_mode: null,
-    motion_treshold: null,
-    cargo_type: [],
-    restart: null,
-    rest_break: null,
-    short_haul: false,
-    personal_conveyance: false,
-    adverse_conditions: false,
-    unlimited_documents: false,
-    unlimited_trailers: false,
-    yard_move: false,
-    exempt_driver: false,
-    exempt_driver_notice: false,
-    period_starting_time: "",
-    motion_trashhold: "",
-    terminal: null,
-    driver_group: null,
-    password: "",
     carrier: null,
+    driver: null,
+    color: null,
+    truck: null,
+    device: null,
+    trailer: null,
+    codriver: null,
+    // notice: "",
   });
 
   React.useEffect(() => {
@@ -127,38 +101,15 @@ export const UnitCreatePage = () => {
       .substring(1);
     const data = jsonToFormData({
       ...values,
-      company: user.company.id,
-      cdl_state: `${values.cdl_state}`,
-      offices: [...user.offices].map((office) => office.id),
-      documents: [
-        ...(values?.documents_MC?.length > 0
-          ? values?.documents_MC?.map((doc: any) => {
-              return {
-                type: getDocumentByType(doc.fileType),
-                file: doc.originFileObj,
-                driver: params.driverid,
-              };
-            })
-          : []),
-        ...(values?.documents_CDL?.length > 0
-          ? values?.documents_CDL?.map((doc: any) => {
-              return {
-                type: getDocumentByType(doc.fileType),
-                file: doc.originFileObj,
-                driver: params.driverid,
-              };
-            })
-          : []),
-      ],
-      documents_MC: undefined,
-      documents_CDL: undefined,
+      color: 1,
+      codriver: 0,
+      // status: 1,
     });
     dispatch(
-      createDriverReq({
+      createUnitReq({
         values: data,
         onSuccess: () => {
           form.setFieldsValue(initialValues);
-          setCurrentCarrier({});
         },
       })
     );
@@ -169,7 +120,7 @@ export const UnitCreatePage = () => {
       {checkPermission(AllPermissionsType.DRIVER_CREATE) ? (
         <Row style={{ paddingLeft: 23, paddingRight: 25, height: "100%" }}>
           {/* <Graph /> */}
-          {loading ? (
+          {false ? (
             <div
               style={{
                 width: "100%",
@@ -211,7 +162,7 @@ export const UnitCreatePage = () => {
                     );
                   }
                   // prettier-ignore
-                  return <CommonInput key={i} {...field} form={form} isDriverCreate={true}/>
+                  return <CommonInput key={i} {...field} form={form} isDriverCreate={false}/>
                 })}
                 <Form.Item style={{ width: "100%", display: "flex" }}>
                   <Button
