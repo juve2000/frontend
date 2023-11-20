@@ -94,8 +94,8 @@ export const SideBar = (props: any) => {
       ),
       getItem(
         "Units",
-        "units",
-        getPath("units"),
+        "units_",
+        getPath("units_"),
 
         <span className="icon-fi-rr-layers">
           <span className="path1"></span>
@@ -103,8 +103,18 @@ export const SideBar = (props: any) => {
           <span className="path3"></span>
         </span>,
         [
-          getItem("All Units", "units", "/units", <MailOutlined />),
-          getItem("TBD", "logs", "/logs", <MailOutlined />),
+          getItem(
+            "All Units",
+            "units",
+            "/units",
+            <span className="icon-fi-rr-folder"></span>
+          ),
+          getItem(
+            "TBD",
+            "logs",
+            "/logs",
+            <span className="icon-fi-rr-folder"></span>
+          ),
         ]
       ),
       getItem(

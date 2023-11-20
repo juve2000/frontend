@@ -45,7 +45,7 @@ export const DeviceDynamicField = (props: any) => {
   const VehicleProps = {
     name: "device",
     title: "Device *",
-    rules: [getValidation(REQUIRED, "Status")],
+    // rules: [getValidation(REQUIRED, "Status")],
     placeholder: "Device",
     hasFeedback: true,
     span,
