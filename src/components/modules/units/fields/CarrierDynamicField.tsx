@@ -105,6 +105,7 @@ export const CarrierDynamicFieldV2 = (props: any) => {
     onSelect: (carrierId: any) => {
       dispatch(
         getCarrierReq({
+          setCurrentCarrier: true,
           carrierId,
           queryParams: {
             with: [
@@ -116,7 +117,6 @@ export const CarrierDynamicFieldV2 = (props: any) => {
             ],
           },
           onSuccess: () => {
-            console.log("on success");
             form.setFieldsValue({
               ...form.getFieldsValue(),
               carrier: carrierId,

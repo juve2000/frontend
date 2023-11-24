@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useLocation, useSearchParams } from "react-router-dom";
 import { getCarriersListReq } from "../../../actions/carrier";
-import {
-  updateDriverReq,
-  getDriverReq,
-  setCurrentCarrier,
-} from "../../../actions/driver";
+import { updateUnitReq, getUnitReq } from "../../../actions/unit";
 import { CARRIER_SELECT_DISABLED } from "../../common/doubleinput/utils";
 
 import { Row, Col, Form, Button, Input, Spin } from "antd";
@@ -18,6 +14,12 @@ import { PAGE_STATUS } from "../role/constant";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
+import {
+  formatKeyValue,
+  formatValueToData,
+  getColorByCode,
+} from "../../../utils/utils";
+import { GoogleMapTracker } from "../../common/google-map/googleMapTracker";
 
 function buildFormData(formData: any, data: any, parentKey?: any) {
   if (
@@ -56,40 +58,17 @@ export const UnitPage = () => {
   const [state, setStateValue] = React.useState(search.get("state"));
   const dispatch = useDispatch();
   const [initialValues, setInitialValues] = useState({
-    name: "",
-    usdot: "",
-    phone: "",
-    mcnumber: "",
-    email: "",
-    person: "",
-    status: null,
-    notes: "",
-    email_second: "",
-    measurement_system: null,
-    dst: null,
-    first_day: null,
-    compliance_mode: null,
-    motion_treshold: null,
-    cargo_type: [],
-    restart: null,
-    rest_break: null,
-    short_haul: false,
-    personal_conveyance: false,
-    adverse_conditions: false,
-    unlimited_documents: false,
-    unlimited_trailers: false,
-    yard_move: false,
-    exempt_driver: false,
-    exempt_driver_notice: false,
-    period_starting_time: "",
-    motion_trashhold: "",
-    terminal: null,
-    driver_group: null,
-    password: "",
+    carrier: null,
+    driver: null,
+    color: "",
+    truck: null,
+    device: null,
+    trailer: null,
+    codriver: null,
+    vehicle: null,
+    // notice: "",
   });
-  const { loading, driver, currentCarrier } = useSelector(
-    (state: any) => state.driver
-  );
+  const { loading, unit } = useSelector((state: any) => state.units);
   const { loading: carrierLoading, carrierList } = useSelector(
     (state: any) => state.carrier
   );
@@ -99,48 +78,35 @@ export const UnitPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    if (driver?.carrier?.id) {
+    if (unit?.carrier?.id) {
       const foundCarrier = carrierList.find(
-        (carrier: any) => carrier.id === driver.carrier.id
+        (carrier: any) => carrier.id === unit.carrier.id
       );
 
-      dispatch(
-        setCurrentCarrier({ ...foundCarrier, defaultSavedCarrier: true })
-      );
+      // dispatch(
+      //   setCurrentCarrier({ ...foundCarrier, defaultSavedCarrier: true })
+      // );
     }
-  }, [carrierList, driver]);
+  }, [carrierList, unit]);
 
   React.useEffect(() => {
     setStateValue(search.get("state"));
   }, [search]);
 
-  // React.useEffect(() => {
-  //   dispatch(
-  //     getCarriersListReq({
-  //       queryParams: {
-  //         with: ["settings", "terminals", "driver_groups", "documents"],
-  //       },
-  //     })
-  //   );
-  // }, []);
-
-  useEffect(() => {
-    form.setFieldsValue({
-      ...form.getFieldsValue(),
-      ...(!currentCarrier.defaultSavedCarrier ? currentCarrier?.settings : {}),
-      cargo_type: form.getFieldValue("cargo_type"),
-      driver_group: currentCarrier?.defaultSavedCarrier
-        ? form.getFieldValue("driver_group")
-        : null,
-    });
-  }, [currentCarrier]);
-
   useEffect(() => {
     dispatch(
-      getDriverReq({
-        driverId: params.driverid,
+      getUnitReq({
+        unitId: params.unitId,
         queryParams: {
-          with: ["terminal", "group", "carrier", "documents"],
+          with: [
+            "terminal",
+            "group",
+            "carrier",
+            "documents",
+            "device",
+            "trailer",
+            "driver",
+          ],
         },
       })
     );
@@ -153,12 +119,17 @@ export const UnitPage = () => {
       .substring(1);
     const data = jsonToFormData({
       ...values,
+      carrier: formatValueToData(values.carrier),
+      driver: formatValueToData(values.driver),
+      device: formatValueToData(values.device),
+      vehicle: formatValueToData(values.vehicle),
+      trailer: formatValueToData(values.trailer),
     });
 
     dispatch(
-      updateDriverReq({
+      updateUnitReq({
         values: data,
-        driverId: params.driverid,
+        unitId: params.unitId,
       })
     );
   };
@@ -166,25 +137,29 @@ export const UnitPage = () => {
   React.useEffect(() => {
     setInitialValues({
       ...initialValues,
-      ...driver,
-      carrier: driver?.carrier?.id,
-      terminal: driver?.terminal?.id,
-      driver_group: driver?.group?.id,
-      cargo_type: driver?.cargo_type?.map((ct: any) => +ct),
+      carrier: formatKeyValue(unit, "carrier"),
+      driver: formatKeyValue(unit, "driver"),
+      device: formatKeyValue(unit, "device"),
+      trailer: formatKeyValue(unit, "trailer"),
+      vehicle: formatKeyValue(unit, "vehicle"),
+      color: getColorByCode(unit.color),
     });
     form.setFieldsValue({
       ...initialValues,
-      ...driver,
-      carrier: driver?.carrier?.id,
-      terminal: driver?.terminal?.id,
-      driver_group: driver?.group?.id,
-      cargo_type: driver?.cargo_type?.map((ct: any) => +ct),
-      group: driver?.group?.id,
+      carrier: formatKeyValue(unit, "carrier"),
+      driver: formatKeyValue(unit, "driver"),
+      device: formatKeyValue(unit, "device"),
+      trailer: formatKeyValue(unit, "trailer"),
+      vehicle: formatKeyValue(unit, "vehicle"),
+      color: getColorByCode(unit.color),
     });
-  }, [driver]);
+    console.log("unit", unit);
+  }, [unit]);
 
   const { checkPermission } = usePermissions();
-
+  React.useEffect(() => {
+    console.log("form", form.getFieldsValue());
+  }, [form]);
   return (
     <>
       {checkPermission(AllPermissionsType.DRIVER_SHOW) ? (
@@ -206,6 +181,9 @@ export const UnitPage = () => {
             </div>
           ) : (
             <Col span={24}>
+              <Col span={24} style={{ marginBottom: 20 }}>
+                <GoogleMapTracker />
+              </Col>
               <Form
                 form={form}
                 name="test"

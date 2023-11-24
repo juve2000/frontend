@@ -59,7 +59,7 @@ export function* createUnitSaga({ payload }: any): any {
 export function* updateUnitSaga({ payload }: any): any {
   try {
     const { data } = yield call(
-      request.post,
+      request.put,
       `/unit/${payload.unitId}`,
       payload.values,
       {

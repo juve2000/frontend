@@ -187,7 +187,7 @@ export const MainRouter = () => {
           <Route path={ROUTES.UNITS} element={<UnitsPage />}>
             <Route index element={<UnitList />} />;
             <Route path={`create`} element={<UnitCreatePage />} />
-            <Route path={`:unitid`} element={<UnitPage />} />
+            <Route path={`:unitId`} element={<UnitPage />} />
           </Route>
         </Route>
       </Routes>

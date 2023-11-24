@@ -65,9 +65,9 @@ export const VehicleList: React.FC = () => {
 
   React.useEffect(() => {
     dispatch(
-      getCarriersListReq({
+      getVehicleListReq({
         queryParams: {
-          with: ["driver_groups"],
+          with: ["driver_groups", "vehicles", "drivers"],
         },
       })
     );
@@ -426,10 +426,10 @@ export const VehicleList: React.FC = () => {
 
   useEffect(() => {
     dispatch(
-      getVehicleListRootReq({
+      getVehicleListReq({
         queryParams: {
           ...getParams(tableParams),
-          with: ["terminal", "carrier", "group"],
+          with: ["carrier"],
         },
       })
     );

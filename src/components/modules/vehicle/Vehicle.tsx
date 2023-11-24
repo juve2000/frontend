@@ -65,6 +65,7 @@ export const VehiclePage = () => {
     license_plate: null,
     license_issuing: "",
     license_expiration: "",
+    year: "",
   });
   const { loading, vehicle, currentCarrier } = useSelector(
     (state: any) => state.vehicle

@@ -45,7 +45,7 @@ export default {
       .addCase(getUnitSuccess, (state, { payload }) => {
         return {
           ...state,
-          unit: payload,
+          unit: payload.data,
           loading: false,
         };
       })

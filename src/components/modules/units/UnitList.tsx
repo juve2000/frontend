@@ -28,7 +28,13 @@ import { NoPermission } from "../../common/NoPermission";
 import { BurgerIcon } from "../../header/logo";
 import { getColorByCode } from "../../../utils/utils";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import {
+  ServerToClientEvents,
+  ClientToServerEvents,
+} from "../../../socket/interface";
 import GoogleMapReact from "google-map-react";
+// import * as io from "socket.io-client";
+import { socket } from "../../../socket";
 
 const AnyReactComponent = ({ text }: any) => <div>{text}</div>;
 
@@ -40,7 +46,6 @@ export default function MapApp() {
     },
     zoom: 6,
   };
-  //26.513266263248372, -80.9255265001059
 
   return (
     <div style={{ height: "600px", width: "100%" }}>
@@ -59,6 +64,11 @@ export default function MapApp() {
   );
 }
 
+// const socket = io.connect("http://localhost:3001");
+// const socket = io.connect(
+//   "http://87.248.167.60:4000/?channel=eld:realtime:gps*"
+// );
+
 export const UnitList: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -76,7 +86,48 @@ export const UnitList: React.FC = () => {
     clearCustomFilter,
     setCustomFilter,
   } = useTableParams({});
-  const units = useSelector((state: any) => state.units.units);
+
+  //SOCKET
+  const [room, setRoom] = useState("");
+  const [units, setUnits] = useState<any>([]);
+  const [info, setInfo] = useState<any>([]);
+  const [countV, setCount] = useState<any>(0);
+  // Messages States
+  const [message, setMessage] = useState("");
+  const [messageReceived, setMessageReceived] = useState("");
+
+  const joinRoom = () => {
+    if (room !== "") {
+      socket.emit("join_room", room);
+    }
+  };
+
+  const sendMessage = () => {
+    socket.emit("send_message", { message, room });
+  };
+
+  useEffect(() => {
+    socket.on("receive_message", (data: any) => {
+      console.log("receive message", data);
+      setMessageReceived(data.message);
+    });
+    socket.on("message", (data: any) => {
+      console.log("message", data.message);
+      if (data?.message) {
+        setInfo(JSON.parse(data.message));
+        setCount((state: any) => {
+          return state + 1;
+        });
+      }
+    });
+  }, [socket]);
+
+  React.useEffect(() => {
+    console.log("info", info);
+  }, [info]);
+
+  //SOCEKT END
+  const unitsRedux = useSelector((state: any) => state.units.units);
   const carriers = useSelector((state: any) => state.carrier.carrierList);
 
   const count = useSelector((state: any) => state.driver.count);
@@ -86,6 +137,10 @@ export const UnitList: React.FC = () => {
     id: "",
     name: "",
   });
+
+  React.useEffect(() => {
+    setUnits(unitsRedux);
+  }, [unitsRedux]);
 
   React.useEffect(() => {
     dispatch(
@@ -99,6 +154,38 @@ export const UnitList: React.FC = () => {
 
   const columns: ColumnsType<any> = [
     Table.SELECTION_COLUMN,
+    {
+      title: "Unit",
+      key: "unit",
+      dataIndex: "unit",
+      sortOrder: getOrderFromTableParams("unit", tableParams),
+      sorter: {
+        compare: (a: any, b: any) => a.driver - b.driver,
+        multiple: 5,
+      },
+      render: (name, record, index) => {
+        return (
+          <div
+            className="orange ubuntu pointer"
+            style={{ display: "flex", alignItems: "center" }}
+            onClick={() => {
+              navigate(`/client/units/${record.id}`);
+            }}
+          >
+            <div
+              className="driver-marker"
+              style={{
+                marginRight: 10,
+                backgroundColor: record.color,
+              }}
+            />
+            <div>{`${record.id}`}</div>
+          </div>
+        );
+      },
+      width: "10%",
+      ellipsis: true,
+    },
     {
       title: "Driver",
       key: "driver",
@@ -168,6 +255,7 @@ export const UnitList: React.FC = () => {
             style={{ color: "#141029", cursor: "pointer" }}
           >
             {record?.break}
+            {countV + index}
           </div>
         );
       },
@@ -240,7 +328,7 @@ export const UnitList: React.FC = () => {
       width: "9%",
       ellipsis: true,
       render: (value, record, index) => {
-        return <div className="ubuntu">{record?.speed}</div>;
+        return <div className="ubuntu">{info[0]?.speed}</div>;
       },
       filters: [{ value: "Driving", key: 0 }].map((st: any) => {
         return {
@@ -417,7 +505,24 @@ export const UnitList: React.FC = () => {
     <>
       {checkPermission(AllPermissionsType.DRIVER_LIST) ? (
         <>
-          {" "}
+          <div className="App1">
+            <input
+              placeholder="Room Number..."
+              onChange={(event) => {
+                setRoom(event.target.value);
+              }}
+            />
+            <button onClick={joinRoom}> Join Room</button>
+            <input
+              placeholder="Message..."
+              onChange={(event) => {
+                setMessage(event.target.value);
+              }}
+            />
+            <button onClick={sendMessage}> Send Message</button>
+            <h1> Message:</h1>
+            {messageReceived}
+          </div>{" "}
           <Row>
             <SetPassword
               currentItem={currentCarrier}

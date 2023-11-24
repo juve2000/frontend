@@ -16,3 +16,23 @@ export const getColorByCode = (code: any) => {
       return "#2E4053";
   }
 };
+
+export const formatKeyValue = (item: any, key: any): any => {
+  switch (key) {
+    case "carrier":
+      return { key: item[key]?.id, value: item[key]?.name };
+    case "driver":
+      return {
+        key: item[key]?.id,
+        value: `${item[key]?.first_name} ${item[key]?.last_name}`,
+      };
+    case "vehicle":
+    case "trailer":
+    case "device":
+      return { key: item[key]?.id, value: item[key]?.identificator };
+  }
+};
+
+export const formatValueToData = (item: any): any => {
+  return item.value;
+};
