@@ -36,7 +36,7 @@ export const ContactsDriverFields = {
       name: CarrierField.PHONE,
       label: "Phone *",
 
-      rules: [validate("", PHONE), getValidation(REQUIRED, "")],
+      // rules: [validate("", PHONE), getValidation(REQUIRED, "")],
       placeholder: "Enter Phone",
       hasFeedback: true,
       title: "Phone *",
@@ -47,7 +47,7 @@ export const ContactsDriverFields = {
       type: InputType.TEXT_V2,
       name: CarrierField.EMAIL,
       label: "Email *",
-      rules: [getValidation(REQUIRED, ""), validate("", VALIDATION_TYPE.EMAIL)],
+      // rules: [getValidation(REQUIRED, ""), validate("", VALIDATION_TYPE.EMAIL)],
       placeholder: "Enter Email",
       hasFeedback: true,
       title: "Email *",

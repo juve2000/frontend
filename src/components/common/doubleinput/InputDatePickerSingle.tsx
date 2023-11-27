@@ -70,13 +70,15 @@ export const InputDatePickerSingleV2 = (props: any) => {
       <Form.Item
         name={getName}
         style={{ width: "100%" }}
-        rules={[
-          {
-            // type: "object" as const,
-            required: true,
-            message: "Please select date!",
-          },
-        ]}
+        rules={
+          [
+            // {
+            //   // type: "object" as const,
+            //   required: true,
+            //   message: "Please select date!",
+            // },
+          ]
+        }
       ></Form.Item>
       <DatePicker
         placeholder={placeholder}

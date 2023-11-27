@@ -25,7 +25,7 @@ export const NameDriverFields = {
       type: InputType.TEXT_V2,
       name: DriverField.FIRST_NAME,
       label: "First Name",
-      rules: [getValidation(REQUIRED, "name")],
+      // rules: [getValidation(REQUIRED, "name")],
       placeholder: "Frist Name",
       hasFeedback: true,
       title: "First Name*",
@@ -36,7 +36,7 @@ export const NameDriverFields = {
     {
       type: InputType.TEXT_V2,
       name: DriverField.LAST_NAME,
-      rules: [getValidation(REQUIRED, "name")],
+      // rules: [getValidation(REQUIRED, "name")],
 
       placeholder: "Last Name",
       hasFeedback: true,
@@ -59,10 +59,10 @@ export const NameDriverFields = {
       name: "password",
       hasGenerate: true,
       title: "Password*",
-      rules: [
-        getValidation(REQUIRED, "password"),
-        getValidation("PASSWORD", "password"),
-      ],
+      // rules: [
+      //   getValidation(REQUIRED, "password"),
+      //   getValidation("PASSWORD", "password"),
+      // ],
       placeholder: "Driver password",
       // options: carrierData.status,
       hasFeedback: true,

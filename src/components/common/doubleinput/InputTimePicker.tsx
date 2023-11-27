@@ -76,12 +76,12 @@ export const InputTimePickerV2 = (props: any) => {
       <Form.Item
         name={getName}
         style={{ width: "100%" }}
-        rules={[
-          {
-            required: true,
-            message: "Please select time!",
-          },
-        ]}
+        // rules={[
+        //   {
+        //     required: true,
+        //     message: "Please select time!",
+        //   },
+        // ]}
       ></Form.Item>
       <TimePicker
         use12Hours

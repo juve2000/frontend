@@ -102,7 +102,7 @@ export const PreferencesCarrierFields = {
 
       label: "24 Hour Period Starting Time*",
       // rules: [getValidation(REQUIRED, "24 Hour Period Starting Time")],
-      // rules: [],
+      rules: [],
       placeholder: "24 Hour Period Starting Time",
       hasFeedback: true,
       title: "24 Hour Period Starting Time*",
