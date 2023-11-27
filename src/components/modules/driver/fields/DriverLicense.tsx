@@ -74,7 +74,7 @@ export const LicenseDriverFields = {
       type: InputType.TEXT_V2,
       name: DriverField.CDL,
       label: "CDL#*",
-      rules: [getValidation(REQUIRED, "")],
+      // rules: [getValidation(REQUIRED, "")],
       placeholder: "Enter CDL#",
       hasFeedback: true,
       title: "CDL#*",
@@ -113,7 +113,7 @@ export const LicenseDriverFields = {
       type: InputType.DATE_PICKER_SINGLE,
       name: DriverField.CDL_EXPIRATION,
       title: "CDL Expiration*",
-      rules: [getValidation(REQUIRED, "Status")],
+      // rules: [getValidation(REQUIRED, "Status")],
       placeholder: "CDL Expiration",
       options: carrierData.status,
       hasFeedback: true,
@@ -124,7 +124,7 @@ export const LicenseDriverFields = {
       type: InputType.SELECT_V2,
       name: DriverField.CDL_STATE,
       title: "CDL Issuing State*",
-      rules: [getValidation(REQUIRED, "CDL Issuing State")],
+      // rules: [getValidation(REQUIRED, "CDL Issuing State")],
       placeholder: "CDL Issuing State",
       options: carrierData.states.sort((a, b) => {
         if (a.value > b.value) {

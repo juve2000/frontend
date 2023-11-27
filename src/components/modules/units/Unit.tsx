@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useLocation, useSearchParams } from "react-router-dom";
-import { getCarriersListReq } from "../../../actions/carrier";
+import { getCarrierReq, getCarriersListReq } from "../../../actions/carrier";
 import { updateUnitReq, getUnitReq } from "../../../actions/unit";
 import { CARRIER_SELECT_DISABLED } from "../../common/doubleinput/utils";
 
@@ -20,6 +20,8 @@ import {
   getColorByCode,
 } from "../../../utils/utils";
 import { GoogleMapTracker } from "../../common/google-map/googleMapTracker";
+import { socket } from "../../../socket";
+import { mock } from "./fields/mock";
 
 function buildFormData(formData: any, data: any, parentKey?: any) {
   if (
@@ -76,6 +78,8 @@ export const UnitPage = () => {
   const { user } = useSelector((state: any) => state.auth);
   const [fields, setFields] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [info, setInfo] = useState<any>(mock);
+  const [countV, setCount] = useState<any>(0);
 
   useEffect(() => {
     if (unit?.carrier?.id) {
@@ -88,6 +92,21 @@ export const UnitPage = () => {
       // );
     }
   }, [carrierList, unit]);
+  useEffect(() => {
+    socket.on("message", (data: any) => {
+      console.log("message", data.message);
+      if (data?.message) {
+        setInfo(JSON.parse(data.message));
+        setCount((state: any) => {
+          return state + 1;
+        });
+      }
+    });
+  }, [socket]);
+
+  React.useEffect(() => {
+    console.log("info", info);
+  }, [info]);
 
   React.useEffect(() => {
     setStateValue(search.get("state"));
@@ -97,6 +116,22 @@ export const UnitPage = () => {
     dispatch(
       getUnitReq({
         unitId: params.unitId,
+        onSuccess: (carrierid: any) => {
+          dispatch(
+            getCarrierReq({
+              carrierId: carrierid,
+              queryParams: {
+                with: [
+                  "devices",
+                  "vehicles",
+                  "trailers",
+                  "driver_groups",
+                  "drivers",
+                ],
+              },
+            })
+          );
+        },
         queryParams: {
           with: [
             "terminal",
@@ -182,7 +217,7 @@ export const UnitPage = () => {
           ) : (
             <Col span={24}>
               <Col span={24} style={{ marginBottom: 20 }}>
-                <GoogleMapTracker />
+                <GoogleMapTracker info={info} />
               </Col>
               <Form
                 form={form}

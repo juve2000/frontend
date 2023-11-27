@@ -33,6 +33,7 @@ import {
   ClientToServerEvents,
 } from "../../../socket/interface";
 import GoogleMapReact from "google-map-react";
+import { GoogleMapTracker } from "../../common/google-map/googleMapTracker";
 // import * as io from "socket.io-client";
 import { socket } from "../../../socket";
 
@@ -50,7 +51,10 @@ export default function MapApp() {
   return (
     <div style={{ height: "600px", width: "100%" }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyCgYHcwm3P78F60WtJcicP3KmN5kZzyFag" }}
+        bootstrapURLKeys={{
+          key: "AIzaSyCgYHcwm3P78F60WtJcicP3KmN5kZzyFag",
+          language: "EN",
+        }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
@@ -505,24 +509,7 @@ export const UnitList: React.FC = () => {
     <>
       {checkPermission(AllPermissionsType.DRIVER_LIST) ? (
         <>
-          <div className="App1">
-            <input
-              placeholder="Room Number..."
-              onChange={(event) => {
-                setRoom(event.target.value);
-              }}
-            />
-            <button onClick={joinRoom}> Join Room</button>
-            <input
-              placeholder="Message..."
-              onChange={(event) => {
-                setMessage(event.target.value);
-              }}
-            />
-            <button onClick={sendMessage}> Send Message</button>
-            <h1> Message:</h1>
-            {messageReceived}
-          </div>{" "}
+          {" "}
           <Row>
             <SetPassword
               currentItem={currentCarrier}
@@ -549,7 +536,7 @@ export const UnitList: React.FC = () => {
               <InputPageTitle fields={["Units"]} route="/client/units" units />
             </Col>
             <Col span={24} style={{ marginBottom: 25 }}>
-              <MapApp />
+              <GoogleMapTracker />
             </Col>
             <Col
               span={24}

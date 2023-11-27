@@ -28,6 +28,7 @@ export function* getUnitSaga({ payload }: any): any {
       params: payload.queryParams,
     });
     yield put(getUnitSuccess(data));
+    payload.onSuccess(data?.data?.carrier?.id);
   } catch (e: any) {
     yield put(getUnitFailed(e.message));
     yield call(notification.error, {
