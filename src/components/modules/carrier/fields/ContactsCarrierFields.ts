@@ -33,17 +33,12 @@ export const ContactsCarrierFields = {
       type: InputType.PHONE,
       name: CarrierField.PHONE,
       label: "Phone Number*",
-      // rules: [
-      //   getValidation(MAX, 9),
 
-      //   validate("", NUMERIC),
-      //   getValidation(REQUIRED, "DOT Number"),
+      // rules: [
+      //   // validate("", NOT_EMPTY),
+      //   validate("", PHONE),
+      //   getValidation(REQUIRED, ""),
       // ],
-      rules: [
-        // validate("", NOT_EMPTY),
-        validate("", PHONE),
-        getValidation(REQUIRED, ""),
-      ],
       placeholder: "Phone number, e.g. +12345678901",
       hasFeedback: true,
       title: "Phone Number*",
@@ -54,7 +49,7 @@ export const ContactsCarrierFields = {
       type: InputType.TEXT_V2,
       name: CarrierField.EMAIL,
       label: "Email",
-      rules: [getValidation(REQUIRED, ""), validate("", VALIDATION_TYPE.EMAIL)],
+      // rules: [getValidation(REQUIRED, ""), validate("", VALIDATION_TYPE.EMAIL)],
       placeholder: " Email, e.g. username@domain.net",
       hasFeedback: true,
       title: "Email*",
@@ -64,7 +59,7 @@ export const ContactsCarrierFields = {
     {
       type: InputType.TEXT_V2,
       name: CarrierField.PERSON,
-      rules: [getValidation(REQUIRED, "")],
+      // rules: [getValidation(REQUIRED, "")],
       placeholder: "Contact Person",
       hasFeedback: true,
       span: 12,
@@ -74,10 +69,10 @@ export const ContactsCarrierFields = {
     {
       type: InputType.TEXT_V2,
       name: CarrierField.EMAIL_SECOND,
-      rules: [
-        validate("", VALIDATION_TYPE.EMAIL),
-        getValidation(REQUIRED, "Second email"),
-      ],
+      // rules: [
+      //   validate("", VALIDATION_TYPE.EMAIL),
+      //   getValidation(REQUIRED, "Second email"),
+      // ],
       placeholder: "Additional email, e.g. username@domain.net",
       hasFeedback: true,
       span: 12,
