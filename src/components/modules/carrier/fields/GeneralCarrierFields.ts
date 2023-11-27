@@ -24,7 +24,7 @@ export const GeneralCarrierFields = {
       type: InputType.TEXT_V2,
       name: CarrierField.NAME,
       label: "Name",
-      rules: [getValidation(REQUIRED, "name")],
+      // rules: [getValidation(REQUIRED, "name")],
       placeholder: "Enter Carrier Name",
       hasFeedback: true,
       title: "Name*",
@@ -35,12 +35,12 @@ export const GeneralCarrierFields = {
     {
       type: InputType.TEXT_V2,
       name: CarrierField.DOT,
-      rules: [
-        getValidation(MAX, 9),
+      // rules: [
+      //   getValidation(MAX, 9),
 
-        validate("", NUMERIC),
-        getValidation(REQUIRED, "DOT# Number"),
-      ],
+      //   validate("", NUMERIC),
+      //   getValidation(REQUIRED, "DOT# Number"),
+      // ],
       placeholder: "Enter DOT#",
       hasFeedback: true,
       span: 12,
@@ -50,11 +50,11 @@ export const GeneralCarrierFields = {
     {
       type: InputType.TEXT_V2,
       name: CarrierField.MCNUMBER,
-      rules: [
-        validate("", NUMERIC),
-        getValidation(REQUIRED, "MC# Number"),
-        getValidation(MAX, 9),
-      ],
+      // rules: [
+      //   validate("", NUMERIC),
+      //   getValidation(REQUIRED, "MC# Number"),
+      //   getValidation(MAX, 9),
+      // ],
       placeholder: "Enter MC#",
       hasFeedback: true,
       span: 12,
@@ -65,7 +65,7 @@ export const GeneralCarrierFields = {
       type: InputType.SELECT_V2,
       name: CarrierField.STATUS,
       title: "Status*",
-      rules: [getValidation(REQUIRED, "Status")],
+      // rules: [getValidation(REQUIRED, "Status")],
       placeholder: "Carrier Status",
       options: carrierData.status,
       hasFeedback: true,
