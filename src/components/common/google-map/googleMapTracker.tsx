@@ -8,7 +8,10 @@ const AnyReactComponent = ({ text, ...props }: any) => {
   const content = () => {
     return (
       <div>
-        <div>{}</div>
+        <div>Speed: {speed} m/h</div>
+        <div>
+          Date: {date.day} - {date.month} - {date.year}
+        </div>
       </div>
     );
   };
