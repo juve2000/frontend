@@ -61,7 +61,7 @@ export function* createDriverSaga({ payload }: any): any {
 export function* updateDriverSaga({ payload }: any): any {
   try {
     const { data } = yield call(
-      request.post,
+      request.put,
       `/driver/${payload.driverId}`,
       payload.values,
       {
