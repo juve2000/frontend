@@ -5,9 +5,16 @@ import { Button, Popover, ConfigProvider } from "antd";
 const AnyReactComponent = ({ text, ...props }: any) => {
   const { date, latitude, longitude, speed, time } = props;
   console.log("props", props);
+  const content = () => {
+    return (
+      <div>
+        <div>{}</div>
+      </div>
+    );
+  };
   return (
     <div style={{ display: "flex", position: "relative" }}>
-      <Popover placement="top" title={text}>
+      <Popover placement="top" title={text} content={content}>
         <div
           style={{
             width: 15,
@@ -27,8 +34,8 @@ const AnyReactComponent = ({ text, ...props }: any) => {
 export function GoogleMapTracker(props: any) {
   const defaultProps = {
     center: {
-      lat: 38.5618869,
-      lng: -121.626237,
+      lat: 37.74149,
+      lng: -121.58041,
     },
     zoom: 6,
   };
@@ -43,14 +50,15 @@ export function GoogleMapTracker(props: any) {
         }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
+        options={info}
       >
         {info?.map((item: any) => {
           console.log("item", item);
           return (
             <AnyReactComponent
               {...item}
-              lat={38.5628269 || item.latitude}
-              lng={-121.626237 || item.longitude}
+              lat={item.latitude}
+              lng={-item.longitude}
             />
           );
         })}
