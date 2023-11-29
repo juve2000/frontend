@@ -52,7 +52,6 @@ export default {
           ...state,
           carrier: {
             ...payload.data,
-            email_second: "govno@t.com",
             settings: {
               ...payload.data.settings,
               period_starting_time: "12:13:14",

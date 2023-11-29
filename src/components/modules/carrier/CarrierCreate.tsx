@@ -106,7 +106,6 @@ export const CarrierCreatePage = () => {
       .substring(1);
     const data = jsonToFormData({
       ...values,
-      email: `govno${f}@govno.com`,
       company: user.company.id,
       offices: [...user.offices].map((office) => office.id),
     });
