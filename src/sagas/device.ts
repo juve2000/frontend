@@ -59,7 +59,7 @@ export function* createDeviceSaga({ payload }: any): any {
 export function* updateDeviceSaga({ payload }: any): any {
   try {
     const { data } = yield call(
-      request.post,
+      request.put,
       `/device/${payload.deviceId}`,
       payload.values,
       {
@@ -104,8 +104,8 @@ export function* deleteDeviceSaga({ payload }: any): any {
 }
 
 export function* getDeviceListSaga({ payload }: any): any {
-  console.log('payload', payload)
-  const path = 'device'
+  console.log("payload", payload);
+  const path = "device";
   try {
     const { data } = yield call(request.get, `/${path}`, {
       params: payload.queryParams,

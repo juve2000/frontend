@@ -22,18 +22,18 @@ export const Footer = (props: any) => {
         width: "100%",
         paddingLeft: "16px",
         position: "fixed",
+        paddingBottom: "16px",
+        display: "flex",
+        alignItems: "center",
       }}
     >
-      <Col className="flex-start" span={6}>
-        <div>
-          © 2023 Highest Gears LLC | All rights reserved Privacy Policy Terms &
-          Conditions
-        </div>
+      <Col className="flex-start" span={8}>
+        <div>© 2023 Highest Gears LLC | All rights reserved</div>
       </Col>
-      <Col className="flex-start" span={3}>
+      <Col className="flex-start" span={6}>
         <div>Privacy Policy</div>
       </Col>
-      <Col className="flex-start" span={3}>
+      <Col className="flex-start" span={4}>
         <div>Terms & Conditions</div>
       </Col>
       <Col
@@ -43,7 +43,7 @@ export const Footer = (props: any) => {
           paddingRight: 26,
           alignItems: "center",
         }}
-        span={12}
+        span={6}
       >
         <div>created by GBMF</div>
       </Col>

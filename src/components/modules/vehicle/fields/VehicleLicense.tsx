@@ -137,7 +137,7 @@ export const DriverLicense = {
     },
     {
       type: InputType.SELECT_V2,
-      name: VehicleField.LICENSE_PLATE,
+      name: VehicleField.LICENSE_ISSUING,
       title: "License Plate Issuing State*",
       rules: [getValidation(REQUIRED, "CDL Issuing State")],
       placeholder: "License Plate Issuing State",
