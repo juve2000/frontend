@@ -45,35 +45,26 @@ export const NameDriverFields = {
     //   width: "100%",
     //   title: "Make*",
     // },
-    {
-      type: InputType.TEXT_V2,
-      name: VehicleField.MODEL,
-      // rules: [validate("", ALPHABETICAL)],
-      placeholder: "Model",
-      hasFeedback: true,
-      span: 12,
-      width: "95%",
-      title: "Model",
-    },
-    {
-      type: InputType.SELECT_V2,
-      name: VehicleField.YEAR,
-      title: "Year",
-      // rules: [getValidation(REQUIRED, "Status")],
-      placeholder: "Year",
-      // options: carrierData.status,
-      hasFeedback: true,
-      span: 12,
-      width: "100%",
-      options: [
-        ...generateArrayOfYears()?.map((y: any) => {
-          return {
-            label: y,
-            value: y,
-          };
-        }),
-      ],
-    },
+
+    // {
+    //   type: InputType.SELECT_V2,
+    //   name: VehicleField.YEAR,
+    //   title: "Year",
+    //   // rules: [getValidation(REQUIRED, "Status")],
+    //   placeholder: "Year",
+    //   // options: carrierData.status,
+    //   hasFeedback: true,
+    //   span: 12,
+    //   width: "100%",
+    //   options: [
+    //     ...generateArrayOfYears()?.map((y: any) => {
+    //       return {
+    //         label: y,
+    //         value: y,
+    //       };
+    //     }),
+    //   ],
+    // },
     {
       type: InputType.SELECT_V2,
       name: VehicleField.MAKE,
@@ -83,7 +74,7 @@ export const NameDriverFields = {
       // options: carrierData.status,
       hasFeedback: true,
       span: 12,
-      width: "100%",
+      width: "95%",
       options: [
         {
           key: 0,
@@ -190,6 +181,16 @@ export const NameDriverFields = {
           value: "",
         },
       ],
+    },
+    {
+      type: InputType.TEXT_V2,
+      name: VehicleField.MODEL,
+      // rules: [validate("", ALPHABETICAL)],
+      placeholder: "Model",
+      hasFeedback: true,
+      span: 12,
+      width: "100%",
+      title: "Model",
     },
   ],
 };

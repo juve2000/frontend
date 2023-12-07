@@ -36,7 +36,7 @@ export const officeForm = (options: any) => {
     // },
     { ...AddressOfficeFields },
     { ...ContactsOfficeFields },
-    { ...PreferencesOfficeFields },
+    // { ...PreferencesOfficeFields },
     { ...MapSettingsOfficeFields }, // // COMPANY NAME DETAILS
     // { ...NameCompanyFields },
     // { ...AddressCompanyFields },

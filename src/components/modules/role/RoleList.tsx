@@ -69,34 +69,34 @@ export const RoleList: React.FC = () => {
           </div>
         );
       },
-      width: 300,
+      width: 200,
       ellipsis: true,
     },
 
-    {
-      title: "Data Modified",
-      key: "serial_number",
-      dataIndex: "serial_number",
-      sortOrder: getOrderFromTableParams("serial_number", tableParams),
-      sorter: {
-        compare: (a: any, b: any) => a.serial_number - b.serial_number,
-        multiple: 5,
-      },
-      render: (name, record, index) => {
-        return (
-          <div
-            className="orange ubuntu"
-            onClick={() => {
-              navigate(`${location.pathname}/${record.id}`);
-            }}
-          >
-            {`TBD`}
-          </div>
-        );
-      },
-      width: 300,
-      ellipsis: true,
-    },
+    // {
+    //   title: "Data Modified",
+    //   key: "serial_number",
+    //   dataIndex: "serial_number",
+    //   sortOrder: getOrderFromTableParams("serial_number", tableParams),
+    //   sorter: {
+    //     compare: (a: any, b: any) => a.serial_number - b.serial_number,
+    //     multiple: 5,
+    //   },
+    //   render: (name, record, index) => {
+    //     return (
+    //       <div
+    //         className="orange ubuntu"
+    //         onClick={() => {
+    //           navigate(`${location.pathname}/${record.id}`);
+    //         }}
+    //       >
+    //         {`TBD`}
+    //       </div>
+    //     );
+    //   },
+    //   width: 300,
+    //   ellipsis: true,
+    // },
     {
       title: "Permissions",
       dataIndex: "permissions",
@@ -144,33 +144,33 @@ export const RoleList: React.FC = () => {
         );
       },
       ellipsis: true,
-      width: "20%",
+      width: "50%",
     },
 
-    {
-      title: "Status",
-      dataIndex: "status",
-      sortOrder: getOrderFromTableParams("status", tableParams),
-      key: "status",
-      sorter: {
-        compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
-        multiple: 5,
-      },
-      width: "9%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        const status = carrierData.status.find((st) => st.key === value);
+    // {
+    //   title: "Status",
+    //   dataIndex: "status",
+    //   sortOrder: getOrderFromTableParams("status", tableParams),
+    //   key: "status",
+    //   sorter: {
+    //     compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
+    //     multiple: 5,
+    //   },
+    //   width: "9%",
+    //   ellipsis: true,
+    //   render: (value, record, index) => {
+    //     const status = carrierData.status.find((st) => st.key === value);
 
-        return <div>{status?.value}</div>;
-      },
-      filters: carrierData.status.map((st: any) => {
-        return {
-          text: st.value,
-          value: st.key,
-        };
-      }),
-      filteredValue: tableParams?.filters?.status || null,
-    },
+    //     return <div>{status?.value}</div>;
+    //   },
+    //   filters: carrierData.status.map((st: any) => {
+    //     return {
+    //       text: st.value,
+    //       value: st.key,
+    //     };
+    //   }),
+    //   filteredValue: tableParams?.filters?.status || null,
+    // },
     {
       title: "Action",
       dataIndex: "action",
