@@ -98,12 +98,12 @@ export const InputAdress = (props: any) => {
             disabled={disabled}
           />
           <TextInputV2
-            title="Index*"
+            title="Zip Code*"
             icon={icon}
             span={12}
             width="100%"
             disabled={disabled}
-            placeholder={`Enter Index`}
+            placeholder={`Enter Zip Code`}
             rules={[
               ...rules,
               { required: true, message: "Index is required" },
