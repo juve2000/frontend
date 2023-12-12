@@ -216,7 +216,7 @@ export const UnitList: React.FC = () => {
               }}
             />
             <div>
-              {`${record.driver.first_name} ${record.driver.last_name}`}
+              {`${record?.driver?.first_name} ${record?.driver?.last_name}`}
             </div>
           </div>
         );
