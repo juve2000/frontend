@@ -19,6 +19,7 @@ export const TextInputPassword = (props: any) => {
     form,
     style,
     hasGenerate = false,
+    handleOnGenerate,
   } = props;
   const [copyValue, setCopyValue] = useState("");
 
@@ -35,6 +36,9 @@ export const TextInputPassword = (props: any) => {
       symbols: true,
     });
     form.setFieldValue(name, pwd);
+    if (handleOnGenerate) {
+      handleOnGenerate(pwd);
+    }
   };
 
   return (

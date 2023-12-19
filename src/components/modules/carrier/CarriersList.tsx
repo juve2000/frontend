@@ -46,6 +46,7 @@ export const CarriersList: React.FC = () => {
   const [currentCarrier, setCurrentCarrier] = useState({
     id: "",
     name: "",
+    email: "",
   });
 
   React.useEffect(() => {
@@ -267,9 +268,11 @@ export const CarriersList: React.FC = () => {
                   label: (
                     <div
                       onClick={() => {
+                        console.log("record", record);
                         setCurrentCarrier({
                           id: record.id,
                           name: record.name,
+                          email: record.email,
                         });
                         setAccauntModalOpen(true);
                       }}

@@ -4,12 +4,14 @@ import { Button, Modal, Form } from "antd";
 import { TextInputPassword } from "../../../common/doubleinput/InputPassword";
 import { GeneratePassword } from "../../../common/doubleinput/GeneratePassword";
 import { TextInputConfirmPassword } from "../../../common/doubleinput/InputConfirmPassword";
+import { TextInputV2 } from "../../../common/doubleinput";
 
 export const SetPassword = (props: any): React.ReactElement => {
   const { toggleModal, isOpen = true, onSubmit, currentItem } = props;
   const [initialValues, setInitialValues] = useState({
     password: "",
     confirmPassword: "",
+    email: currentItem?.email || "",
   });
 
   const [form] = Form.useForm();
@@ -32,7 +34,7 @@ export const SetPassword = (props: any): React.ReactElement => {
         onOk={() => toggleModal(false)}
         onCancel={() => toggleModal(false)}
       >
-        <div style={{ marginBottom: 20 }}>
+        {/* <div style={{ marginBottom: 20 }}>
           <GeneratePassword
             onGenerate={(generatedPassword: any) => {
               form.setFieldsValue({
@@ -41,7 +43,19 @@ export const SetPassword = (props: any): React.ReactElement => {
               });
             }}
           />
-        </div>
+        </div> */}
+        {/* {
+      type: InputType.TEXT_V2,
+      name: CarrierField.EMAIL,
+      label: "Email",
+      // rules: [getValidation(REQUIRED, ""), validate("", VALIDATION_TYPE.EMAIL)],
+      placeholder: " Email, e.g. username@domain.net",
+      hasFeedback: true,
+      title: "Email*",
+      span: 24,
+      width: "100%",
+    }, */}
+
         <Form
           form={form}
           name="test"
@@ -54,11 +68,22 @@ export const SetPassword = (props: any): React.ReactElement => {
             // console.log("form values", values);
           }}
         >
+          <TextInputV2
+            styles={{ fontWeight: "bold" }}
+            name="email"
+            label="Login"
+            title="Login"
+            disabled
+          />
           <TextInputPassword
             style={{ fontWeight: "bold" }}
             name="password"
             title="Password"
             form={form}
+            hasGenerate={true}
+            handleOnGenerate={(pwd: any) => {
+              form.setFieldValue("confirm_password", pwd);
+            }}
           />
           <TextInputConfirmPassword
             style={{ fontWeight: "bold" }}
@@ -79,7 +104,11 @@ export const SetPassword = (props: any): React.ReactElement => {
             </Button>
             <Button
               onClick={() => {
-                toggleModal(false);
+                // toggleModal(false);
+                form.setFieldsValue({
+                  password: "",
+                  confirm_password: "",
+                });
               }}
               type="primary"
               className="white"

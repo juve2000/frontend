@@ -25,6 +25,7 @@ export const Footer = (props: any) => {
         paddingBottom: "16px",
         display: "flex",
         alignItems: "center",
+        paddingTop: "16px",
       }}
     >
       <Col className="flex-start" span={8}>
