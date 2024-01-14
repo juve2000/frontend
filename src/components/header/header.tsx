@@ -16,7 +16,12 @@ export const Header = (props: any) => {
     <Row className="header">
       <Col className="flex-start" span={4}>
         <div
-          style={{ marginLeft: 25, cursor: "pointer" }}
+          style={{
+            marginLeft: 25,
+            cursor: "pointer",
+            backgroundColor: "#ffab00",
+            padding: "0px 10px",
+          }}
           onClick={() => navigate("/")}
         >
           <Logo />

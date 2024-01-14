@@ -73,6 +73,11 @@ import { UnitPage } from "../components/modules/units/Unit";
 import { UnitCreatePage } from "../components/modules/units/CreateUnit";
 import { UnitList } from "../components/modules/units/UnitList";
 
+import { LogsPage } from "../components/modules/logs/LogsPage";
+import { LogPage } from "../components/modules/logs/Log";
+import { LogCreatePage } from "../components/modules/logs/CreateLog";
+import { LogList } from "../components/modules/logs/LogList";
+
 export const MainRouter = () => {
   const navigate = useNavigate();
   return (
@@ -188,6 +193,12 @@ export const MainRouter = () => {
             <Route index element={<UnitList />} />;
             <Route path={`create`} element={<UnitCreatePage />} />
             <Route path={`:unitId`} element={<UnitPage />} />
+          </Route>
+          {/* LOGS ROUTES */}
+          <Route path={ROUTES.LOGS} element={<LogsPage />}>
+            <Route index element={<LogList />} />;
+            <Route path={`create`} element={<LogCreatePage />} />
+            <Route path={`:logId`} element={<LogPage />} />
           </Route>
         </Route>
       </Routes>

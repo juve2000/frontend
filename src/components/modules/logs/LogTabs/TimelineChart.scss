@@ -1,0 +1,95 @@
+.custom-timeline-chart {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+
+  .timeline-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .timeline-row {
+    display: flex;
+    height: 20px;
+  }
+
+  .timeline-entry {
+    width: 20px;
+    height: 100%;
+    border: 1px solid #ddd;
+  }
+
+  .status-1 {
+    background-color: #f00; // Customize color for status 1
+  }
+
+  .status-2 {
+    background-color: #0f0; // Customize color for status 2
+  }
+
+  .status-3 {
+    background-color: #00f; // Customize color for status 3
+  }
+
+  .status-4 {
+    background-color: #ff0; // Customize color for status 4
+  }
+
+  .timeline-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+
+    .timeline-label {
+      flex-grow: 1;
+      text-align: center;
+    }
+  }
+}
+.timeline-chart {
+  position: relative;
+  height: 100px;
+}
+
+.timeline-entry {
+  position: absolute;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #000;
+}
+
+.off {
+  background-color: #ff0000;
+}
+
+.sb {
+  background-color: #00ff00;
+}
+
+.d {
+  background-color: #0000ff;
+}
+
+.on {
+  background-color: #ffff00;
+}
+
+.timeline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #eee;
+}
+
+.hour-marker {
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
+  font-size: 12px;
+}

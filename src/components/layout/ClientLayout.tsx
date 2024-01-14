@@ -37,6 +37,7 @@ export const ClientLayout = () => {
     userId,
     companyId,
     officeId,
+    logId,
   } = params;
 
   const excludedParamsScreen = [
@@ -51,6 +52,7 @@ export const ClientLayout = () => {
     userId,
     companyId,
     officeId,
+    logId,
   ];
 
   const location = useLocation();
@@ -75,6 +77,8 @@ export const ClientLayout = () => {
     "company",
     "role",
     "user",
+    "logs",
+    "log",
   ];
 
   const getLayout = React.useCallback(() => {

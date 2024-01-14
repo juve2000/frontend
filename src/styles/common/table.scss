@@ -94,6 +94,16 @@ td.ant-table-cell.ant-table-selection-column {
     }
   }
 }
+.logs-table {
+  .table-custom {
+    table {
+      table-layout: fixed !important;
+      .ant-checkbox-wrapper {
+        display: flex !important;
+      }
+    }
+  }
+}
 
 .ant-table-filter-dropdown-btns {
   .ant-btn.ant-btn-link.ant-btn-sm {

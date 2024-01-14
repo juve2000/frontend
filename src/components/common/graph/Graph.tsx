@@ -29,7 +29,7 @@ export const Graph = (props: any) => {
       >
         click
       </button>
-      <canvas id="graph" ref={canvasRef} width="1000" height="900" />
+      <canvas id="graph" ref={canvasRef} width="1500" height="900" />
     </div>
   );
 };

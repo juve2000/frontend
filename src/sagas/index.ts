@@ -15,6 +15,7 @@ import mechanic from "./mechanic";
 import device from "./device";
 import alerts from "./alerts";
 import unit from "./unit";
+import log from "./log";
 
 /**
  * rootSaga
@@ -36,5 +37,6 @@ export default function* root() {
     fork(device),
     fork(alerts),
     fork(unit),
+    fork(log),
   ]);
 }

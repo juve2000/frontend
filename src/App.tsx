@@ -14,6 +14,7 @@ import {
 } from "./constants/role";
 
 import { usePermissions } from "./hooks/usePermissions";
+import io from "socket.io-client";
 
 function App() {
   const dispatch = useDispatch();
