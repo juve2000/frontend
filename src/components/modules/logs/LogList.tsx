@@ -131,7 +131,7 @@ export const LogList: React.FC = () => {
         multiple: 5,
       },
       render: (name, record, index) => {
-        return <div>{`11:41 PM`}</div>;
+        return <div>{`11:41:22 PM`}</div>;
       },
       width: "10%",
       ellipsis: true,
@@ -154,12 +154,12 @@ export const LogList: React.FC = () => {
     {
       title: "Event",
       dataIndex: "event",
-      sortOrder: getOrderFromTableParams("event", tableParams),
+      // sortOrder: getOrderFromTableParams("event", tableParams),
       key: "event",
-      sorter: {
-        compare: (a: any, b: any) => a.carrier - b.carrier,
-        multiple: 5,
-      },
+      // sorter: {
+      //   compare: (a: any, b: any) => a.carrier - b.carrier,
+      //   multiple: 5,
+      // },
       width: "8%",
       ellipsis: true,
       render: (value, record, index) => {
@@ -272,12 +272,12 @@ export const LogList: React.FC = () => {
     {
       title: "Vehicle",
       dataIndex: "vehicle",
-      sortOrder: getOrderFromTableParams("vehicle", tableParams),
+      // sortOrder: getOrderFromTableParams("vehicle", tableParams),
       key: "vehicle",
-      sorter: {
-        compare: (a: any, b: any) => a.fuel_type - b.fuel_type,
-        multiple: 5,
-      },
+      // sorter: {
+      //   compare: (a: any, b: any) => a.fuel_type - b.fuel_type,
+      //   multiple: 5,
+      // },
       width: "10%",
       ellipsis: true,
       render: (value, record, index) => {
