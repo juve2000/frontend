@@ -299,6 +299,72 @@ export const LogList: React.FC = () => {
       filteredValue: tableParams?.filters?.group || null,
     },
     {
+      title: "Carrier",
+      dataIndex: "carrier",
+      sortOrder: getOrderFromTableParams("carrier", tableParams),
+      key: "carrier",
+      sorter: {
+        compare: (a: any, b: any) => a.carrier - b.carrier,
+        multiple: 5,
+      },
+      width: "20%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        return (
+          <div
+            className="orange ubuntu"
+            style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
+            onClick={() => {
+              navigate(`/client/carriers/${record?.carrier?.id}`);
+            }}
+          >
+            <LogoCarrier
+              logo={record?.carrier?.logo}
+              onClick={() => null}
+              styles={{ width: 30, height: 30 }}
+            />
+            <div style={{ marginLeft: 20 }}>{`Carrier 3`}</div>
+          </div>
+        );
+      },
+      filterDropdown: () => {
+        return (
+          <div style={{ padding: 10 }}>
+            <div>
+              <Select
+                style={{ width: 200, marginBottom: 20 }}
+                value={tableParams.filters?.carrier}
+                onChange={(value) => {
+                  clearCustomFilter("group");
+                  setCustomFilter("carrier", value);
+                }}
+              >
+                {carriers?.map((carrier: any) => {
+                  return (
+                    <Select.Option key={carrier.id} value={carrier.id}>
+                      {carrier.name}
+                    </Select.Option>
+                  );
+                })}
+              </Select>
+            </div>
+            <Button
+              style={{ width: 80, height: 40 }}
+              className="orange"
+              onClick={() => {
+                clearCustomFilter("carrier");
+                clearCustomFilter("group");
+              }}
+            >
+              Reset
+            </Button>
+          </div>
+        );
+      },
+
+      filteredValue: tableParams?.filters?.carrier || null,
+    },
+    {
       title: "Drawing",
       dataIndex: "tbd",
       key: "tbd",
