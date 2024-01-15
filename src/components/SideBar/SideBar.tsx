@@ -164,24 +164,24 @@ export const SideBar = (props: any) => {
             "/driver_group",
             <span className="icon-fi-rr-folder"></span>
           ),
-          getItem(
-            "Support Personal",
-            "mechanic",
-            "/mechanic",
-            <span className="icon-fi-rr-mode-portrait"></span>
-          ),
+          // getItem(
+          //   "Support Personal",
+          //   "mechanic",
+          //   "/mechanic",
+          //   <span className="icon-fi-rr-mode-portrait"></span>
+          // ),
           getItem(
             "Vehicles",
             "vehicle",
             "/vehicle",
             <span className="icon-fi-rr-truck-side"></span>
           ),
-          getItem(
-            "Trailers",
-            "trailer",
-            "/trailer",
-            <span className="icon-fi-rr-trailer"></span>
-          ),
+          // getItem(
+          //   "Trailers",
+          //   "trailer",
+          //   "/trailer",
+          //   <span className="icon-fi-rr-trailer"></span>
+          // ),
           getItem(
             "Devices",
             "device",
