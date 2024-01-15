@@ -109,7 +109,7 @@ export const LogList: React.FC = () => {
         multiple: 5,
       },
       render: (name, record, index) => {
-        return <div>{`01:21 PM`}</div>;
+        return <div>{`01/02/2024`}</div>;
       },
       width: "10%",
       ellipsis: true,
