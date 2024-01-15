@@ -19,8 +19,8 @@ export const Header = (props: any) => {
           style={{
             marginLeft: 25,
             cursor: "pointer",
-            backgroundColor: "#ffab00",
-            padding: "0px 10px",
+            // backgroundColor: "#ffab00",
+            padding: "5px 10px",
           }}
           onClick={() => navigate("/")}
         >

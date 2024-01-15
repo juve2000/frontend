@@ -50,7 +50,7 @@ export const SignIn = () => {
           zIndex: 100,
         }}
       >
-        <div style={{ marginBottom: 34, backgroundColor: "#ffab00" }}>
+        <div style={{ marginBottom: 34 }}>
           <Logo2 />
         </div>
 

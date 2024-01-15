@@ -111,6 +111,19 @@ export const SideBar = (props: any) => {
             "/units",
             <span className="icon-fi-rr-folder"></span>
           ),
+        ]
+      ),
+      getItem(
+        "All Logs",
+        "units_",
+        getPath("units_"),
+
+        <span className="icon-fi-rr-layers">
+          <span className="path1"></span>
+          <span className="path2"></span>
+          <span className="path3"></span>
+        </span>,
+        [
           getItem(
             "Logs",
             "logs",
