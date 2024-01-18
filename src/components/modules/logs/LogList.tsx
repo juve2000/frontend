@@ -122,104 +122,6 @@ export const LogList: React.FC = () => {
       },
     },
     {
-      title: "Start Time",
-      key: "identificator",
-      dataIndex: "identificator",
-      sortOrder: getOrderFromTableParams("identificator", tableParams),
-      sorter: {
-        compare: (a: any, b: any) => a.identificator - b.identificator,
-        multiple: 5,
-      },
-      render: (name, record, index) => {
-        return <div>{`11:41:22 PM`}</div>;
-      },
-      width: "10%",
-      ellipsis: true,
-    },
-    {
-      title: "Duration",
-      dataIndex: "duration",
-      key: "duration",
-      // sortOrder: getOrderFromTableParams("vin", tableParams),
-      // sorter: {
-      //   compare: (a: any, b: any) => a.email - b.email,
-      //   multiple: 5,
-      // },
-      render: (name, record, index) => {
-        return <div>{`01:02:03`}</div>;
-      },
-      ellipsis: true,
-      width: "10%",
-    },
-    {
-      title: "Event",
-      dataIndex: "event",
-      // sortOrder: getOrderFromTableParams("event", tableParams),
-      key: "event",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.carrier - b.carrier,
-      //   multiple: 5,
-      // },
-      width: "8%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return <div className="ubuntu">SB</div>;
-      },
-      // filterDropdown: () => {
-      //   return (
-      //     <div style={{ padding: 10 }}>
-      //       <div>
-      //         <Select
-      //           style={{ width: 200, marginBottom: 20 }}
-      //           value={tableParams.filters?.carrier}
-      //           onChange={(value) => {
-      //             clearCustomFilter("group");
-      //             setCustomFilter("carrier", value);
-      //           }}
-      //         >
-      //           {carriers?.map((carrier: any) => {
-      //             return (
-      //               <Select.Option key={carrier.id} value={carrier.id}>
-      //                 {carrier.name}
-      //               </Select.Option>
-      //             );
-      //           })}
-      //         </Select>
-      //       </div>
-      //       <Button
-      //         style={{ width: 80, height: 40 }}
-      //         className="orange"
-      //         onClick={() => {
-      //           clearCustomFilter("carrier");
-      //           clearCustomFilter("group");
-      //         }}
-      //       >
-      //         Reset
-      //       </Button>
-      //     </div>
-      //   );
-      // },
-      filters: [
-        { key: 1, value: "On" },
-        { key: 2, value: "Off" },
-        { key: 3, value: "SB" },
-        { key: 4, value: "D" },
-        { key: 5, value: "Login" },
-        { key: 6, value: "Logout" },
-        { key: 7, value: "YM" },
-        { key: 8, value: "Power up" },
-        { key: 9, value: "Shut down" },
-        { key: 10, value: "Certification" },
-        { key: 11, value: "Intermediate" },
-      ].map((st: any) => {
-        return {
-          text: st.value,
-          value: st.key,
-        };
-      }),
-      filteredValue: tableParams?.filters?.group || null,
-    },
-    {
       title: "Name",
       dataIndex: "name",
       key: "name",
@@ -236,31 +138,6 @@ export const LogList: React.FC = () => {
       filters: [
         { key: 1, value: "David Andresson" },
         { key: 2, value: "John Smith" },
-      ].map((st: any) => {
-        return {
-          text: st.value,
-          value: st.key,
-        };
-      }),
-      filteredValue: tableParams?.filters?.group || null,
-    },
-    {
-      title: "User Name",
-      dataIndex: "user_name",
-      key: "user_name",
-      // sortOrder: getOrderFromTableParams("vin", tableParams),
-      // sorter: {
-      //   compare: (a: any, b: any) => a.email - b.email,
-      //   multiple: 5,
-      // },
-      render: (name, record, index) => {
-        return <div>{`David03`}</div>;
-      },
-      ellipsis: true,
-      width: "10%",
-      filters: [
-        { key: 1, value: "David 003" },
-        { key: 2, value: "John 17x" },
       ].map((st: any) => {
         return {
           text: st.value,
@@ -298,6 +175,131 @@ export const LogList: React.FC = () => {
       }),
       filteredValue: tableParams?.filters?.group || null,
     },
+    // {
+    //   title: "Start Time",
+    //   key: "identificator",
+    //   dataIndex: "identificator",
+    //   sortOrder: getOrderFromTableParams("identificator", tableParams),
+    //   sorter: {
+    //     compare: (a: any, b: any) => a.identificator - b.identificator,
+    //     multiple: 5,
+    //   },
+    //   render: (name, record, index) => {
+    //     return <div>{`11:41:22 PM`}</div>;
+    //   },
+    //   width: "10%",
+    //   ellipsis: true,
+    // },
+    // {
+    //   title: "Duration",
+    //   dataIndex: "duration",
+    //   key: "duration",
+    //   // sortOrder: getOrderFromTableParams("vin", tableParams),
+    //   // sorter: {
+    //   //   compare: (a: any, b: any) => a.email - b.email,
+    //   //   multiple: 5,
+    //   // },
+    //   render: (name, record, index) => {
+    //     return <div>{`01:02:03`}</div>;
+    //   },
+    //   ellipsis: true,
+    //   width: "10%",
+    // },
+    // {
+    //   title: "Event",
+    //   dataIndex: "event",
+    //   // sortOrder: getOrderFromTableParams("event", tableParams),
+    //   key: "event",
+    //   // sorter: {
+    //   //   compare: (a: any, b: any) => a.carrier - b.carrier,
+    //   //   multiple: 5,
+    //   // },
+    //   width: "8%",
+    //   ellipsis: true,
+    //   render: (value, record, index) => {
+    //     return <div className="ubuntu">SB</div>;
+    //   },
+    // filterDropdown: () => {
+    //   return (
+    //     <div style={{ padding: 10 }}>
+    //       <div>
+    //         <Select
+    //           style={{ width: 200, marginBottom: 20 }}
+    //           value={tableParams.filters?.carrier}
+    //           onChange={(value) => {
+    //             clearCustomFilter("group");
+    //             setCustomFilter("carrier", value);
+    //           }}
+    //         >
+    //           {carriers?.map((carrier: any) => {
+    //             return (
+    //               <Select.Option key={carrier.id} value={carrier.id}>
+    //                 {carrier.name}
+    //               </Select.Option>
+    //             );
+    //           })}
+    //         </Select>
+    //       </div>
+    //       <Button
+    //         style={{ width: 80, height: 40 }}
+    //         className="orange"
+    //         onClick={() => {
+    //           clearCustomFilter("carrier");
+    //           clearCustomFilter("group");
+    //         }}
+    //       >
+    //         Reset
+    //       </Button>
+    //     </div>
+    //   );
+    // },
+    //   filters: [
+    //     { key: 1, value: "On" },
+    //     { key: 2, value: "Off" },
+    //     { key: 3, value: "SB" },
+    //     { key: 4, value: "D" },
+    //     { key: 5, value: "Login" },
+    //     { key: 6, value: "Logout" },
+    //     { key: 7, value: "YM" },
+    //     { key: 8, value: "Power up" },
+    //     { key: 9, value: "Shut down" },
+    //     { key: 10, value: "Certification" },
+    //     { key: 11, value: "Intermediate" },
+    //   ].map((st: any) => {
+    //     return {
+    //       text: st.value,
+    //       value: st.key,
+    //     };
+    //   }),
+    //   filteredValue: tableParams?.filters?.group || null,
+    // },
+
+    // {
+    //   title: "User Name",
+    //   dataIndex: "user_name",
+    //   key: "user_name",
+    //   // sortOrder: getOrderFromTableParams("vin", tableParams),
+    //   // sorter: {
+    //   //   compare: (a: any, b: any) => a.email - b.email,
+    //   //   multiple: 5,
+    //   // },
+    //   render: (name, record, index) => {
+    //     return <div>{`David03`}</div>;
+    //   },
+    //   ellipsis: true,
+    //   width: "10%",
+    //   filters: [
+    //     { key: 1, value: "David 003" },
+    //     { key: 2, value: "John 17x" },
+    //   ].map((st: any) => {
+    //     return {
+    //       text: st.value,
+    //       value: st.key,
+    //     };
+    //   }),
+    //   filteredValue: tableParams?.filters?.group || null,
+    // },
+
     {
       title: "Carrier",
       dataIndex: "carrier",
@@ -318,11 +320,6 @@ export const LogList: React.FC = () => {
               navigate(`/client/carriers/${record?.carrier?.id}`);
             }}
           >
-            <LogoCarrier
-              logo={record?.carrier?.logo}
-              onClick={() => null}
-              styles={{ width: 30, height: 30 }}
-            />
             <div style={{ marginLeft: 20 }}>{`Carrier 3`}</div>
           </div>
         );
@@ -364,23 +361,9 @@ export const LogList: React.FC = () => {
 
       filteredValue: tableParams?.filters?.carrier || null,
     },
+
     {
-      title: "Drawing",
-      dataIndex: "tbd",
-      key: "tbd",
-      // sortOrder: getOrderFromTableParams("vin", tableParams),
-      // sorter: {
-      //   compare: (a: any, b: any) => a.email - b.email,
-      //   multiple: 5,
-      // },
-      render: (name, record, index) => {
-        return <div>{`05:37`}</div>;
-      },
-      ellipsis: true,
-      width: "10%",
-    },
-    {
-      title: "Status",
+      title: "Status & Duration Status",
       dataIndex: "status",
       key: "status",
       // sortOrder: getOrderFromTableParams("vin", tableParams),
@@ -389,10 +372,14 @@ export const LogList: React.FC = () => {
       //   multiple: 5,
       // },
       render: (name, record, index) => {
-        return <div>{`SB`}</div>;
+        return (
+          <div>
+            {`SB`} : {`05:34`}
+          </div>
+        );
       },
       ellipsis: true,
-      width: "10%",
+      width: "20%",
       filters: [
         { key: 1, value: "SB" },
         { key: 2, value: "ON" },
@@ -408,22 +395,113 @@ export const LogList: React.FC = () => {
       }),
       filteredValue: tableParams?.filters?.group || null,
     },
+
     {
-      title: "Duration Status",
-      dataIndex: "status",
-      key: "status",
+      title: "Location",
+      dataIndex: "location",
+      // sortOrder: getOrderFromTableParams("notes", tableParams),
+      key: "location",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.model - b.model,
+      //   multiple: 5,
+      // },
+      width: "15%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        return (
+          <div className="ubuntu" style={{ cursor: "pointer" }}>
+            {`location`}
+          </div>
+        );
+      },
+    },
+    {
+      title: "Driving",
+      dataIndex: "ndriving",
+      // sortOrder: getOrderFromTableParams("notes", tableParams),
+      key: "driving",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.model - b.model,
+      //   multiple: 5,
+      // },
+      width: "5%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        return (
+          <div className="ubuntu" style={{ cursor: "pointer" }}>
+            {`4:15`}
+          </div>
+        );
+      },
+    },
+    {
+      title: "Shift",
+      dataIndex: "shift",
+      // sortOrder: getOrderFromTableParams("notes", tableParams),
+      key: "shift",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.model - b.model,
+      //   multiple: 5,
+      // },
+      width: "5%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        return (
+          <div className="ubuntu" style={{ cursor: "pointer" }}>
+            {`2:25`}
+          </div>
+        );
+      },
+    },
+    {
+      title: "Cycle",
+      dataIndex: "cycle",
+      // sortOrder: getOrderFromTableParams("notes", tableParams),
+      key: "cycle",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.model - b.model,
+      //   multiple: 5,
+      // },
+      width: "5%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        return (
+          <div className="ubuntu" style={{ cursor: "pointer" }}>
+            {`00:17`}
+          </div>
+        );
+      },
+    },
+    {
+      title: "Worked Hours",
+      dataIndex: "tbd",
+      key: "tbd",
       // sortOrder: getOrderFromTableParams("vin", tableParams),
       // sorter: {
       //   compare: (a: any, b: any) => a.email - b.email,
       //   multiple: 5,
       // },
       render: (name, record, index) => {
-        return <div>{`05:34`}</div>;
+        return <div>{`05:37`}</div>;
       },
       ellipsis: true,
       width: "10%",
     },
-
+    {
+      title: "Distance",
+      dataIndex: "distance",
+      key: "distance",
+      // sortOrder: getOrderFromTableParams("vin", tableParams),
+      // sorter: {
+      //   compare: (a: any, b: any) => a.email - b.email,
+      //   multiple: 5,
+      // },
+      render: (name, record, index) => {
+        return <div>{`306`}</div>;
+      },
+      ellipsis: true,
+      width: "10%",
+    },
     {
       title: "Notes",
       dataIndex: "notes",
@@ -486,7 +564,7 @@ export const LogList: React.FC = () => {
       render: (value, record, index) => {
         const status = carrierData.status.find((st) => st.key === value);
 
-        return <div>Yes</div>;
+        return <div>8 min. NY </div>;
       },
       filters: [
         { key: "Yes", value: 1 },
