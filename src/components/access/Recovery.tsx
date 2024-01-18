@@ -57,8 +57,8 @@ export const Recovery = () => {
           style={{ color: "#6F6F6F", marginBottom: 28, textAlign: "left" }}
           className="ubuntu"
         >
-          Password Recovery Enter your email. Follow the link sent to your email
-          to reset your password
+          Enter your email. Follow the link sent to your email to reset your
+          password
         </div>
         <Form.Item
           name="email"

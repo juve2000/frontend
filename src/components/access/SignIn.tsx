@@ -154,7 +154,7 @@ export const SignIn = () => {
                 color: "#D9D9D9",
               }}
             >
-              Dont have an account ?
+              Don't have an account ?
             </div>
             <Button
               onClick={() => {
