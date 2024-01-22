@@ -18,3 +18,4 @@ export * from "./mechanic";
 export * from "./device";
 export * from "./alerts";
 export * from "./logs";
+export * from "./driver_log";

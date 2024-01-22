@@ -42,6 +42,9 @@ const UNITS_PAGE = `${UNITS}/:id`;
 const LOGS = `${Root}/logs`;
 const LOGS_PAGE = `${LOGS}/:id`;
 
+const DRIVER_LOGS = `${Root}/drivers/:driverId/log/`;
+const DRIVER_LOGS_PAGE = `${DRIVER_LOGS}/:logId`;
+
 export const ROUTES = {
   Root,
   CARRIERS,
@@ -72,4 +75,6 @@ export const ROUTES = {
   UNITS_PAGE,
   LOGS,
   LOGS_PAGE,
+  DRIVER_LOGS,
+  DRIVER_LOGS_PAGE,
 };

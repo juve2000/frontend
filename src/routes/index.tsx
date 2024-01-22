@@ -78,6 +78,11 @@ import { LogPage } from "../components/modules/logs/Log";
 import { LogCreatePage } from "../components/modules/logs/CreateLog";
 import { LogList } from "../components/modules/logs/LogList";
 
+import { DriverLogsPage } from "../components/modules/driver_log/DriverLogsPage";
+import { DriverLogPage } from "../components/modules/driver_log/DriverLog";
+import { DriverLogCreatePage } from "../components/modules/driver_log/DriverCreateLog";
+import { DriverLogList } from "../components/modules/driver_log/DriverLogList";
+
 export const MainRouter = () => {
   const navigate = useNavigate();
   return (
@@ -126,6 +131,13 @@ export const MainRouter = () => {
             <Route index element={<DriversList />} />;
             <Route path={`create`} element={<DriverCreatePage />} />
             <Route path={`:driverid`} element={<DriverPage />} />
+            {/* DRIVER LOG */}
+            <Route path={`:driverid/log`} element={<DriverLogList />} />
+            <Route
+              path={`:driverid/log/create`}
+              element={<DriverLogCreatePage />}
+            />
+            <Route path={`:driverid/log/:logId`} element={<DriverLogPage />} />
           </Route>
           {/* DRIVER GROUP ROUTES */}
           <Route path={ROUTES.DRIVER_GROUP} element={<DriverGroupsPage />}>

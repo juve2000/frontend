@@ -25,7 +25,7 @@ export const SideBar = (props: any) => {
   const { pathname } = useLocation();
   const { checkPermission, PermissionType } = usePermissions();
   const usersList = useSelector((state: any) => state.user.usersList);
-
+  console.log("pathname", pathname);
   const fullScreenRoutes = [
     "carriers",
     "drivers",
@@ -115,8 +115,8 @@ export const SideBar = (props: any) => {
       ),
       getItem(
         "All Logs",
-        "units_",
-        getPath("units_"),
+        "logs_",
+        getPath("logs_"),
 
         <span className="icon-fi-rr-layers">
           <span className="path1"></span>

@@ -15,7 +15,6 @@ import {
 import type { ColumnsType } from "antd/es/table";
 import { useTableParams } from "../../../hooks/useTableParams";
 import dayjs from "dayjs";
-import { defaultTo } from "lodash";
 import {
   getCarriersListReq,
   getCarrierPasswordReq,
@@ -60,7 +59,7 @@ const App: React.FC = () => (
 
 dayjs.extend(customParseFormat);
 
-export const LogList: React.FC = () => {
+export const DriverLogList: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -101,6 +100,28 @@ export const LogList: React.FC = () => {
   const columns: ColumnsType<any> = [
     Table.SELECTION_COLUMN,
     {
+      title: "Log ID",
+      key: "identificator_log",
+      dataIndex: "identificator",
+      // sortOrder: getOrderFromTableParams("identificator", tableParams),
+      // sorter: {
+      //   compare: (a: any, b: any) => a.identificator - b.identificator,
+      //   multiple: 5,
+      // },
+      render: (name, record, index) => {
+        return <div>{`0129`}</div>;
+      },
+      width: "10%",
+      ellipsis: true,
+      // filterDropdown: () => {
+      //   return (
+      //     <div style={{ padding: 10 }}>
+      //       <RangePicker />
+      //     </div>
+      //   );
+      // },
+    },
+    {
       title: "Date",
       key: "identificator",
       dataIndex: "identificator",
@@ -123,42 +144,19 @@ export const LogList: React.FC = () => {
       },
     },
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Duration",
+      dataIndex: "duration",
+      key: "duration",
       // sortOrder: getOrderFromTableParams("vin", tableParams),
       // sorter: {
       //   compare: (a: any, b: any) => a.email - b.email,
       //   multiple: 5,
       // },
       render: (name, record, index) => {
-        return (
-          <div
-            className="orange ubuntu"
-            style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
-            onClick={() => {
-              navigate(
-                `/client/drivers/${defaultTo(
-                  record?.driver?.id,
-                  "01H77TSWKSTAHTV7522DGT1KRB"
-                )}/log`
-              );
-            }}
-          >{`John Smith`}</div>
-        );
+        return <div>{`01:02:03`}</div>;
       },
       ellipsis: true,
       width: "10%",
-      filters: [
-        { key: 1, value: "David Andresson" },
-        { key: 2, value: "John Smith" },
-      ].map((st: any) => {
-        return {
-          text: st.value,
-          value: st.key,
-        };
-      }),
-      filteredValue: tableParams?.filters?.group || null,
     },
     {
       title: "Vehicle",
@@ -219,20 +217,21 @@ export const LogList: React.FC = () => {
     //   ellipsis: true,
     //   width: "10%",
     // },
-    // {
-    //   title: "Event",
-    //   dataIndex: "event",
-    //   // sortOrder: getOrderFromTableParams("event", tableParams),
-    //   key: "event",
-    //   // sorter: {
-    //   //   compare: (a: any, b: any) => a.carrier - b.carrier,
-    //   //   multiple: 5,
-    //   // },
-    //   width: "8%",
-    //   ellipsis: true,
-    //   render: (value, record, index) => {
-    //     return <div className="ubuntu">SB</div>;
-    //   },
+    {
+      title: "Event",
+      dataIndex: "event",
+      // sortOrder: getOrderFromTableParams("event", tableParams),
+      key: "event",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.carrier - b.carrier,
+      //   multiple: 5,
+      // },
+      width: "8%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        return <div className="ubuntu">SB</div>;
+      },
+    },
     // filterDropdown: () => {
     //   return (
     //     <div style={{ padding: 10 }}>
@@ -313,68 +312,6 @@ export const LogList: React.FC = () => {
     //   }),
     //   filteredValue: tableParams?.filters?.group || null,
     // },
-
-    {
-      title: "Carrier",
-      dataIndex: "carrier",
-      sortOrder: getOrderFromTableParams("carrier", tableParams),
-      key: "carrier",
-      sorter: {
-        compare: (a: any, b: any) => a.carrier - b.carrier,
-        multiple: 5,
-      },
-      width: "20%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return (
-          <div
-            className="orange ubuntu"
-            style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
-            onClick={() => {
-              navigate(`/client/carriers/${record?.carrier?.id}`);
-            }}
-          >
-            <div style={{ marginLeft: 20 }}>{`Carrier 3`}</div>
-          </div>
-        );
-      },
-      filterDropdown: () => {
-        return (
-          <div style={{ padding: 10 }}>
-            <div>
-              <Select
-                style={{ width: 200, marginBottom: 20 }}
-                value={tableParams.filters?.carrier}
-                onChange={(value) => {
-                  clearCustomFilter("group");
-                  setCustomFilter("carrier", value);
-                }}
-              >
-                {carriers?.map((carrier: any) => {
-                  return (
-                    <Select.Option key={carrier.id} value={carrier.id}>
-                      {carrier.name}
-                    </Select.Option>
-                  );
-                })}
-              </Select>
-            </div>
-            <Button
-              style={{ width: 80, height: 40 }}
-              className="orange"
-              onClick={() => {
-                clearCustomFilter("carrier");
-                clearCustomFilter("group");
-              }}
-            >
-              Reset
-            </Button>
-          </div>
-        );
-      },
-
-      filteredValue: tableParams?.filters?.carrier || null,
-    },
 
     {
       title: "Status & Duration Status",
@@ -501,21 +438,21 @@ export const LogList: React.FC = () => {
       ellipsis: true,
       width: "10%",
     },
-    {
-      title: "Distance",
-      dataIndex: "distance",
-      key: "distance",
-      // sortOrder: getOrderFromTableParams("vin", tableParams),
-      // sorter: {
-      //   compare: (a: any, b: any) => a.email - b.email,
-      //   multiple: 5,
-      // },
-      render: (name, record, index) => {
-        return <div>{`306`}</div>;
-      },
-      ellipsis: true,
-      width: "10%",
-    },
+    // {
+    //   title: "Distance",
+    //   dataIndex: "distance",
+    //   key: "distance",
+    //   // sortOrder: getOrderFromTableParams("vin", tableParams),
+    //   // sorter: {
+    //   //   compare: (a: any, b: any) => a.email - b.email,
+    //   //   multiple: 5,
+    //   // },
+    //   render: (name, record, index) => {
+    //     return <div>{`306`}</div>;
+    //   },
+    //   ellipsis: true,
+    //   width: "10%",
+    // },
     {
       title: "Notes",
       dataIndex: "notes",
@@ -536,61 +473,61 @@ export const LogList: React.FC = () => {
       },
     },
 
-    {
-      title: "Violations",
-      dataIndex: "violations",
-      // sortOrder: getOrderFromTableParams("license_issuing", tableParams),
-      // sorter: {
-      //   compare: (a: any, b: any) => a.license_issuing - b.license_issuing,
-      //   multiple: 5,
-      // },
-      key: "violations",
-      // sorter: true,
-      render: (value, record, index) => {
-        return <div>TBD</div>;
-      },
-      width: "10%",
-      ellipsis: true,
-      filters: [
-        { value: "No", key: "No" },
-        { value: "Form & Manner", key: 2 },
-        { value: "HOS", key: 3 },
-      ].map((st: any) => {
-        return {
-          text: st.value,
-          value: st.key,
-        };
-      }),
-      filteredValue: tableParams?.filters?.status || null,
-    },
+    // {
+    //   title: "Violations",
+    //   dataIndex: "violations",
+    //   // sortOrder: getOrderFromTableParams("license_issuing", tableParams),
+    //   // sorter: {
+    //   //   compare: (a: any, b: any) => a.license_issuing - b.license_issuing,
+    //   //   multiple: 5,
+    //   // },
+    //   key: "violations",
+    //   // sorter: true,
+    //   render: (value, record, index) => {
+    //     return <div>TBD</div>;
+    //   },
+    //   width: "10%",
+    //   ellipsis: true,
+    //   filters: [
+    //     { value: "No", key: "No" },
+    //     { value: "Form & Manner", key: 2 },
+    //     { value: "HOS", key: 3 },
+    //   ].map((st: any) => {
+    //     return {
+    //       text: st.value,
+    //       value: st.key,
+    //     };
+    //   }),
+    //   filteredValue: tableParams?.filters?.status || null,
+    // },
 
-    {
-      title: "DOT",
-      dataIndex: "dot",
-      // sortOrder: getOrderFromTableParams("status", tableParams),
-      key: "dot",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
-      //   multiple: 5,
-      // },
-      width: "9%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        const status = carrierData.status.find((st) => st.key === value);
+    // {
+    //   title: "DOT",
+    //   dataIndex: "dot",
+    //   // sortOrder: getOrderFromTableParams("status", tableParams),
+    //   key: "dot",
+    //   // sorter: {
+    //   //   compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
+    //   //   multiple: 5,
+    //   // },
+    //   width: "9%",
+    //   ellipsis: true,
+    //   render: (value, record, index) => {
+    //     const status = carrierData.status.find((st) => st.key === value);
 
-        return <div>8 min. NY </div>;
-      },
-      filters: [
-        { key: "Yes", value: 1 },
-        { key: "No", value: 1 },
-      ].map((st: any) => {
-        return {
-          text: st.key,
-          value: st.value,
-        };
-      }),
-      filteredValue: tableParams?.filters?.status || null,
-    },
+    //     return <div>8 min. NY </div>;
+    //   },
+    //   filters: [
+    //     { key: "Yes", value: 1 },
+    //     { key: "No", value: 1 },
+    //   ].map((st: any) => {
+    //     return {
+    //       text: st.key,
+    //       value: st.value,
+    //     };
+    //   }),
+    //   filteredValue: tableParams?.filters?.status || null,
+    // },
     {
       title: "Progress",
       dataIndex: "progress",
@@ -647,9 +584,9 @@ export const LogList: React.FC = () => {
       {checkPermission(AllPermissionsType.VEHICLE_LIST) ? (
         <>
           <Row>
-            {/* <Col span={24}>
+            <Col span={24}>
               <LogTabs />
-            </Col> */}
+            </Col>
 
             <Col span={12}>
               <InputPageTitle fields={["Logs"]} route="/client/logs" vehicles />

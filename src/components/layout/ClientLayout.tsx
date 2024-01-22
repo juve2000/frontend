@@ -81,8 +81,11 @@ export const ClientLayout = () => {
     "log",
   ];
 
+  const isLogPage = location.pathname.indexOf("log") >= 0;
+
   const getLayout = React.useCallback(() => {
     let fullScreenRoute = false;
+
     fullScreenRoutes.forEach((i) => {
       if (location.pathname.indexOf(i) >= 0) {
         fullScreenRoute = true;
@@ -103,7 +106,7 @@ export const ClientLayout = () => {
       };
     }
 
-    if (excludedParamsScreen.some((item: any) => !!item)) {
+    if (excludedParamsScreen.some((item: any) => !!item) && !isLogPage) {
       let fullScreenRoute = false;
       return {
         firstColumn: 3,
@@ -118,6 +121,7 @@ export const ClientLayout = () => {
         lastColumn: 4,
       };
     }
+
     if (fullScreenRoute && isOpenSidebar) {
       obj = {
         firstColumn: 3,
@@ -136,6 +140,7 @@ export const ClientLayout = () => {
   }, [isOpenSidebar, location, params]);
 
   const { firstColumn, secondColumn, lastColumn } = getLayout();
+  console.log("FULS SCRENN", getLayout());
 
   return (
     <>
