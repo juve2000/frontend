@@ -169,7 +169,7 @@ export const LogList: React.FC = () => {
       //   compare: (a: any, b: any) => a.fuel_type - b.fuel_type,
       //   multiple: 5,
       // },
-      width: "10%",
+      width: "9%",
       ellipsis: true,
       render: (value, record, index) => {
         return (
@@ -323,7 +323,7 @@ export const LogList: React.FC = () => {
         compare: (a: any, b: any) => a.carrier - b.carrier,
         multiple: 5,
       },
-      width: "20%",
+      width: "15%",
       ellipsis: true,
       render: (value, record, index) => {
         return (
@@ -334,7 +334,7 @@ export const LogList: React.FC = () => {
               navigate(`/client/carriers/${record?.carrier?.id}`);
             }}
           >
-            <div style={{ marginLeft: 20 }}>{`Carrier 3`}</div>
+            <div>{`Carrier 3`}</div>
           </div>
         );
       },
@@ -393,7 +393,7 @@ export const LogList: React.FC = () => {
         );
       },
       ellipsis: true,
-      width: "20%",
+      width: "12%",
       filters: [
         { key: 1, value: "SB" },
         { key: 2, value: "ON" },
@@ -424,13 +424,13 @@ export const LogList: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`location`}
+            {`2.0 NY 56`}
           </div>
         );
       },
     },
     {
-      title: "Driving",
+      title: "D",
       dataIndex: "ndriving",
       // sortOrder: getOrderFromTableParams("notes", tableParams),
       key: "driving",
@@ -487,7 +487,7 @@ export const LogList: React.FC = () => {
       },
     },
     {
-      title: "Worked Hours",
+      title: "Worked",
       dataIndex: "tbd",
       key: "tbd",
       // sortOrder: getOrderFromTableParams("vin", tableParams),
@@ -499,7 +499,7 @@ export const LogList: React.FC = () => {
         return <div>{`05:37`}</div>;
       },
       ellipsis: true,
-      width: "10%",
+      width: "7%",
     },
     {
       title: "Distance",
@@ -514,27 +514,27 @@ export const LogList: React.FC = () => {
         return <div>{`306`}</div>;
       },
       ellipsis: true,
-      width: "10%",
+      width: "6%",
     },
-    {
-      title: "Notes",
-      dataIndex: "notes",
-      // sortOrder: getOrderFromTableParams("notes", tableParams),
-      key: "notes",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.model - b.model,
-      //   multiple: 5,
-      // },
-      width: "15%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return (
-          <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`Note`}
-          </div>
-        );
-      },
-    },
+    // {
+    //   title: "Notes",
+    //   dataIndex: "notes",
+    //   // sortOrder: getOrderFromTableParams("notes", tableParams),
+    //   key: "notes",
+    //   // sorter: {
+    //   //   compare: (a: any, b: any) => a.model - b.model,
+    //   //   multiple: 5,
+    //   // },
+    //   width: "15%",
+    //   ellipsis: true,
+    //   render: (value, record, index) => {
+    //     return (
+    //       <div className="ubuntu" style={{ cursor: "pointer" }}>
+    //         {`Note`}
+    //       </div>
+    //     );
+    //   },
+    // },
 
     {
       title: "Violations",

@@ -39,8 +39,9 @@ export const DriverLicense2 = {
 
 export const DriverLicense = {
   type: InputType.MULTI,
-  label: "Vin & License",
-  isRequired: true,
+  // label: "Vin & License",
+  // isRequired: true,
+  renderLabel: false,
   fields: [
     {
       type: InputType.TEXT_V2,

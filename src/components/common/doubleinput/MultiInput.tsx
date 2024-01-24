@@ -40,25 +40,28 @@ export const MultiInputV2 = (props: any) => {
     isIdentificatorDisabled = false,
     isSuperAdmin,
     isDriverCreate,
+    renderLabel = true,
   } = props;
 
   return (
     <Row>
-      <Col
-        span={6}
-        className="input-item-wrapper"
-        style={{ alignItems: "flex-start" }}
-      >
-        {label && (
-          <div className="input-item-wrapper">
-            <div>
-              {label}
-              {/* {isRequired} */}
+      {renderLabel && (
+        <Col
+          span={6}
+          className="input-item-wrapper"
+          style={{ alignItems: "flex-start" }}
+        >
+          {label && (
+            <div className="input-item-wrapper">
+              <div>
+                {label}
+                {/* {isRequired} */}
+              </div>
             </div>
-          </div>
-        )}
-      </Col>
-      <Col span={18}>
+          )}
+        </Col>
+      )}
+      <Col span={renderLabel ? 18 : 24}>
         <Row>
           {fields.map((field: any, i: number) => {
             if (

@@ -43,6 +43,7 @@ import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
 import { BurgerIcon } from "../../header/logo";
 import { LogTabs } from "./LogTabs/LogTabs";
+import { CreateDriverLogModal } from "./CreateLogModal";
 
 const { RangePicker } = DatePicker;
 
@@ -100,7 +101,7 @@ export const DriverLogList: React.FC = () => {
   const columns: ColumnsType<any> = [
     Table.SELECTION_COLUMN,
     {
-      title: "Log ID",
+      title: "Date & Time",
       key: "identificator_log",
       dataIndex: "identificator",
       // sortOrder: getOrderFromTableParams("identificator", tableParams),
@@ -109,7 +110,29 @@ export const DriverLogList: React.FC = () => {
       //   multiple: 5,
       // },
       render: (name, record, index) => {
-        return <div>{`0129`}</div>;
+        return <div>{`01/02/2024  02:03:67 AM`}</div>;
+      },
+      width: "15%",
+      ellipsis: true,
+      // filterDropdown: () => {
+      //   return (
+      //     <div style={{ padding: 10 }}>
+      //       <RangePicker />
+      //     </div>
+      //   );
+      // },
+    },
+    {
+      title: "Duration",
+      key: "duration",
+      dataIndex: "duration",
+      // sortOrder: getOrderFromTableParams("duration", tableParams),
+      // sorter: {
+      //   compare: (a: any, b: any) => a.duration - b.duration,
+      //   multiple: 5,
+      // },
+      render: (name, record, index) => {
+        return <div>{`01:56:22`}</div>;
       },
       width: "10%",
       ellipsis: true,
@@ -122,41 +145,57 @@ export const DriverLogList: React.FC = () => {
       // },
     },
     {
-      title: "Date",
-      key: "identificator",
-      dataIndex: "identificator",
-      sortOrder: getOrderFromTableParams("identificator", tableParams),
-      sorter: {
-        compare: (a: any, b: any) => a.identificator - b.identificator,
-        multiple: 5,
-      },
-      render: (name, record, index) => {
-        return <div>{`01/02/2024`}</div>;
-      },
-      width: "10%",
+      title: "Event",
+      dataIndex: "event",
+      // sortOrder: getOrderFromTableParams("event", tableParams),
+      key: "event",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.carrier - b.carrier,
+      //   multiple: 5,
+      // },
+      width: "8%",
       ellipsis: true,
-      filterDropdown: () => {
+      render: (value, record, index) => {
+        return <div className="ubuntu">SB</div>;
+      },
+    },
+    {
+      title: "Location",
+      dataIndex: "location",
+      // sortOrder: getOrderFromTableParams("notes", tableParams),
+      key: "location",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.model - b.model,
+      //   multiple: 5,
+      // },
+      width: "15%",
+      ellipsis: true,
+      render: (value, record, index) => {
         return (
-          <div style={{ padding: 10 }}>
-            <RangePicker />
+          <div className="ubuntu" style={{ cursor: "pointer" }}>
+            {`2.0 NY 56`}
           </div>
         );
       },
     },
     {
-      title: "Duration",
-      dataIndex: "duration",
-      key: "duration",
-      // sortOrder: getOrderFromTableParams("vin", tableParams),
+      title: "Notes",
+      dataIndex: "notes",
+      // sortOrder: getOrderFromTableParams("notes", tableParams),
+      key: "notes",
       // sorter: {
-      //   compare: (a: any, b: any) => a.email - b.email,
+      //   compare: (a: any, b: any) => a.model - b.model,
       //   multiple: 5,
       // },
-      render: (name, record, index) => {
-        return <div>{`01:02:03`}</div>;
-      },
+      width: "15%",
       ellipsis: true,
-      width: "10%",
+      render: (value, record, index) => {
+        return (
+          <div className="ubuntu" style={{ cursor: "pointer" }}>
+            {`Note`}
+          </div>
+        );
+      },
     },
     {
       title: "Vehicle",
@@ -176,16 +215,92 @@ export const DriverLogList: React.FC = () => {
           </div>
         );
       },
-      filters: [
-        { key: 1, value: "Vehicle 1" },
-        { key: 2, value: "Vehicle 2" },
-      ].map((st: any) => {
-        return {
-          text: st.value,
-          value: st.key,
-        };
-      }),
-      filteredValue: tableParams?.filters?.group || null,
+      // filters: [
+      //   { key: 1, value: "Vehicle 1" },
+      //   { key: 2, value: "Vehicle 2" },
+      // ].map((st: any) => {
+      //   return {
+      //     text: st.value,
+      //     value: st.key,
+      //   };
+      // }),
+      // filteredValue: tableParams?.filters?.group || null,
+    },
+    {
+      title: "ELD",
+      dataIndex: "eld",
+      // sortOrder: getOrderFromTableParams("notes", tableParams),
+      key: "eld",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.model - b.model,
+      //   multiple: 5,
+      // },
+      width: "8%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        return (
+          <div className="ubuntu" style={{ cursor: "pointer" }}>
+            {`GBMF0912`}
+          </div>
+        );
+      },
+    },
+    {
+      title: "Odometer",
+      dataIndex: "odometer",
+      // sortOrder: getOrderFromTableParams("notes", tableParams),
+      key: "odometer",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.model - b.model,
+      //   multiple: 5,
+      // },
+      width: "8%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        return (
+          <div className="ubuntu" style={{ cursor: "pointer" }}>
+            {`567123`}
+          </div>
+        );
+      },
+    },
+    {
+      title: "EH",
+      dataIndex: "eh",
+      // sortOrder: getOrderFromTableParams("notes", tableParams),
+      key: "eh",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.model - b.model,
+      //   multiple: 5,
+      // },
+      width: "5%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        return (
+          <div className="ubuntu" style={{ cursor: "pointer" }}>
+            {`1089.5`}
+          </div>
+        );
+      },
+    },
+    {
+      title: "Origin",
+      dataIndex: "origin",
+      // sortOrder: getOrderFromTableParams("notes", tableParams),
+      key: "origin",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.model - b.model,
+      //   multiple: 5,
+      // },
+      width: "6%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        return (
+          <div className="ubuntu" style={{ cursor: "pointer" }}>
+            {`Driver`}
+          </div>
+        );
+      },
     },
     // {
     //   title: "Start Time",
@@ -218,18 +333,18 @@ export const DriverLogList: React.FC = () => {
     //   width: "10%",
     // },
     {
-      title: "Event",
-      dataIndex: "event",
+      title: "Edit",
+      dataIndex: "edit",
       // sortOrder: getOrderFromTableParams("event", tableParams),
-      key: "event",
+      key: "edit",
       // sorter: {
       //   compare: (a: any, b: any) => a.carrier - b.carrier,
       //   multiple: 5,
       // },
-      width: "8%",
+      width: "6%",
       ellipsis: true,
       render: (value, record, index) => {
-        return <div className="ubuntu">SB</div>;
+        return <div className="ubuntu">Edit</div>;
       },
     },
     // filterDropdown: () => {
@@ -287,36 +402,10 @@ export const DriverLogList: React.FC = () => {
     //   filteredValue: tableParams?.filters?.group || null,
     // },
 
-    // {
-    //   title: "User Name",
-    //   dataIndex: "user_name",
-    //   key: "user_name",
-    //   // sortOrder: getOrderFromTableParams("vin", tableParams),
-    //   // sorter: {
-    //   //   compare: (a: any, b: any) => a.email - b.email,
-    //   //   multiple: 5,
-    //   // },
-    //   render: (name, record, index) => {
-    //     return <div>{`David03`}</div>;
-    //   },
-    //   ellipsis: true,
-    //   width: "10%",
-    //   filters: [
-    //     { key: 1, value: "David 003" },
-    //     { key: 2, value: "John 17x" },
-    //   ].map((st: any) => {
-    //     return {
-    //       text: st.value,
-    //       value: st.key,
-    //     };
-    //   }),
-    //   filteredValue: tableParams?.filters?.group || null,
-    // },
-
     {
-      title: "Status & Duration Status",
-      dataIndex: "status",
-      key: "status",
+      title: "Log ID",
+      dataIndex: "log_id",
+      key: "log_id",
       // sortOrder: getOrderFromTableParams("vin", tableParams),
       // sorter: {
       //   compare: (a: any, b: any) => a.email - b.email,
@@ -325,209 +414,15 @@ export const DriverLogList: React.FC = () => {
       render: (name, record, index) => {
         return (
           <div>
-            {`SB`} : {`05:34`}
+            {`7621`}
+            {index}
           </div>
         );
       },
       ellipsis: true,
-      width: "20%",
-      filters: [
-        { key: 1, value: "SB" },
-        { key: 2, value: "ON" },
-        { key: 3, value: "PC" },
-        { key: 4, value: "OFF" },
-        { key: 5, value: "Driving" },
-        { key: 6, value: "YM" },
-      ].map((st: any) => {
-        return {
-          text: st.value,
-          value: st.key,
-        };
-      }),
-      filteredValue: tableParams?.filters?.group || null,
+      width: "8%",
     },
 
-    {
-      title: "Location",
-      dataIndex: "location",
-      // sortOrder: getOrderFromTableParams("notes", tableParams),
-      key: "location",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.model - b.model,
-      //   multiple: 5,
-      // },
-      width: "15%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return (
-          <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`location`}
-          </div>
-        );
-      },
-    },
-    {
-      title: "Driving",
-      dataIndex: "ndriving",
-      // sortOrder: getOrderFromTableParams("notes", tableParams),
-      key: "driving",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.model - b.model,
-      //   multiple: 5,
-      // },
-      width: "5%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return (
-          <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`4:15`}
-          </div>
-        );
-      },
-    },
-    {
-      title: "Shift",
-      dataIndex: "shift",
-      // sortOrder: getOrderFromTableParams("notes", tableParams),
-      key: "shift",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.model - b.model,
-      //   multiple: 5,
-      // },
-      width: "5%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return (
-          <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`2:25`}
-          </div>
-        );
-      },
-    },
-    {
-      title: "Cycle",
-      dataIndex: "cycle",
-      // sortOrder: getOrderFromTableParams("notes", tableParams),
-      key: "cycle",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.model - b.model,
-      //   multiple: 5,
-      // },
-      width: "5%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return (
-          <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`00:17`}
-          </div>
-        );
-      },
-    },
-    {
-      title: "Worked Hours",
-      dataIndex: "tbd",
-      key: "tbd",
-      // sortOrder: getOrderFromTableParams("vin", tableParams),
-      // sorter: {
-      //   compare: (a: any, b: any) => a.email - b.email,
-      //   multiple: 5,
-      // },
-      render: (name, record, index) => {
-        return <div>{`05:37`}</div>;
-      },
-      ellipsis: true,
-      width: "10%",
-    },
-    // {
-    //   title: "Distance",
-    //   dataIndex: "distance",
-    //   key: "distance",
-    //   // sortOrder: getOrderFromTableParams("vin", tableParams),
-    //   // sorter: {
-    //   //   compare: (a: any, b: any) => a.email - b.email,
-    //   //   multiple: 5,
-    //   // },
-    //   render: (name, record, index) => {
-    //     return <div>{`306`}</div>;
-    //   },
-    //   ellipsis: true,
-    //   width: "10%",
-    // },
-    {
-      title: "Notes",
-      dataIndex: "notes",
-      // sortOrder: getOrderFromTableParams("notes", tableParams),
-      key: "notes",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.model - b.model,
-      //   multiple: 5,
-      // },
-      width: "15%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return (
-          <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`Note`}
-          </div>
-        );
-      },
-    },
-
-    // {
-    //   title: "Violations",
-    //   dataIndex: "violations",
-    //   // sortOrder: getOrderFromTableParams("license_issuing", tableParams),
-    //   // sorter: {
-    //   //   compare: (a: any, b: any) => a.license_issuing - b.license_issuing,
-    //   //   multiple: 5,
-    //   // },
-    //   key: "violations",
-    //   // sorter: true,
-    //   render: (value, record, index) => {
-    //     return <div>TBD</div>;
-    //   },
-    //   width: "10%",
-    //   ellipsis: true,
-    //   filters: [
-    //     { value: "No", key: "No" },
-    //     { value: "Form & Manner", key: 2 },
-    //     { value: "HOS", key: 3 },
-    //   ].map((st: any) => {
-    //     return {
-    //       text: st.value,
-    //       value: st.key,
-    //     };
-    //   }),
-    //   filteredValue: tableParams?.filters?.status || null,
-    // },
-
-    // {
-    //   title: "DOT",
-    //   dataIndex: "dot",
-    //   // sortOrder: getOrderFromTableParams("status", tableParams),
-    //   key: "dot",
-    //   // sorter: {
-    //   //   compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
-    //   //   multiple: 5,
-    //   // },
-    //   width: "9%",
-    //   ellipsis: true,
-    //   render: (value, record, index) => {
-    //     const status = carrierData.status.find((st) => st.key === value);
-
-    //     return <div>8 min. NY </div>;
-    //   },
-    //   filters: [
-    //     { key: "Yes", value: 1 },
-    //     { key: "No", value: 1 },
-    //   ].map((st: any) => {
-    //     return {
-    //       text: st.key,
-    //       value: st.value,
-    //     };
-    //   }),
-    //   filteredValue: tableParams?.filters?.status || null,
-    // },
     {
       title: "Progress",
       dataIndex: "progress",
@@ -606,6 +501,25 @@ export const DriverLogList: React.FC = () => {
               />
 
               <div style={{ marginLeft: 20, display: "flex" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    marginLeft: 25,
+                  }}
+                  onClick={clearOrder}
+                >
+                  <div style={{ marginRight: 5 }}>
+                    <img src={ResetSort} />
+                  </div>
+                  <div
+                    className="ubuntu"
+                    style={{ color: "#8A8996", fontSize: 12 }}
+                  >
+                    <CreateDriverLogModal />
+                  </div>
+                </div>
                 <div
                   style={{
                     display: "flex",

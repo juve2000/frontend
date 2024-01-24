@@ -29,25 +29,25 @@ const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL } =
 
 export const carrierForm = (options: any) => {
   return [
-    {
-      type: InputType.PAGE_TITLE,
-      fields: ["Vehicles", "Profile"],
-      route: "/client/vehicle",
-    },
+    // {
+    //   type: InputType.PAGE_TITLE,
+    //   fields: ["Vehicles", "Profile"],
+    //   route: "/client/vehicle",
+    // },
 
-    {
-      type: InputType.TITLE,
-      label: "Name & Details",
-    },
+    // {
+    //   type: InputType.TITLE,
+    //   label: "Name & Details",
+    // },
     // // DRIVER NAME DETAILS
     { ...NameDriverFields },
 
     //LICENSE
-    { ...DriverLicense },
+    // { ...DriverLicense },
     //MEDICAL CARD
     // // PREFERENCES
-    { ...CarrierFieldInput },
-    { ...VehicleNotice },
+    // { ...CarrierFieldInput },
+    // { ...VehicleNotice },
 
     // // CARRIER TERMINAL
     // {
