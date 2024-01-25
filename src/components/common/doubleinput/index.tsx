@@ -46,6 +46,7 @@ import { TableRole } from "./TableRole";
 import { OfficeSelectInput } from "./OfficeSelectInput";
 //ADDRESS
 import { Address } from "./Address";
+import { TimePickerLogField } from "./TimePickerLogField";
 
 export const CommonInputV2 = (props: any) => {
   const { type } = props;
@@ -125,6 +126,8 @@ export const CommonInputV2 = (props: any) => {
       return <OfficeSelectInput {...props} />;
     case InputType.ADDRESS_V3:
       return <Address {...props} />;
+    case InputType.TIME_PICKER_LOG:
+      return <TimePickerLogField {...props} />;
     default:
       return null;
   }

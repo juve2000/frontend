@@ -1,6 +1,6 @@
 import { all, put, takeLatest, call } from "redux-saga/effects";
 import { notification } from "antd";
-import request from "../utils/requestCarrier";
+import request from "../utils/requestMonitoring";
 import { LogActionTypes } from "../actions/logs";
 import {
   getLogSuccess,
@@ -105,7 +105,7 @@ export function* deleteLogSaga({ payload }: any): any {
 
 export function* getLogListSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.get, `/driver`, {
+    const { data } = yield call(request.get, `/log`, {
       params: payload.queryParams,
     });
     yield put(getLogListSuccess(data));

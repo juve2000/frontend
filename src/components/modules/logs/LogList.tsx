@@ -25,6 +25,10 @@ import {
   getVehicleListRootReq,
   // getCarrierPasswordReq,
 } from "../../../actions/vehicle";
+import {
+  getLogListReq,
+  // getCarrierPasswordReq,
+} from "../../../actions/logs";
 import { getParams } from "../../../routes/utils";
 import { InputSearch } from "../../common/doubleinput/InputSearch";
 import { getOrderFromTableParams } from "../../../hooks/utils";
@@ -42,8 +46,12 @@ import { LogoCarrier } from "../../common/LogoCarrier";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
-import { BurgerIcon } from "../../header/logo";
-import { LogTabs } from "./LogTabs/LogTabs";
+import {
+  parseTimeString,
+  parseTimeStringFormat,
+  parseDateTimeStringFormat,
+} from "../driver_log/log-utils";
+import { ModalGoogleMapTracker } from "../../common/GoogleModal";
 
 const { RangePicker } = DatePicker;
 
@@ -90,9 +98,9 @@ export const LogList: React.FC = () => {
 
   React.useEffect(() => {
     dispatch(
-      getVehicleListReq({
+      getLogListReq({
         queryParams: {
-          with: ["driver_groups", "vehicles", "drivers"],
+          with: ["drivers", "driver", "vehicle", "carrier"],
         },
       })
     );
@@ -110,9 +118,15 @@ export const LogList: React.FC = () => {
         multiple: 5,
       },
       render: (name, record, index) => {
-        return <div>{`01/02/2024`}</div>;
+        const time = parseTimeStringFormat(record?.event_time);
+        const dateTime = parseDateTimeStringFormat(
+          record?.event_time,
+          record?.event_date,
+          "hh:mm:ss:a"
+        );
+        return <div>{`${dateTime}`}</div>;
       },
-      width: "10%",
+      width: "12%",
       ellipsis: true,
       filterDropdown: () => {
         return (
@@ -132,6 +146,7 @@ export const LogList: React.FC = () => {
       //   multiple: 5,
       // },
       render: (name, record, index) => {
+        console.log("record", record);
         return (
           <div
             className="orange ubuntu"
@@ -144,7 +159,9 @@ export const LogList: React.FC = () => {
                 )}/log`
               );
             }}
-          >{`John Smith`}</div>
+          >
+            {record?.driver?.first_name} {record?.driver?.last_name}
+          </div>
         );
       },
       ellipsis: true,
@@ -173,8 +190,14 @@ export const LogList: React.FC = () => {
       ellipsis: true,
       render: (value, record, index) => {
         return (
-          <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`Truck 008`}
+          <div
+            className="ubuntu"
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              navigate(`/client/vehicle/${defaultTo(record?.vehicle?.id, "")}`);
+            }}
+          >
+            {`${record?.vehicle?.identificator}`}
           </div>
         );
       },
@@ -189,130 +212,6 @@ export const LogList: React.FC = () => {
       }),
       filteredValue: tableParams?.filters?.group || null,
     },
-    // {
-    //   title: "Start Time",
-    //   key: "identificator",
-    //   dataIndex: "identificator",
-    //   sortOrder: getOrderFromTableParams("identificator", tableParams),
-    //   sorter: {
-    //     compare: (a: any, b: any) => a.identificator - b.identificator,
-    //     multiple: 5,
-    //   },
-    //   render: (name, record, index) => {
-    //     return <div>{`11:41:22 PM`}</div>;
-    //   },
-    //   width: "10%",
-    //   ellipsis: true,
-    // },
-    // {
-    //   title: "Duration",
-    //   dataIndex: "duration",
-    //   key: "duration",
-    //   // sortOrder: getOrderFromTableParams("vin", tableParams),
-    //   // sorter: {
-    //   //   compare: (a: any, b: any) => a.email - b.email,
-    //   //   multiple: 5,
-    //   // },
-    //   render: (name, record, index) => {
-    //     return <div>{`01:02:03`}</div>;
-    //   },
-    //   ellipsis: true,
-    //   width: "10%",
-    // },
-    // {
-    //   title: "Event",
-    //   dataIndex: "event",
-    //   // sortOrder: getOrderFromTableParams("event", tableParams),
-    //   key: "event",
-    //   // sorter: {
-    //   //   compare: (a: any, b: any) => a.carrier - b.carrier,
-    //   //   multiple: 5,
-    //   // },
-    //   width: "8%",
-    //   ellipsis: true,
-    //   render: (value, record, index) => {
-    //     return <div className="ubuntu">SB</div>;
-    //   },
-    // filterDropdown: () => {
-    //   return (
-    //     <div style={{ padding: 10 }}>
-    //       <div>
-    //         <Select
-    //           style={{ width: 200, marginBottom: 20 }}
-    //           value={tableParams.filters?.carrier}
-    //           onChange={(value) => {
-    //             clearCustomFilter("group");
-    //             setCustomFilter("carrier", value);
-    //           }}
-    //         >
-    //           {carriers?.map((carrier: any) => {
-    //             return (
-    //               <Select.Option key={carrier.id} value={carrier.id}>
-    //                 {carrier.name}
-    //               </Select.Option>
-    //             );
-    //           })}
-    //         </Select>
-    //       </div>
-    //       <Button
-    //         style={{ width: 80, height: 40 }}
-    //         className="orange"
-    //         onClick={() => {
-    //           clearCustomFilter("carrier");
-    //           clearCustomFilter("group");
-    //         }}
-    //       >
-    //         Reset
-    //       </Button>
-    //     </div>
-    //   );
-    // },
-    //   filters: [
-    //     { key: 1, value: "On" },
-    //     { key: 2, value: "Off" },
-    //     { key: 3, value: "SB" },
-    //     { key: 4, value: "D" },
-    //     { key: 5, value: "Login" },
-    //     { key: 6, value: "Logout" },
-    //     { key: 7, value: "YM" },
-    //     { key: 8, value: "Power up" },
-    //     { key: 9, value: "Shut down" },
-    //     { key: 10, value: "Certification" },
-    //     { key: 11, value: "Intermediate" },
-    //   ].map((st: any) => {
-    //     return {
-    //       text: st.value,
-    //       value: st.key,
-    //     };
-    //   }),
-    //   filteredValue: tableParams?.filters?.group || null,
-    // },
-
-    // {
-    //   title: "User Name",
-    //   dataIndex: "user_name",
-    //   key: "user_name",
-    //   // sortOrder: getOrderFromTableParams("vin", tableParams),
-    //   // sorter: {
-    //   //   compare: (a: any, b: any) => a.email - b.email,
-    //   //   multiple: 5,
-    //   // },
-    //   render: (name, record, index) => {
-    //     return <div>{`David03`}</div>;
-    //   },
-    //   ellipsis: true,
-    //   width: "10%",
-    //   filters: [
-    //     { key: 1, value: "David 003" },
-    //     { key: 2, value: "John 17x" },
-    //   ].map((st: any) => {
-    //     return {
-    //       text: st.value,
-    //       value: st.key,
-    //     };
-    //   }),
-    //   filteredValue: tableParams?.filters?.group || null,
-    // },
 
     {
       title: "Carrier",
@@ -334,7 +233,7 @@ export const LogList: React.FC = () => {
               navigate(`/client/carriers/${record?.carrier?.id}`);
             }}
           >
-            <div>{`Carrier 3`}</div>
+            <div>{record?.carrier?.name}</div>
           </div>
         );
       },
@@ -424,7 +323,10 @@ export const LogList: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`2.0 NY 56`}
+            <ModalGoogleMapTracker
+              lat={record?.latitude}
+              lng={record?.longitude}
+            />
           </div>
         );
       },
@@ -511,7 +413,7 @@ export const LogList: React.FC = () => {
       //   multiple: 5,
       // },
       render: (name, record, index) => {
-        return <div>{`306`}</div>;
+        return <div>{record?.distance_last_coordinates}</div>;
       },
       ellipsis: true,
       width: "6%",
@@ -629,16 +531,16 @@ export const LogList: React.FC = () => {
     },
   ];
 
-  useEffect(() => {
-    dispatch(
-      getVehicleListReq({
-        queryParams: {
-          ...getParams(tableParams),
-          with: ["carrier"],
-        },
-      })
-    );
-  }, [tableParams]);
+  // useEffect(() => {
+  //   dispatch(
+  //     getLogListReq({
+  //       queryParams: {
+  //         ...getParams(tableParams),
+  //         with: ["driver", "carrier", "vehicle"],
+  //       },
+  //     })
+  //   );
+  // }, [tableParams]);
 
   const { checkPermission } = usePermissions();
 
@@ -722,7 +624,7 @@ export const LogList: React.FC = () => {
               pagination={{
                 ...tableParams.pagination,
                 position: ["bottomCenter"],
-                total: count,
+                total: defaultTo(logs?.length, count),
               }}
               loading={loading}
               onChange={handleTableChange}

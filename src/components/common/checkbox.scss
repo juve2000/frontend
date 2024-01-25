@@ -7,3 +7,10 @@
   justify-content: center;
   border-radius: 2px;
 }
+
+.google-modal {
+  .ant-modal-body {
+    height: 600px !important;
+    width: 600px !important;
+  }
+}

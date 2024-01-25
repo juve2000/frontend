@@ -39,6 +39,7 @@ import { DeviceDynamicField } from "../../modules/units/fields/DeviceDynamicFiel
 import { TrailerDynamicField } from "../../modules/units/fields/TrailerDynamicField";
 
 import { InputRadioV2 } from "../doubleinput";
+import { TimePickerLogField } from "../doubleinput/TimePickerLogField";
 
 export const CommonInput = (props: any) => {
   const { type } = props;
@@ -105,6 +106,8 @@ export const CommonInput = (props: any) => {
       return <TrailerDynamicField {...props} />;
     case InputType.DEVICE_DYNAMIC:
       return <DeviceDynamicField {...props} />;
+    case InputType.TIME_PICKER_LOG:
+      return <TimePickerLogField {...props} />;
     case InputType.RADIO_V2:
       return <InputRadioV2 {...props} />;
     default:
