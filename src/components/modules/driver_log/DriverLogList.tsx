@@ -500,7 +500,13 @@ export const DriverLogList: React.FC = () => {
                 hasFilters={hasFiltersOrOrder}
               />
 
-              <div style={{ marginLeft: 20, display: "flex" }}>
+              <div
+                style={{
+                  marginLeft: 20,
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
                 <div
                   style={{
                     display: "flex",
@@ -510,15 +516,45 @@ export const DriverLogList: React.FC = () => {
                   }}
                   onClick={clearOrder}
                 >
-                  <div style={{ marginRight: 5 }}>
-                    <img src={ResetSort} />
-                  </div>
                   <div
                     className="ubuntu"
                     style={{ color: "#8A8996", fontSize: 12 }}
                   >
                     <CreateDriverLogModal />
                   </div>
+                </div>
+                <div
+                  className="orange ubuntu"
+                  style={{
+                    fontWeight: 500,
+                    fontSize: 12,
+                    marginLeft: 16,
+                    cursor: "pointer",
+                  }}
+                >
+                  Origin
+                </div>
+                <div
+                  className="orange ubuntu"
+                  style={{
+                    fontWeight: 500,
+                    fontSize: 12,
+                    marginLeft: 16,
+                    cursor: "pointer",
+                  }}
+                >
+                  Report
+                </div>
+                <div
+                  className="orange ubuntu"
+                  style={{
+                    fontWeight: 500,
+                    fontSize: 12,
+                    marginLeft: 16,
+                    cursor: "pointer",
+                  }}
+                >
+                  Fix logs
                 </div>
                 <div
                   style={{
