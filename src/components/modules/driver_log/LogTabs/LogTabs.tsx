@@ -3,6 +3,9 @@ import { Tabs } from "antd";
 import NewLogChart from "./NewLogChart2";
 // import NewLogChart from "./NewLogChart";
 import { Graph } from "../../../common/graph/Graph";
+import { LogChartHight } from "./LogChartHightCharts";
+import "./logtab.scss";
+import { LogTabelPanel } from "../LogTabelPanel";
 
 const onChange = (key: string) => {
   console.log(key);
@@ -25,34 +28,29 @@ const truckTasks = [
   // Add more tasks as needed
 ];
 
-const items: any = [
-  {
-    key: "1",
-    label: "Logs",
-    // children: <NewLogChart />,
-    children: <Graph />,
-  },
-  {
-    key: "2",
-    label: "Name",
-    children: "Content of Tab Pane 2",
-  },
-  {
-    key: "3",
-    label: "Events",
-    children: "Content of Tab Pane 3",
-  },
-  {
-    key: "4",
-    label: "Reports",
-    children: "Content of Tab Pane 3",
-  },
-];
-
-export const LogTabs: React.FC = () => {
+export const LogTabs: React.FC = (props: any) => {
+  const items: any = [
+    {
+      key: "1",
+      label: "Records",
+      children: <LogTabelPanel />,
+      // children: <Graph />,
+      // children: <LogChartHight />,
+    },
+    {
+      key: "2",
+      label: "Profile Form",
+      children: "Content of Tab Pane 2",
+    },
+  ];
   return (
-    <div className="ubuntu">
-      <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+    <div className="ubuntu log-tabs-container">
+      <Tabs
+        defaultActiveKey="1"
+        items={items}
+        onChange={onChange}
+        tabBarStyle={{ border: "none" }}
+      />
     </div>
   );
 };
