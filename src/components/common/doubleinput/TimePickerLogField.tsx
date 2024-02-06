@@ -88,7 +88,7 @@ export const TimePickerLogField = (props: any) => {
       className="input-container-v2"
       style={{
         position: "relative",
-        height: "100%",
+        // height: "100%",
         display: "flex",
         flexDirection: "column",
       }}
@@ -107,27 +107,31 @@ export const TimePickerLogField = (props: any) => {
       ) : null}
       <Form.Item
         name={getName}
-        style={{ width: "100%" }}
+        style={{ width }}
         // rules={[
         //   {
         //     required: true,
         //     message: "Please select time!",
         //   },
         // ]}
-      ></Form.Item>
+      >
+        <ConfigProvider locale={globalBuddhistLocale}>
+          <DatePicker
+            defaultValue={defaultValue}
+            showTime
+            onChange={(e, timeString) => {
+              setSelectedTime(e);
+              form.setFieldValue(getName, dayjs(e).valueOf());
+              console.log("e", dayjs(e).valueOf() as any);
+              console.log(
+                "ET",
+                new Date(dayjs(e).format("BBBB-MM-DD HH:mm:ss"))
+              );
+            }}
+          />
+        </ConfigProvider>
+      </Form.Item>
 
-      <ConfigProvider locale={globalBuddhistLocale}>
-        <DatePicker
-          defaultValue={defaultValue}
-          showTime
-          onChange={(e, timeString) => {
-            setSelectedTime(e);
-            form.setFieldValue(getName, dayjs(e).valueOf());
-            console.log("e", dayjs(e).valueOf() as any);
-            console.log("ET", new Date(dayjs(e).format("BBBB-MM-DD HH:mm:ss")));
-          }}
-        />
-      </ConfigProvider>
       {/* <TimePicker
         use12Hours
         size={"large"}
