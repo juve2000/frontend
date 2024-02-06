@@ -13,73 +13,61 @@ import {
   carrierData,
   VehicleField,
 } from "../constant";
-import { EVENT_TYPE } from "./log-contant";
 
 const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL, NAME } =
   VALIDATION_TYPE;
 
-export const NameDriverFields = {
+export const LogFields = {
   type: InputType.MULTI,
   label: "Details",
   isRequired: true,
   renderLabel: false,
   fields: [
     {
-      type: InputType.TIME_PICKER_LOG,
-      name: "start_time",
+      type: InputType.DRIVER_DYNAMIC,
+      name: "driver",
+      label: "Driver *",
       rules: [getValidation(REQUIRED, "name")],
-
-      placeholder: "Time",
+      placeholder: "Event Log ID",
       hasFeedback: true,
+      title: "Driver",
       span: 12,
       width: "95%",
-      title: "Start Time",
     },
 
     {
-      type: InputType.TIME_PICKER_LOG,
-      name: "end_time",
+      type: InputType.DRIVER_DYNAMIC,
+      name: "co_driver",
       rules: [getValidation(REQUIRED, "name")],
 
-      placeholder: "End Time",
+      placeholder: "Co Driver",
       hasFeedback: true,
       span: 12,
       width: "100%",
-      title: "End Time",
+      title: "Co Driver",
     },
 
     {
-      type: InputType.SELECT_V2,
-      name: "event",
-      title: "Event",
+      type: InputType.CARRIER_DYNAMIC,
+      name: "carrier",
+      title: "Carrier",
       // rules: [getValidation(REQUIRED, "Status")],
-      placeholder: "Select Event",
+      placeholder: "Select Carrier",
       // options: carrierData.status,
       hasFeedback: true,
       span: 12,
       width: "95%",
-      options: EVENT_TYPE,
     },
     {
-      type: InputType.SELECT_V2,
-      name: "origin",
-      title: "Origin",
+      type: InputType.VEHICLE_DYNAMIC,
+      name: "vehicle",
+      title: "Vehicle",
       rules: [getValidation(REQUIRED, "Status")],
-      placeholder: "Select Origin",
+      placeholder: "Select Vehicle",
       // options: carrierData.status,
       hasFeedback: true,
       span: 12,
       width: "100%",
-      options: [
-        {
-          key: 0,
-          value: "Origin",
-        },
-        {
-          key: 1,
-          value: "Driver",
-        },
-      ],
     },
     {
       type: InputType.SELECT_V2,

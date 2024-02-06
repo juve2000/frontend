@@ -5,7 +5,7 @@ import { getCarriersListReq } from "../../../actions/carrier";
 
 import { Row, Col, Form, Button, Input, Spin, Modal } from "antd";
 import { CommonInput } from "../../common/inputs";
-import { carrierForm } from "./log-form";
+import { logTabForm } from "./log-form-tab";
 import { Graph } from "../../common/graph/Graph";
 import { InputType } from "../../../constants/inputs";
 import { getDocumentByType } from "./constant";
@@ -47,7 +47,7 @@ function jsonToFormData(data: any) {
   return formData;
 }
 
-export const CreateDriverLogModal = () => {
+export const LogTab = () => {
   const [form] = Form.useForm();
   const params = useParams();
   const dispatch = useDispatch();
@@ -75,25 +75,17 @@ export const CreateDriverLogModal = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const [initialValues, setInitialValues] = useState({
-    start_time: 1706678229000,
-    end_time: "",
-    identificator: "",
-    vehicle: "",
-    eld: "",
-    co_driver: "",
-    trailer: "",
-    event_type: "",
-    vin: "",
-    make: null,
-    model: "",
-    fuel_type: null,
+    driver: null,
+    co_driver: null,
     carrier: null,
+    vehicle: "",
+    fuel_type: null,
     status: null,
     notes: "",
     license_plate: null,
     license_issuing: "",
     license_expiration: "",
-    year: 1990,
+    trailer: "",
   });
 
   React.useEffect(() => {
@@ -135,48 +127,22 @@ export const CreateDriverLogModal = () => {
 
   return (
     <>
-      <div
-        style={{ display: "flex", alignItems: "center" }}
-        onClick={showModal}
+      <Form
+        form={form}
+        name="test"
+        onError={(err) => {
+          // console.log("err", err);
+        }}
+        onFinish={handleSubmit}
+        initialValues={initialValues}
+        onChange={() => {
+          console.log("form values", form.getFieldsValue());
+        }}
       >
-        <span className="icon-fi-rr-plus ubuntu orange" />
-        <div
-          className="orange ubuntu"
-          style={{
-            fontWeight: 500,
-            fontSize: 12,
-            marginLeft: 8,
-            cursor: "pointer",
-          }}
-        >
-          Create Log
-        </div>
-      </div>
-
-      <Modal
-        title="Create Event"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-      >
-        <Form
-          form={form}
-          name="test"
-          onError={(err) => {
-            // console.log("err", err);
-          }}
-          onFinish={handleSubmit}
-          initialValues={initialValues}
-          onChange={() => {
-            console.log("form values", form.getFieldsValue());
-          }}
-        >
-          {carrierForm({}).map((field: any, i: number) => {
-            console.log("form", form.getFieldsValue());
-            if (field.type === InputType.ADD_DYNAMIC) {
-              return (
-                <CommonInput
+        {logTabForm({}).map((field: any, i: number) => {
+          if (field.type === InputType.ADD_DYNAMIC) {
+            return (
+              <CommonInput
                     currentIndex={currentIndex}
                     fields={fields}
                     key={i}
@@ -184,34 +150,33 @@ export const CreateDriverLogModal = () => {
                     {...field}
                     form={form}
                   />
-                // prettier-ignore
-              );
-            }
-            // prettier-ignore
-            return <CommonInput key={i} {...field} form={form} />
-          })}
-          <Form.Item style={{ width: "100%", display: "flex" }}>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="orange"
-              style={{ width: "65px", marginRight: 12 }}
-            >
-              Save
-            </Button>
-            <Button
-              className="grey"
-              style={{ width: "85px", marginRight: 12 }}
-              onClick={() => {
-                // form.setFieldsValue(initialValues);
-                handleCancel();
-              }}
-            >
-              Cancel
-            </Button>
-          </Form.Item>
-        </Form>
-      </Modal>
+              // prettier-ignore
+            );
+          }
+          // prettier-ignore
+          return <CommonInput key={i} {...field} form={form} />
+        })}
+        <Form.Item style={{ width: "100%", display: "flex" }}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="orange"
+            style={{ width: "65px", marginRight: 12 }}
+          >
+            Save
+          </Button>
+          <Button
+            className="grey"
+            style={{ width: "85px", marginRight: 12 }}
+            onClick={() => {
+              // form.setFieldsValue(initialValues);
+              handleCancel();
+            }}
+          >
+            Cancel
+          </Button>
+        </Form.Item>
+      </Form>
     </>
   );
 };

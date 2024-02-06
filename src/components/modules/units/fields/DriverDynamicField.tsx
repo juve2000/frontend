@@ -25,13 +25,13 @@ const { ALPHABETICAL, REQUIRED } = VALIDATION_TYPE;
 export const DriverDynamicField = (props: any) => {
   const {
     rules = [],
-    name = "",
+    name = "driver",
     icon,
     placeholder = "",
     label = "",
     disabled = false,
     width = "100%",
-    title = "",
+    title = "Driver *",
     isSecondField = false,
     span = 24,
     fields = [],
@@ -61,8 +61,8 @@ export const DriverDynamicField = (props: any) => {
   }, [drivers]);
 
   const DriverProps = {
-    name: "driver",
-    title: "Driver *",
+    name,
+    title,
     rules: [getValidation(REQUIRED, "Status")],
     placeholder: "Driver",
     hasFeedback: true,

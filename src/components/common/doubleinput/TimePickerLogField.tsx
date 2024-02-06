@@ -1,9 +1,37 @@
 import React, { useState, useMemo } from "react";
 import { Form, Input, Col, TimePicker } from "antd";
-import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
-dayjs.extend(customParseFormat);
+import { ConfigProvider, DatePicker, Space, Typography } from "antd";
+import type { DatePickerProps } from "antd";
+import en from "antd/es/date-picker/locale/en_US";
+import enUS from "antd/es/locale/en_US";
+import dayjs from "dayjs";
+import buddhistEra from "dayjs/plugin/buddhistEra";
+
+dayjs.extend(buddhistEra);
+
+const buddhistLocale: typeof en = {
+  ...en,
+  lang: {
+    ...en.lang,
+    fieldDateFormat: "BBBB-MM-DD",
+    fieldDateTimeFormat: "BBBB-MM-DD HH:mm:ss",
+    yearFormat: "BBBB",
+    cellYearFormat: "BBBB",
+  } as any,
+};
+
+// ConfigProvider level locale
+const globalBuddhistLocale: typeof enUS = {
+  ...enUS,
+  DatePicker: {
+    ...enUS.DatePicker!,
+    lang: buddhistLocale.lang,
+  },
+};
+
+const defaultValue = dayjs("2024-01-01");
 
 export const TimePickerLogField = (props: any) => {
   const {
@@ -31,24 +59,28 @@ export const TimePickerLogField = (props: any) => {
   }, [pathName, name]);
 
   const [showPicker, setShowPicker] = useState<any>(null);
-  const [selectedTime, setSelectedTime] = useState<any>(
-    dayjs(DEFAULT_VALUE, FORMAT)
-  );
+  const [selectedTime, setSelectedTime] = useState<any>(dayjs(DEFAULT_VALUE));
   const [hasDefaultValue, setHasDefaultValue] = useState(false);
 
   React.useEffect(() => {
     if (!!form.getFieldValue(getName)) {
       console.log("time", form?.getFieldValue(getName));
       if (typeof form.getFieldValue(getName) === "string") {
-        setSelectedTime(dayjs(form.getFieldValue(getName), FORMAT));
+        setSelectedTime(dayjs(form.getFieldValue(getName)));
+        // setHasDefaultValue(true);
+      }
+      if (typeof form.getFieldValue(getName) === "number") {
+        setSelectedTime(
+          dayjs(form?.getFieldValue(getName)).format("BBBB-MM-DD HH:mm:ss")
+        );
+
         // setHasDefaultValue(true);
       }
     }
   }, [form?.getFieldValue(getName)]);
-
-  // React.useEffect(() => {
-  //   form.setFieldValue(getName, selectedTime.format(FORMAT));
-  // }, [selectedTime]);
+  const onChange: DatePickerProps["onChange"] = (_, dateStr) => {
+    console.log("onChange:", dateStr);
+  };
 
   return (
     <Col
@@ -83,7 +115,20 @@ export const TimePickerLogField = (props: any) => {
         //   },
         // ]}
       ></Form.Item>
-      <TimePicker
+
+      <ConfigProvider locale={globalBuddhistLocale}>
+        <DatePicker
+          defaultValue={defaultValue}
+          showTime
+          onChange={(e, timeString) => {
+            setSelectedTime(e);
+            form.setFieldValue(getName, dayjs(e).valueOf());
+            console.log("e", dayjs(e).valueOf() as any);
+            console.log("ET", new Date(dayjs(e).format("BBBB-MM-DD HH:mm:ss")));
+          }}
+        />
+      </ConfigProvider>
+      {/* <TimePicker
         use12Hours
         size={"large"}
         placeholder={placeholder}
@@ -97,7 +142,7 @@ export const TimePickerLogField = (props: any) => {
           setSelectedTime(e);
           form.setFieldValue(getName, selectedTime.format(FORMAT));
         }}
-      />
+      /> */}
     </Col>
   );
 };

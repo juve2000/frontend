@@ -6,6 +6,7 @@ import { Graph } from "../../../common/graph/Graph";
 import { LogChartHight } from "./LogChartHightCharts";
 import "./logtab.scss";
 import { LogTabelPanel } from "../LogTabelPanel";
+import { LogTab } from "../LogFormTab";
 
 const onChange = (key: string) => {
   console.log(key);
@@ -40,7 +41,7 @@ export const LogTabs: React.FC = (props: any) => {
     {
       key: "2",
       label: "Profile Form",
-      children: "Content of Tab Pane 2",
+      children: <LogTab />,
     },
   ];
   return (
