@@ -1,6 +1,6 @@
 import { defaultTo } from "lodash";
 import dayjs, { Dayjs } from "dayjs";
-
+import { eventData } from "./fields/log-contant";
 export const parseTimeString = (timeString: any): Dayjs | string => {
   // Parse the time string into hours, minutes, and seconds
 
@@ -80,4 +80,48 @@ export const parseDateTimeStringFormat = (
     .minute(minutes)
     .second(seconds)
     .format(format)}`;
+};
+
+export const parseDateGeneralStringFormat = (
+  timeStamp: any,
+  formatParamTime?: string,
+  formatParamDate?: string
+): Dayjs | string => {
+  // Parse the time string into hours, minutes, and seconds
+
+  const formattedDate = dayjs(timeStamp * 1000).format("MM/DD/YYYY hh:mm:ss A");
+  return formattedDate;
+};
+
+export const getEventLabel = (eventType: any, eventCode: any) => {
+  return eventData.find(
+    (eventItem) => eventItem.code === eventCode && eventItem.type === eventType
+  )?.label;
+};
+
+// {
+//   type: 1,
+//   code: 3,
+//   label: "D",
+//   origin: [
+//     { key: "Auto", value: 1 },
+//     { key: "Driver", value: 2 },
+//     { key: "User", value: 3 },
+//   ],
+// },
+
+export const getOriginLabel = (
+  eventType: any,
+  eventCode: any,
+  originCode: string
+) => {
+  const item = eventData.find(
+    (eventItem) =>
+      eventItem?.code === eventCode && eventItem?.type === eventType
+  );
+  console.log("item", item);
+  const originLabel = item?.origin.find(
+    (originItem) => originItem?.value === +originCode
+  );
+  return originLabel?.key || "";
 };

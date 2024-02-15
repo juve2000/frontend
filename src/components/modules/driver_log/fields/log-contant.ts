@@ -124,9 +124,244 @@ export const logConts = {
   ],
 };
 
-export const EVENT_TYPE = logConts.event_type.map((event) => {
-  return {
-    key: event.key,
-    value: event.value,
-  };
-});
+export const eventData = [
+  { type: 1, code: 1, label: "OFF", origin: [{ key: "Driver", value: 1 }] },
+  { type: 1, code: 2, label: "SB", origin: [{ key: "Driver", value: 1 }] },
+  {
+    type: 1,
+    code: 3,
+    label: "D",
+    origin: [
+      { key: "Auto", value: 1 },
+      { key: "Driver", value: 2 },
+      { key: "User", value: 3 },
+    ],
+  },
+  {
+    type: 1,
+    code: 4,
+    label: "ON",
+    origin: [
+      { key: "Driver", value: 2 },
+      { key: "User", value: 3 },
+      { key: "Auto", value: 1 },
+    ],
+  },
+  {
+    type: 2,
+    code: 1,
+    label: "Intermediate w/ CLP",
+    origin: [{ key: "Auto", value: 1 }],
+  },
+  {
+    type: 2,
+    code: 2,
+    label: "Intermediate w/ RLP",
+    origin: [{ key: "Auto", value: 1 }],
+  },
+  {
+    type: 3,
+    code: 1,
+    label: "PC",
+    origin: [
+      { key: "Driver", value: 2 },
+      { key: "User", value: 3 },
+      { key: "Unidentified", value: 4 },
+    ],
+  },
+  {
+    type: 3,
+    code: 2,
+    label: "YM",
+    origin: [
+      { key: "Driver", value: 2 },
+      { key: "User", value: 3 },
+      { key: "Unidentified", value: 4 },
+    ],
+  },
+  {
+    type: 3,
+    code: 0,
+    label: "PC/YM Cleared",
+    origin: [
+      { key: "Driver", value: 2 },
+      { key: "User", value: 3 },
+      { key: "Unidentified", value: 4 },
+    ],
+  },
+  {
+    type: 4,
+    code: 1,
+    label: "Certification",
+    origin: [{ key: "Driver", value: 2 }],
+  },
+  {
+    type: 4,
+    code: 2,
+    label: "Certification 2 - 9",
+    origin: [{ key: "Driver", value: 2 }],
+  },
+  {
+    type: 5,
+    code: 1,
+    label: "Login",
+    origin: [
+      { key: "Auto", value: 1 },
+      { key: "Driver", value: 2 },
+    ],
+  },
+  {
+    type: 5,
+    code: 2,
+    label: "Logout",
+    origin: [
+      { key: "Auto", value: 1 },
+      { key: "Driver", value: 2 },
+    ],
+  },
+  {
+    type: 6,
+    code: 1,
+    label: "Engine Power-up w/ CLP",
+    origin: [{ key: "Auto", value: 1 }],
+  },
+  {
+    type: 6,
+    code: 2,
+    label: "Engine Power-up w/ RLP",
+    origin: [{ key: "Auto", value: 1 }],
+  },
+  {
+    type: 6,
+    code: 3,
+    label: "Engine Shut-down w/ CLP",
+    origin: [{ key: "Auto", value: 1 }],
+  },
+  {
+    type: 6,
+    code: 4,
+    label: "Engine Shut-Down w/ RLP",
+    origin: [{ key: "Auto", value: 1 }],
+  },
+  {
+    type: 7,
+    code: 1,
+    label: "ELD malfunction",
+    origin: [{ key: "Auto", value: 1 }],
+  },
+  {
+    type: 7,
+    code: 2,
+    label: "ELD Malfunction cleared",
+    origin: [{ key: "Auto", value: 1 }],
+  },
+  {
+    type: 7,
+    code: 3,
+    label: "Power data diagnostic",
+    origin: [{ key: "Auto", value: 1 }],
+  },
+  {
+    type: 7,
+    code: 4,
+    label: "Power data diagnostic (cleared)",
+    origin: [{ key: "Auto", value: 1 }],
+  },
+];
+
+export const EventOptions = eventData
+  .map((event) => {
+    return {
+      key: `${event.type}${event.code}`,
+      value: event.label,
+      label: event.label,
+    };
+  })
+  .reverse();
+
+export const annotations = [
+  {
+    key: 1,
+    value: "Pre-Trip Inspection",
+    text: false,
+    file: false,
+  },
+  {
+    key: 2,
+    value: "Post-Trip Inspection",
+    text: false,
+    file: false,
+  },
+  {
+    key: 3,
+    value: "Pick Up (Loading)",
+    text: true,
+    file: true,
+  },
+  {
+    key: 4,
+    value: "Delivery",
+    text: false,
+    file: true,
+  },
+  {
+    key: 5,
+    value: "Fuel",
+    text: true,
+    file: true,
+  },
+  {
+    key: 6,
+    value: "Hooking",
+    text: false,
+    file: false,
+  },
+  {
+    key: 7,
+    value: "Dropping",
+    text: false,
+    file: false,
+  },
+  {
+    key: 8,
+    value: "Safety Check",
+    text: false,
+    file: false,
+  },
+  {
+    key: 9,
+    value: "DOT Inspection",
+    text: true,
+    file: true,
+  },
+  {
+    key: 10,
+    value: "Check in",
+    text: false,
+    file: false,
+  },
+  {
+    key: 11,
+    value: "Check out",
+    text: false,
+    file: false,
+  },
+  {
+    key: 12,
+    value: "Parking",
+    text: false,
+    file: false,
+  },
+  {
+    key: 13,
+    value: "Repairs",
+    text: false,
+    file: false,
+  },
+  {
+    key: 0,
+    value: "Other",
+    text: true,
+    file: false,
+  },
+];

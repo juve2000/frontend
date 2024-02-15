@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import {
   Table,
   Dropdown,
@@ -24,31 +24,28 @@ import {
   getVehicleListRootReq,
   // getCarrierPasswordReq,
 } from "../../../actions/vehicle";
+import {
+  getDriverDataLogReq,
+  getDriverDataCarrierLogReq,
+} from "../../../actions/driver_log";
+import { getDriverReq } from "../../../actions";
 import { getParams } from "../../../routes/utils";
-import { InputSearch } from "../../common/doubleinput/InputSearch";
-import { getOrderFromTableParams } from "../../../hooks/utils";
+import { getCarrierReq } from "../../../actions/carrier";
 import { InputPageTitle } from "../../common/doubleinput/InputPageTitle";
-import { SetPassword } from "./modals/CarrierSetPassword";
-import { InputCallToCall } from "../../common/doubleinput/InputCallToCall";
 
-import ResetSort from "../../../img/resetSort.svg";
-import ResetFilter from "../../../img/resetFilter.svg";
 import { carrierData } from "./constant";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-// generateArrayOfYears
-import { generateArrayOfYears } from "../../../hooks/utils";
-import { LogoCarrier } from "../../common/LogoCarrier";
+
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
-import { BurgerIcon } from "../../header/logo";
 import { LogTabs } from "./LogTabs/LogTabs";
-import { CreateDriverLogModal } from "./CreateLogModal";
 import { LogChartHight } from "./LogTabs/LogChartHightCharts";
 import { LogTopPanel } from "./logs-panels/LogTopPanel";
 import { LogViolationPanel } from "./logs-panels/LogViolationPanel";
 import { LogBottomPanel } from "./logs-panels/LogBottomPanel";
 import { LogDashboardPanel } from "./logs-panels/LogDashboardPanel";
+import { parseDateGeneralStringFormat } from "./log-utils";
 
 const { RangePicker } = DatePicker;
 
@@ -92,12 +89,24 @@ export const DriverLogList: React.FC = () => {
     id: "",
     name: "",
   });
+  const params = useParams();
 
   React.useEffect(() => {
     dispatch(
-      getVehicleListReq({
+      getDriverDataLogReq({
+        driverId: params.driverid,
         queryParams: {
-          with: ["driver_groups", "vehicles", "drivers"],
+          with: ["terminal", "group", "carrier", "documents"],
+        },
+        onSuccess: (carrierId: any) => {
+          dispatch(
+            getDriverDataCarrierLogReq({
+              carrierId: carrierId,
+              queryParams: {
+                with: ["vehicles", "devices", "trailers", "drivers"],
+              },
+            })
+          );
         },
       })
     );
@@ -106,48 +115,34 @@ export const DriverLogList: React.FC = () => {
   const columns: ColumnsType<any> = [
     Table.SELECTION_COLUMN,
     {
-      title: "Date & Time",
-      key: "identificator_log",
-      dataIndex: "identificator",
+      title: "1Date & Time",
+      key: "timestamp",
+      dataIndex: "timestap",
       // sortOrder: getOrderFromTableParams("identificator", tableParams),
       // sorter: {
       //   compare: (a: any, b: any) => a.identificator - b.identificator,
       //   multiple: 5,
       // },
       render: (name, record, index) => {
-        return <div>{`01/02/2024  02:03:67 AM`}</div>;
+        console.log("record", record);
+        return (
+          // <div>{parseDateGeneralStringFormat(record?.timestamp as any)}</div>
+          <div>1</div>
+        );
       },
       width: "15%",
       ellipsis: true,
-      // filterDropdown: () => {
-      //   return (
-      //     <div style={{ padding: 10 }}>
-      //       <RangePicker />
-      //     </div>
-      //   );
-      // },
     },
     {
       title: "Duration",
       key: "duration",
       dataIndex: "duration",
-      // sortOrder: getOrderFromTableParams("duration", tableParams),
-      // sorter: {
-      //   compare: (a: any, b: any) => a.duration - b.duration,
-      //   multiple: 5,
-      // },
+
       render: (name, record, index) => {
         return <div>{`01:56:22`}</div>;
       },
       width: "10%",
       ellipsis: true,
-      // filterDropdown: () => {
-      //   return (
-      //     <div style={{ padding: 10 }}>
-      //       <RangePicker />
-      //     </div>
-      //   );
-      // },
     },
     {
       title: "Event",
@@ -220,19 +215,9 @@ export const DriverLogList: React.FC = () => {
           </div>
         );
       },
-      // filters: [
-      //   { key: 1, value: "Vehicle 1" },
-      //   { key: 2, value: "Vehicle 2" },
-      // ].map((st: any) => {
-      //   return {
-      //     text: st.value,
-      //     value: st.key,
-      //   };
-      // }),
-      // filteredValue: tableParams?.filters?.group || null,
     },
     {
-      title: "ELD",
+      title: "ELD2",
       dataIndex: "eld",
       // sortOrder: getOrderFromTableParams("notes", tableParams),
       key: "eld",
@@ -307,36 +292,7 @@ export const DriverLogList: React.FC = () => {
         );
       },
     },
-    // {
-    //   title: "Start Time",
-    //   key: "identificator",
-    //   dataIndex: "identificator",
-    //   sortOrder: getOrderFromTableParams("identificator", tableParams),
-    //   sorter: {
-    //     compare: (a: any, b: any) => a.identificator - b.identificator,
-    //     multiple: 5,
-    //   },
-    //   render: (name, record, index) => {
-    //     return <div>{`11:41:22 PM`}</div>;
-    //   },
-    //   width: "10%",
-    //   ellipsis: true,
-    // },
-    // {
-    //   title: "Duration",
-    //   dataIndex: "duration",
-    //   key: "duration",
-    //   // sortOrder: getOrderFromTableParams("vin", tableParams),
-    //   // sorter: {
-    //   //   compare: (a: any, b: any) => a.email - b.email,
-    //   //   multiple: 5,
-    //   // },
-    //   render: (name, record, index) => {
-    //     return <div>{`01:02:03`}</div>;
-    //   },
-    //   ellipsis: true,
-    //   width: "10%",
-    // },
+
     {
       title: "Edit",
       dataIndex: "edit",
@@ -352,60 +308,6 @@ export const DriverLogList: React.FC = () => {
         return <div className="ubuntu">Edit</div>;
       },
     },
-    // filterDropdown: () => {
-    //   return (
-    //     <div style={{ padding: 10 }}>
-    //       <div>
-    //         <Select
-    //           style={{ width: 200, marginBottom: 20 }}
-    //           value={tableParams.filters?.carrier}
-    //           onChange={(value) => {
-    //             clearCustomFilter("group");
-    //             setCustomFilter("carrier", value);
-    //           }}
-    //         >
-    //           {carriers?.map((carrier: any) => {
-    //             return (
-    //               <Select.Option key={carrier.id} value={carrier.id}>
-    //                 {carrier.name}
-    //               </Select.Option>
-    //             );
-    //           })}
-    //         </Select>
-    //       </div>
-    //       <Button
-    //         style={{ width: 80, height: 40 }}
-    //         className="orange"
-    //         onClick={() => {
-    //           clearCustomFilter("carrier");
-    //           clearCustomFilter("group");
-    //         }}
-    //       >
-    //         Reset
-    //       </Button>
-    //     </div>
-    //   );
-    // },
-    //   filters: [
-    //     { key: 1, value: "On" },
-    //     { key: 2, value: "Off" },
-    //     { key: 3, value: "SB" },
-    //     { key: 4, value: "D" },
-    //     { key: 5, value: "Login" },
-    //     { key: 6, value: "Logout" },
-    //     { key: 7, value: "YM" },
-    //     { key: 8, value: "Power up" },
-    //     { key: 9, value: "Shut down" },
-    //     { key: 10, value: "Certification" },
-    //     { key: 11, value: "Intermediate" },
-    //   ].map((st: any) => {
-    //     return {
-    //       text: st.value,
-    //       value: st.key,
-    //     };
-    //   }),
-    //   filteredValue: tableParams?.filters?.group || null,
-    // },
 
     {
       title: "Log ID",

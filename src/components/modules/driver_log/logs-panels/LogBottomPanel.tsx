@@ -58,7 +58,7 @@ export const LogBottomPanel = (props: any) => {
               Worked Hours
             </div>
             <div className="log-bottom-panel-item-header log-bottom-panel-item">
-              Droven Hours
+              Driven Hours
             </div>
           </Col>
           {mock.map((item: any, i: number) => {

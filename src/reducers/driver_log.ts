@@ -18,6 +18,12 @@ import {
   getDriverLogListReq,
   getDriverLogListSuccess,
   getDriverLogListFailed,
+  getDriverDataLogSuccess,
+  getDriverDataLogFailed,
+  getDriverDataLogReq,
+  getDriverDataCarrierLogReq,
+  getDriverDataCarrierLogSuccess,
+  getDriverDataCarrierLogFailed,
 } from "../actions";
 
 // import { UserState } from "../types";
@@ -32,6 +38,10 @@ export const driverLogState = {
   documents: [],
   documentsLoading: false,
   count: 10,
+  driverData: {
+    driver: {},
+    carrier: {},
+  },
 };
 
 export default {
@@ -147,6 +157,55 @@ export default {
         };
       })
       .addCase(getDriverLogListFailed, (state, { payload }) => {
+        return {
+          ...state,
+          errorMessage: payload,
+          loading: false,
+        };
+      });
+    builder
+      .addCase(getDriverDataLogReq, (state) => {
+        return {
+          ...state,
+          loading: true,
+          errorMessage: "",
+        };
+      })
+      .addCase(getDriverDataLogSuccess, (state, { payload }) => {
+        return {
+          ...state,
+          driverData: {
+            driver: payload?.data,
+            carrier: payload?.data?.carrier,
+          },
+        };
+      })
+      .addCase(getDriverDataLogFailed, (state, { payload }) => {
+        return {
+          ...state,
+          errorMessage: payload,
+          loading: false,
+        };
+      });
+    builder
+      .addCase(getDriverDataCarrierLogReq, (state) => {
+        return {
+          ...state,
+          loading: true,
+          errorMessage: "",
+        };
+      })
+      .addCase(getDriverDataCarrierLogSuccess, (state, { payload }) => {
+        console.log("payload", payload);
+        return {
+          ...state,
+          driverData: {
+            ...state?.driverData,
+            carrier: payload?.data,
+          },
+        };
+      })
+      .addCase(getDriverDataCarrierLogFailed, (state, { payload }) => {
         return {
           ...state,
           errorMessage: payload,

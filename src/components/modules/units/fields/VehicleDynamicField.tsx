@@ -23,25 +23,40 @@ export const VehicleDynamicField = (props: any) => {
     isRequired = false,
     isReadonlyCarrier = false,
     form,
+    isLogDriver = false,
   } = props;
 
   const dispatch = useDispatch();
   const { loading, vehicles } = useSelector(
     (state: any) => state.carrier.carrier
   );
+  const { vehicles: logVehicles } = useSelector(
+    (state: any) => state.driverLog.driverData?.carrier
+  );
 
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
-    setOptions(
-      (vehicles || []).map((vehicle: any) => {
-        return {
-          value: `${vehicle.identificator}`,
-          key: vehicle.id,
-        };
-      })
-    );
-  }, [vehicles]);
+    if (isLogDriver) {
+      setOptions(
+        (logVehicles || []).map((vehicle: any) => {
+          return {
+            value: `${vehicle.identificator}`,
+            key: vehicle.id,
+          };
+        })
+      );
+    } else {
+      setOptions(
+        (vehicles || []).map((vehicle: any) => {
+          return {
+            value: `${vehicle.identificator}`,
+            key: vehicle.id,
+          };
+        })
+      );
+    }
+  }, [vehicles, logVehicles]);
 
   const VehicleProps = {
     name: "vehicle",

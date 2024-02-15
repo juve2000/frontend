@@ -15,7 +15,7 @@ import {
 import type { ColumnsType } from "antd/es/table";
 import { useTableParams } from "../../../hooks/useTableParams";
 import dayjs from "dayjs";
-
+import { defaultTo } from "lodash";
 import {
   getVehicleListReq,
   getVehicleListRootReq,
@@ -36,6 +36,13 @@ import { BurgerIcon } from "../../header/logo";
 import { LogTabs } from "./LogTabs/LogTabs";
 import { CreateDriverLogModal } from "./CreateLogModal";
 import quarterClock from "../../../img/quarter-clock.svg";
+import { LogBulkPanel } from "./logs-panels/LogBulk";
+import {
+  getEventLabel,
+  getOriginLabel,
+  parseDateGeneralStringFormat,
+} from "./log-utils";
+import { getDriverLogListReq } from "../../../actions";
 
 const { RangePicker } = DatePicker;
 
@@ -69,7 +76,7 @@ export const LogTabelPanel: React.FC = () => {
     clearCustomFilter,
     setCustomFilter,
   } = useTableParams({});
-  const logs = useSelector((state: any) => state.log.logList);
+  const logs = useSelector((state: any) => state.driverLog.logList);
   const carriers = useSelector((state: any) => state.carrier.carrierList);
 
   const count = useSelector((state: any) => state.log.count);
@@ -82,7 +89,7 @@ export const LogTabelPanel: React.FC = () => {
 
   React.useEffect(() => {
     dispatch(
-      getVehicleListReq({
+      getDriverLogListReq({
         queryParams: {
           with: ["driver_groups", "vehicles", "drivers"],
         },
@@ -102,7 +109,12 @@ export const LogTabelPanel: React.FC = () => {
       //   multiple: 5,
       // },
       render: (name, record, index) => {
-        return <div>{`01/02/2024  02:03:67 AM`}</div>;
+        console.log("record", record);
+
+        // return <div>{`01/02/2024  02:03:67 AM`}</div>;
+        return (
+          <div>{`${parseDateGeneralStringFormat(record?.timestamp)}`}</div>
+        );
       },
       width: "15%",
       ellipsis: true,
@@ -124,7 +136,8 @@ export const LogTabelPanel: React.FC = () => {
       //   multiple: 5,
       // },
       render: (name, record, index) => {
-        return <div>{`01:56:22`}</div>;
+        const duration = record?.duration || `03:11:03`;
+        return <div>{duration}</div>;
       },
       width: "10%",
       ellipsis: true,
@@ -148,7 +161,11 @@ export const LogTabelPanel: React.FC = () => {
       width: "8%",
       ellipsis: true,
       render: (value, record, index) => {
-        return <div className="ubuntu">SB</div>;
+        return (
+          <div className="ubuntu">
+            {getEventLabel(record?.event_type, record?.event_code)}
+          </div>
+        );
       },
     },
     {
@@ -165,7 +182,7 @@ export const LogTabelPanel: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`2.0 NY 56`}
+            {`${record?.location}`}
           </div>
         );
       },
@@ -208,30 +225,12 @@ export const LogTabelPanel: React.FC = () => {
         );
       },
     },
-    {
-      title: "ELD",
-      dataIndex: "eld",
-      // sortOrder: getOrderFromTableParams("notes", tableParams),
-      key: "eld",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.model - b.model,
-      //   multiple: 5,
-      // },
-      width: "8%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return (
-          <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`GBMF0912`}
-          </div>
-        );
-      },
-    },
+
     {
       title: "Odometer",
-      dataIndex: "odometer",
+      dataIndex: "total_miles",
       // sortOrder: getOrderFromTableParams("notes", tableParams),
-      key: "odometer",
+      key: "total_miles",
       // sorter: {
       //   compare: (a: any, b: any) => a.model - b.model,
       //   multiple: 5,
@@ -241,16 +240,16 @@ export const LogTabelPanel: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`567123`}
+            {`${defaultTo(record?.total_miles, "")}`}
           </div>
         );
       },
     },
     {
       title: "EH",
-      dataIndex: "eh",
+      dataIndex: "total_hours",
       // sortOrder: getOrderFromTableParams("notes", tableParams),
-      key: "eh",
+      key: "total_hours",
       // sorter: {
       //   compare: (a: any, b: any) => a.model - b.model,
       //   multiple: 5,
@@ -260,7 +259,7 @@ export const LogTabelPanel: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`1089.5`}
+            {`${defaultTo(record?.total_hours, "")}`}
           </div>
         );
       },
@@ -279,7 +278,14 @@ export const LogTabelPanel: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`Driver`}
+            {`${defaultTo(
+              getOriginLabel(
+                record?.event_type,
+                record?.event_code,
+                record?.record_origin
+              ),
+              ""
+            )}`}
           </div>
         );
       },
@@ -311,12 +317,7 @@ export const LogTabelPanel: React.FC = () => {
       //   multiple: 5,
       // },
       render: (name, record, index) => {
-        return (
-          <div>
-            {`7621`}
-            {index}
-          </div>
-        );
+        return <div>{`${record?.id}`}</div>;
       },
       ellipsis: true,
       width: "8%",
@@ -379,7 +380,7 @@ export const LogTabelPanel: React.FC = () => {
         <>
           <Row>
             <Col
-              span={24}
+              span={16}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -516,6 +517,9 @@ export const LogTabelPanel: React.FC = () => {
                   </div>
                 </div>
               </div>
+            </Col>
+            <Col span={8}>
+              <LogBulkPanel />
             </Col>
           </Row>
           <div style={{ width: "100%" }} className="logs-table">

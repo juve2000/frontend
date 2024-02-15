@@ -5,7 +5,7 @@ import { getCarriersListReq } from "../../../actions/carrier";
 
 import { Row, Col, Form, Button, Input, Spin, Modal } from "antd";
 import { CommonInput } from "../../common/inputs";
-import { carrierForm } from "./log-form";
+import { createLogForm } from "./log-form";
 import { Graph } from "../../common/graph/Graph";
 import { InputType } from "../../../constants/inputs";
 import { getDocumentByType } from "./constant";
@@ -14,6 +14,7 @@ import {
   createVehicleReq,
   setCurrentVehicleCarrier,
 } from "../../../actions/vehicle";
+import { createDriverLogReq } from "../../../actions/driver_log";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
@@ -52,7 +53,7 @@ export const CreateDriverLogModal = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  console.log("params", params);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -80,20 +81,23 @@ export const CreateDriverLogModal = () => {
     identificator: "",
     vehicle: "",
     eld: "",
-    co_driver: "",
+    codriver: "",
     trailer: "",
     event_type: "",
-    vin: "",
-    make: null,
-    model: "",
-    fuel_type: null,
-    carrier: null,
+    event_code: "",
+
     status: null,
     notes: "",
-    license_plate: null,
-    license_issuing: "",
-    license_expiration: "",
-    year: 1990,
+
+    timestamp: "",
+    shipping_doc: "",
+    record_origin: "",
+    record_status: 1,
+    total_miles: "",
+    total_hours: "",
+    latitude: "",
+    longitude: "",
+    annotations: "",
   });
 
   React.useEffect(() => {
@@ -119,9 +123,17 @@ export const CreateDriverLogModal = () => {
       .substring(1);
     const data = jsonToFormData({
       ...values,
+      driver: params.driverid,
+      event_type: +values?.event[0],
+      event_code: +values?.event[1],
+      event: undefined,
+      // timestamp: 1707927711 + 4,
+      record_status: 1,
+      timestamp: values?.timestamp / 1000,
+      annotations: null,
     });
     dispatch(
-      createVehicleReq({
+      createDriverLogReq({
         values: data,
         onSuccess: () => {
           form.setFieldsValue(initialValues);
@@ -172,7 +184,7 @@ export const CreateDriverLogModal = () => {
             console.log("form values", form.getFieldsValue());
           }}
         >
-          {carrierForm({}).map((field: any, i: number) => {
+          {createLogForm({}).map((field: any, i: number) => {
             console.log("form", form.getFieldsValue());
             if (field.type === InputType.ADD_DYNAMIC) {
               return (

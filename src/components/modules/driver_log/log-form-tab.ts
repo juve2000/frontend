@@ -11,7 +11,7 @@ import {
   carrierCheckboxGroup,
   DriverField,
 } from "./constant";
-import { NameDriverFields } from "./fields/NameVehicleFields";
+import { CreateLogFields } from "./fields/NameVehicleFields";
 import {
   GroupsStatusFields,
   CarrierFieldInput,

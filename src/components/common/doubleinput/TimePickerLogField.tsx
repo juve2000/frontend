@@ -15,10 +15,10 @@ const buddhistLocale: typeof en = {
   ...en,
   lang: {
     ...en.lang,
-    fieldDateFormat: "BBBB-MM-DD",
-    fieldDateTimeFormat: "BBBB-MM-DD HH:mm:ss",
-    yearFormat: "BBBB",
-    cellYearFormat: "BBBB",
+    fieldDateFormat: "YYYY-MM-DD",
+    fieldDateTimeFormat: "YYYY-MM-DD HH:mm:ss",
+    yearFormat: "YYYY",
+    cellYearFormat: "YYYY",
   } as any,
 };
 

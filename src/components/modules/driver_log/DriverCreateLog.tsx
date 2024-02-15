@@ -5,7 +5,7 @@ import { getCarriersListReq } from "../../../actions/carrier";
 
 import { Row, Col, Form, Button, Input, Spin } from "antd";
 import { CommonInput } from "../../common/inputs";
-import { carrierForm } from "./log-form";
+import { createLogForm } from "./log-form";
 import { Graph } from "../../common/graph/Graph";
 import { InputType } from "../../../constants/inputs";
 import { getDocumentByType } from "./constant";
@@ -145,7 +145,7 @@ export const DriverLogCreatePage = () => {
                   console.log("form values", form.getFieldsValue());
                 }}
               >
-                {carrierForm({}).map((field: any, i: number) => {
+                {createLogForm({}).map((field: any, i: number) => {
                   if (field.type === InputType.ADD_DYNAMIC) {
                     return (
                       <CommonInput

@@ -38,6 +38,7 @@ export const DriverDynamicField = (props: any) => {
     isRequired = false,
     isReadonlyCarrier = false,
     form,
+    isLogDriver = false,
   } = props;
 
   const dispatch = useDispatch();
@@ -45,20 +46,33 @@ export const DriverDynamicField = (props: any) => {
     (state: any) => state.carrier.carrier
   );
 
+  const { drivers: logDrivers } = useSelector(
+    (state: any) => state.driverLog.driverData?.carrier
+  );
+
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
-    console.log("drivers", drivers);
-
-    setOptions(
-      (drivers || []).map((driver: any) => {
-        return {
-          value: `${driver.first_name} ${driver.last_name}`,
-          key: driver.id,
-        };
-      })
-    );
-  }, [drivers]);
+    if (isLogDriver) {
+      setOptions(
+        (logDrivers || []).map((driver: any) => {
+          return {
+            value: `${driver.first_name} ${driver.last_name}`,
+            key: driver.id,
+          };
+        })
+      );
+    } else {
+      setOptions(
+        (drivers || []).map((driver: any) => {
+          return {
+            value: `${driver.first_name} ${driver.last_name}`,
+            key: driver.id,
+          };
+        })
+      );
+    }
+  }, [drivers, logDrivers]);
 
   const DriverProps = {
     name,

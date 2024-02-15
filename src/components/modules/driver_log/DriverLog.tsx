@@ -11,7 +11,7 @@ import { CARRIER_SELECT_DISABLED } from "../../common/doubleinput/utils";
 
 import { Row, Col, Form, Button, Input, Spin } from "antd";
 import { CommonInput } from "../../common/inputs";
-import { carrierForm } from "./log-form";
+import { createLogForm } from "./log-form";
 import { InputType } from "../../../constants/inputs";
 import { PAGE_STATUS, getDocumentByType } from "./constant";
 import { usePermissions } from "../../../hooks/usePermissions";
@@ -188,7 +188,7 @@ export const DriverLogPage = () => {
                   console.log("form values", form.getFieldsValue());
                 }}
               >
-                {carrierForm({}).map((fieldCurrent: any, i: number) => {
+                {createLogForm({}).map((fieldCurrent: any, i: number) => {
                   const field = {
                     ...fieldCurrent,
                     disabled:

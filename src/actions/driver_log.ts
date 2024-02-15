@@ -20,6 +20,12 @@ const ActionTypes = keyMirror({
   GET_DRIVER_LOG_LIST_SUCCESS: undefined,
   GET_DRIVER_LOG_LIST_FAILURE: undefined,
   SET_CURRENT_CARRIER: undefined,
+  GET_DRIVER_DATA_LOG_REQUEST: undefined,
+  GET_DRIVER_DATA_LOG_SUCCESS: undefined,
+  GET_DRIVER_DATA_LOG_FAILURE: undefined,
+  GET_DRIVER_DATA_CARRIER_LOG_REQUEST: undefined,
+  GET_DRIVER_DATA_CARRIER_LOG_SUCCESS: undefined,
+  GET_DRIVER_DATA_CARRIER_LOG_FAILURE: undefined,
 });
 
 export const DriverLogActionTypes = ActionTypes;
@@ -133,4 +139,47 @@ export const getDriverLogListFailed = createAction(
     return actionPayload(payload);
   }
 );
-//SET_CURRENT_CARRIER
+
+// get log
+
+export const getDriverDataLogReq = createAction(
+  ActionTypes.GET_DRIVER_DATA_LOG_REQUEST,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+export const getDriverDataLogSuccess = createAction(
+  ActionTypes.GET_DRIVER_DATA_LOG_SUCCESS,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+export const getDriverDataLogFailed = createAction(
+  ActionTypes.GET_DRIVER_DATA_LOG_FAILURE,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+// get carrier data log
+
+export const getDriverDataCarrierLogReq = createAction(
+  ActionTypes.GET_DRIVER_DATA_CARRIER_LOG_REQUEST,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+export const getDriverDataCarrierLogSuccess = createAction(
+  ActionTypes.GET_DRIVER_DATA_CARRIER_LOG_SUCCESS,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
+
+export const getDriverDataCarrierLogFailed = createAction(
+  ActionTypes.GET_DRIVER_DATA_CARRIER_LOG_FAILURE,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);

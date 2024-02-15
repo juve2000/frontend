@@ -47,6 +47,10 @@ import { OfficeSelectInput } from "./OfficeSelectInput";
 //ADDRESS
 import { Address } from "./Address";
 import { TimePickerLogField } from "./TimePickerLogField";
+//LOG DRIVER
+import { InputSelectOriginV2 } from "./InputSelectOrigin";
+import { InputSelectEventV2 } from "./InputSelectEvent";
+import { InputSelectNotesV2 } from "./InputSelectNotes";
 
 export const CommonInputV2 = (props: any) => {
   const { type } = props;
@@ -128,6 +132,13 @@ export const CommonInputV2 = (props: any) => {
       return <Address {...props} />;
     case InputType.TIME_PICKER_LOG:
       return <TimePickerLogField {...props} />;
+    //LOG DRIVER
+    case InputType.SELECT_ORIGIN_V2:
+      return <InputSelectOriginV2 {...props} />;
+    case InputType.SELECT_EVENT_V2:
+      return <InputSelectEventV2 {...props} />;
+    case InputType.SELECT_NOTES_V2:
+      return <InputSelectNotesV2 {...props} />;
     default:
       return null;
   }

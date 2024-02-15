@@ -13,12 +13,12 @@ import {
   carrierData,
   VehicleField,
 } from "../constant";
-import { EVENT_TYPE } from "./log-contant";
+import { EventOptions } from "./log-contant";
 
 const { ALPHABETICAL, REQUIRED, MIN, MAX, NUMERIC, PASSWORD, EMAIL, NAME } =
   VALIDATION_TYPE;
 
-export const NameDriverFields = {
+export const CreateLogFields = {
   type: InputType.MULTI,
   label: "Details",
   isRequired: true,
@@ -26,30 +26,30 @@ export const NameDriverFields = {
   fields: [
     {
       type: InputType.TIME_PICKER_LOG,
-      name: "start_time",
+      name: "timestamp",
       rules: [getValidation(REQUIRED, "name")],
 
       placeholder: "Time",
       hasFeedback: true,
-      span: 12,
-      width: "95%",
+      span: 24,
+      width: "100%",
       title: "Start Time",
     },
 
-    {
-      type: InputType.TIME_PICKER_LOG,
-      name: "end_time",
-      rules: [getValidation(REQUIRED, "name")],
+    // {
+    //   type: InputType.TIME_PICKER_LOG,
+    //   name: "end_time",
+    //   rules: [getValidation(REQUIRED, "name")],
 
-      placeholder: "End Time",
-      hasFeedback: true,
-      span: 12,
-      width: "100%",
-      title: "End Time",
-    },
+    //   placeholder: "End Time",
+    //   hasFeedback: true,
+    //   span: 12,
+    //   width: "100%",
+    //   title: "End Time",
+    // },
 
     {
-      type: InputType.SELECT_V2,
+      type: InputType.SELECT_EVENT_V2,
       name: "event",
       title: "Event",
       // rules: [getValidation(REQUIRED, "Status")],
@@ -58,11 +58,11 @@ export const NameDriverFields = {
       hasFeedback: true,
       span: 12,
       width: "95%",
-      options: EVENT_TYPE,
+      options: EventOptions,
     },
     {
-      type: InputType.SELECT_V2,
-      name: "origin",
+      type: InputType.SELECT_ORIGIN_V2,
+      name: "record_origin",
       title: "Origin",
       rules: [getValidation(REQUIRED, "Status")],
       placeholder: "Select Origin",
@@ -82,7 +82,27 @@ export const NameDriverFields = {
       ],
     },
     {
-      type: InputType.SELECT_V2,
+      type: InputType.TEXT_V2,
+      name: "identificator",
+      // rules: [validate("", ALPHABETICAL)],
+      placeholder: "ID",
+      hasFeedback: true,
+      span: 12,
+      width: "95%",
+      title: "ID",
+    },
+    {
+      type: InputType.SELECT_NOTES_V2,
+      name: "annotations",
+      // rules: [validate("", ALPHABETICAL)],
+      placeholder: "Enter Note",
+      hasFeedback: true,
+      span: 12,
+      width: "100%",
+      title: "Note",
+    },
+    {
+      type: InputType.VEHICLE_DYNAMIC,
       name: "vehicle",
       title: "Vehicle",
       rules: [getValidation(REQUIRED, "Status")],
@@ -91,6 +111,7 @@ export const NameDriverFields = {
       hasFeedback: true,
       span: 12,
       width: "95%",
+      isLogDriver: true,
       options: [
         {
           key: 0,
@@ -103,7 +124,7 @@ export const NameDriverFields = {
       ],
     },
     {
-      type: InputType.SELECT_V2,
+      type: InputType.DEVICE_DYNAMIC,
       name: "eld",
       title: "Eld",
       rules: [getValidation(REQUIRED, "Status")],
@@ -112,6 +133,7 @@ export const NameDriverFields = {
       hasFeedback: true,
       span: 12,
       width: "100%",
+      isLogDriver: true,
       options: [
         {
           key: 0,
@@ -125,7 +147,7 @@ export const NameDriverFields = {
     },
     {
       type: InputType.TEXT_V2,
-      name: "odometer",
+      name: "total_miles",
       // rules: [validate("", ALPHABETICAL)],
       placeholder: "Enter Odometer",
       hasFeedback: true,
@@ -135,7 +157,7 @@ export const NameDriverFields = {
     },
     {
       type: InputType.TEXT_V2,
-      name: "eh",
+      name: "total_hours",
       // rules: [validate("", ALPHABETICAL)],
       placeholder: "Enter EH",
       hasFeedback: true,
@@ -143,26 +165,7 @@ export const NameDriverFields = {
       width: "100%",
       title: "EH",
     },
-    {
-      type: InputType.TEXT_V2,
-      name: "identificator",
-      // rules: [validate("", ALPHABETICAL)],
-      placeholder: "ID",
-      hasFeedback: true,
-      span: 12,
-      width: "95%",
-      title: "ID",
-    },
-    {
-      type: InputType.TEXT_V2,
-      name: "note",
-      // rules: [validate("", ALPHABETICAL)],
-      placeholder: "Enter Note",
-      hasFeedback: true,
-      span: 12,
-      width: "100%",
-      title: "Note",
-    },
+
     {
       type: InputType.TEXT_V2,
       name: "location",
@@ -175,7 +178,7 @@ export const NameDriverFields = {
     },
     {
       type: InputType.TEXT_V2,
-      name: "lat_ocation",
+      name: "latitude",
       // rules: [validate("", ALPHABETICAL)],
       placeholder: "Enter Lat Location",
       hasFeedback: true,
@@ -185,7 +188,7 @@ export const NameDriverFields = {
     },
     {
       type: InputType.TEXT_V2,
-      name: "lng_location",
+      name: "longitude",
       // rules: [validate("", ALPHABETICAL)],
       placeholder: "Enter Lng Location",
       hasFeedback: true,
@@ -195,17 +198,19 @@ export const NameDriverFields = {
     },
     {
       type: InputType.DRIVER_DYNAMIC,
-      name: "co_driver",
+      name: "codriver",
       // rules: [validate("", ALPHABETICAL)],
       placeholder: "Select CO Driver",
       hasFeedback: true,
       span: 24,
       width: "100%",
       title: "Co-Driver",
+      isRequired: false,
+      isLogDriver: true,
     },
     {
       type: InputType.TEXT_V2,
-      name: "document",
+      name: "shipping_doc",
       // rules: [validate("", ALPHABETICAL)],
       placeholder: "Enter Shipping Document",
       hasFeedback: true,
