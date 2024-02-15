@@ -18,6 +18,7 @@ import { createDriverLogReq } from "../../../actions/driver_log";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
+import { getAnnotations } from "./log-utils";
 
 function buildFormData(formData: any, data: any, parentKey?: any) {
   if (
@@ -97,7 +98,7 @@ export const CreateDriverLogModal = () => {
     total_hours: "",
     latitude: "",
     longitude: "",
-    annotations: "",
+    annotations: [],
   });
 
   React.useEffect(() => {
@@ -130,7 +131,8 @@ export const CreateDriverLogModal = () => {
       // timestamp: 1707927711 + 4,
       record_status: 1,
       timestamp: values?.timestamp / 1000,
-      annotations: null,
+      // annotations:  getAnnotations(values?.event_type, values?.annotations),
+      annotations: [],
     });
     dispatch(
       createDriverLogReq({

@@ -1,6 +1,7 @@
 import { defaultTo } from "lodash";
 import dayjs, { Dayjs } from "dayjs";
 import { eventData } from "./fields/log-contant";
+import { annotations } from "./fields/log-contant";
 export const parseTimeString = (timeString: any): Dayjs | string => {
   // Parse the time string into hours, minutes, and seconds
 
@@ -124,4 +125,23 @@ export const getOriginLabel = (
     (originItem) => originItem?.value === +originCode
   );
   return originLabel?.key || "";
+};
+
+export const getAnnotations = (eventType: any, annotationValue: any) => {
+  const annotation = annotations.find(
+    (ann) => eventType === "14" || eventType === 14
+  );
+  if (annotation) {
+    // return [annotation];
+    return [];
+  }
+  // return [
+  //   {
+  //     type: 1,
+  //     // value: annotationValue,
+  //     text: false,
+  //     // file: false,
+  //   },
+  // ];
+  return [];
 };
