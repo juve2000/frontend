@@ -99,7 +99,11 @@ td.ant-table-cell.ant-table-selection-column {
     table {
       table-layout: fixed !important;
       .ant-checkbox-wrapper {
-        display: block !important;
+        display: flex !important;
+        z-index: 100;
+      }
+      .ant-table-selection-column {
+        z-index: 100;
       }
     }
   }
