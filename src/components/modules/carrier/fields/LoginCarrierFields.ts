@@ -23,10 +23,10 @@ export const LoginCarrierFields = {
       type: InputType.TEXT_V2,
       name: CarrierField.EMAIL,
       label: "Username",
-      // rules: [
-      //   validate("", VALIDATION_TYPE.EMAIL),
-      //   getValidation(REQUIRED, "email"),
-      // ],
+      rules: [
+        validate("", VALIDATION_TYPE.EMAIL),
+        getValidation(REQUIRED, "email"),
+      ],
       placeholder: "Email",
       hasFeedback: true,
       title: "Username",

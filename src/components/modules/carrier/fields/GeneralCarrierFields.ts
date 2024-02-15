@@ -24,7 +24,7 @@ export const GeneralCarrierFields = {
       type: InputType.TEXT_V2,
       name: CarrierField.NAME,
       label: "Name",
-      // rules: [getValidation(REQUIRED, "name")],
+      rules: [getValidation(REQUIRED, "name")],
       placeholder: "Enter Carrier Name",
       hasFeedback: true,
       title: "Name*",
@@ -35,12 +35,12 @@ export const GeneralCarrierFields = {
     {
       type: InputType.TEXT_V2,
       name: CarrierField.DOT,
-      // rules: [
-      //   getValidation(MAX, 9),
+      rules: [
+        getValidation(MAX, 9),
 
-      //   validate("", NUMERIC),
-      //   getValidation(REQUIRED, "DOT# Number"),
-      // ],
+        validate("", NUMERIC),
+        getValidation(REQUIRED, "DOT# Number"),
+      ],
       placeholder: "Enter DOT#",
       hasFeedback: true,
       span: 12,

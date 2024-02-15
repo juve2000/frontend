@@ -29,7 +29,7 @@ export const Footer = (props: any) => {
       }}
     >
       <Col className="flex-start" span={8}>
-        <div>© 2023 Highest Gears LLC | All rights reserved</div>
+        <div>© 2024 Core Lines LLC | All rights reserved</div>
       </Col>
       <Col className="flex-start" span={6}>
         <div>Privacy Policy</div>

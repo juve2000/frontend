@@ -33,7 +33,7 @@ export const ContactsCarrierFields = {
       type: InputType.TEXT_V2,
       name: CarrierField.EMAIL,
       label: "Email",
-      // rules: [getValidation(REQUIRED, ""), validate("", VALIDATION_TYPE.EMAIL)],
+      rules: [getValidation(REQUIRED, ""), validate("", VALIDATION_TYPE.EMAIL)],
       placeholder: " Email, e.g. username@domain.net",
       hasFeedback: true,
       title: "Email*",

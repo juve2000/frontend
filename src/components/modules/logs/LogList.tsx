@@ -50,6 +50,7 @@ import {
   parseTimeString,
   parseTimeStringFormat,
   parseDateTimeStringFormat,
+  parseDateGeneralStringFormat,
 } from "../driver_log/log-utils";
 import { ModalGoogleMapTracker } from "../../common/GoogleModal";
 
@@ -124,7 +125,9 @@ export const LogList: React.FC = () => {
           record?.event_date,
           "hh:mm:ss:a"
         );
-        return <div>{`${dateTime}`}</div>;
+        return (
+          <div>{`${parseDateGeneralStringFormat(record?.timestamp)}`}</div>
+        );
       },
       width: "12%",
       ellipsis: true,
