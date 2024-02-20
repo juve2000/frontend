@@ -149,11 +149,14 @@ export default {
         };
       })
       .addCase(getDriverLogListSuccess, (state, { payload }) => {
+        console.log("getDriver data", payload);
         return {
           ...state,
-          logList: payload.data,
+          logList: payload?.data.events ? payload?.data?.events : payload.data,
           loading: false,
           count: payload?.params?.items?.count || 10,
+          logUnit: payload?.data?.unit || {},
+          logForms: payload?.data?.forms || [],
         };
       })
       .addCase(getDriverLogListFailed, (state, { payload }) => {

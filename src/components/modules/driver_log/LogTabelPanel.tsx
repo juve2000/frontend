@@ -36,6 +36,8 @@ import { BurgerIcon } from "../../header/logo";
 import { LogTabs } from "./LogTabs/LogTabs";
 import { CreateDriverLogModal } from "./CreateLogModal";
 import quarterClock from "../../../img/quarter-clock.svg";
+import download from "../../../img/download.svg";
+
 import { LogBulkPanel } from "./logs-panels/LogBulk";
 import {
   getEventLabel,
@@ -93,6 +95,8 @@ export const LogTabelPanel: React.FC = () => {
         queryParams: {
           with: ["driver_groups", "vehicles", "drivers"],
         },
+        driverid: "01HPRSFE8FDXS5JVD8W89CXPQ5",
+        data: "2024-02-14",
       })
     );
   }, []);
@@ -139,7 +143,7 @@ export const LogTabelPanel: React.FC = () => {
         const duration = record?.duration || `03:11:03`;
         return <div>{duration}</div>;
       },
-      width: "10%",
+      width: "9%",
       ellipsis: true,
       // filterDropdown: () => {
       //   return (
@@ -215,7 +219,7 @@ export const LogTabelPanel: React.FC = () => {
       //   compare: (a: any, b: any) => a.fuel_type - b.fuel_type,
       //   multiple: 5,
       // },
-      width: "10%",
+      width: "9%",
       ellipsis: true,
       render: (value, record, index) => {
         return (
@@ -235,7 +239,7 @@ export const LogTabelPanel: React.FC = () => {
       //   compare: (a: any, b: any) => a.model - b.model,
       //   multiple: 5,
       // },
-      width: "8%",
+      width: "7%",
       ellipsis: true,
       render: (value, record, index) => {
         return (
@@ -412,7 +416,7 @@ export const LogTabelPanel: React.FC = () => {
                     <img style={{ width: 15 }} src={quarterClock} alt="" />
                   </div>
                   <div style={{ fontWeight: "bold", marginRight: 10 }}>
-                    Unsigned logs
+                    Unassigned logs
                   </div>
                   <div
                     style={{
@@ -431,6 +435,32 @@ export const LogTabelPanel: React.FC = () => {
                 </div>
                 <div
                   style={{
+                    borderRadius: 10,
+                    background: "#f5f9ff",
+                    display: "flex",
+                    alignItems: "center",
+                    padding: 10,
+                    marginLeft: 10,
+                  }}
+                >
+                  <div
+                    style={{
+                      marginRight: 5,
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <span
+                      className="icon-fi-rr-eye"
+                      style={{ marginLeft: "10px" }}
+                    ></span>{" "}
+                  </div>
+                  <div style={{ fontWeight: "bold", marginRight: 10 }}>
+                    View Original Logs
+                  </div>
+                </div>
+                <div
+                  style={{
                     display: "flex",
                     alignItems: "center",
                     cursor: "pointer",
@@ -445,6 +475,7 @@ export const LogTabelPanel: React.FC = () => {
                     <CreateDriverLogModal />
                   </div>
                 </div>
+
                 <div
                   className="orange ubuntu"
                   style={{
@@ -452,9 +483,15 @@ export const LogTabelPanel: React.FC = () => {
                     fontSize: 12,
                     marginLeft: 16,
                     cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    borderRadius: 10,
+                    background: "#f5f9ff",
+                    padding: 10,
                   }}
                 >
-                  Origin
+                  <img src={download} style={{ marginRight: 10 }} />
+                  <div>Report</div>
                 </div>
                 <div
                   className="orange ubuntu"
@@ -463,62 +500,21 @@ export const LogTabelPanel: React.FC = () => {
                     fontSize: 12,
                     marginLeft: 16,
                     cursor: "pointer",
-                  }}
-                >
-                  Report
-                </div>
-                <div
-                  className="orange ubuntu"
-                  style={{
-                    fontWeight: 500,
-                    fontSize: 12,
-                    marginLeft: 16,
-                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    borderRadius: 10,
+                    background: "#f5f9ff",
+                    padding: 10,
                   }}
                 >
                   Fix logs
                 </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    cursor: "pointer",
-                    marginLeft: 25,
-                  }}
-                  onClick={clearOrder}
-                >
-                  <div style={{ marginRight: 5 }}>
-                    <img src={ResetSort} />
-                  </div>
-                  <div
-                    className="ubuntu"
-                    style={{ color: "#8A8996", fontSize: 12 }}
-                  >
-                    Reset sorting
-                  </div>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    cursor: "pointer",
-                    marginLeft: 25,
-                  }}
-                  onClick={clearFilter}
-                >
-                  <div style={{ marginRight: 5 }}>
-                    <img src={ResetFilter} />
-                  </div>
-                  <div
-                    className="ubuntu"
-                    style={{ color: "#8A8996", fontSize: 12 }}
-                  >
-                    Reset filter
-                  </div>
-                </div>
               </div>
             </Col>
-            <Col span={8}>
+            <Col
+              span={8}
+              style={{ display: "flex", justifyContent: "flex-end" }}
+            >
               <LogBulkPanel />
             </Col>
           </Row>

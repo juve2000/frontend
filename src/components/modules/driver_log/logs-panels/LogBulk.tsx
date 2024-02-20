@@ -67,10 +67,7 @@ export const LogBulkPanel = (props: any) => {
               // value={form?.getFieldValue(getName(name, pathName))}
               showSearch
               optionFilterProp="children"
-              options={[
-                { value: "1", label: "1" },
-                { value: "2", label: "2" },
-              ]}
+              options={[{ value: "Time", label: "Time" }]}
               //   onSelect={(value) => {
               //     if (onSelect) {
               //       onSelect(value);
@@ -86,7 +83,7 @@ export const LogBulkPanel = (props: any) => {
           })}
         </Select> */}
           </Form.Item>
-          <Form.Item name={"value"} style={{ width: "100%" }}>
+          <Form.Item name={"value"} style={{ width: "100%", marginLeft: 20 }}>
             <Input
               title="value"
               //   placeholder={placeholder}

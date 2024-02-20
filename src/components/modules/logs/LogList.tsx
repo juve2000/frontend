@@ -51,6 +51,8 @@ import {
   parseTimeStringFormat,
   parseDateTimeStringFormat,
   parseDateGeneralStringFormat,
+  parseDateStringFormat,
+  parseDateWitoutTimeStringFormat,
 } from "../driver_log/log-utils";
 import { ModalGoogleMapTracker } from "../../common/GoogleModal";
 
@@ -126,7 +128,8 @@ export const LogList: React.FC = () => {
           "hh:mm:ss:a"
         );
         return (
-          <div>{`${parseDateGeneralStringFormat(record?.timestamp)}`}</div>
+          // <div>{`${parseDateGeneralStringFormat(record?.timestamp)}`}</div>
+          <div>{`${parseDateWitoutTimeStringFormat(record?.timestamp)}`}</div>
         );
       },
       width: "12%",
@@ -279,7 +282,7 @@ export const LogList: React.FC = () => {
     },
 
     {
-      title: "Status & Duration Status",
+      title: "Last Status",
       dataIndex: "status",
       key: "status",
       // sortOrder: getOrderFromTableParams("vin", tableParams),
@@ -407,7 +410,7 @@ export const LogList: React.FC = () => {
       width: "7%",
     },
     {
-      title: "Distance",
+      title: "Miles",
       dataIndex: "distance",
       key: "distance",
       // sortOrder: getOrderFromTableParams("vin", tableParams),
@@ -483,7 +486,14 @@ export const LogList: React.FC = () => {
       render: (value, record, index) => {
         const status = carrierData.status.find((st) => st.key === value);
 
-        return <div>8 min. NY </div>;
+        // return <div>8 min. NY </div>;
+        return (
+          <div>
+            <Tooltip title="DOT Location: NY">
+              <span>Yes</span>
+            </Tooltip>
+          </div>
+        );
       },
       filters: [
         { key: "Yes", value: 1 },

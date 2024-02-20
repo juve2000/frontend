@@ -94,6 +94,17 @@ export const parseDateGeneralStringFormat = (
   return formattedDate;
 };
 
+export const parseDateWitoutTimeStringFormat = (
+  timeStamp: any,
+  formatParamTime?: string,
+  formatParamDate?: string
+): Dayjs | string => {
+  // Parse the time string into hours, minutes, and seconds
+
+  const formattedDate = dayjs(timeStamp * 1000).format("MM/DD/YYYY");
+  return formattedDate;
+};
+
 export const getEventLabel = (eventType: any, eventCode: any) => {
   return eventData.find(
     (eventItem) => eventItem.code === eventCode && eventItem.type === eventType

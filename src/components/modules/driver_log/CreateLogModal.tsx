@@ -98,7 +98,14 @@ export const CreateDriverLogModal = () => {
     total_hours: "",
     latitude: "",
     longitude: "",
-    annotations: [],
+    annotations: [
+      {
+        key: 1,
+        value: "Pre-Trip Inspection",
+        text: false,
+        file: false,
+      },
+    ],
   });
 
   React.useEffect(() => {
@@ -132,7 +139,14 @@ export const CreateDriverLogModal = () => {
       record_status: 1,
       timestamp: values?.timestamp / 1000,
       // annotations:  getAnnotations(values?.event_type, values?.annotations),
-      annotations: [],
+      annotations: [
+        {
+          key: 1,
+          value: "Pre-Trip Inspection",
+          text: false,
+          file: false,
+        },
+      ],
     });
     dispatch(
       createDriverLogReq({
@@ -153,16 +167,24 @@ export const CreateDriverLogModal = () => {
         style={{ display: "flex", alignItems: "center" }}
         onClick={showModal}
       >
-        <span className="icon-fi-rr-plus ubuntu orange" />
         <div
           className="orange ubuntu"
           style={{
             fontWeight: 500,
             fontSize: 12,
-            marginLeft: 8,
+            marginLeft: 16,
             cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            borderRadius: 10,
+            background: "#f5f9ff",
+            padding: 10,
           }}
         >
+          <span
+            className="icon-fi-rr-plus ubuntu orange"
+            style={{ marginRight: 5 }}
+          />
           Create Log
         </div>
       </div>

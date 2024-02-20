@@ -49,7 +49,6 @@ export function* getDriverDataLogSaga({ payload }: any): any {
 }
 
 export function* getDriverDataLogCarrierSaga({ payload }: any): any {
-  console.log("PAYLOAD", payload);
   try {
     const { data } = yield call(
       requestDriverCarrier.get,
@@ -149,9 +148,13 @@ export function* deleteDriverLogSaga({ payload }: any): any {
 
 export function* getDriverLogListSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.get, `/log`, {
-      params: payload.queryParams,
-    });
+    const { data } = yield call(
+      request.get,
+      `/log/daily/${payload.driverid}/2024-02-14`,
+      {
+        params: payload.queryParams,
+      }
+    );
     yield put(getDriverLogListSuccess(data));
   } catch (e: any) {
     yield put(getDriverLogListFailed(e.message));
