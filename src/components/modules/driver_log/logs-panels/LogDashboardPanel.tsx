@@ -53,6 +53,7 @@ const DemoPie = (props: any) => {
     data,
     angleField: "value",
     colorField: "type",
+
     radius: 1,
     innerRadius: 0.6,
     legend: null,
@@ -66,9 +67,13 @@ const DemoPie = (props: any) => {
       style: {
         textAlign: "center",
         fontSize: 14,
+        fill: "#000",
       },
     },
-
+    style: {
+      color: "red",
+    },
+    // color: ["#19CDD7", "#DDB27C"],
     interactions: [
       {
         type: "element-selected",

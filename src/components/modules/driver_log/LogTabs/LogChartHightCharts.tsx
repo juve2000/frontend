@@ -178,7 +178,7 @@ export const LogChartHight = () => {
   return (
     <>
       <Row>
-        <Col span={2}>
+        <Col span={1}>
           <div className="interactive-log-graph-item" style={{ marginTop: 20 }}>
             <div style={{ fontWeight: "bold" }}>OFF</div>
           </div>
@@ -192,7 +192,7 @@ export const LogChartHight = () => {
             <div style={{ fontWeight: "bold" }}>On</div>
           </div>
         </Col>
-        <Col span={20}>
+        <Col span={21}>
           <HighchartsReact highcharts={Highcharts} options={options} />
         </Col>
         <Col span={2}>
