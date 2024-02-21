@@ -150,7 +150,7 @@ export function* getDriverLogListSaga({ payload }: any): any {
   try {
     const { data } = yield call(
       request.get,
-      `/log/daily/${payload.driverid}/2024-02-14`,
+      `/log/daily/${payload.driverid}/2024-02-21`,
       {
         params: payload.queryParams,
       }

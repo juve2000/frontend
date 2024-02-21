@@ -24,10 +24,10 @@ export const LogFields = {
   renderLabel: false,
   fields: [
     {
-      type: InputType.DRIVER_DYNAMIC,
+      type: InputType.TEXT_V2,
       name: "driver",
       label: "Driver *",
-      rules: [getValidation(REQUIRED, "name")],
+      // rules: [getValidation(REQUIRED, "name")],
       placeholder: "Event Log ID",
       hasFeedback: true,
       title: "Driver",
@@ -36,8 +36,8 @@ export const LogFields = {
     },
 
     {
-      type: InputType.DRIVER_DYNAMIC,
-      name: "co_driver",
+      type: InputType.TEXT_V2,
+      name: "codriver",
       rules: [getValidation(REQUIRED, "name")],
 
       placeholder: "Co Driver",
@@ -48,7 +48,7 @@ export const LogFields = {
     },
 
     {
-      type: InputType.CARRIER_DYNAMIC,
+      type: InputType.TEXT_V2,
       name: "carrier",
       title: "Carrier",
       // rules: [getValidation(REQUIRED, "Status")],
@@ -59,7 +59,7 @@ export const LogFields = {
       width: "95%",
     },
     {
-      type: InputType.VEHICLE_DYNAMIC,
+      type: InputType.TEXT_V2,
       name: "vehicle",
       title: "Vehicle",
       rules: [getValidation(REQUIRED, "Status")],
@@ -70,7 +70,7 @@ export const LogFields = {
       width: "100%",
     },
     {
-      type: InputType.SELECT_V2,
+      type: InputType.TEXT_V2,
       name: "vehicle",
       title: "Vehicle",
       rules: [getValidation(REQUIRED, "Status")],
@@ -91,7 +91,7 @@ export const LogFields = {
       ],
     },
     {
-      type: InputType.SELECT_V2,
+      type: InputType.TEXT_V2,
       name: "eld",
       title: "Eld",
       rules: [getValidation(REQUIRED, "Status")],

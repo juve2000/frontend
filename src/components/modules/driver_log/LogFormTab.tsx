@@ -70,61 +70,40 @@ export const LogTab = () => {
   const { loading: carrierLoading, carrierList } = useSelector(
     (state: any) => state.carrier
   );
-  const { user } = useSelector((state: any) => state.auth);
+  const logForms = useSelector((state: any) => state?.driverLog?.logForms);
   const [fields, setFields] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const [initialValues, setInitialValues] = useState({
-    driver: null,
-    co_driver: null,
-    carrier: null,
-    vehicle: "",
-    fuel_type: null,
-    status: null,
-    notes: "",
-    license_plate: null,
-    license_issuing: "",
-    license_expiration: "",
-    trailer: "",
-  });
-
-  React.useEffect(() => {
-    dispatch(
-      getCarriersListReq({
-        queryParams: {
-          with: ["settings", "terminals", "driver_groups"],
-        },
-      })
-    );
-  }, []);
+  const [initialValues, setInitialValues] = useState<any>({});
 
   useEffect(() => {
+    const firstForm = logForms[0];
     form.setFieldsValue({
-      ...form.getFieldsValue(),
-      // ...(!currentCarrier.defaultSavedCarrier ? currentCarrier?.settings : {}),
+      driver: `${firstForm?.driver?.first_name} ${firstForm?.driver?.last_name}`,
+      carrier: `${firstForm?.carrier?.name}`,
+      co_driver: `${firstForm?.codriver?.first_name} ${firstForm?.codriver?.last_name}`,
+      fuel_type: null,
+      status: null,
+      notes: "",
+      license_plate: null,
+      license_issuing: "",
+      license_expiration: "",
+      trailer: "",
+      vehicle: `${firstForm?.vehicle?.identificator}`,
+      vin: `${firstForm?.vehicle?.vin}`,
+      shipping_doc: `${firstForm?.shipping_doc}`,
+      eld: `${firstForm?.device?.identificator}`,
     });
-  }, [currentCarrier]);
-
-  const handleSubmit = async (values: any) => {
-    const f = Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-    const data = jsonToFormData({
-      ...values,
-    });
-    dispatch(
-      createVehicleReq({
-        values: data,
-        onSuccess: () => {
-          form.setFieldsValue(initialValues);
-          setCurrentVehicleCarrier({});
-        },
-      })
-    );
-  };
+  }, [logForms]);
 
   const { checkPermission } = usePermissions();
+  useEffect(() => {
+    console.log("init", initialValues);
+  }, [initialValues]);
 
+  useEffect(() => {
+    console.log("form", form.getFieldsValue());
+  }, [form]);
   return (
     <>
       <Form
@@ -133,7 +112,7 @@ export const LogTab = () => {
         onError={(err) => {
           // console.log("err", err);
         }}
-        onFinish={handleSubmit}
+        onFinish={() => null}
         initialValues={initialValues}
         onChange={() => {
           console.log("form values", form.getFieldsValue());
@@ -149,33 +128,16 @@ export const LogTab = () => {
                     setCurrentIndex={setCurrentIndex}
                     {...field}
                     form={form}
+                    disabled={true}
+                    
                   />
               // prettier-ignore
             );
           }
           // prettier-ignore
-          return <CommonInput key={i} {...field} form={form} />
+          return <CommonInput key={i} {...field} form={form} disabled={true} />
         })}
-        <Form.Item style={{ width: "100%", display: "flex" }}>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="orange"
-            style={{ width: "65px", marginRight: 12 }}
-          >
-            Save
-          </Button>
-          <Button
-            className="grey"
-            style={{ width: "85px", marginRight: 12 }}
-            onClick={() => {
-              // form.setFieldsValue(initialValues);
-              handleCancel();
-            }}
-          >
-            Cancel
-          </Button>
-        </Form.Item>
+        <Form.Item style={{ width: "100%", display: "flex" }}></Form.Item>
       </Form>
     </>
   );

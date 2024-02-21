@@ -86,16 +86,14 @@ export const LogTopPanel = (props: any) => {
             className="top-log-item-container"
           >
             <img src={userTime} alt="clock" />
-            <span className=" ubuntu top-log-item">
-              CO-Driver: ('Vasea Pupkin')
-            </span>
+            <span className=" ubuntu top-log-item">CO-Driver: ()</span>
           </Col>
           <Col style={{ display: "flex", alignItems: "center" }}>
-            <div style={{ marginRight: 10 }}>
+            <div style={{ marginRight: 10, cursor: "pointer" }}>
               <img src={arrowLeft} alt="left" />
             </div>
             <DatePicker onChange={onChange} />
-            <div style={{ marginLeft: 10 }}>
+            <div style={{ marginLeft: 10, cursor: "pointer" }}>
               <img src={arrowRight} alt="right" />
             </div>
           </Col>

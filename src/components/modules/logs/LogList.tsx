@@ -103,7 +103,7 @@ export const LogList: React.FC = () => {
     dispatch(
       getLogListReq({
         queryParams: {
-          with: ["drivers", "driver", "vehicle", "carrier"],
+          with: ["drivers", "driver", "vehicles", "carrier"],
         },
       })
     );

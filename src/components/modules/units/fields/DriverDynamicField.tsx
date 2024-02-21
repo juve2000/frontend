@@ -39,6 +39,7 @@ export const DriverDynamicField = (props: any) => {
     isReadonlyCarrier = false,
     form,
     isLogDriver = false,
+    isCoDriver = false,
   } = props;
 
   const dispatch = useDispatch();
@@ -74,10 +75,11 @@ export const DriverDynamicField = (props: any) => {
     }
   }, [drivers, logDrivers]);
 
+  const rulesItems = isCoDriver ? [] : [getValidation(REQUIRED, "Status")];
   const DriverProps = {
     name,
     title,
-    rules: [getValidation(REQUIRED, "Status")],
+    rules: rulesItems,
     placeholder: "Driver",
     hasFeedback: true,
     span,

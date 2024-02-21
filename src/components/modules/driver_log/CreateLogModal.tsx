@@ -98,14 +98,14 @@ export const CreateDriverLogModal = () => {
     total_hours: "",
     latitude: "",
     longitude: "",
-    annotations: [
-      {
-        key: 1,
-        value: "Pre-Trip Inspection",
-        text: false,
-        file: false,
-      },
-    ],
+    // annotations: [
+    //   {
+    //     key: 1,
+    //     value: "Pre-Trip Inspection",
+    //     text: "",
+    //     // file: false,
+    //   },
+    // ],
   });
 
   React.useEffect(() => {
@@ -130,23 +130,31 @@ export const CreateDriverLogModal = () => {
       .toString(16)
       .substring(1);
     const data = jsonToFormData({
-      ...values,
+      // ...values,
+
       driver: params.driverid,
       event_type: +values?.event[0],
       event_code: +values?.event[1],
-      event: undefined,
-      // timestamp: 1707927711 + 4,
+      record_origin: values?.record_origin,
       record_status: 1,
+      vehicle: values?.vehicle,
+      total_miles: values?.total_miles,
+      total_hours: values?.total_hours,
+      latitude: values?.latitude,
+      longitude: values?.longitude,
+      codriver: values?.codriver,
+      shipping_doc: values?.shipping_doc,
+      trailer: values?.trailer,
       timestamp: values?.timestamp / 1000,
       // annotations:  getAnnotations(values?.event_type, values?.annotations),
-      annotations: [
-        {
-          key: 1,
-          value: "Pre-Trip Inspection",
-          text: false,
-          file: false,
-        },
-      ],
+      // annotations: [
+      //   {
+      //     key: 1,
+      //     value: "Pre-Trip Inspection",
+      //     text: false,
+      //     // file: false,
+      //   },
+      // ],
     });
     dispatch(
       createDriverLogReq({
