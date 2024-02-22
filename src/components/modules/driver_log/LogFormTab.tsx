@@ -93,6 +93,11 @@ export const LogTab = () => {
       vin: `${firstForm?.vehicle?.vin}`,
       shipping_doc: `${firstForm?.shipping_doc}`,
       eld: `${firstForm?.device?.identificator}`,
+      location: `${firstForm?.location}`,
+      malfunction_indicator: `${firstForm?.malfunction_indicator}`,
+      undefined_driver_records: `${firstForm?.undefined_driver_records}`,
+      data_diagnostic_indicator: `${firstForm?.data_diagnostic_indicator}`,
+      certified: firstForm?.data_diagnostic_indicator ? "Yes" : "No",
     });
   }, [logForms]);
 

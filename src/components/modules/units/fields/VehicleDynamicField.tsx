@@ -61,7 +61,7 @@ export const VehicleDynamicField = (props: any) => {
   const VehicleProps = {
     name: "vehicle",
     title: "Vehicle *",
-    rules: [getValidation(REQUIRED, "Status")],
+    rules: isLogDriver ? [] : [getValidation(REQUIRED, "Status")],
     placeholder: "Vehicle",
     hasFeedback: true,
     span,

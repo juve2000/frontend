@@ -93,11 +93,7 @@ export const LogList: React.FC = () => {
 
   const count = useSelector((state: any) => state.log.count);
   const loading = useSelector((state: any) => state.log.loading);
-  const [accautnModalOpen, setAccauntModalOpen] = useState(false);
-  const [currentCarrier, setCurrentCarrier] = useState({
-    id: "",
-    name: "",
-  });
+  const [logDateFilter, setLogDateFilter] = React.useState<any>("");
 
   React.useEffect(() => {
     dispatch(
@@ -120,9 +116,9 @@ export const LogList: React.FC = () => {
     Table.SELECTION_COLUMN,
     {
       title: "Date",
-      key: "identificator",
-      dataIndex: "identificator",
-      sortOrder: getOrderFromTableParams("identificator", tableParams),
+      key: "date",
+      dataIndex: "date",
+      sortOrder: getOrderFromTableParams("date", tableParams),
       sorter: {
         compare: (a: any, b: any) => a.identificator - b.identificator,
         multiple: 5,
@@ -146,10 +142,22 @@ export const LogList: React.FC = () => {
       filterDropdown: () => {
         return (
           <div style={{ padding: 10 }}>
-            <RangePicker />
+            <RangePicker
+              onChange={(v, d) => {
+                setLogDateFilter(d);
+              }}
+            />
+            <Button
+              onClick={() => {
+                setCustomFilter("carrier", logDateFilter);
+              }}
+            >
+              Apply
+            </Button>
           </div>
         );
       },
+      filteredValue: tableParams?.filters?.carrier || null,
     },
     {
       title: "Name",
@@ -588,6 +596,11 @@ export const LogList: React.FC = () => {
                 justifyContent: "flex-end",
               }}
             >
+              <div style={{ marginRight: 10 }}>
+                {!!logDateFilter?.length
+                  ? `Filter rage: ${logDateFilter[0]} - ${logDateFilter[1]}`
+                  : null}
+              </div>
               <InputSearch
                 onChange={setSearchParam}
                 onClear={clearOrderFilters}

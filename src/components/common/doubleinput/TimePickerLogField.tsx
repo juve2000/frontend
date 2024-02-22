@@ -56,15 +56,18 @@ export const TimePickerLogField = (props: any) => {
     (state: any) => state?.driverLog?.driverLogDate
   );
 
-  const defaultValue = dayjs(driverLogDate);
-  console.log("driverlogDate", driverLogDate);
-
-  const FORMAT = "hh:mm:ss:a";
-  const DEFAULT_VALUE = "02:00:00";
-
   const getName = useMemo(() => {
     return pathName ? [...pathName, name] : name;
   }, [pathName, name]);
+
+  const defaultV = !!form.getFieldValue(getName)
+    ? dayjs(+form.getFieldValue(getName))
+    : dayjs(driverLogDate);
+  const [defaultValue, setDefaultValue] = useState(defaultV);
+  console.log("driverlogDate", +form.getFieldValue(getName));
+
+  const FORMAT = "hh:mm:ss:a";
+  const DEFAULT_VALUE = "02:00:00";
 
   // const logTimeValue = ;
 
@@ -76,7 +79,7 @@ export const TimePickerLogField = (props: any) => {
     if (!!form.getFieldValue(getName)) {
       console.log("time", form?.getFieldValue(getName));
       if (typeof form.getFieldValue(getName) === "string") {
-        setSelectedTime(dayjs(form.getFieldValue(getName)));
+        setSelectedTime(dayjs(form.getFieldValue(getName) * 1000));
         // setHasDefaultValue(true);
       }
       if (typeof form.getFieldValue(getName) === "number") {

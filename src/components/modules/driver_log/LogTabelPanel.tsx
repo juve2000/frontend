@@ -315,7 +315,7 @@ export const LogTabelPanel: React.FC = () => {
       //   compare: (a: any, b: any) => a.carrier - b.carrier,
       //   multiple: 5,
       // },
-      width: "6%",
+      width: "10%",
       ellipsis: true,
       render: (value, record, index) => {
         return (
@@ -329,20 +329,6 @@ export const LogTabelPanel: React.FC = () => {
                 />
               </div>
             </EditDriverLogModal>
-            <div>
-              <img
-                style={{ width: 12, cursor: "pointer", marginRight: 10 }}
-                src={copyAlt}
-                alt={"copy"}
-              />
-            </div>
-            <div>
-              <img
-                style={{ width: 12, cursor: "pointer", marginRight: 10 }}
-                src={quarterClock}
-                alt={"past"}
-              />
-            </div>
             <div>
               <img
                 style={{
@@ -379,6 +365,20 @@ export const LogTabelPanel: React.FC = () => {
                     })
                   );
                 }}
+              />
+            </div>
+            <div>
+              <img
+                style={{ width: 12, cursor: "pointer", marginRight: 10 }}
+                src={copyAlt}
+                alt={"copy"}
+              />
+            </div>
+            <div>
+              <img
+                style={{ width: 12, cursor: "pointer", marginRight: 10 }}
+                src={quarterClock}
+                alt={"past"}
               />
             </div>
           </div>

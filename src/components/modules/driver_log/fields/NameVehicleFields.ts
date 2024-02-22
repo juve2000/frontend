@@ -112,6 +112,7 @@ export const CreateLogFields = {
       span: 12,
       width: "95%",
       isLogDriver: true,
+      isRequired: false,
       options: [
         {
           key: 0,

@@ -84,26 +84,27 @@ export const EditDriverLogModal = (props: any) => {
   const [initialValues, setInitialValues] = useState({
     start_time: Date.now(),
     end_time: "",
-    identificator: "",
-    vehicle: "",
-    eld: "",
-    codriver: "",
-    trailer: "",
-
+    id: props?.log?.id,
+    vehicle: props?.log?.vehicle,
+    device: props?.log?.device,
+    codriver: props?.log?.codriver,
+    trailer: props?.log?.trailer,
     status: null,
-    notes: "",
-
-    timestamp: "",
-    shipping_doc: "",
+    note: props?.log?.note,
+    timestamp: props?.log?.timestamp * 1000,
+    shipping_doc: props?.log?.shipping_doc,
     record_status: 1,
-    total_miles: "",
-    total_hours: "",
-    latitude: "",
-    longitude: "",
+    total_miles: props?.log?.total_miles,
+    total_hours: props?.log?.total_hours,
+    latitude: props?.log?.latitude,
+    longitude: props?.log?.longitude,
     event_type: "",
     event_code: "",
     event: `${props?.log?.event_type}${props?.log?.event_code}`,
-    record_origin: "1",
+    record_origin: `${props?.log?.record_origin}`,
+    location: `${props?.log?.location}`,
+    identificator: props?.log?.id,
+
     // ...props?.log,
 
     // annotations: [
@@ -137,6 +138,7 @@ export const EditDriverLogModal = (props: any) => {
     const f = Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
+    console.log("VALEUS EDIT", values?.timestamp);
     const data = jsonToFormData({
       // ...values,
 
@@ -150,12 +152,15 @@ export const EditDriverLogModal = (props: any) => {
       total_hours: values?.total_hours,
       latitude: values?.latitude,
       longitude: values?.longitude,
-      codriver: values?.codriver,
+      codriver: values?.codriver || null,
       shipping_doc: values?.shipping_doc,
       trailer: values?.trailer,
-      timestamp: values?.timestamp / 1000,
+      timestamp: values?.timestamp,
       location: values?.location,
-      note: values?.note,
+      note: values?.note || null,
+      id: values?.id || values?.identificator,
+      //   identificator: values?.id || values?.identificator,
+
       // annotations:  getAnnotations(values?.event_type, values?.annotations),
       // annotations: [
       //   {

@@ -90,8 +90,8 @@ export const parseDateGeneralStringFormat = (
 ): Dayjs | string => {
   // Parse the time string into hours, minutes, and seconds
 
-  // const formattedDate = dayjs(timeStamp * 1000).format("MM/DD/YYYY hh:mm:ss A");
-  const formattedDate = dayjs(timeStamp * 1000).format("MM/DD/YYYY hh:mm:ss");
+  const formattedDate = dayjs(timeStamp * 1000).format("MM/DD/YYYY hh:mm:ss A");
+  // const formattedDate = dayjs(timeStamp * 1000).format("MM/DD/YYYY hh:mm:ss");
 
   return formattedDate;
 };
