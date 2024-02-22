@@ -52,7 +52,7 @@ function jsonToFormData(data: any) {
   return formData;
 }
 
-export const CreateDriverLogModal = () => {
+export const EditDriverLogModal = (props: any) => {
   const [form] = Form.useForm();
   const params = useParams();
   const dispatch = useDispatch();
@@ -89,20 +89,23 @@ export const CreateDriverLogModal = () => {
     eld: "",
     codriver: "",
     trailer: "",
-    event_type: "",
-    event_code: "",
 
     status: null,
     notes: "",
 
     timestamp: "",
     shipping_doc: "",
-    record_origin: "",
     record_status: 1,
     total_miles: "",
     total_hours: "",
     latitude: "",
     longitude: "",
+    event_type: "",
+    event_code: "",
+    event: `${props?.log?.event_type}${props?.log?.event_code}`,
+    record_origin: "1",
+    // ...props?.log,
+
     // annotations: [
     //   {
     //     key: 1,
@@ -195,34 +198,10 @@ export const CreateDriverLogModal = () => {
 
   return (
     <>
-      <div
-        style={{ display: "flex", alignItems: "center" }}
-        onClick={showModal}
-      >
-        <div
-          className="orange ubuntu"
-          style={{
-            fontWeight: 500,
-            fontSize: 12,
-            marginLeft: 16,
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            borderRadius: 10,
-            background: "#f5f9ff",
-            padding: 10,
-          }}
-        >
-          <span
-            className="icon-fi-rr-plus ubuntu orange"
-            style={{ marginRight: 5 }}
-          />
-          Create Log
-        </div>
-      </div>
+      <div onClick={showModal}>{props?.children}</div>
 
       <Modal
-        title="Create Event"
+        title="Edit Event"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}

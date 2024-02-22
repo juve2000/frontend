@@ -133,8 +133,9 @@ export function* updateDriverLogSaga({ payload }: any): any {
 
 export function* deleteDriverLogSaga({ payload }: any): any {
   try {
-    const { data } = yield call(request.delete, `/driver/${payload.id}`);
+    const { data } = yield call(request.delete, `/log/${payload.logId}`);
     yield put(deleteDriverLogSuccess(data));
+    payload.onSuccess();
     yield call(notification.success, {
       message: "Log deleted successfully",
     });

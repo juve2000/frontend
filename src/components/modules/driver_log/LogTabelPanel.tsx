@@ -40,6 +40,7 @@ import edit from "../../../img/edit.svg";
 import copyAlt from "../../../img/copy-alt.svg";
 
 import download from "../../../img/download.svg";
+import trash from "../../../img/trash.svg";
 
 import { LogBulkPanel } from "./logs-panels/LogBulk";
 import {
@@ -47,7 +48,8 @@ import {
   getOriginLabel,
   parseDateGeneralStringFormat,
 } from "./log-utils";
-import { getDriverLogListReq } from "../../../actions";
+import { deleteDriverLogReq, getDriverLogListReq } from "../../../actions";
+import { EditDriverLogModal } from "./EditLogModal";
 
 const { RangePicker } = DatePicker;
 
@@ -318,13 +320,15 @@ export const LogTabelPanel: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ display: "flex" }}>
-            <div>
-              <img
-                style={{ width: 12, cursor: "pointer", marginRight: 10 }}
-                src={edit}
-                alt={"edit"}
-              />
-            </div>
+            <EditDriverLogModal log={record}>
+              <div>
+                <img
+                  style={{ width: 12, cursor: "pointer", marginRight: 10 }}
+                  src={edit}
+                  alt={"edit"}
+                />
+              </div>
+            </EditDriverLogModal>
             <div>
               <img
                 style={{ width: 12, cursor: "pointer", marginRight: 10 }}
@@ -337,6 +341,44 @@ export const LogTabelPanel: React.FC = () => {
                 style={{ width: 12, cursor: "pointer", marginRight: 10 }}
                 src={quarterClock}
                 alt={"past"}
+              />
+            </div>
+            <div>
+              <img
+                style={{
+                  width: 12,
+                  cursor: "pointer",
+                  marginRight: 10,
+                  color: "red",
+                }}
+                src={trash}
+                alt={"delete"}
+                onClick={() => {
+                  dispatch(
+                    deleteDriverLogReq({
+                      logId: record?.id,
+                      onSuccess: () => {
+                        console.log("ON SUCCESS");
+                        dispatch(
+                          getDriverLogListReq({
+                            queryParams: {
+                              with: [
+                                "driver_groups",
+                                "vehicles",
+                                "drivers",
+                                "vehicle",
+                                "driver",
+                                "codriver",
+                              ],
+                            },
+                            driverid: params?.driverid,
+                            date: driverLogDate,
+                          })
+                        );
+                      },
+                    })
+                  );
+                }}
               />
             </div>
           </div>
