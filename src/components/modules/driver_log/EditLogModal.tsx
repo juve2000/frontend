@@ -155,7 +155,7 @@ export const EditDriverLogModal = (props: any) => {
       codriver: values?.codriver || null,
       shipping_doc: values?.shipping_doc,
       trailer: values?.trailer,
-      timestamp: values?.timestamp,
+      timestamp: values?.timestamp / 1000,
       location: values?.location,
       note: values?.note || null,
       id: values?.id || values?.identificator,

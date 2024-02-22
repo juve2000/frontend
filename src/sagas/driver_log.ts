@@ -137,7 +137,7 @@ export function* deleteDriverLogSaga({ payload }: any): any {
     yield put(deleteDriverLogSuccess(data));
     payload.onSuccess();
     yield call(notification.success, {
-      message: "Log deleted successfully",
+      message: "Event deleted successfully",
     });
   } catch (e: any) {
     yield put(deleteDriverLogFailed(e.message));
