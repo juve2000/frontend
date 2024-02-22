@@ -24,7 +24,9 @@ import {
   getDriverDataCarrierLogReq,
   getDriverDataCarrierLogSuccess,
   getDriverDataCarrierLogFailed,
+  setDriverLogDate,
 } from "../actions";
+import { getFormatDateFromTimeStamp } from "../components/modules/driver_log/log-utils";
 
 // import { UserState } from "../types";
 
@@ -42,6 +44,7 @@ export const driverLogState = {
     driver: {},
     carrier: {},
   },
+  driverLogDate: getFormatDateFromTimeStamp(Date.now() / 1000),
 };
 
 export default {
@@ -68,6 +71,12 @@ export default {
           ...state,
           errorMessage: payload,
           loading: false,
+        };
+      })
+      .addCase(setDriverLogDate, (state, { payload }) => {
+        return {
+          ...state,
+          driverLogDate: payload,
         };
       });
     // CREATE LOG

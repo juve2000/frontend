@@ -103,7 +103,14 @@ export const LogList: React.FC = () => {
     dispatch(
       getLogListReq({
         queryParams: {
-          with: ["drivers", "driver", "vehicles", "carrier"],
+          with: [
+            "drivers",
+            "driver",
+            "vehicles",
+            "carrier",
+            "vehicle",
+            "carriers",
+          ],
         },
       })
     );
@@ -129,10 +136,12 @@ export const LogList: React.FC = () => {
         );
         return (
           // <div>{`${parseDateGeneralStringFormat(record?.timestamp)}`}</div>
-          <div>{`${parseDateWitoutTimeStringFormat(record?.timestamp)}`}</div>
+          <div style={{ marginLeft: 10 }}>{`${parseDateWitoutTimeStringFormat(
+            record?.timestamp
+          )}`}</div>
         );
       },
-      width: "12%",
+      width: "10%",
       ellipsis: true,
       filterDropdown: () => {
         return (
@@ -329,10 +338,12 @@ export const LogList: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            <ModalGoogleMapTracker
-              lat={record?.latitude}
-              lng={record?.longitude}
-            />
+            {record?.longitude && record?.latitude && (
+              <ModalGoogleMapTracker
+                lat={record?.latitude}
+                lng={record?.longitude}
+              />
+            )}
           </div>
         );
       },
@@ -365,7 +376,7 @@ export const LogList: React.FC = () => {
       //   compare: (a: any, b: any) => a.model - b.model,
       //   multiple: 5,
       // },
-      width: "5%",
+      width: "7%",
       ellipsis: true,
       render: (value, record, index) => {
         return (
@@ -384,7 +395,7 @@ export const LogList: React.FC = () => {
       //   compare: (a: any, b: any) => a.model - b.model,
       //   multiple: 5,
       // },
-      width: "5%",
+      width: "7%",
       ellipsis: true,
       render: (value, record, index) => {
         return (
@@ -481,7 +492,7 @@ export const LogList: React.FC = () => {
       //   compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
       //   multiple: 5,
       // },
-      width: "9%",
+      width: "7%",
       ellipsis: true,
       render: (value, record, index) => {
         const status = carrierData.status.find((st) => st.key === value);

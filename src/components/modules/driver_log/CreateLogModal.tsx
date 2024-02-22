@@ -14,7 +14,10 @@ import {
   createVehicleReq,
   setCurrentVehicleCarrier,
 } from "../../../actions/vehicle";
-import { createDriverLogReq } from "../../../actions/driver_log";
+import {
+  createDriverLogReq,
+  getDriverLogListReq,
+} from "../../../actions/driver_log";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
@@ -54,7 +57,6 @@ export const CreateDriverLogModal = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log("params", params);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -72,12 +74,15 @@ export const CreateDriverLogModal = () => {
   const { loading: carrierLoading, carrierList } = useSelector(
     (state: any) => state.carrier
   );
+  const driverLogDate = useSelector(
+    (state: any) => state?.driverLog?.driverLogDate
+  );
   const { user } = useSelector((state: any) => state.auth);
   const [fields, setFields] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const [initialValues, setInitialValues] = useState({
-    start_time: 1706678229000,
+    start_time: Date.now(),
     end_time: "",
     identificator: "",
     vehicle: "",
@@ -161,7 +166,24 @@ export const CreateDriverLogModal = () => {
         values: data,
         onSuccess: () => {
           form.setFieldsValue(initialValues);
-          setCurrentVehicleCarrier({});
+
+          dispatch(
+            getDriverLogListReq({
+              queryParams: {
+                with: [
+                  "driver_groups",
+                  "vehicles",
+                  "drivers",
+                  "vehicle",
+                  "driver",
+                  "codriver",
+                ],
+              },
+              driverid: params?.driverid,
+              date: driverLogDate,
+            })
+          );
+          handleCancel();
         },
       })
     );

@@ -89,7 +89,7 @@ export function* createDriverLogSaga({ payload }: any): any {
     yield put(createDriverLogSuccess({}));
     payload.onSuccess();
     yield call(notification.success, {
-      message: "Driver created successfully",
+      message: "Event updated successfully",
     });
   } catch (e: any) {
     yield put(createDriverLogFailed(e.message));
@@ -121,7 +121,7 @@ export function* updateDriverLogSaga({ payload }: any): any {
       },
     });
     yield call(notification.success, {
-      message: "Log updated successfully",
+      message: "Event updated successfully",
     });
   } catch (e: any) {
     yield put(updateDriverLogFailed(e.message));
@@ -150,7 +150,7 @@ export function* getDriverLogListSaga({ payload }: any): any {
   try {
     const { data } = yield call(
       request.get,
-      `/log/daily/${payload.driverid}/2024-02-21`,
+      `/log/daily/${payload.driverid}/${payload.date}`,
       {
         params: payload.queryParams,
       }

@@ -26,9 +26,17 @@ const ActionTypes = keyMirror({
   GET_DRIVER_DATA_CARRIER_LOG_REQUEST: undefined,
   GET_DRIVER_DATA_CARRIER_LOG_SUCCESS: undefined,
   GET_DRIVER_DATA_CARRIER_LOG_FAILURE: undefined,
+  SET_DRIVER_LOG_DATE: undefined,
 });
 
 export const DriverLogActionTypes = ActionTypes;
+
+export const setDriverLogDate = createAction(
+  ActionTypes.SET_DRIVER_LOG_DATE,
+  (payload: any) => {
+    return actionPayload(payload);
+  }
+);
 
 // get log
 

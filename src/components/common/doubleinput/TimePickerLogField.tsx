@@ -8,6 +8,9 @@ import en from "antd/es/date-picker/locale/en_US";
 import enUS from "antd/es/locale/en_US";
 import dayjs from "dayjs";
 import buddhistEra from "dayjs/plugin/buddhistEra";
+//getFormatDateFromTimeStamp
+import { getFormatDateFromTimeStamp } from "../../modules/driver_log/log-utils";
+import { useSelector } from "react-redux";
 
 dayjs.extend(buddhistEra);
 
@@ -15,7 +18,7 @@ const buddhistLocale: typeof en = {
   ...en,
   lang: {
     ...en.lang,
-    fieldDateFormat: "YYYY-MM-DD",
+    // fieldDateFormat: "YYYY-MM-DD",
     fieldDateTimeFormat: "YYYY-MM-DD HH:mm:ss",
     yearFormat: "YYYY",
     cellYearFormat: "YYYY",
@@ -30,8 +33,6 @@ const globalBuddhistLocale: typeof enUS = {
     lang: buddhistLocale.lang,
   },
 };
-
-const defaultValue = dayjs("2024-01-01");
 
 export const TimePickerLogField = (props: any) => {
   const {
@@ -51,12 +52,21 @@ export const TimePickerLogField = (props: any) => {
   } = props;
   const isRequired = rules.find((rule: any) => rule.required);
 
+  const driverLogDate = useSelector(
+    (state: any) => state?.driverLog?.driverLogDate
+  );
+
+  const defaultValue = dayjs(driverLogDate);
+  console.log("driverlogDate", driverLogDate);
+
   const FORMAT = "hh:mm:ss:a";
   const DEFAULT_VALUE = "02:00:00";
 
   const getName = useMemo(() => {
     return pathName ? [...pathName, name] : name;
   }, [pathName, name]);
+
+  // const logTimeValue = ;
 
   const [showPicker, setShowPicker] = useState<any>(null);
   const [selectedTime, setSelectedTime] = useState<any>(dayjs(DEFAULT_VALUE));
@@ -122,11 +132,6 @@ export const TimePickerLogField = (props: any) => {
             onChange={(e, timeString) => {
               setSelectedTime(e);
               form.setFieldValue(getName, dayjs(e).valueOf());
-              console.log("e", dayjs(e).valueOf() as any);
-              console.log(
-                "ET",
-                new Date(dayjs(e).format("BBBB-MM-DD HH:mm:ss"))
-              );
             }}
           />
         </ConfigProvider>

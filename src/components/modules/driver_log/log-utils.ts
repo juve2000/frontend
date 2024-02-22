@@ -90,7 +90,9 @@ export const parseDateGeneralStringFormat = (
 ): Dayjs | string => {
   // Parse the time string into hours, minutes, and seconds
 
-  const formattedDate = dayjs(timeStamp * 1000).format("MM/DD/YYYY hh:mm:ss A");
+  // const formattedDate = dayjs(timeStamp * 1000).format("MM/DD/YYYY hh:mm:ss A");
+  const formattedDate = dayjs(timeStamp * 1000).format("MM/DD/YYYY hh:mm:ss");
+
   return formattedDate;
 };
 
@@ -155,4 +157,60 @@ export const getAnnotations = (eventType: any, annotationValue: any) => {
   //   },
   // ];
   return [];
+};
+
+export const getFormatDateFromTimeStamp = (timestamp: any) => {
+  const milliseconds = timestamp * 1000;
+
+  // Create a new Date object
+  const date = new Date(milliseconds);
+
+  // Extract year, month, and day
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Month is zero-based
+  const day = String(date.getDate()).padStart(2, "0");
+
+  // Form the date string in the format "YYYY-MM-DD"
+  const formattedDate = `${year}-${month}-${day}`;
+  return formattedDate;
+};
+
+export const getPreviousDate = (dateString: any) => {
+  const [year, month, day] = dateString.split("-").map(Number);
+
+  const currentDate = new Date(year, month - 1, day); // Month is zero-based in JavaScript
+
+  const currentTimestamp = currentDate.getTime();
+
+  const previousTimestamp = currentTimestamp - 24 * 60 * 60 * 1000;
+
+  const previousDate = new Date(previousTimestamp);
+
+  const previousYear = previousDate.getFullYear();
+  const previousMonth = String(previousDate.getMonth() + 1).padStart(2, "0"); // Month is zero-based
+  const previousDay = String(previousDate.getDate()).padStart(2, "0");
+
+  const previousDateString = `${previousYear}-${previousMonth}-${previousDay}`;
+
+  return previousDateString;
+};
+
+export const getNextDate = (dateString: any) => {
+  const [year, month, day] = dateString.split("-").map(Number);
+
+  const currentDate = new Date(year, month - 1, day); // Month is zero-based in JavaScript
+
+  const currentTimestamp = currentDate.getTime();
+
+  const nextTimestamp = currentTimestamp + 24 * 60 * 60 * 1000;
+
+  const nextDate = new Date(nextTimestamp);
+
+  const nextYear = nextDate.getFullYear();
+  const nextMonth = String(nextDate.getMonth() + 1).padStart(2, "0"); // Month is zero-based
+  const nextDay = String(nextDate.getDate()).padStart(2, "0");
+
+  const nextDateString = `${nextYear}-${nextMonth}-${nextDay}`;
+
+  return nextDateString;
 };

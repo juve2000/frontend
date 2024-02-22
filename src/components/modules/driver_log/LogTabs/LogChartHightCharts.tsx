@@ -42,9 +42,13 @@ const generateNewData = (
 // Generate new data with 4 statuses and a 2-hour difference between each item
 const newData = generateNewData(originalData, 4, 2);
 
-var currentDate = new Date();
-
 export const LogChartHight = () => {
+  const driverLogDate = useSelector(
+    (state: any) => state.driverLog?.driverLogDate
+  );
+
+  var currentDate = new Date(driverLogDate);
+
   const logs = useSelector((state: any) => state.driverLog.logList);
   const [data, setData] = useState<any>([]);
   const todayStart = Date.UTC(
@@ -69,6 +73,7 @@ export const LogChartHight = () => {
         .sort((a: any, b: any) => a[0] - b[0]);
 
       setData([...logsToUpdate]);
+      // setData([[1708559695000, 3]]);
     }
   }, [logs]);
   useEffect(() => {
@@ -116,7 +121,7 @@ export const LogChartHight = () => {
 
     xAxis: {
       type: "datetime",
-      // step: "center",
+      step: "center",
       tickInterval: 3600 * 1000,
       // tickInterval: 24,
 
@@ -136,10 +141,10 @@ export const LogChartHight = () => {
         59,
         59
       ),
-      style: {
-        display: "flex",
-        alignItems: "center",
-      },
+      // style: {
+      //   display: "flex",
+      //   alignItems: "center",
+      // },
     },
     title: {
       text: null,
@@ -175,21 +180,22 @@ export const LogChartHight = () => {
       },
     ],
   };
+
   return (
     <>
       <Row>
         <Col span={1}>
           <div className="interactive-log-graph-item" style={{ marginTop: 20 }}>
-            <div style={{ fontWeight: "bold" }}>OFF</div>
-          </div>
-          <div className="interactive-log-graph-item">
-            <div style={{ fontWeight: "bold" }}>SB</div>
+            <div style={{ fontWeight: "bold" }}>ON</div>
           </div>
           <div className="interactive-log-graph-item">
             <div style={{ fontWeight: "bold" }}>D</div>
           </div>
           <div className="interactive-log-graph-item">
-            <div style={{ fontWeight: "bold" }}>On</div>
+            <div style={{ fontWeight: "bold" }}>SB</div>
+          </div>
+          <div className="interactive-log-graph-item">
+            <div style={{ fontWeight: "bold" }}>OFF</div>
           </div>
         </Col>
         <Col span={21}>

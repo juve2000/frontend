@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import {
   Table,
   Dropdown,
@@ -36,6 +36,9 @@ import { BurgerIcon } from "../../header/logo";
 import { LogTabs } from "./LogTabs/LogTabs";
 import { CreateDriverLogModal } from "./CreateLogModal";
 import quarterClock from "../../../img/quarter-clock.svg";
+import edit from "../../../img/edit.svg";
+import copyAlt from "../../../img/copy-alt.svg";
+
 import download from "../../../img/download.svg";
 
 import { LogBulkPanel } from "./logs-panels/LogBulk";
@@ -79,8 +82,12 @@ export const LogTabelPanel: React.FC = () => {
     setCustomFilter,
   } = useTableParams({});
   const logs = useSelector((state: any) => state.driverLog.logList);
-  const carriers = useSelector((state: any) => state.carrier.carrierList);
+  const driverLogDate = useSelector(
+    (state: any) => state?.driverLog?.driverLogDate
+  );
 
+  const carriers = useSelector((state: any) => state.carrier.carrierList);
+  const params = useParams();
   const count = useSelector((state: any) => state.log.count);
   const loading = useSelector((state: any) => state.log.loading);
   const [accautnModalOpen, setAccauntModalOpen] = useState(false);
@@ -95,11 +102,11 @@ export const LogTabelPanel: React.FC = () => {
         queryParams: {
           with: ["driver_groups", "vehicles", "drivers"],
         },
-        driverid: "01HPRSFE8FDXS5JVD8W89CXPQ5",
-        data: "2024-02-14",
+        driverid: params?.driverid,
+        date: driverLogDate,
       })
     );
-  }, []);
+  }, [driverLogDate]);
 
   const columns: ColumnsType<any> = [
     Table.SELECTION_COLUMN,
@@ -117,7 +124,9 @@ export const LogTabelPanel: React.FC = () => {
 
         // return <div>{`01/02/2024  02:03:67 AM`}</div>;
         return (
-          <div>{`${parseDateGeneralStringFormat(record?.timestamp)}`}</div>
+          <div style={{ marginLeft: 10 }}>{`${parseDateGeneralStringFormat(
+            record?.timestamp
+          )}`}</div>
         );
       },
       width: "15%",
@@ -143,7 +152,7 @@ export const LogTabelPanel: React.FC = () => {
         const duration = record?.duration || `03:11:03`;
         return <div>{duration}</div>;
       },
-      width: "9%",
+      width: "8%",
       ellipsis: true,
       // filterDropdown: () => {
       //   return (
@@ -162,7 +171,7 @@ export const LogTabelPanel: React.FC = () => {
       //   compare: (a: any, b: any) => a.carrier - b.carrier,
       //   multiple: 5,
       // },
-      width: "8%",
+      width: "10%",
       ellipsis: true,
       render: (value, record, index) => {
         return (
@@ -186,7 +195,7 @@ export const LogTabelPanel: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`${record?.location}`}
+            {record?.location ? `${record?.location}` : ""}
           </div>
         );
       },
@@ -205,7 +214,7 @@ export const LogTabelPanel: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`Note`}
+            {`${record?.annotations[0]?.text || ""}`}
           </div>
         );
       },
@@ -307,7 +316,31 @@ export const LogTabelPanel: React.FC = () => {
       width: "6%",
       ellipsis: true,
       render: (value, record, index) => {
-        return <div className="ubuntu">Edit</div>;
+        return (
+          <div className="ubuntu" style={{ display: "flex" }}>
+            <div>
+              <img
+                style={{ width: 12, cursor: "pointer", marginRight: 10 }}
+                src={edit}
+                alt={"edit"}
+              />
+            </div>
+            <div>
+              <img
+                style={{ width: 12, cursor: "pointer", marginRight: 10 }}
+                src={copyAlt}
+                alt={"copy"}
+              />
+            </div>
+            <div>
+              <img
+                style={{ width: 12, cursor: "pointer", marginRight: 10 }}
+                src={quarterClock}
+                alt={"past"}
+              />
+            </div>
+          </div>
+        );
       },
     },
 
@@ -321,7 +354,8 @@ export const LogTabelPanel: React.FC = () => {
       //   multiple: 5,
       // },
       render: (name, record, index) => {
-        return <div>{`${record?.id}`}</div>;
+        // return <div>{`${record?.id}`}</div>;
+        return <div>{`${record?.sequence_id ? record?.sequence_id : ""}`}</div>;
       },
       ellipsis: true,
       width: "8%",
@@ -416,7 +450,7 @@ export const LogTabelPanel: React.FC = () => {
                     <img style={{ width: 15 }} src={quarterClock} alt="" />
                   </div>
                   <div style={{ fontWeight: "bold", marginRight: 10 }}>
-                    Unassigned logs
+                    Unidentified logs
                   </div>
                   <div
                     style={{

@@ -13,15 +13,16 @@ import quarterClock from "../../../../img/quarter-clock.svg";
 import userTime from "../../../../img/user-time.svg";
 import arrowLeft from "../../../../img/arrow-left.svg";
 import arrowRight from "../../../../img/arrow-right.svg";
+import dayjs from "dayjs";
+import { getNextDate, getPreviousDate } from "../log-utils";
 
 import "./log-top-panel.scss";
+import { setDriverLogDate } from "../../../../actions";
 
 export const LogTopPanel = (props: any) => {
-  const onChange: DatePickerProps["onChange"] = (date, dateString) => {
-    console.log(date, dateString);
-  };
   const driverLog = useSelector((state: any) => state.driverLog);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <Row>
       <Col
@@ -47,6 +48,9 @@ export const LogTopPanel = (props: any) => {
           <Col
             style={{ display: "flex", alignItems: "center" }}
             className="top-log-item-container"
+            onClick={() => {
+              navigate(`/client/drivers/${driverLog?.driverData?.driver?.id}`);
+            }}
           >
             <img src={profile} alt="profile" />
             <span className="orange ubuntu top-log-item">Profile</span>
@@ -89,11 +93,31 @@ export const LogTopPanel = (props: any) => {
             <span className=" ubuntu top-log-item">CO-Driver: ()</span>
           </Col>
           <Col style={{ display: "flex", alignItems: "center" }}>
-            <div style={{ marginRight: 10, cursor: "pointer" }}>
+            <div
+              style={{ marginRight: 10, cursor: "pointer" }}
+              onClick={() => {
+                dispatch(
+                  setDriverLogDate(getPreviousDate(driverLog?.driverLogDate))
+                );
+              }}
+            >
               <img src={arrowLeft} alt="left" />
             </div>
-            <DatePicker onChange={onChange} />
-            <div style={{ marginLeft: 10, cursor: "pointer" }}>
+            <DatePicker
+              onChange={(v, dateString) => {
+                dispatch(setDriverLogDate(dateString));
+              }}
+              defaultValue={dayjs(driverLog?.driverLogDate)}
+              value={dayjs(driverLog?.driverLogDate)}
+            />
+            <div
+              style={{ marginLeft: 10, cursor: "pointer" }}
+              onClick={() => {
+                dispatch(
+                  setDriverLogDate(getNextDate(driverLog?.driverLogDate))
+                );
+              }}
+            >
               <img src={arrowRight} alt="right" />
             </div>
           </Col>
