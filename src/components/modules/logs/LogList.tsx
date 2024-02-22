@@ -597,7 +597,7 @@ export const LogList: React.FC = () => {
               }}
             >
               <div style={{ marginRight: 10 }}>
-                {!!logDateFilter?.length
+                {!!logDateFilter[0]
                   ? `Filter rage: ${logDateFilter[0]} - ${logDateFilter[1]}`
                   : null}
               </div>
