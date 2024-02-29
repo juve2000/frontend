@@ -25,7 +25,7 @@ const ForkTsCheckerWebpackPlugin =
     ? require("react-dev-utils/ForkTsCheckerWarningWebpackPlugin")
     : require("react-dev-utils/ForkTsCheckerWebpackPlugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-
+const CopyPlugin = require("copy-webpack-plugin");
 const createEnvironmentHash = require("./webpack/persistentCache/createEnvironmentHash");
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -332,6 +332,15 @@ module.exports = function (webpackEnv) {
         // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
         // please link the files into your node_modules/ and let module-resolution kick in.
         // Make sure your source files are compiled, as they will not be processed in any way.
+        // new CopyPlugin({
+        //   patterns: [
+        //     { from: "src/index.html", to: "" },
+        //     { from: "node_modules/scichart/_wasm/scichart2d.data", to: "" },
+        //     { from: "node_modules/scichart/_wasm/scichart2d.wasm", to: "" },
+        //     { from: "node_modules/scichart/_wasm/scichart3d.data", to: "" },
+        //     { from: "node_modules/scichart/_wasm/scichart3d.wasm", to: "" },
+        //   ],
+        // }),
         new ModuleScopePlugin(paths.appSrc, [
           paths.appPackageJson,
           reactRefreshRuntimeEntry,
@@ -570,9 +579,11 @@ module.exports = function (webpackEnv) {
     },
     plugins: [
       // Generates an `index.html` file with the <script> injected.
+
       new HtmlWebpackPlugin(
         Object.assign(
           {},
+
           {
             inject: true,
             template: paths.appHtml,

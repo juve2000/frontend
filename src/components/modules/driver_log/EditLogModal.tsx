@@ -138,7 +138,6 @@ export const EditDriverLogModal = (props: any) => {
     const f = Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
-    console.log("VALEUS EDIT", values?.timestamp);
     const data = jsonToFormData({
       // ...values,
 

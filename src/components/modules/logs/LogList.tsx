@@ -585,8 +585,13 @@ export const LogList: React.FC = () => {
               <LogTabs />
             </Col> */}
 
-            <Col span={12}>
+            <Col span={12} style={{ display: "flex", alignItems: "center" }}>
               <InputPageTitle fields={["Logs"]} route="/client/logs" vehicles />
+              <div style={{ marginTop: 10 }}>
+                {!!logDateFilter[0]
+                  ? `Date rage: ${logDateFilter[0]} - ${logDateFilter[1]}`
+                  : null}
+              </div>
             </Col>
             <Col
               span={12}
@@ -596,11 +601,6 @@ export const LogList: React.FC = () => {
                 justifyContent: "flex-end",
               }}
             >
-              <div style={{ marginRight: 10 }}>
-                {!!logDateFilter[0]
-                  ? `Filter rage: ${logDateFilter[0]} - ${logDateFilter[1]}`
-                  : null}
-              </div>
               <InputSearch
                 onChange={setSearchParam}
                 onClear={clearOrderFilters}

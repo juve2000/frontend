@@ -44,8 +44,13 @@ export const InputSelectOriginV2 = (props: any) => {
   };
   const eventValue = form.getFieldValue("event");
 
+  React.useEffect(() => {
+    console.log("form get origin", form.getFieldsValue());
+  }, [form]);
+
   useEffect(() => {
     if (eventValue) {
+      console.log("EVENT value", eventValue);
       const newOptionsObject = eventData.find(
         (eventItem) => `${eventItem.type}${eventItem.code}` === eventValue
       );

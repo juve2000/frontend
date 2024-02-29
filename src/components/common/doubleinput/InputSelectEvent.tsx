@@ -62,7 +62,9 @@ export const InputSelectEventV2 = (props: any) => {
           style={{ width, ...styles }}
           placeholder={placeholder}
           onChange={(value) => {
-            form.setFieldValue("origin", null);
+            form.setFieldValue("record_origin", null);
+            form.setFieldValue("event", value);
+            console.log("ON_CHANGE", value);
             onChange?.(value);
           }}
           // value={form?.getFieldValue(getName(name, pathName))}
