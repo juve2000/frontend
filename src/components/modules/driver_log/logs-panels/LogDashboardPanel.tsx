@@ -57,8 +57,8 @@ const DemoPie = (props: any) => {
     radius: 1,
     innerRadius: 0.6,
     legend: null,
-    height: 100,
-    width: 100,
+    height: 70,
+    width: 70,
     autoFit: false,
     label: {
       type: "inner",
@@ -108,7 +108,7 @@ export const LogDashboardPanel = (props: any) => {
         <Row style={{ width: "100%" }}>
           <Col
             className="log-dashboard-item"
-            style={{ height: 100, width: 100 }}
+            style={{ height: 70, width: 70 }}
             span={3}
           >
             <div>
@@ -123,7 +123,7 @@ export const LogDashboardPanel = (props: any) => {
           </Col>
           <Col
             className="log-dashboard-item"
-            style={{ height: 100, width: 100 }}
+            style={{ height: 70, width: 70 }}
             span={3}
           >
             <div>
@@ -138,7 +138,7 @@ export const LogDashboardPanel = (props: any) => {
           </Col>
           <Col
             className="log-dashboard-item"
-            style={{ height: 100, width: 100 }}
+            style={{ height: 70, width: 70 }}
             span={3}
           >
             <div>
@@ -153,7 +153,7 @@ export const LogDashboardPanel = (props: any) => {
           </Col>
           <Col
             className="log-dashboard-item"
-            style={{ height: 100, width: 100 }}
+            style={{ height: 70, width: 70 }}
             span={3}
           >
             <div>
@@ -166,7 +166,7 @@ export const LogDashboardPanel = (props: any) => {
           </Col>
           <Col
             className="log-dashboard-item"
-            style={{ height: 100, width: 100 }}
+            style={{ height: 70, width: 70 }}
             span={2}
           >
             <div>
@@ -178,7 +178,7 @@ export const LogDashboardPanel = (props: any) => {
           </Col>
           <Col
             className="log-dashboard-item"
-            style={{ height: 100, width: 100 }}
+            style={{ height: 70, width: 70 }}
             span={2}
           >
             <div>
@@ -190,7 +190,7 @@ export const LogDashboardPanel = (props: any) => {
           </Col>
           <Col
             className="log-dashboard-item"
-            style={{ height: 100, width: 100 }}
+            style={{ height: 70, width: 70 }}
             span={2}
           >
             <div>

@@ -42,7 +42,7 @@ export const LogBulkPanel = (props: any) => {
     <Row>
       <Col
         span={24}
-        className="ubuntu "
+        className="ubuntu bulk-container"
         style={{ display: "flex", justifyContent: "space-between" }}
       >
         <Form
@@ -68,6 +68,7 @@ export const LogBulkPanel = (props: any) => {
               showSearch
               optionFilterProp="children"
               options={[{ value: "Time", label: "Time" }]}
+              style={{ width: 200 }}
               //   onSelect={(value) => {
               //     if (onSelect) {
               //       onSelect(value);

@@ -66,7 +66,7 @@ const App: React.FC = () => (
 
 dayjs.extend(customParseFormat);
 
-export const LogTabelPanel: React.FC = () => {
+export const LogTabelUnidentified: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -102,7 +102,7 @@ export const LogTabelPanel: React.FC = () => {
     dispatch(
       getDriverLogListReq({
         queryParams: {
-          with: ["driver_groups", "vehicles", "drivers", "vehicle"],
+          with: ["driver_groups", "vehicles", "drivers"],
         },
         driverid: params?.driverid,
         date: driverLogDate,
@@ -235,7 +235,7 @@ export const LogTabelPanel: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`${record?.vehicle?.identificator}`}
+            {`Truck 008`}
           </div>
         );
       },
@@ -307,7 +307,7 @@ export const LogTabelPanel: React.FC = () => {
     },
 
     {
-      title: "Edit",
+      title: "Assign",
       dataIndex: "edit",
       // sortOrder: getOrderFromTableParams("event", tableParams),
       key: "edit",
@@ -387,24 +387,7 @@ export const LogTabelPanel: React.FC = () => {
     },
 
     {
-      title: "Log ID",
-      dataIndex: "log_id",
-      key: "log_id",
-      // sortOrder: getOrderFromTableParams("vin", tableParams),
-      // sorter: {
-      //   compare: (a: any, b: any) => a.email - b.email,
-      //   multiple: 5,
-      // },
-      render: (name, record, index) => {
-        // return <div>{`${record?.id}`}</div>;
-        return <div>{`${record?.sequence_id ? record?.sequence_id : ""}`}</div>;
-      },
-      ellipsis: true,
-      width: "8%",
-    },
-
-    {
-      title: "Progress",
+      title: "Select Driver",
       dataIndex: "progress",
       // sortOrder: getOrderFromTableParams("status", tableParams),
       key: "progress",
@@ -419,25 +402,25 @@ export const LogTabelPanel: React.FC = () => {
 
         return (
           <div>
-            <Tooltip title="Last modified by: John">
+            {/* <Tooltip title="Last modified by: John">
               <span>Processing</span>
-            </Tooltip>
+            </Tooltip> */}
           </div>
         );
       },
-      filters: [
-        { key: "shift/repair", value: "shift/repair" },
-        { key: "processing", value: "processing" },
-        { key: "pending", value: "pending" },
-        { key: "shift finished", value: "shift finished" },
-        { key: "created", value: "created" },
-      ].map((st: any) => {
-        return {
-          text: st.value,
-          value: st.key,
-        };
-      }),
-      filteredValue: tableParams?.filters?.status || null,
+      //   filters: [
+      //     { key: "shift/repair", value: "shift/repair" },
+      //     { key: "processing", value: "processing" },
+      //     { key: "pending", value: "pending" },
+      //     { key: "shift finished", value: "shift finished" },
+      //     { key: "created", value: "created" },
+      //   ].map((st: any) => {
+      //     return {
+      //       text: st.value,
+      //       value: st.key,
+      //     };
+      //   }),
+      //   filteredValue: tableParams?.filters?.status || null,
     },
   ];
 
@@ -458,146 +441,6 @@ export const LogTabelPanel: React.FC = () => {
     <>
       {checkPermission(AllPermissionsType.VEHICLE_LIST) ? (
         <>
-          <Row>
-            <Col
-              span={8}
-              style={{
-                display: "flex",
-                // justifyContent: "flex-end",
-                alignItems: "center",
-              }}
-            >
-              <LogBulkPanel />
-            </Col>
-            <Col
-              span={16}
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "10px 0px",
-                }}
-              >
-                {/* <div
-                  style={{
-                    borderRadius: 10,
-                    background: "#f5f9ff",
-                    display: "flex",
-                    alignItems: "center",
-                    padding: 10,
-                  }}
-                >
-                  <div
-                    style={{
-                      marginRight: 5,
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img style={{ width: 15 }} src={quarterClock} alt="" />
-                  </div>
-                  <div style={{ fontWeight: "bold", marginRight: 10 }}>
-                    Unidentified logs
-                  </div>
-                  <div
-                    style={{
-                      background: "#ffab00",
-                      borderRadius: 5,
-                      color: "white",
-                      width: 25,
-                      height: 25,
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    2
-                  </div>
-                </div> */}
-                {/* <div
-                  style={{
-                    borderRadius: 10,
-                    background: "#f5f9ff",
-                    display: "flex",
-                    alignItems: "center",
-                    padding: 10,
-                    marginLeft: 10,
-                  }}
-                >
-                  <div
-                    style={{
-                      marginRight: 5,
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <span
-                      className="icon-fi-rr-eye"
-                      style={{ marginLeft: "10px" }}
-                    ></span>{" "}
-                  </div>
-                  <div style={{ fontWeight: "bold", marginRight: 10 }}>
-                    View Original Logs
-                  </div>
-                </div> */}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    cursor: "pointer",
-                    marginLeft: 25,
-                  }}
-                  onClick={clearOrder}
-                >
-                  <div
-                    className="ubuntu"
-                    style={{ color: "#8A8996", fontSize: 12 }}
-                  >
-                    <CreateDriverLogModal />
-                  </div>
-                </div>
-
-                <div
-                  className="orange ubuntu"
-                  style={{
-                    fontWeight: 500,
-                    fontSize: 12,
-                    marginLeft: 16,
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    borderRadius: 10,
-                    background: "#f5f9ff",
-                    padding: 10,
-                  }}
-                >
-                  <img src={download} style={{ marginRight: 10 }} />
-                  <div>Report</div>
-                </div>
-                <div
-                  className="orange ubuntu"
-                  style={{
-                    fontWeight: 500,
-                    fontSize: 12,
-                    marginLeft: 16,
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    borderRadius: 10,
-                    background: "#f5f9ff",
-                    padding: 10,
-                  }}
-                >
-                  Fix logs
-                </div>
-              </div>
-            </Col>
-          </Row>
           <div style={{ width: "100%" }} className="logs-table">
             <Table
               columns={columns}

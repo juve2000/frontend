@@ -77,7 +77,7 @@ export const LogTab = () => {
   const [initialValues, setInitialValues] = useState<any>({});
 
   useEffect(() => {
-    const firstForm = logForms[0];
+    const firstForm = logForms?.[0];
     form.setFieldsValue({
       driver: `${firstForm?.driver?.first_name} ${firstForm?.driver?.last_name}`,
       carrier: `${firstForm?.carrier?.name}`,

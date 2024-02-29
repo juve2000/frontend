@@ -7,6 +7,8 @@ import { LogChartHight } from "./LogChartHightCharts";
 import "./logtab.scss";
 import { LogTabelPanel } from "../LogTabelPanel";
 import { LogTab } from "../LogFormTab";
+import { LogTabelTransaction } from "../LogTableTransaction";
+import { LogTabelUnidentified } from "../LogTableUnidentified";
 
 const onChange = (key: string) => {
   console.log(key);
@@ -42,6 +44,21 @@ export const LogTabs: React.FC = (props: any) => {
       key: "2",
       label: "Profile Form",
       children: <LogTab />,
+    },
+    {
+      key: "3",
+      label: "Unidentified logs",
+      children: <LogTabelUnidentified />,
+    },
+    {
+      key: "4",
+      label: "View Original Logs",
+      children: <LogTab />,
+    },
+    {
+      key: "5",
+      label: "Transactions",
+      children: <LogTabelTransaction />,
     },
   ];
   return (

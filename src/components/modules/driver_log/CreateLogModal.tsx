@@ -22,6 +22,12 @@ import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
 import { getAnnotations } from "./log-utils";
+import dayjs from "dayjs";
+import buddhistEra from "dayjs/plugin/buddhistEra";
+//getFormatDateFromTimeStamp
+import { getFormatDateFromTimeStamp } from "../../modules/driver_log/log-utils";
+
+dayjs.extend(buddhistEra);
 
 function buildFormData(formData: any, data: any, parentKey?: any) {
   if (
@@ -77,16 +83,59 @@ export const CreateDriverLogModal = () => {
   const driverLogDate = useSelector(
     (state: any) => state?.driverLog?.driverLogDate
   );
+
+  const driverLogForm = useSelector((state: any) => state?.driverLog?.logForms);
   const { user } = useSelector((state: any) => state.auth);
   const [fields, setFields] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentConfig, setCurrentCongif] = useState<any>({});
+  const dateNow = Date.now();
+
+  React.useEffect(() => {
+    const relevantTimeStamp = driverLogForm?.find(
+      (item: any) => item?.timestamp * 1000 < dateNow
+    );
+    console.log("relevantTimeStamp", relevantTimeStamp);
+    setCurrentCongif(relevantTimeStamp);
+    setInitialValues({
+      start_time: Date.now(),
+      end_time: "",
+      identificator: "",
+      vehicle: relevantTimeStamp?.vehicle?.id || "",
+      device: relevantTimeStamp?.device?.identificator || "",
+      codriver: "",
+      trailer: "",
+      event_type: "",
+      event_code: "",
+
+      status: null,
+      notes: "",
+
+      timestamp: dayjs(driverLogDate),
+      shipping_doc: "",
+      record_origin: "",
+      record_status: 1,
+      total_miles: "",
+      total_hours: "",
+      latitude: "",
+      longitude: "",
+      // annotations: [
+      //   {
+      //     key: 1,
+      //     value: "Pre-Trip Inspection",
+      //     text: "",
+      //     // file: false,
+      //   },
+      // ],
+    });
+  }, [driverLogForm, driverLogDate]);
 
   const [initialValues, setInitialValues] = useState({
     start_time: Date.now(),
     end_time: "",
     identificator: "",
-    vehicle: "",
-    eld: "",
+    vehicle: currentConfig?.vehicle?.id || "",
+    device: currentConfig?.device?.identificator || "",
     codriver: "",
     trailer: "",
     event_type: "",
@@ -95,7 +144,7 @@ export const CreateDriverLogModal = () => {
     status: null,
     notes: "",
 
-    timestamp: "",
+    timestamp: dayjs(driverLogDate),
     shipping_doc: "",
     record_origin: "",
     record_status: 1,
@@ -103,15 +152,11 @@ export const CreateDriverLogModal = () => {
     total_hours: "",
     latitude: "",
     longitude: "",
-    // annotations: [
-    //   {
-    //     key: 1,
-    //     value: "Pre-Trip Inspection",
-    //     text: "",
-    //     // file: false,
-    //   },
-    // ],
   });
+
+  React.useEffect(() => {
+    form.setFieldValue("timestamp", dayjs(driverLogDate));
+  }, [driverLogDate]);
 
   React.useEffect(() => {
     dispatch(
@@ -230,7 +275,7 @@ export const CreateDriverLogModal = () => {
       >
         <Form
           form={form}
-          name="test"
+          name="test3"
           onError={(err) => {
             // console.log("err", err);
           }}
@@ -242,6 +287,8 @@ export const CreateDriverLogModal = () => {
         >
           {createLogForm({}).map((field: any, i: number) => {
             console.log("form", form.getFieldsValue());
+            console.log("initialValues", initialValues);
+
             if (field.type === InputType.ADD_DYNAMIC) {
               return (
                 <CommonInput

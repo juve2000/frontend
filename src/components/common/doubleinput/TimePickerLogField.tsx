@@ -61,11 +61,16 @@ export const TimePickerLogField = (props: any) => {
   }, [pathName, name]);
 
   const defaultV = !!form.getFieldValue(getName)
-    ? dayjs(+form.getFieldValue(getName))
+    ? dayjs(form.getFieldValue(getName))
     : dayjs(driverLogDate);
-  const [defaultValue, setDefaultValue] = useState(defaultV);
-  console.log("driverlogDate", +form.getFieldValue(getName));
 
+  const [defaultValue, setDefaultValue] = useState(defaultV);
+  console.log("defaultV", defaultV);
+  console.log(
+    "form.getFieldValue(getName)",
+    dayjs(form.getFieldValue(getName))
+  );
+  console.log("!!form.getFieldValue(getName)", !!form.getFieldValue(getName));
   const FORMAT = "hh:mm:ss:a";
   const DEFAULT_VALUE = "02:00:00";
 
@@ -75,22 +80,22 @@ export const TimePickerLogField = (props: any) => {
   const [selectedTime, setSelectedTime] = useState<any>(dayjs(DEFAULT_VALUE));
   const [hasDefaultValue, setHasDefaultValue] = useState(false);
 
-  React.useEffect(() => {
-    if (!!form.getFieldValue(getName)) {
-      console.log("time", form?.getFieldValue(getName));
-      if (typeof form.getFieldValue(getName) === "string") {
-        setSelectedTime(dayjs(form.getFieldValue(getName) * 1000));
-        // setHasDefaultValue(true);
-      }
-      if (typeof form.getFieldValue(getName) === "number") {
-        setSelectedTime(
-          dayjs(form?.getFieldValue(getName)).format("BBBB-MM-DD HH:mm:ss")
-        );
+  // React.useEffect(() => {
+  //   if (!!form.getFieldValue(getName)) {
+  //     console.log("time", form?.getFieldValue(getName));
+  //     if (typeof form.getFieldValue(getName) === "string") {
+  //       setSelectedTime(dayjs(form.getFieldValue(getName) * 1000));
+  //       // setHasDefaultValue(true);
+  //     }
+  //     if (typeof form.getFieldValue(getName) === "number") {
+  //       setSelectedTime(
+  //         dayjs(form?.getFieldValue(getName)).format("BBBB-MM-DD HH:mm:ss")
+  //       );
 
-        // setHasDefaultValue(true);
-      }
-    }
-  }, [form?.getFieldValue(getName)]);
+  //       // setHasDefaultValue(true);
+  //     }
+  //   }
+  // }, [form?.getFieldValue(getName)]);
   const onChange: DatePickerProps["onChange"] = (_, dateStr) => {
     console.log("onChange:", dateStr);
   };
@@ -130,7 +135,7 @@ export const TimePickerLogField = (props: any) => {
       >
         <ConfigProvider locale={globalBuddhistLocale}>
           <DatePicker
-            defaultValue={defaultValue}
+            defaultValue={defaultV}
             showTime
             onChange={(e, timeString) => {
               setSelectedTime(e);

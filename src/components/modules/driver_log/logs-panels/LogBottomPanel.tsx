@@ -53,24 +53,24 @@ export const LogBottomPanel = (props: any) => {
       >
         <Row style={{ width: "100%" }}>
           <Col style={{ fontWeight: "bold" }} span={3}>
-            <div className="log-bottom-panel-item"></div>
-            <div className="log-bottom-panel-item-header log-bottom-panel-item">
+            <div className="log-bottom-panel-item small-panel-item"></div>
+            <div className="log-bottom-panel-item-header log-bottom-panel-item small-panel-item">
               Worked Hours
             </div>
-            <div className="log-bottom-panel-item-header log-bottom-panel-item">
+            <div className="log-bottom-panel-item-header log-bottom-panel-item small-panel-item">
               Driven Hours
             </div>
           </Col>
           {mock.map((item: any, i: number) => {
             return (
               <Col key={i} span={3} style={{ fontWeight: "bold" }}>
-                <div className="log-bottom-panel-item log-bottom-panel-item-data">
+                <div className="log-bottom-panel-item log-bottom-panel-item-data small-panel-item">
                   {item.data}
                 </div>
-                <div className="log-bottom-panel-item log-bottom-panel-item-data">
+                <div className="log-bottom-panel-item log-bottom-panel-item-data small-panel-item">
                   {item.worked + i + 1}h 1{i}m
                 </div>
-                <div className="log-bottom-panel-item log-bottom-panel-item-data">
+                <div className="log-bottom-panel-item log-bottom-panel-item-data small-panel-item">
                   {item.droven + i + 1}h {i + 1}m
                 </div>
               </Col>

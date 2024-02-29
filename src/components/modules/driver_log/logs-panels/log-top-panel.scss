@@ -27,6 +27,9 @@
   align-items: center;
   height: 30px;
 }
+.log-bottom-panel-item.small-panel-item {
+  height: 20px;
+}
 
 .log-bottom-panel-item-data {
   color: #a9bbd1;
@@ -62,4 +65,10 @@
   border-radius: 10px;
   display: flex;
   align-items: center;
+}
+
+.bulk-container {
+  .ant-form-item {
+    margin-bottom: 0px;
+  }
 }
