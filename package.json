@@ -110,9 +110,8 @@
     "workbox-webpack-plugin": "^6.4.1"
   },
   "scripts": {
-    "copyWasm": "copy-files-from-to --config copy-files-from-to.json",
-    "dev": "npm run copyWasm && react-scripts start",
-    "build": "npm run copyWasm && react-scripts build",
+    "dev": "react-scripts start",
+    "build": "react-scripts build",
     "test": "node scripts/test.js"
   },
   "eslintConfig": {
