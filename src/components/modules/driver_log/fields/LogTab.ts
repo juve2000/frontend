@@ -28,7 +28,8 @@ export const LogFields = {
       name: "driver",
       label: "Driver *",
       // rules: [getValidation(REQUIRED, "name")],
-      placeholder: "Event Log ID",
+      placeholder: "No ",
+
       hasFeedback: true,
       title: "Driver",
       span: 12,
@@ -40,18 +41,20 @@ export const LogFields = {
       name: "codriver",
       rules: [getValidation(REQUIRED, "name")],
 
-      placeholder: "Co Driver",
+      placeholder: "No ",
+
       hasFeedback: true,
       span: 12,
       width: "100%",
-      title: "Co Driver",
+      title: "Co-Driver",
     },
     {
       type: InputType.TEXT_V2,
       name: "vehicle",
       title: "Vehicle",
       rules: [getValidation(REQUIRED, "Status")],
-      placeholder: "Select Vehicle",
+      placeholder: "No ",
+
       // options: carrierData.status,
       hasFeedback: true,
       span: 12,
@@ -62,44 +65,24 @@ export const LogFields = {
       name: "vin",
       title: "VIN",
       // rules: [getValidation(REQUIRED, "Status")],
-      placeholder: "Select Carrier",
+      placeholder: "No ",
+
       // options: carrierData.status,
       hasFeedback: true,
       span: 12,
       width: "100%",
-    },
-
-    {
-      type: InputType.TEXT_V2,
-      name: "vehicle",
-      title: "Vehicle",
-      rules: [getValidation(REQUIRED, "Status")],
-      placeholder: "Select Vehicle",
-      // options: carrierData.status,
-      hasFeedback: true,
-      span: 12,
-      width: "95%",
-      options: [
-        {
-          key: 0,
-          value: "Vehicle 01",
-        },
-        {
-          key: 1,
-          value: "Vehicle 02",
-        },
-      ],
     },
     {
       type: InputType.TEXT_V2,
       name: "eld",
       title: "ELD",
       rules: [getValidation(REQUIRED, "Status")],
-      placeholder: "Select Eld",
+      placeholder: "No ",
+
       // options: carrierData.status,
       hasFeedback: true,
       span: 12,
-      width: "100%",
+      width: "95%",
       options: [
         {
           key: 0,
@@ -113,9 +96,32 @@ export const LogFields = {
     },
     {
       type: InputType.TEXT_V2,
+      name: "trailer",
+      title: "Trailers",
+      rules: [getValidation(REQUIRED, "Status")],
+      placeholder: "No ",
+
+      // options: carrierData.status,
+      hasFeedback: true,
+      span: 12,
+      width: "100%",
+      options: [
+        {
+          key: 0,
+          value: "Vehicle 01",
+        },
+        {
+          key: 1,
+          value: "Vehicle 02",
+        },
+      ],
+    },
+    {
+      type: InputType.TEXT_V2,
       name: "odometer",
       // rules: [validate("", ALPHABETICAL)],
-      placeholder: "Enter Odometer",
+      placeholder: "No ",
+
       hasFeedback: true,
       span: 12,
       width: "95%",
@@ -123,19 +129,43 @@ export const LogFields = {
     },
     {
       type: InputType.TEXT_V2,
-      name: "eh",
+      name: "miles_today",
       // rules: [validate("", ALPHABETICAL)],
-      placeholder: "Enter EH",
+      placeholder: "No ",
+
       hasFeedback: true,
       span: 12,
       width: "100%",
+      title: "Miles Today",
+    },
+    {
+      type: InputType.TEXT_V2,
+      name: "eh",
+      // rules: [validate("", ALPHABETICAL)],
+      placeholder: "No ",
+
+      hasFeedback: true,
+      span: 12,
+      width: "95%",
       title: "EH",
     },
     {
       type: InputType.TEXT_V2,
+      name: "shiping_docs",
+      // rules: [validate("", ALPHABETICAL)],
+      placeholder: "No ",
+      hasFeedback: true,
+      span: 12,
+      width: "100%",
+      title: "Shipping Docs",
+    },
+
+    {
+      type: InputType.TEXT_V2,
       name: "from",
       // rules: [validate("", ALPHABETICAL)],
-      placeholder: "From",
+      placeholder: "No ",
+
       hasFeedback: true,
       span: 12,
       width: "95%",
@@ -145,7 +175,8 @@ export const LogFields = {
       type: InputType.TEXT_V2,
       name: "to",
       // rules: [validate("", ALPHABETICAL)],
-      placeholder: "To",
+      placeholder: "No ",
+
       hasFeedback: true,
       span: 12,
       width: "100%",
@@ -153,64 +184,47 @@ export const LogFields = {
     },
     {
       type: InputType.TEXT_V2,
-      name: "location",
+      name: "diagnostic",
       // rules: [validate("", ALPHABETICAL)],
-      placeholder: "Enter Location",
+      placeholder: "No ",
+
       hasFeedback: true,
       span: 12,
       width: "95%",
-      title: "Location",
+      title: "Diagnostic Indicator",
     },
     {
       type: InputType.TEXT_V2,
-      name: "note",
+      name: "malfunction",
       // rules: [validate("", ALPHABETICAL)],
-      placeholder: "Enter Note",
+      placeholder: "No ",
+
       hasFeedback: true,
       span: 12,
       width: "100%",
-      title: "Note",
-    },
-
-    {
-      type: InputType.TEXT_V2,
-      name: "malfunction_indicator",
-      // rules: [validate("", ALPHABETICAL)],
-      placeholder: "Malfunction",
-      hasFeedback: true,
-      span: 12,
-      width: "95%",
       title: "Malfunction Indicator",
     },
     {
       type: InputType.TEXT_V2,
-      name: "undefined_driver_records",
+      name: "unudentified",
       // rules: [validate("", ALPHABETICAL)],
-      placeholder: "Undefined Driver Records",
-      hasFeedback: true,
-      span: 12,
-      width: "100%",
-      title: "Undefined Driver Records",
-    },
-    {
-      type: InputType.TEXT_V2,
-      name: "data_diagnostic_indicator",
-      // rules: [validate("", ALPHABETICAL)],
-      placeholder: "Data Diagnostic Indicator",
+      placeholder: "No ",
+
       hasFeedback: true,
       span: 12,
       width: "95%",
-      title: "Data Diagnostic Indicator",
+      title: "Unidentified Driver",
     },
     {
       type: InputType.TEXT_V2,
       name: "certified",
       // rules: [validate("", ALPHABETICAL)],
-      placeholder: "Certified",
+      placeholder: "No ",
+
       hasFeedback: true,
       span: 12,
       width: "100%",
-      title: "Certified",
+      title: "Certification",
     },
   ],
 };

@@ -9,6 +9,7 @@ import { LogTabelPanel } from "../LogTabelPanel";
 import { LogTab } from "../LogFormTab";
 import { LogTabelTransaction } from "../LogTableTransaction";
 import { LogTabelUnidentified } from "../LogTableUnidentified";
+import { LogOriginalTab } from "../LogOriginalTab";
 
 const onChange = (key: string) => {
   console.log(key);
@@ -53,7 +54,7 @@ export const LogTabs: React.FC = (props: any) => {
     {
       key: "4",
       label: "View Original Logs",
-      children: <LogTab />,
+      children: <LogOriginalTab />,
     },
     {
       key: "5",

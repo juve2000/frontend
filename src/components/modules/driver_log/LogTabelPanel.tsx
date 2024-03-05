@@ -113,7 +113,7 @@ export const LogTabelPanel: React.FC = () => {
   const columns: ColumnsType<any> = [
     Table.SELECTION_COLUMN,
     {
-      title: "Date & Time",
+      title: "   Date & Time",
       key: "identificator_log",
       dataIndex: "identificator",
       // sortOrder: getOrderFromTableParams("identificator", tableParams),
@@ -372,13 +372,6 @@ export const LogTabelPanel: React.FC = () => {
                 style={{ width: 12, cursor: "pointer", marginRight: 10 }}
                 src={copyAlt}
                 alt={"copy"}
-              />
-            </div>
-            <div>
-              <img
-                style={{ width: 12, cursor: "pointer", marginRight: 10 }}
-                src={quarterClock}
-                alt={"past"}
               />
             </div>
           </div>

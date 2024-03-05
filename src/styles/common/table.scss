@@ -107,6 +107,23 @@ td.ant-table-cell.ant-table-selection-column {
       }
     }
   }
+  .table-custom-original-log {
+    .ant-table th.ant-table-selection-column {
+      width: 50px !important;
+    }
+    .ant-table td.ant-table-selection-column {
+      width: 50px !important;
+    }
+    .menu-option {
+      cursor: pointer;
+    }
+    table {
+      table-layout: fixed !important;
+      .ant-checkbox-wrapper {
+        display: none !important;
+      }
+    }
+  }
 }
 
 .ant-table-filter-dropdown-btns {

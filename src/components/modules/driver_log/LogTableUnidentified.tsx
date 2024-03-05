@@ -87,7 +87,9 @@ export const LogTabelUnidentified: React.FC = () => {
   const driverLogDate = useSelector(
     (state: any) => state?.driverLog?.driverLogDate
   );
-
+  const driverLogData = useSelector(
+    (state: any) => state?.driverLog?.driverData
+  );
   const carriers = useSelector((state: any) => state.carrier.carrierList);
   const params = useParams();
   const count = useSelector((state: any) => state.log.count);
@@ -216,7 +218,7 @@ export const LogTabelUnidentified: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`${record?.annotations[0]?.text || ""}`}
+            {`${record?.annotations?.[0]?.text || ""}`}
           </div>
         );
       },
@@ -307,86 +309,6 @@ export const LogTabelUnidentified: React.FC = () => {
     },
 
     {
-      title: "Assign",
-      dataIndex: "edit",
-      // sortOrder: getOrderFromTableParams("event", tableParams),
-      key: "edit",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.carrier - b.carrier,
-      //   multiple: 5,
-      // },
-      width: "10%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return (
-          <div className="ubuntu" style={{ display: "flex" }}>
-            <EditDriverLogModal log={record}>
-              <div>
-                <img
-                  style={{ width: 12, cursor: "pointer", marginRight: 10 }}
-                  src={edit}
-                  alt={"edit"}
-                />
-              </div>
-            </EditDriverLogModal>
-            <div>
-              <img
-                style={{
-                  width: 12,
-                  cursor: "pointer",
-                  marginRight: 10,
-                  color: "red",
-                }}
-                src={trash}
-                alt={"delete"}
-                onClick={() => {
-                  dispatch(
-                    deleteDriverLogReq({
-                      logId: record?.id,
-                      onSuccess: () => {
-                        console.log("ON SUCCESS");
-                        dispatch(
-                          getDriverLogListReq({
-                            queryParams: {
-                              with: [
-                                "driver_groups",
-                                "vehicles",
-                                "drivers",
-                                "vehicle",
-                                "driver",
-                                "codriver",
-                              ],
-                            },
-                            driverid: params?.driverid,
-                            date: driverLogDate,
-                          })
-                        );
-                      },
-                    })
-                  );
-                }}
-              />
-            </div>
-            <div>
-              <img
-                style={{ width: 12, cursor: "pointer", marginRight: 10 }}
-                src={copyAlt}
-                alt={"copy"}
-              />
-            </div>
-            <div>
-              <img
-                style={{ width: 12, cursor: "pointer", marginRight: 10 }}
-                src={quarterClock}
-                alt={"past"}
-              />
-            </div>
-          </div>
-        );
-      },
-    },
-
-    {
       title: "Select Driver",
       dataIndex: "progress",
       // sortOrder: getOrderFromTableParams("status", tableParams),
@@ -395,16 +317,39 @@ export const LogTabelUnidentified: React.FC = () => {
       //   compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
       //   multiple: 5,
       // },
-      width: "9%",
+      width: "15%",
       ellipsis: true,
       render: (value, record, index) => {
-        const status = carrierData.status.find((st: any) => st.key === value);
+        const status = carrierData?.status?.find((st: any) => st.key === value);
+        const defaultValue = driverLogData?.carrier?.drivers.find(
+          (driver: any) => driver.id === driverLogData?.driver?.id
+        )?.id;
 
         return (
           <div>
-            {/* <Tooltip title="Last modified by: John">
-              <span>Processing</span>
-            </Tooltip> */}
+            <Select
+              //   disabled={disabled}
+              //   style={{ width, ...styles }}
+              //   placeholder={placeholder}
+              //   onChange={onChange}
+              showSearch
+              optionFilterProp="children"
+              style={{ width: 200 }}
+              defaultValue={defaultValue}
+            >
+              {driverLogData?.carrier?.drivers?.map((item: any, i: number) => {
+                console.log("driverLogDate", driverLogData);
+                return (
+                  <Select.Option
+                    key={i}
+                    value={item.id}
+                    style={{ backgroundColor: item.color }}
+                  >
+                    {item?.first_name} {item?.last_name}
+                  </Select.Option>
+                );
+              })}
+            </Select>
           </div>
         );
       },
@@ -421,6 +366,27 @@ export const LogTabelUnidentified: React.FC = () => {
       //     };
       //   }),
       //   filteredValue: tableParams?.filters?.status || null,
+    },
+    {
+      title: "Assign",
+      dataIndex: "edit",
+      // sortOrder: getOrderFromTableParams("event", tableParams),
+      key: "edit",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.carrier - b.carrier,
+      //   multiple: 5,
+      // },
+      width: "5%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        return (
+          <div className="ubuntu" style={{ display: "flex" }}>
+            <Button className="white small" style={{ width: 65, padding: 0 }}>
+              Assign
+            </Button>
+          </div>
+        );
+      },
     },
   ];
 
@@ -445,7 +411,7 @@ export const LogTabelUnidentified: React.FC = () => {
             <Table
               columns={columns}
               rowKey={(record) => record.id}
-              dataSource={logs?.map((carrier: any, index: any) => {
+              dataSource={[{}]?.map((carrier: any, index: any) => {
                 return {
                   ...carrier,
                 };

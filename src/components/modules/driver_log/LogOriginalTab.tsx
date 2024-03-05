@@ -66,7 +66,7 @@ const App: React.FC = () => (
 
 dayjs.extend(customParseFormat);
 
-export const LogTabelTransaction: React.FC = () => {
+export const LogOriginalTab: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -102,7 +102,7 @@ export const LogTabelTransaction: React.FC = () => {
     dispatch(
       getDriverLogListReq({
         queryParams: {
-          with: ["driver_groups", "vehicles", "drivers"],
+          with: ["driver_groups", "vehicles", "drivers", "vehicle"],
         },
         driverid: params?.driverid,
         date: driverLogDate,
@@ -113,7 +113,7 @@ export const LogTabelTransaction: React.FC = () => {
   const columns: ColumnsType<any> = [
     Table.SELECTION_COLUMN,
     {
-      title: "Period",
+      title: "   Date & Time",
       key: "identificator_log",
       dataIndex: "identificator",
       // sortOrder: getOrderFromTableParams("identificator", tableParams),
@@ -142,7 +142,7 @@ export const LogTabelTransaction: React.FC = () => {
       // },
     },
     {
-      title: "Carrier",
+      title: "Duration",
       key: "duration",
       dataIndex: "duration",
       // sortOrder: getOrderFromTableParams("duration", tableParams),
@@ -165,10 +165,10 @@ export const LogTabelTransaction: React.FC = () => {
       // },
     },
     {
-      title: "Driver",
-      dataIndex: "driver",
+      title: "Event",
+      dataIndex: "event",
       // sortOrder: getOrderFromTableParams("event", tableParams),
-      key: "driver",
+      key: "event",
       // sorter: {
       //   compare: (a: any, b: any) => a.carrier - b.carrier,
       //   multiple: 5,
@@ -184,7 +184,7 @@ export const LogTabelTransaction: React.FC = () => {
       },
     },
     {
-      title: "Created At",
+      title: "Location",
       dataIndex: "location",
       // sortOrder: getOrderFromTableParams("notes", tableParams),
       key: "location",
@@ -203,7 +203,7 @@ export const LogTabelTransaction: React.FC = () => {
       },
     },
     {
-      title: "Status",
+      title: "Notes",
       dataIndex: "notes",
       // sortOrder: getOrderFromTableParams("notes", tableParams),
       key: "notes",
@@ -222,7 +222,7 @@ export const LogTabelTransaction: React.FC = () => {
       },
     },
     {
-      title: "Info",
+      title: "Vehicle",
       dataIndex: "vehicle",
       // sortOrder: getOrderFromTableParams("vehicle", tableParams),
       key: "vehicle",
@@ -235,14 +235,14 @@ export const LogTabelTransaction: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`Truck 008`}
+            {`${record?.vehicle?.identificator}`}
           </div>
         );
       },
     },
 
     {
-      title: "User",
+      title: "Odometer",
       dataIndex: "total_miles",
       // sortOrder: getOrderFromTableParams("notes", tableParams),
       key: "total_miles",
@@ -261,7 +261,7 @@ export const LogTabelTransaction: React.FC = () => {
       },
     },
     {
-      title: "Roll Back",
+      title: "EH",
       dataIndex: "total_hours",
       // sortOrder: getOrderFromTableParams("notes", tableParams),
       key: "total_hours",
@@ -274,10 +274,53 @@ export const LogTabelTransaction: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`Roll Back`}
+            {`${defaultTo(record?.total_hours, "")}`}
           </div>
         );
       },
+    },
+    {
+      title: "Origin",
+      dataIndex: "origin",
+      // sortOrder: getOrderFromTableParams("notes", tableParams),
+      key: "origin",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.model - b.model,
+      //   multiple: 5,
+      // },
+      width: "6%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        return (
+          <div className="ubuntu" style={{ cursor: "pointer" }}>
+            {`${defaultTo(
+              getOriginLabel(
+                record?.event_type,
+                record?.event_code,
+                record?.record_origin
+              ),
+              ""
+            )}`}
+          </div>
+        );
+      },
+    },
+
+    {
+      title: "Log ID",
+      dataIndex: "log_id",
+      key: "log_id",
+      // sortOrder: getOrderFromTableParams("vin", tableParams),
+      // sorter: {
+      //   compare: (a: any, b: any) => a.email - b.email,
+      //   multiple: 5,
+      // },
+      render: (name, record, index) => {
+        // return <div>{`${record?.id}`}</div>;
+        return <div>{`${record?.sequence_id ? record?.sequence_id : ""}`}</div>;
+      },
+      ellipsis: true,
+      width: "8%",
     },
   ];
 
@@ -315,7 +358,7 @@ export const LogTabelTransaction: React.FC = () => {
               loading={loading}
               onChange={handleTableChange}
               rowSelection={{ ...rowSelection, columnWidth: 10 }}
-              className="table-custom"
+              className="table-custom-original-tab"
               //   sticky
               //   scroll={{ y: window.innerHeight - 235 }}
             />
