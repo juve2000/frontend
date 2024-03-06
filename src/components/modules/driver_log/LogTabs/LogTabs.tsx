@@ -7,7 +7,7 @@ import { LogChartHight } from "./LogChartHightCharts";
 import "./logtab.scss";
 import { LogTabelPanel } from "../LogTabelPanel";
 import { LogTab } from "../LogFormTab";
-import { LogTabelTransaction } from "../LogTableTransaction";
+import { LogTableTransaction } from "../LogTableTransaction";
 import { LogTabelUnidentified } from "../LogTableUnidentified";
 import { LogOriginalTab } from "../LogOriginalTab";
 
@@ -59,7 +59,7 @@ export const LogTabs: React.FC = (props: any) => {
     {
       key: "5",
       label: "Transactions",
-      children: <LogTabelTransaction />,
+      children: <LogTableTransaction />,
     },
   ];
   return (

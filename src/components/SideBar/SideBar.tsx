@@ -40,6 +40,7 @@ export const SideBar = (props: any) => {
     "user",
     "logs",
     "log",
+    "logs_unidentified",
   ];
 
   const getDefaultKey = (pathname: string): any => {
@@ -128,6 +129,18 @@ export const SideBar = (props: any) => {
             "Logs",
             "logs",
             "/logs",
+            <span className="icon-fi-rr-folder"></span>
+          ),
+          getItem(
+            "Unidentified",
+            "logs/unidentified",
+            "/logs/unidentified",
+            <span className="icon-fi-rr-folder"></span>
+          ),
+          getItem(
+            "Transactions",
+            "logs/transactions",
+            "/logs/transactions",
             <span className="icon-fi-rr-folder"></span>
           ),
         ]

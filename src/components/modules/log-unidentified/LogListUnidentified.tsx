@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   Table,
   Dropdown,
@@ -17,39 +17,46 @@ import { useTableParams } from "../../../hooks/useTableParams";
 import dayjs from "dayjs";
 import { defaultTo } from "lodash";
 import {
+  getCarriersListReq,
+  getCarrierPasswordReq,
+} from "../../../actions/carrier";
+import {
   getVehicleListReq,
   getVehicleListRootReq,
   // getCarrierPasswordReq,
 } from "../../../actions/vehicle";
+import {
+  getLogListReq,
+  // getCarrierPasswordReq,
+} from "../../../actions/logs";
 import { getParams } from "../../../routes/utils";
 import { InputSearch } from "../../common/doubleinput/InputSearch";
+import { getOrderFromTableParams } from "../../../hooks/utils";
+import { InputPageTitle } from "../../common/doubleinput/InputPageTitle";
+import { SetPassword } from "./modals/CarrierSetPassword";
+import { InputCallToCall } from "../../common/doubleinput/InputCallToCall";
 
 import ResetSort from "../../../img/resetSort.svg";
 import ResetFilter from "../../../img/resetFilter.svg";
 import { carrierData } from "./constant";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-
+// generateArrayOfYears
+import { generateArrayOfYears } from "../../../hooks/utils";
+import { LogoCarrier } from "../../common/LogoCarrier";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
-import { BurgerIcon } from "../../header/logo";
-import { LogTabs } from "./LogTabs/LogTabs";
-import { CreateDriverLogModal } from "./CreateLogModal";
-import quarterClock from "../../../img/quarter-clock.svg";
-import edit from "../../../img/edit.svg";
-import copyAlt from "../../../img/copy-alt.svg";
-
-import download from "../../../img/download.svg";
-import trash from "../../../img/trash.svg";
-
-import { LogBulkPanel } from "./logs-panels/LogBulk";
 import {
-  getEventLabel,
-  getOriginLabel,
+  parseTimeString,
+  parseTimeStringFormat,
+  parseDateTimeStringFormat,
   parseDateGeneralStringFormat,
-} from "./log-utils";
-import { deleteDriverLogReq, getDriverLogListReq } from "../../../actions";
-import { EditDriverLogModal } from "./EditLogModal";
+  parseDateStringFormat,
+  parseDateWitoutTimeStringFormat,
+} from "../driver_log/log-utils";
+import { ModalGoogleMapTracker } from "../../common/GoogleModal";
+import { getEventLabel } from "../driver_log/log-utils";
+import { getOriginLabel } from "../driver_log/log-utils";
 
 const { RangePicker } = DatePicker;
 
@@ -66,7 +73,7 @@ const App: React.FC = () => (
 
 dayjs.extend(customParseFormat);
 
-export const LogTabelPanel: React.FC = () => {
+export const LogListUnidentified: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -83,37 +90,39 @@ export const LogTabelPanel: React.FC = () => {
     clearCustomFilter,
     setCustomFilter,
   } = useTableParams({});
-  const logs = useSelector((state: any) => state.driverLog.logList);
+  const logs = useSelector((state: any) => state.log.logList);
+  const carriers = useSelector((state: any) => state.carrier.carrierList);
   const driverLogDate = useSelector(
     (state: any) => state?.driverLog?.driverLogDate
   );
-
-  const carriers = useSelector((state: any) => state.carrier.carrierList);
-  const params = useParams();
+  const driverLogData = useSelector(
+    (state: any) => state?.driverLog?.driverData
+  );
   const count = useSelector((state: any) => state.log.count);
   const loading = useSelector((state: any) => state.log.loading);
-  const [accautnModalOpen, setAccauntModalOpen] = useState(false);
-  const [currentCarrier, setCurrentCarrier] = useState({
-    id: "",
-    name: "",
-  });
+  const [logDateFilter, setLogDateFilter] = React.useState<any>("");
 
   React.useEffect(() => {
     dispatch(
-      getDriverLogListReq({
+      getLogListReq({
         queryParams: {
-          with: ["driver_groups", "vehicles", "drivers", "vehicle"],
+          with: [
+            "drivers",
+            "driver",
+            "vehicles",
+            "carrier",
+            "vehicle",
+            "carriers",
+          ],
         },
-        driverid: params?.driverid,
-        date: driverLogDate,
       })
     );
-  }, [driverLogDate]);
+  }, []);
 
   const columns: ColumnsType<any> = [
     Table.SELECTION_COLUMN,
     {
-      title: "   Date & Time",
+      title: "Date & Time",
       key: "identificator_log",
       dataIndex: "identificator",
       // sortOrder: getOrderFromTableParams("identificator", tableParams),
@@ -216,7 +225,7 @@ export const LogTabelPanel: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`${record?.annotations[0]?.text || ""}`}
+            {`${record?.annotations?.[0]?.text || ""}`}
           </div>
         );
       },
@@ -235,7 +244,7 @@ export const LogTabelPanel: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`${record?.vehicle?.unit_daily?.vehicle?.name}`}
+            {`Truck 008`}
           </div>
         );
       },
@@ -307,97 +316,7 @@ export const LogTabelPanel: React.FC = () => {
     },
 
     {
-      title: "Edit",
-      dataIndex: "edit",
-      // sortOrder: getOrderFromTableParams("event", tableParams),
-      key: "edit",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.carrier - b.carrier,
-      //   multiple: 5,
-      // },
-      width: "10%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return (
-          <div className="ubuntu" style={{ display: "flex" }}>
-            <EditDriverLogModal log={record}>
-              <div>
-                <img
-                  style={{ width: 12, cursor: "pointer", marginRight: 10 }}
-                  src={edit}
-                  alt={"edit"}
-                />
-              </div>
-            </EditDriverLogModal>
-            <div>
-              <img
-                style={{
-                  width: 12,
-                  cursor: "pointer",
-                  marginRight: 10,
-                  color: "red",
-                }}
-                src={trash}
-                alt={"delete"}
-                onClick={() => {
-                  dispatch(
-                    deleteDriverLogReq({
-                      logId: record?.id,
-                      onSuccess: () => {
-                        console.log("ON SUCCESS");
-                        dispatch(
-                          getDriverLogListReq({
-                            queryParams: {
-                              with: [
-                                "driver_groups",
-                                "vehicles",
-                                "drivers",
-                                "vehicle",
-                                "driver",
-                                "codriver",
-                              ],
-                            },
-                            driverid: params?.driverid,
-                            date: driverLogDate,
-                          })
-                        );
-                      },
-                    })
-                  );
-                }}
-              />
-            </div>
-            <div>
-              <img
-                style={{ width: 12, cursor: "pointer", marginRight: 10 }}
-                src={copyAlt}
-                alt={"copy"}
-              />
-            </div>
-          </div>
-        );
-      },
-    },
-
-    {
-      title: "Log ID",
-      dataIndex: "log_id",
-      key: "log_id",
-      // sortOrder: getOrderFromTableParams("vin", tableParams),
-      // sorter: {
-      //   compare: (a: any, b: any) => a.email - b.email,
-      //   multiple: 5,
-      // },
-      render: (name, record, index) => {
-        // return <div>{`${record?.id}`}</div>;
-        return <div>{`${record?.sequence_id ? record?.sequence_id : ""}`}</div>;
-      },
-      ellipsis: true,
-      width: "8%",
-    },
-
-    {
-      title: "Progress",
+      title: "Select Driver",
       dataIndex: "progress",
       // sortOrder: getOrderFromTableParams("status", tableParams),
       key: "progress",
@@ -405,45 +324,89 @@ export const LogTabelPanel: React.FC = () => {
       //   compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
       //   multiple: 5,
       // },
-      width: "9%",
+      width: "15%",
       ellipsis: true,
       render: (value, record, index) => {
-        const status = carrierData.status.find((st: any) => st.key === value);
+        const status = carrierData?.status?.find((st: any) => st.key === value);
+        const defaultValue = driverLogData?.carrier?.drivers.find(
+          (driver: any) => driver.id === driverLogData?.driver?.id
+        )?.id;
 
         return (
           <div>
-            <Tooltip title="Last modified by: John">
-              <span>Processing</span>
-            </Tooltip>
+            <Select
+              //   disabled={disabled}
+              //   style={{ width, ...styles }}
+              //   placeholder={placeholder}
+              //   onChange={onChange}
+              showSearch
+              optionFilterProp="children"
+              style={{ width: 200 }}
+              defaultValue={defaultValue}
+            >
+              {driverLogData?.carrier?.drivers?.map((item: any, i: number) => {
+                console.log("driverLogDate", driverLogData);
+                return (
+                  <Select.Option
+                    key={i}
+                    value={item.id}
+                    style={{ backgroundColor: item.color }}
+                  >
+                    {item?.first_name} {item?.last_name}
+                  </Select.Option>
+                );
+              })}
+            </Select>
           </div>
         );
       },
-      filters: [
-        { key: "shift/repair", value: "shift/repair" },
-        { key: "processing", value: "processing" },
-        { key: "pending", value: "pending" },
-        { key: "shift finished", value: "shift finished" },
-        { key: "created", value: "created" },
-      ].map((st: any) => {
-        return {
-          text: st.value,
-          value: st.key,
-        };
-      }),
-      filteredValue: tableParams?.filters?.status || null,
+      //   filters: [
+      //     { key: "shift/repair", value: "shift/repair" },
+      //     { key: "processing", value: "processing" },
+      //     { key: "pending", value: "pending" },
+      //     { key: "shift finished", value: "shift finished" },
+      //     { key: "created", value: "created" },
+      //   ].map((st: any) => {
+      //     return {
+      //       text: st.value,
+      //       value: st.key,
+      //     };
+      //   }),
+      //   filteredValue: tableParams?.filters?.status || null,
+    },
+    {
+      title: "Assign",
+      dataIndex: "edit",
+      // sortOrder: getOrderFromTableParams("event", tableParams),
+      key: "edit",
+      // sorter: {
+      //   compare: (a: any, b: any) => a.carrier - b.carrier,
+      //   multiple: 5,
+      // },
+      width: "5%",
+      ellipsis: true,
+      render: (value, record, index) => {
+        return (
+          <div className="ubuntu" style={{ display: "flex" }}>
+            <Button className="white small" style={{ width: 65, padding: 0 }}>
+              Assign
+            </Button>
+          </div>
+        );
+      },
     },
   ];
 
-  useEffect(() => {
-    dispatch(
-      getVehicleListReq({
-        queryParams: {
-          ...getParams(tableParams),
-          with: ["carrier"],
-        },
-      })
-    );
-  }, [tableParams]);
+  // useEffect(() => {
+  //   dispatch(
+  //     getLogListReq({
+  //       queryParams: {
+  //         ...getParams(tableParams),
+  //         with: ["driver", "carrier", "vehicle"],
+  //       },
+  //     })
+  //   );
+  // }, [tableParams]);
 
   const { checkPermission } = usePermissions();
 
@@ -452,92 +415,37 @@ export const LogTabelPanel: React.FC = () => {
       {checkPermission(AllPermissionsType.VEHICLE_LIST) ? (
         <>
           <Row>
-            <Col
-              span={8}
-              style={{
-                display: "flex",
-                // justifyContent: "flex-end",
-                alignItems: "center",
-              }}
-            >
-              <LogBulkPanel />
+            {/* <Col span={24}>
+              <LogTabs />
+            </Col> */}
+
+            <Col span={12} style={{ display: "flex", alignItems: "center" }}>
+              <InputPageTitle
+                fields={["Unidentified Logs"]}
+                route="/client/logs"
+                vehicles
+              />
+              <div style={{ marginTop: 10 }}>
+                {!!logDateFilter[0]
+                  ? `Date rage: ${logDateFilter[0]} - ${logDateFilter[1]}`
+                  : null}
+              </div>
             </Col>
-            <Col
-              span={16}
+            {/* <Col
+              span={12}
               style={{
                 display: "flex",
                 alignItems: "center",
+                justifyContent: "flex-end",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "10px 0px",
-                }}
-              >
-                {/* <div
-                  style={{
-                    borderRadius: 10,
-                    background: "#f5f9ff",
-                    display: "flex",
-                    alignItems: "center",
-                    padding: 10,
-                  }}
-                >
-                  <div
-                    style={{
-                      marginRight: 5,
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img style={{ width: 15 }} src={quarterClock} alt="" />
-                  </div>
-                  <div style={{ fontWeight: "bold", marginRight: 10 }}>
-                    Unidentified logs
-                  </div>
-                  <div
-                    style={{
-                      background: "#ffab00",
-                      borderRadius: 5,
-                      color: "white",
-                      width: 25,
-                      height: 25,
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    2
-                  </div>
-                </div> */}
-                {/* <div
-                  style={{
-                    borderRadius: 10,
-                    background: "#f5f9ff",
-                    display: "flex",
-                    alignItems: "center",
-                    padding: 10,
-                    marginLeft: 10,
-                  }}
-                >
-                  <div
-                    style={{
-                      marginRight: 5,
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <span
-                      className="icon-fi-rr-eye"
-                      style={{ marginLeft: "10px" }}
-                    ></span>{" "}
-                  </div>
-                  <div style={{ fontWeight: "bold", marginRight: 10 }}>
-                    View Original Logs
-                  </div>
-                </div> */}
+              <InputSearch
+                onChange={setSearchParam}
+                onClear={clearOrderFilters}
+                hasFilters={hasFiltersOrOrder}
+              />
+
+              <div style={{ marginLeft: 20, display: "flex" }}>
                 <div
                   style={{
                     display: "flex",
@@ -547,49 +455,37 @@ export const LogTabelPanel: React.FC = () => {
                   }}
                   onClick={clearOrder}
                 >
+                  <div style={{ marginRight: 5 }}>
+                    <img src={ResetSort} />
+                  </div>
                   <div
                     className="ubuntu"
                     style={{ color: "#8A8996", fontSize: 12 }}
                   >
-                    <CreateDriverLogModal />
+                    Reset sorting
                   </div>
                 </div>
-
                 <div
-                  className="orange ubuntu"
                   style={{
-                    fontWeight: 500,
-                    fontSize: 12,
-                    marginLeft: 16,
-                    cursor: "pointer",
                     display: "flex",
                     alignItems: "center",
-                    borderRadius: 10,
-                    background: "#f5f9ff",
-                    padding: 10,
-                  }}
-                >
-                  <img src={download} style={{ marginRight: 10 }} />
-                  <div>Report</div>
-                </div>
-                <div
-                  className="orange ubuntu"
-                  style={{
-                    fontWeight: 500,
-                    fontSize: 12,
-                    marginLeft: 16,
                     cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    borderRadius: 10,
-                    background: "#f5f9ff",
-                    padding: 10,
+                    marginLeft: 25,
                   }}
+                  onClick={clearFilter}
                 >
-                  Fix logs
+                  <div style={{ marginRight: 5 }}>
+                    <img src={ResetFilter} />
+                  </div>
+                  <div
+                    className="ubuntu"
+                    style={{ color: "#8A8996", fontSize: 12 }}
+                  >
+                    Reset filter
+                  </div>
                 </div>
               </div>
-            </Col>
+            </Col> */}
           </Row>
           <div style={{ width: "100%" }} className="logs-table">
             <Table
@@ -603,7 +499,7 @@ export const LogTabelPanel: React.FC = () => {
               pagination={{
                 ...tableParams.pagination,
                 position: ["bottomCenter"],
-                total: count,
+                total: defaultTo(logs?.length, count),
               }}
               loading={loading}
               onChange={handleTableChange}

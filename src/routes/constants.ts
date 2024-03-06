@@ -42,6 +42,9 @@ const UNITS_PAGE = `${UNITS}/:id`;
 const LOGS = `${Root}/logs`;
 const LOGS_PAGE = `${LOGS}/:id`;
 
+const LOGS_UNIDENTIFIED = `${LOGS}/unidentified`;
+const LOGS_TRANSACTIONS = `${LOGS}/transactions`;
+
 const DRIVER_LOGS = `${Root}/drivers/:driverId/log/`;
 const DRIVER_LOGS_PAGE = `${DRIVER_LOGS}/:logId`;
 
@@ -77,4 +80,6 @@ export const ROUTES = {
   LOGS_PAGE,
   DRIVER_LOGS,
   DRIVER_LOGS_PAGE,
+  LOGS_TRANSACTIONS,
+  LOGS_UNIDENTIFIED,
 };

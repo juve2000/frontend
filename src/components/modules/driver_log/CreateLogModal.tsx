@@ -91,44 +91,7 @@ export const CreateDriverLogModal = () => {
   const [currentConfig, setCurrentCongif] = useState<any>({});
   const dateNow = Date.now();
 
-  React.useEffect(() => {
-    const relevantTimeStamp = driverLogForm?.find(
-      (item: any) => item?.timestamp * 1000 < dateNow
-    );
-    console.log("relevantTimeStamp", relevantTimeStamp);
-    setCurrentCongif(relevantTimeStamp);
-    setInitialValues({
-      start_time: Date.now(),
-      end_time: "",
-      identificator: "",
-      vehicle: relevantTimeStamp?.vehicle?.id || "",
-      device: relevantTimeStamp?.device?.identificator || "",
-      codriver: "",
-      trailer: "",
-      event_type: "",
-      event_code: "",
-
-      status: null,
-      notes: "",
-
-      timestamp: dayjs(driverLogDate),
-      shipping_doc: "",
-      record_origin: "",
-      record_status: 1,
-      total_miles: "",
-      total_hours: "",
-      latitude: "",
-      longitude: "",
-      // annotations: [
-      //   {
-      //     key: 1,
-      //     value: "Pre-Trip Inspection",
-      //     text: "",
-      //     // file: false,
-      //   },
-      // ],
-    });
-  }, [driverLogForm, driverLogDate]);
+  const date = new Date(driverLogDate).getTime();
 
   const [initialValues, setInitialValues] = useState({
     start_time: Date.now(),
@@ -144,7 +107,7 @@ export const CreateDriverLogModal = () => {
     status: null,
     notes: "",
 
-    timestamp: dayjs(driverLogDate),
+    timestamp: date,
     shipping_doc: "",
     record_origin: "",
     record_status: 1,
@@ -153,6 +116,46 @@ export const CreateDriverLogModal = () => {
     latitude: "",
     longitude: "",
   });
+
+  // React.useEffect(() => {
+  //   const relevantTimeStamp = driverLogForm?.find(
+  //     (item: any) => item?.timestamp * 1000 < dateNow
+  //   );
+  //   console.log("relevantTimeStamp", relevantTimeStamp);
+  //   setCurrentCongif(relevantTimeStamp);
+  //   setInitialValues({
+  //     ...initialValues,
+  //     start_time: Date.now(),
+  //     end_time: "",
+  //     identificator: "",
+  //     vehicle: relevantTimeStamp?.vehicle?.id || "",
+  //     device: relevantTimeStamp?.device?.identificator || "",
+  //     codriver: "",
+  //     trailer: "",
+  //     event_type: "",
+  //     event_code: "",
+
+  //     status: null,
+  //     notes: "",
+
+  //     // timestamp: date,
+  //     shipping_doc: "",
+  //     record_origin: "",
+  //     record_status: 1,
+  //     total_miles: "",
+  //     total_hours: "",
+  //     latitude: "",
+  //     longitude: "",
+  //     // annotations: [
+  //     //   {
+  //     //     key: 1,
+  //     //     value: "Pre-Trip Inspection",
+  //     //     text: "",
+  //     //     // file: false,
+  //     //   },
+  //     // ],
+  //   });
+  // }, [driverLogForm, driverLogDate, initialValues]);
 
   React.useEffect(() => {
     form.setFieldValue("timestamp", dayjs(driverLogDate));
@@ -272,6 +275,7 @@ export const CreateDriverLogModal = () => {
         onOk={handleOk}
         onCancel={handleCancel}
         footer={null}
+        destroyOnClose
       >
         <Form
           form={form}

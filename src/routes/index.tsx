@@ -83,6 +83,9 @@ import { DriverLogPage } from "../components/modules/driver_log/DriverLog";
 import { DriverLogCreatePage } from "../components/modules/driver_log/DriverCreateLog";
 import { DriverLogList } from "../components/modules/driver_log/DriverLogList";
 
+import { LogListUnidentified } from "../components/modules/log-unidentified/LogListUnidentified";
+import { LogListTransaction } from "../components/modules/log-transaction/LogListTransaction";
+
 export const MainRouter = () => {
   const navigate = useNavigate();
   return (
@@ -211,6 +214,20 @@ export const MainRouter = () => {
             <Route index element={<LogList />} />;
             <Route path={`create`} element={<LogCreatePage />} />
             <Route path={`:logId`} element={<LogPage />} />
+          </Route>
+          {/* LOGS UNIDENTIFIED */}
+          <Route
+            path={ROUTES.LOGS_UNIDENTIFIED}
+            element={<LogListUnidentified />}
+          >
+            <Route index element={<LogListUnidentified />} />;
+          </Route>
+          {/* LOGS TRANSACTION */}
+          <Route
+            path={ROUTES.LOGS_TRANSACTIONS}
+            element={<LogListTransaction />}
+          >
+            <Route index element={<LogListTransaction />} />;
           </Route>
         </Route>
       </Routes>

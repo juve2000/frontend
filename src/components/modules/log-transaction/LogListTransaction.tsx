@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   Table,
   Dropdown,
@@ -17,39 +17,46 @@ import { useTableParams } from "../../../hooks/useTableParams";
 import dayjs from "dayjs";
 import { defaultTo } from "lodash";
 import {
+  getCarriersListReq,
+  getCarrierPasswordReq,
+} from "../../../actions/carrier";
+import {
   getVehicleListReq,
   getVehicleListRootReq,
   // getCarrierPasswordReq,
 } from "../../../actions/vehicle";
+import {
+  getLogListReq,
+  // getCarrierPasswordReq,
+} from "../../../actions/logs";
 import { getParams } from "../../../routes/utils";
 import { InputSearch } from "../../common/doubleinput/InputSearch";
+import { getOrderFromTableParams } from "../../../hooks/utils";
+import { InputPageTitle } from "../../common/doubleinput/InputPageTitle";
+import { SetPassword } from "./modals/CarrierSetPassword";
+import { InputCallToCall } from "../../common/doubleinput/InputCallToCall";
 
 import ResetSort from "../../../img/resetSort.svg";
 import ResetFilter from "../../../img/resetFilter.svg";
 import { carrierData } from "./constant";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-
+// generateArrayOfYears
+import { generateArrayOfYears } from "../../../hooks/utils";
+import { LogoCarrier } from "../../common/LogoCarrier";
 import { usePermissions } from "../../../hooks/usePermissions";
 import { AllPermissionsType } from "../role/constant";
 import { NoPermission } from "../../common/NoPermission";
-import { BurgerIcon } from "../../header/logo";
-import { LogTabs } from "./LogTabs/LogTabs";
-import { CreateDriverLogModal } from "./CreateLogModal";
-import quarterClock from "../../../img/quarter-clock.svg";
-import edit from "../../../img/edit.svg";
-import copyAlt from "../../../img/copy-alt.svg";
-
-import download from "../../../img/download.svg";
-import trash from "../../../img/trash.svg";
-
-import { LogBulkPanel } from "./logs-panels/LogBulk";
 import {
-  getEventLabel,
-  getOriginLabel,
+  parseTimeString,
+  parseTimeStringFormat,
+  parseDateTimeStringFormat,
   parseDateGeneralStringFormat,
-} from "./log-utils";
-import { deleteDriverLogReq, getDriverLogListReq } from "../../../actions";
-import { EditDriverLogModal } from "./EditLogModal";
+  parseDateStringFormat,
+  parseDateWitoutTimeStringFormat,
+} from "../driver_log/log-utils";
+import { ModalGoogleMapTracker } from "../../common/GoogleModal";
+import { getEventLabel } from "../driver_log/log-utils";
+import { getOriginLabel } from "../driver_log/log-utils";
 
 const { RangePicker } = DatePicker;
 
@@ -66,7 +73,7 @@ const App: React.FC = () => (
 
 dayjs.extend(customParseFormat);
 
-export const LogTableTransaction: React.FC = () => {
+export const LogListTransaction: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -83,32 +90,34 @@ export const LogTableTransaction: React.FC = () => {
     clearCustomFilter,
     setCustomFilter,
   } = useTableParams({});
-  const logs = useSelector((state: any) => state.driverLog.logList);
+  const logs = useSelector((state: any) => state.log.logList);
+  const carriers = useSelector((state: any) => state.carrier.carrierList);
   const driverLogDate = useSelector(
     (state: any) => state?.driverLog?.driverLogDate
   );
-
-  const carriers = useSelector((state: any) => state.carrier.carrierList);
-  const params = useParams();
+  const driverLogData = useSelector(
+    (state: any) => state?.driverLog?.driverData
+  );
   const count = useSelector((state: any) => state.log.count);
   const loading = useSelector((state: any) => state.log.loading);
-  const [accautnModalOpen, setAccauntModalOpen] = useState(false);
-  const [currentCarrier, setCurrentCarrier] = useState({
-    id: "",
-    name: "",
-  });
+  const [logDateFilter, setLogDateFilter] = React.useState<any>("");
 
   React.useEffect(() => {
     dispatch(
-      getDriverLogListReq({
+      getLogListReq({
         queryParams: {
-          with: ["driver_groups", "vehicles", "drivers", "vehicle"],
+          with: [
+            "drivers",
+            "driver",
+            "vehicles",
+            "carrier",
+            "vehicle",
+            "carriers",
+          ],
         },
-        driverid: params?.driverid,
-        date: driverLogDate,
       })
     );
-  }, [driverLogDate]);
+  }, []);
 
   const columns: ColumnsType<any> = [
     // Table.SELECTION_COLUMN,
@@ -283,16 +292,16 @@ export const LogTableTransaction: React.FC = () => {
     },
   ];
 
-  useEffect(() => {
-    dispatch(
-      getVehicleListReq({
-        queryParams: {
-          ...getParams(tableParams),
-          with: ["carrier"],
-        },
-      })
-    );
-  }, [tableParams]);
+  // useEffect(() => {
+  //   dispatch(
+  //     getLogListReq({
+  //       queryParams: {
+  //         ...getParams(tableParams),
+  //         with: ["driver", "carrier", "vehicle"],
+  //       },
+  //     })
+  //   );
+  // }, [tableParams]);
 
   const { checkPermission } = usePermissions();
 
@@ -300,6 +309,79 @@ export const LogTableTransaction: React.FC = () => {
     <>
       {checkPermission(AllPermissionsType.VEHICLE_LIST) ? (
         <>
+          <Row>
+            {/* <Col span={24}>
+              <LogTabs />
+            </Col> */}
+
+            <Col span={12} style={{ display: "flex", alignItems: "center" }}>
+              <InputPageTitle
+                fields={["Transactions"]}
+                route="/client/logs"
+                vehicles
+              />
+              <div style={{ marginTop: 10 }}>
+                {!!logDateFilter[0]
+                  ? `Date rage: ${logDateFilter[0]} - ${logDateFilter[1]}`
+                  : null}
+              </div>
+            </Col>
+            {/* <Col
+              span={12}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+              }}
+            >
+              <InputSearch
+                onChange={setSearchParam}
+                onClear={clearOrderFilters}
+                hasFilters={hasFiltersOrOrder}
+              />
+
+              <div style={{ marginLeft: 20, display: "flex" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    marginLeft: 25,
+                  }}
+                  onClick={clearOrder}
+                >
+                  <div style={{ marginRight: 5 }}>
+                    <img src={ResetSort} />
+                  </div>
+                  <div
+                    className="ubuntu"
+                    style={{ color: "#8A8996", fontSize: 12 }}
+                  >
+                    Reset sorting
+                  </div>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    marginLeft: 25,
+                  }}
+                  onClick={clearFilter}
+                >
+                  <div style={{ marginRight: 5 }}>
+                    <img src={ResetFilter} />
+                  </div>
+                  <div
+                    className="ubuntu"
+                    style={{ color: "#8A8996", fontSize: 12 }}
+                  >
+                    Reset filter
+                  </div>
+                </div>
+              </div>
+            </Col> */}
+          </Row>
           <div style={{ width: "100%" }} className="logs-table">
             <Table
               columns={columns}
@@ -312,12 +394,12 @@ export const LogTableTransaction: React.FC = () => {
               pagination={{
                 ...tableParams.pagination,
                 position: ["bottomCenter"],
-                total: count,
+                total: defaultTo(logs?.length, count),
               }}
               loading={loading}
               onChange={handleTableChange}
-              //   rowSelection={{ ...rowSelection, columnWidth: 10 }}
-              className="table-custom-original-tab"
+              // rowSelection={{ ...rowSelection, columnWidth: 10 }}
+              className="table-custom"
               //   sticky
               //   scroll={{ y: window.innerHeight - 235 }}
             />
