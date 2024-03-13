@@ -98,6 +98,10 @@ export const LogTableTransaction: React.FC = () => {
     name: "",
   });
 
+  const [logDateFilter, setLogDateFilter] = React.useState<any>("");
+  const [logDateCreatedAtFilter, setLogDateCreatedAtFilter] =
+    React.useState<any>("");
+
   React.useEffect(() => {
     dispatch(
       getDriverLogListReq({
@@ -140,6 +144,25 @@ export const LogTableTransaction: React.FC = () => {
       //     </div>
       //   );
       // },
+      filterDropdown: () => {
+        return (
+          <div style={{ padding: 10 }}>
+            <RangePicker
+              onChange={(v, d) => {
+                setLogDateFilter(d);
+              }}
+            />
+            <Button
+              onClick={() => {
+                setCustomFilter("period", logDateFilter);
+              }}
+            >
+              Apply
+            </Button>
+          </div>
+        );
+      },
+      filteredValue: tableParams?.filters?.period || null,
     },
     {
       title: "Carrier",
@@ -197,10 +220,29 @@ export const LogTableTransaction: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {record?.location ? `${record?.location}` : ""}
+            {record?.created_at ? `${record?.created_at}` : ""}
           </div>
         );
       },
+      filterDropdown: () => {
+        return (
+          <div style={{ padding: 10 }}>
+            <RangePicker
+              onChange={(v, d) => {
+                setLogDateCreatedAtFilter(d);
+              }}
+            />
+            <Button
+              onClick={() => {
+                setCustomFilter("created_at", logDateCreatedAtFilter);
+              }}
+            >
+              Apply
+            </Button>
+          </div>
+        );
+      },
+      filteredValue: tableParams?.filters?.created_at || null,
     },
     {
       title: "Status",

@@ -36,15 +36,21 @@ export const InputTimePickerV2 = (props: any) => {
   );
   const [hasDefaultValue, setHasDefaultValue] = useState(false);
 
-  React.useEffect(() => {
-    if (!!form.getFieldValue(getName)) {
-      console.log("time", form?.getFieldValue(getName));
-      if (typeof form.getFieldValue(getName) === "string") {
-        setSelectedTime(dayjs(form.getFieldValue(getName), FORMAT));
-        // setHasDefaultValue(true);
-      }
-    }
-  }, [form?.getFieldValue(getName)]);
+  const defaultV = !!form.getFieldValue(getName)
+    ? form.getFieldValue(getName)
+    : "00:00:00";
+
+  const [defaultValue, setDefaultValue] = useState(defaultV);
+
+  // React.useEffect(() => {
+  //   if (!!form.getFieldValue(getName)) {
+  //     console.log("time", form?.getFieldValue(getName));
+  //     if (typeof form.getFieldValue(getName) === "string") {
+  //       setSelectedTime(dayjs(form.getFieldValue(getName), FORMAT));
+  //       // setHasDefaultValue(true);
+  //     }
+  //   }
+  // }, [form?.getFieldValue(getName)]);
 
   // React.useEffect(() => {
   //   form.setFieldValue(getName, selectedTime.format(FORMAT));
@@ -90,12 +96,14 @@ export const InputTimePickerV2 = (props: any) => {
         style={{ width, ...styles, position: "absolute", top: 30 }}
         disabled={disabled}
         format={FORMAT}
-        value={dayjs(selectedTime, FORMAT)}
-        defaultValue={dayjs(DEFAULT_VALUE, FORMAT)}
-        defaultOpenValue={dayjs(DEFAULT_VALUE, FORMAT)}
+        // value={dayjs(selectedTime, FORMAT)}
+        defaultValue={dayjs(defaultV, FORMAT)}
+        // defaultOpenValue={dayjs(DEFAULT_VALUE, FORMAT)}
         onChange={(e, timeString) => {
           setSelectedTime(e);
-          form.setFieldValue(getName, selectedTime.format(FORMAT));
+          // form.setFieldValue(getName, selectedTime.format(FORMAT));
+
+          form.setFieldValue(getName, timeString);
         }}
       />
     </Col>

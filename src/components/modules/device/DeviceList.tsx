@@ -90,7 +90,7 @@ export const DeviceList: React.FC = () => {
               navigate(`${location.pathname}/${record.id}`);
             }}
           >
-            {`${record.name}`}
+            {`${record?.identificator}`}
           </div>
         );
       },
@@ -115,14 +115,14 @@ export const DeviceList: React.FC = () => {
       filteredValue: tableParams?.filters?.type || null,
       render: (name, record, index) => {
         const deviceType = DeviceTypes.find(
-          (item) => item.key === +record.type
+          (item) => +item?.key === +record?.type
         );
         return (
           <div
             className="ubuntu orange"
             style={{ color: "#141029", cursor: "pointer" }}
           >
-            {`${deviceType || record.type}`}
+            {`${deviceType?.value || record?.type}`}
           </div>
         );
       },

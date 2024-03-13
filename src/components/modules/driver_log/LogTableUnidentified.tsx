@@ -204,25 +204,7 @@ export const LogTabelUnidentified: React.FC = () => {
         );
       },
     },
-    {
-      title: "Notes",
-      dataIndex: "notes",
-      // sortOrder: getOrderFromTableParams("notes", tableParams),
-      key: "notes",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.model - b.model,
-      //   multiple: 5,
-      // },
-      width: "15%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return (
-          <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`${record?.annotations?.[0]?.text || ""}`}
-          </div>
-        );
-      },
-    },
+
     {
       title: "Vehicle",
       dataIndex: "vehicle",
@@ -376,7 +358,7 @@ export const LogTabelUnidentified: React.FC = () => {
       //   compare: (a: any, b: any) => a.carrier - b.carrier,
       //   multiple: 5,
       // },
-      width: "5%",
+      width: "8%",
       ellipsis: true,
       render: (value, record, index) => {
         return (

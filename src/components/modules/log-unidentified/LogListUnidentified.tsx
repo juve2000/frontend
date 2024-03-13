@@ -211,25 +211,7 @@ export const LogListUnidentified: React.FC = () => {
         );
       },
     },
-    {
-      title: "Notes",
-      dataIndex: "notes",
-      // sortOrder: getOrderFromTableParams("notes", tableParams),
-      key: "notes",
-      // sorter: {
-      //   compare: (a: any, b: any) => a.model - b.model,
-      //   multiple: 5,
-      // },
-      width: "15%",
-      ellipsis: true,
-      render: (value, record, index) => {
-        return (
-          <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`${record?.annotations?.[0]?.text || ""}`}
-          </div>
-        );
-      },
-    },
+
     {
       title: "Vehicle",
       dataIndex: "vehicle",
@@ -324,7 +306,7 @@ export const LogListUnidentified: React.FC = () => {
       //   compare: (a: any, b: any) => a.mcnumber - b.mcnumber,
       //   multiple: 5,
       // },
-      width: "15%",
+      width: "18%",
       ellipsis: true,
       render: (value, record, index) => {
         const status = carrierData?.status?.find((st: any) => st.key === value);
@@ -341,7 +323,7 @@ export const LogListUnidentified: React.FC = () => {
               //   onChange={onChange}
               showSearch
               optionFilterProp="children"
-              style={{ width: 200 }}
+              style={{ width: 220 }}
               defaultValue={defaultValue}
             >
               {driverLogData?.carrier?.drivers?.map((item: any, i: number) => {
@@ -383,7 +365,7 @@ export const LogListUnidentified: React.FC = () => {
       //   compare: (a: any, b: any) => a.carrier - b.carrier,
       //   multiple: 5,
       // },
-      width: "5%",
+      width: "8%",
       ellipsis: true,
       render: (value, record, index) => {
         return (

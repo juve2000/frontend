@@ -101,6 +101,8 @@ export const LogListTransaction: React.FC = () => {
   const count = useSelector((state: any) => state.log.count);
   const loading = useSelector((state: any) => state.log.loading);
   const [logDateFilter, setLogDateFilter] = React.useState<any>("");
+  const [logDateCreatedAtFilter, setLogDateCreatedAtFilter] =
+    React.useState<any>("");
 
   React.useEffect(() => {
     dispatch(
@@ -149,6 +151,25 @@ export const LogListTransaction: React.FC = () => {
       //     </div>
       //   );
       // },
+      filterDropdown: () => {
+        return (
+          <div style={{ padding: 10 }}>
+            <RangePicker
+              onChange={(v, d) => {
+                setLogDateFilter(d);
+              }}
+            />
+            <Button
+              onClick={() => {
+                setCustomFilter("period", logDateFilter);
+              }}
+            >
+              Apply
+            </Button>
+          </div>
+        );
+      },
+      filteredValue: tableParams?.filters?.period || null,
     },
     {
       title: "Carrier",
@@ -210,6 +231,25 @@ export const LogListTransaction: React.FC = () => {
           </div>
         );
       },
+      filterDropdown: () => {
+        return (
+          <div style={{ padding: 10 }}>
+            <RangePicker
+              onChange={(v, d) => {
+                setLogDateCreatedAtFilter(d);
+              }}
+            />
+            <Button
+              onClick={() => {
+                setCustomFilter("created_at", logDateCreatedAtFilter);
+              }}
+            >
+              Apply
+            </Button>
+          </div>
+        );
+      },
+      filteredValue: tableParams?.filters?.created_at || null,
     },
     {
       title: "Status",
@@ -268,6 +308,43 @@ export const LogListTransaction: React.FC = () => {
           </div>
         );
       },
+      filterDropdown: () => {
+        return (
+          <div style={{ padding: 10 }}>
+            <div>
+              <Select
+                style={{ width: 200, marginBottom: 20 }}
+                value={tableParams.filters?.carrier}
+                onChange={(value) => {
+                  setCustomFilter("user", value);
+                }}
+              >
+                {[
+                  { name: "user_1", id: "1" },
+                  { name: "user_2", id: "2" },
+                ]?.map((user: any) => {
+                  return (
+                    <Select.Option key={user.id} value={user.id}>
+                      {user.name}
+                    </Select.Option>
+                  );
+                })}
+              </Select>
+            </div>
+            <Button
+              style={{ width: 80, height: 40 }}
+              className="orange"
+              onClick={() => {
+                clearCustomFilter("user");
+              }}
+            >
+              Reset
+            </Button>
+          </div>
+        );
+      },
+
+      filteredValue: tableParams?.filters?.carrier || null,
     },
     {
       title: "Roll Back",

@@ -124,6 +124,7 @@ export const DriverLogList: React.FC = () => {
                 ]}
                 route="/client/logs"
                 vehicles
+                driverLogPage={true}
               />
             </Col>
             <Col span={24}>

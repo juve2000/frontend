@@ -463,7 +463,7 @@ export const LogTabelPanel: React.FC = () => {
               <LogBulkPanel />
             </Col>
             <Col
-              span={16}
+              span={4}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -476,68 +476,6 @@ export const LogTabelPanel: React.FC = () => {
                   padding: "10px 0px",
                 }}
               >
-                {/* <div
-                  style={{
-                    borderRadius: 10,
-                    background: "#f5f9ff",
-                    display: "flex",
-                    alignItems: "center",
-                    padding: 10,
-                  }}
-                >
-                  <div
-                    style={{
-                      marginRight: 5,
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img style={{ width: 15 }} src={quarterClock} alt="" />
-                  </div>
-                  <div style={{ fontWeight: "bold", marginRight: 10 }}>
-                    Unidentified logs
-                  </div>
-                  <div
-                    style={{
-                      background: "#ffab00",
-                      borderRadius: 5,
-                      color: "white",
-                      width: 25,
-                      height: 25,
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    2
-                  </div>
-                </div> */}
-                {/* <div
-                  style={{
-                    borderRadius: 10,
-                    background: "#f5f9ff",
-                    display: "flex",
-                    alignItems: "center",
-                    padding: 10,
-                    marginLeft: 10,
-                  }}
-                >
-                  <div
-                    style={{
-                      marginRight: 5,
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    <span
-                      className="icon-fi-rr-eye"
-                      style={{ marginLeft: "10px" }}
-                    ></span>{" "}
-                  </div>
-                  <div style={{ fontWeight: "bold", marginRight: 10 }}>
-                    View Original Logs
-                  </div>
-                </div> */}
                 <div
                   style={{
                     display: "flex",
@@ -572,21 +510,120 @@ export const LogTabelPanel: React.FC = () => {
                   <img src={download} style={{ marginRight: 10 }} />
                   <div>Report</div>
                 </div>
+              </div>
+            </Col>
+            <Col
+              span={12}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "10px 0px",
+                }}
+              >
                 <div
-                  className="orange ubuntu"
                   style={{
-                    fontWeight: 500,
-                    fontSize: 12,
-                    marginLeft: 16,
-                    cursor: "pointer",
                     display: "flex",
                     alignItems: "center",
-                    borderRadius: 10,
-                    background: "#f5f9ff",
-                    padding: 10,
+                    padding: 5,
+                    marginLeft: 10,
                   }}
                 >
-                  Fix logs
+                  <div style={{ fontWeight: "bold", marginRight: 10 }}>
+                    Fix Logs
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    padding: 5,
+                    marginLeft: 10,
+                  }}
+                >
+                  <img
+                    style={{ width: 15, marginRight: 10 }}
+                    src={quarterClock}
+                    alt=""
+                  />
+
+                  <div style={{ fontWeight: "bold", marginRight: 10 }}>
+                    Revert
+                  </div>
+
+                  <div
+                    style={{
+                      background: "#ffab00",
+
+                      borderRadius: 5,
+
+                      color: "white",
+
+                      width: 25,
+
+                      height: 25,
+
+                      display: "flex",
+
+                      justifyContent: "center",
+
+                      alignItems: "center",
+                    }}
+                    className="ubuntu"
+                    // style={{ color: "#8A8996", fontSize: 12 }}
+                  >
+                    10
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    padding: 5,
+                    marginLeft: 10,
+                  }}
+                >
+                  {/* <img
+                    style={{ width: 15, marginRight: 10 }}
+                    src={quarterClock}
+                    alt=""
+                  /> */}
+
+                  <div style={{ fontWeight: "bold", marginRight: 10 }}>
+                    Submit Transactions
+                  </div>
+
+                  <div
+                    style={{
+                      background: "#ffab00",
+
+                      borderRadius: 5,
+
+                      color: "white",
+
+                      width: 25,
+
+                      height: 25,
+
+                      display: "flex",
+
+                      justifyContent: "center",
+
+                      alignItems: "center",
+                    }}
+                    className="ubuntu"
+                    // style={{ color: "#8A8996", fontSize: 12 }}
+                  >
+                    2
+                  </div>
                 </div>
               </div>
             </Col>

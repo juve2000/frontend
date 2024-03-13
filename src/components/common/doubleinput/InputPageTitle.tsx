@@ -110,12 +110,21 @@ export const InputPageTitle = (props: any) => {
                     }}
                   />
                   <span style={{ fontWeight: "bold" }}></span>{" "}
-                  <span
-                    className="orange"
-                    style={{ marginLeft: 8, marginRight: 8 }}
-                  >
-                    All {field}
-                  </span>
+                  {props?.driverLogPage ? (
+                    <span
+                      className="orange"
+                      style={{ marginLeft: 8, marginRight: 8 }}
+                    >
+                      All Logs
+                    </span>
+                  ) : (
+                    <span
+                      className="orange"
+                      style={{ marginLeft: 8, marginRight: 8 }}
+                    >
+                      All {field}
+                    </span>
+                  )}
                 </div>
               </div>
             );
