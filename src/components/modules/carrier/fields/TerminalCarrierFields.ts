@@ -23,21 +23,21 @@ export const TerminalCarrierFields = (options: any) => {
     fields: [
       {
         type: InputType.MULTI,
-        label: "Yarn name",
+        label: "Yard name",
         isRequired: true,
         fields: [
           {
             type: InputType.TEXT_V2,
             name: CarrierField.NAME,
-            label: "Yarn name*",
+            label: "Yard name*",
             isRequired: true,
             rules: [
               // validate("", VALIDATION_TYPE.ALPHABETICAL),
               getValidation(REQUIRED, "name"),
             ],
-            placeholder: "Enter Yarn Name",
+            placeholder: "Enter Yard Name",
             hasFeedback: true,
-            title: "Yarn name*",
+            title: "Yard name*",
             span: 24,
             width: "100%",
           },
@@ -48,7 +48,7 @@ export const TerminalCarrierFields = (options: any) => {
       {
         type: InputType.ADDRESS,
         name: "address",
-        label: "Yarn Address",
+        label: "Yard Address",
         rules: [],
         placeholder: "Carrier",
         hasFeedback: true,
