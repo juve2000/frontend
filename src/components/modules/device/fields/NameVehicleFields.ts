@@ -24,18 +24,7 @@ export const NameDriverFields = {
   fields: [
     {
       type: InputType.TEXT_V2,
-      name: DeviceField.identificator,
-      label: "Device Identificator *",
-      rules: [getValidation(REQUIRED, "name")],
-      placeholder: "Enter Device Identificator",
-      hasFeedback: true,
-      title: "Device Identificator *",
-      span: 24,
-      width: "100%",
-    },
-    {
-      type: InputType.TEXT_V2,
-      name: DeviceField.NAME,
+      name: DeviceField.SERIAL_NUMBER,
       label: "Device *",
       rules: [getValidation(REQUIRED, "")],
       placeholder: "Enter Device Name",
@@ -45,6 +34,18 @@ export const NameDriverFields = {
       width: "95%",
     },
     {
+      type: InputType.TEXT_V2,
+      name: DeviceField.identificator,
+      label: "Device Identificator *",
+      rules: [getValidation(REQUIRED, "name")],
+      placeholder: "Enter Device Identificator",
+      hasFeedback: true,
+      title: "Device Identificator *",
+      span: 12,
+      width: "100%",
+    },
+
+    {
       type: InputType.SELECT_V2,
       name: DeviceField.TYPE,
       title: "Device Type*",
@@ -53,19 +54,9 @@ export const NameDriverFields = {
       options: DeviceConstant.type,
       hasFeedback: true,
       span: 12,
-      width: "100%",
-    },
-    {
-      type: InputType.TEXT_V2,
-      name: DeviceField.SERIAL_NUMBER,
-      label: "SN*",
-      rules: [getValidation(REQUIRED, "")],
-      placeholder: "Enter SN",
-      hasFeedback: true,
-      title: "SN*",
-      span: 12,
       width: "95%",
     },
+
     {
       type: InputType.TEXT_V2,
       name: DeviceField.MAC_ADDRESS,
