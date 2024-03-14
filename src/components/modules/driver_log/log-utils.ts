@@ -214,3 +214,18 @@ export const getNextDate = (dateString: any) => {
 
   return nextDateString;
 };
+
+export function secondsToHMS(secondsArg: number): string {
+  // const seconds = secondsArg / 1000;
+  const seconds = secondsArg;
+
+  const hrs = Math.floor(seconds / 3600);
+  const mins = Math.floor((seconds % 3600) / 60);
+  const secs = Math.floor(seconds % 60);
+
+  const formattedHrs = hrs < 10 ? "0" + hrs : hrs.toString();
+  const formattedMins = mins < 10 ? "0" + mins : mins.toString();
+  const formattedSecs = secs < 10 ? "0" + secs : secs.toString();
+
+  return `${formattedHrs}:${formattedMins}:${formattedSecs}`;
+}

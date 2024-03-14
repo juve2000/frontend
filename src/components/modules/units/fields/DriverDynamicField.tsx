@@ -51,18 +51,33 @@ export const DriverDynamicField = (props: any) => {
     (state: any) => state.driverLog.driverData?.carrier
   );
 
+  const { driver } = useSelector((state: any) => state?.driverLog?.driverData);
+
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
     if (isLogDriver) {
-      setOptions(
-        (logDrivers || []).map((driver: any) => {
-          return {
-            value: `${driver.first_name} ${driver.last_name}`,
-            key: driver.id,
-          };
-        })
-      );
+      if (isCoDriver) {
+        setOptions(
+          (logDrivers || [])
+            ?.filter((d: any) => d.id !== driver.id)
+            .map((driver: any) => {
+              return {
+                value: `${driver.first_name} ${driver.last_name}`,
+                key: driver.id,
+              };
+            })
+        );
+      } else {
+        setOptions(
+          (logDrivers || []).map((driver: any) => {
+            return {
+              value: `${driver.first_name} ${driver.last_name}`,
+              key: driver.id,
+            };
+          })
+        );
+      }
     } else {
       setOptions(
         (drivers || []).map((driver: any) => {

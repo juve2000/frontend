@@ -47,6 +47,7 @@ import {
   getEventLabel,
   getOriginLabel,
   parseDateGeneralStringFormat,
+  secondsToHMS,
 } from "./log-utils";
 import { deleteDriverLogReq, getDriverLogListReq } from "../../../actions";
 import { EditDriverLogModal } from "./EditLogModal";
@@ -151,8 +152,9 @@ export const LogTabelPanel: React.FC = () => {
       //   multiple: 5,
       // },
       render: (name, record, index) => {
-        const duration = record?.duration || `03:11:03`;
-        return <div>{duration}</div>;
+        const duration = record?.duration || 0;
+
+        return <div>{secondsToHMS(duration)}</div>;
       },
       width: "8%",
       ellipsis: true,
@@ -235,7 +237,7 @@ export const LogTabelPanel: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`${record?.vehicle?.unit_daily?.vehicle?.name}`}
+            {`${record?.unit_daily?.vehicle?.identificator}`}
           </div>
         );
       },

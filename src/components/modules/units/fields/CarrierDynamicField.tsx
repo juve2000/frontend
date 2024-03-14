@@ -44,6 +44,7 @@ export const CarrierDynamicFieldV2 = (props: any) => {
   const { loading, carrierList, carrier } = useSelector(
     (state: any) => state.carrier
   );
+  const { driver } = useSelector((state: any) => state?.driverLog?.driverData);
 
   const [options, setOptions] = useState([]);
 

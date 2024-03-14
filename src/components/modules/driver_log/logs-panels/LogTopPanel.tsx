@@ -15,14 +15,19 @@ import arrowLeft from "../../../../img/arrow-left.svg";
 import arrowRight from "../../../../img/arrow-right.svg";
 import dayjs from "dayjs";
 import { getNextDate, getPreviousDate } from "../log-utils";
+import { carrierData } from "../../carrier/constant";
 
 import "./log-top-panel.scss";
 import { setDriverLogDate } from "../../../../actions";
 
 export const LogTopPanel = (props: any) => {
   const driverLog = useSelector((state: any) => state.driverLog);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const tz = carrierData.tz.find(
+    (t) => t.key === driverLog?.driverData?.driver?.terminal?.tz
+  )?.value;
   return (
     <Row>
       <Col
@@ -81,7 +86,7 @@ export const LogTopPanel = (props: any) => {
             className="top-log-item-container"
           >
             <img src={quarterClock} alt="clock" />
-            <span className=" ubuntu top-log-item">Time Zone:</span>
+            <span className=" ubuntu top-log-item">Time Zone: {tz}</span>
           </Col>
         </Row>
         <Row>
