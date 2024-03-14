@@ -533,11 +533,19 @@ export const LogTabelPanel: React.FC = () => {
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    padding: 5,
+                    padding: 10,
                     marginLeft: 10,
+                    borderRadius: 10,
+                    background: "#f5f9ff",
+                    cursor: "pointer",
                   }}
                 >
-                  <div style={{ fontWeight: "bold", marginRight: 10 }}>
+                  <div
+                    style={{
+                      fontWeight: "bold",
+                      marginRight: 10,
+                    }}
+                  >
                     Fix Logs
                   </div>
                 </div>
@@ -546,8 +554,11 @@ export const LogTabelPanel: React.FC = () => {
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    padding: 5,
+                    padding: 10,
                     marginLeft: 10,
+                    borderRadius: 10,
+                    background: "#f5f9ff",
+                    cursor: "pointer",
                   }}
                 >
                   <img
@@ -589,8 +600,11 @@ export const LogTabelPanel: React.FC = () => {
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    padding: 5,
+                    padding: 10,
                     marginLeft: 10,
+                    borderRadius: 10,
+                    background: "#f5f9ff",
+                    cursor: "pointer",
                   }}
                 >
                   {/* <img
