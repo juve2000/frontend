@@ -22,6 +22,7 @@ import {
 import { GoogleMapTracker } from "../../common/google-map/googleMapTracker";
 import { socket } from "../../../socket";
 import { mock } from "./fields/mock";
+import { OpenLayerMap } from "../../common/google-map/olMap";
 
 function buildFormData(formData: any, data: any, parentKey?: any) {
   if (
@@ -218,6 +219,10 @@ export const UnitPage = () => {
             <Col span={24}>
               <Col span={24} style={{ marginBottom: 20 }}>
                 <GoogleMapTracker info={info} />
+              </Col>
+              <Col span={24} style={{ marginBottom: 20 }}>
+                {/* <GoogleMapTracker info={info} /> */}
+                {/* <OpenLayerMap /> */}
               </Col>
               <Form
                 form={form}

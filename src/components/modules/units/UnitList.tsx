@@ -36,6 +36,7 @@ import GoogleMapReact from "google-map-react";
 import { GoogleMapTracker } from "../../common/google-map/googleMapTracker";
 // import * as io from "socket.io-client";
 import { socket } from "../../../socket";
+import { OpenLayerMap } from "../../common/google-map/olMap";
 
 const AnyReactComponent = ({ text }: any) => <div>{text}</div>;
 
@@ -535,8 +536,11 @@ export const UnitList: React.FC = () => {
             <Col span={12} style={{ marginBottom: 30 }}>
               <InputPageTitle fields={["Units"]} route="/client/units" units />
             </Col>
-            <Col span={24} style={{ marginBottom: 25 }}>
+            {/* <Col span={24} style={{ marginBottom: 25 }}>
               <GoogleMapTracker />
+            </Col> */}
+            <Col span={24} style={{ marginBottom: 25 }}>
+              <OpenLayerMap />
             </Col>
             <Col
               span={24}
