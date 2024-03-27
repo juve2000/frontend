@@ -154,7 +154,7 @@ export const LogTabelPanel: React.FC = () => {
       render: (name, record, index) => {
         const duration = record?.duration || 0;
 
-        return <div>{secondsToHMS(duration)}</div>;
+        return <div>{!!duration && secondsToHMS(duration)}</div>;
       },
       width: "8%",
       ellipsis: true,
@@ -237,7 +237,7 @@ export const LogTabelPanel: React.FC = () => {
       render: (value, record, index) => {
         return (
           <div className="ubuntu" style={{ cursor: "pointer" }}>
-            {`${record?.unit_daily?.vehicle?.identificator}`}
+            {`${record?.forms?.vehicle?.identificator}`}
           </div>
         );
       },

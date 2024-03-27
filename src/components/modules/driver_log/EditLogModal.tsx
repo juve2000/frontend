@@ -102,7 +102,7 @@ export const EditDriverLogModal = (props: any) => {
     event_code: "",
     event: `${props?.log?.event_type}${props?.log?.event_code}`,
     record_origin: `${props?.log?.record_origin}`,
-    location: `${props?.log?.location}`,
+    location: props?.log?.location,
     identificator: props?.log?.id,
 
     // ...props?.log,
