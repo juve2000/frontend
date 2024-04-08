@@ -310,8 +310,8 @@ export const LogListUnidentified: React.FC = () => {
       ellipsis: true,
       render: (value, record, index) => {
         const status = carrierData?.status?.find((st: any) => st.key === value);
-        const defaultValue = driverLogData?.carrier?.drivers.find(
-          (driver: any) => driver.id === driverLogData?.driver?.id
+        const defaultValue = driverLogData?.carrier?.drivers?.find(
+          (driver: any) => driver?.id === driverLogData?.driver?.id
         )?.id;
 
         return (

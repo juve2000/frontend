@@ -28,6 +28,7 @@ import { NoPermission } from "../../common/NoPermission";
 import { BurgerIcon } from "../../header/logo";
 import { getColorByCode } from "../../../utils/utils";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import { carrierData } from "../carrier/constant";
 import {
   ServerToClientEvents,
   ClientToServerEvents,
@@ -240,7 +241,7 @@ export const UnitList: React.FC = () => {
             className="ubuntu"
             style={{ color: "#141029", cursor: "pointer" }}
           >
-            {`${record.truck_id}`}
+            {`${record?.vehicle?.identificator}`}
           </div>
         );
       },
@@ -354,7 +355,11 @@ export const UnitList: React.FC = () => {
       width: "9%",
       ellipsis: true,
       render: (value, record, index) => {
-        return <div className="ubuntu">{record?.status}</div>;
+        const status = carrierData?.status?.find(
+          (st: any) => st.key === record?.status
+        );
+
+        return <div>{status?.value}</div>;
       },
       filters: [{ value: "Driving", key: 0 }].map((st: any) => {
         return {
