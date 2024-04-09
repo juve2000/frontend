@@ -11,6 +11,7 @@ import { LogTableTransaction } from "../LogTableTransaction";
 import { LogTabelUnidentified } from "../LogTableUnidentified";
 import { LogOriginalTab } from "../LogOriginalTab";
 import ChartComponent from "./ChartJSLine";
+import { ChartLineTest } from "./ChartLineTest";
 
 const onChange = (key: string) => {
   console.log(key);
@@ -39,6 +40,8 @@ export const LogTabs: React.FC = (props: any) => {
       key: "1",
       label: "Records",
       // children: <ChartComponent />,
+      // children: <ChartLineTest />,
+
       children: <LogTabelPanel />,
       // children: <Graph />,
       // children: <LogChartHight />,

@@ -48,6 +48,7 @@ import { LogDashboardPanel } from "./logs-panels/LogDashboardPanel";
 import { parseDateGeneralStringFormat } from "./log-utils";
 import { SciChart } from "./LogTabs/ChartSci";
 import { ChartSciReact } from "./LogTabs/ChartSciReact";
+import { ChartLineTest } from "./LogTabs/ChartLineTest";
 
 const { RangePicker } = DatePicker;
 
@@ -134,7 +135,8 @@ export const DriverLogList: React.FC = () => {
               <LogChartHight />
             </Col> */}
             <Col span={24}>
-              <ChartSciReact />
+              <ChartLineTest />
+              {/* <ChartSciReact /> */}
             </Col>
             {/* <Col span={24}>
               <SciChart />

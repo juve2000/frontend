@@ -1,46 +1,19 @@
 import React from "react";
-import { Line } from "react-chartjs-2";
-import Chart, { ChartComponent, ChartComponentLike } from "chart.js/auto";
 import {
-  CategoryScale,
+  Chart,
+  registerables,
   LinearScale,
   PointElement,
-  LineElement,
-  Title,
   Tooltip,
   Legend,
   TimeScale,
 } from "chart.js";
-import dayjs from "dayjs";
+import { Line } from "react-chartjs-2";
+// import faker from 'faker';
+import "chartjs-adapter-moment";
+import "chartjs-adapter-date-fns";
 
-Chart.register(
-  CategoryScale as any,
-  LinearScale as any,
-  PointElement as any,
-  LineElement as any,
-  Title as any,
-  Tooltip as any,
-  Legend as any,
-  TimeScale as any
-);
-
-Chart.register({
-  id: "dayjs",
-  adapters: {
-    date: {
-      id: "dayjs",
-      formats: {
-        datetime: "HH:mm:ss", // Customize date format if needed
-      },
-      parse: (value: any) => {
-        return dayjs(value);
-      },
-      format: (value: any) => {
-        return dayjs(value).toISOString(); // Adjust output format if needed
-      },
-    },
-  },
-} as ChartComponentLike);
+Chart.register(...registerables);
 
 const Footer = (tooltipItems: any) => {
   let sum = 0;
@@ -50,6 +23,21 @@ const Footer = (tooltipItems: any) => {
   });
   return "Duration: 06:45"; // TODO replace with real duration
 };
+
+export const options = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top" as const,
+    },
+    title: {
+      display: true,
+      text: "Chart.js Line Chart",
+    },
+  },
+};
+
+const labels = ["January", "February", "March", "April", "May", "June", "July"];
 
 const Data: any = {
   datasets: [
@@ -88,12 +76,14 @@ const Data: any = {
       borderColor: "rgb(75, 192, 192)",
       stepped: true,
       pointStyle: false,
+      type: "line",
     },
     {
       fill: false,
       borderColor: "rgba(0, 0, 0, 0)",
       data: [0, 3],
       pointStyle: false,
+      type: "line",
     },
   ],
 };
@@ -179,8 +169,6 @@ const Config: any = {
   },
 };
 
-const ChartComponentV = () => {
-  return <Line data={Data} options={Config.options} />;
-};
-
-export default ChartComponentV;
+export function ChartLineTest() {
+  return <Line options={Config?.options} data={Data} />;
+}
