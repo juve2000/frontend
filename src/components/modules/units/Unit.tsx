@@ -218,7 +218,8 @@ export const UnitPage = () => {
           ) : (
             <Col span={24}>
               <Col span={24} style={{ marginBottom: 20 }}>
-                <GoogleMapTracker info={info} />
+                {/* <GoogleMapTracker info={info} /> */}
+                <OpenLayerMap />
               </Col>
               <Col span={24} style={{ marginBottom: 20 }}>
                 {/* <GoogleMapTracker info={info} /> */}
