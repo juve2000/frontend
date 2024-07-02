@@ -1,0 +1,52 @@
+.download-section-wrapper {
+  padding-top: 8%;
+  background-color: $download-bg;
+  width: 100%;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-optical-sizing: auto;
+  .download-title-container {
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    font-optical-sizing: auto;
+  }
+  .download-title {
+    font-size: 20px;
+    color: $orange;
+    margin-bottom: 20px;
+  }
+  .download-subTitle {
+    font-size: 40px;
+    color: $white;
+    margin-bottom: 20px;
+    font-weight: 700 !important;
+  }
+  .download-description {
+    font-size: 20px;
+    color: $bundle-description;
+    margin-bottom: 20px;
+    font-weight: 200 !important;
+  }
+  .download-item-relative-container {
+    position: relative !important;
+  }
+  .stores-wrapper {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .apple-download {
+    width: 45% !important;
+    margin-right: 3%;
+  }
+  .google-download {
+    width: 50% !important;
+  }
+  @media screen and (min-width: $lg) {
+    .apple-download {
+      width: 25% !important;
+      margin-right: 3%;
+    }
+    .google-download {
+      width: 30% !important;
+    }
+  }
+}

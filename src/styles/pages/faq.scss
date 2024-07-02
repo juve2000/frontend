@@ -1,0 +1,82 @@
+.faq-section-wrapper {
+  width: 100%;
+  background-color: $white;
+  padding-top: 8%;
+}
+.faq-item-container {
+  font-size: 18px !important;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  width: 100%;
+  .faq-title {
+    font-size: 20px;
+    color: $orange;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .faq-subTitle {
+    font-size: 40px;
+    color: $shop-item-title;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .faq-description {
+    font-size: 20px;
+    color: $shop-item-description;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .ant-collapse-header {
+    padding-left: 0px !important;
+    .ant-collapse-content-box {
+      font-size: 18px !important;
+      margin-left: 32px !important;
+    }
+    .ant-collapse-header-text {
+      font-size: 18px !important;
+      font-family: "Plus Jakarta Sans", sans-serif !important;
+      font-optical-sizing: auto;
+      font-weight: 800 !important;
+      font-style: bold !important;
+    }
+    .anticon {
+      color: $orange !important;
+      font-style: bold !important;
+      font-size: 20px !important;
+    }
+  }
+  .ant-collapse {
+    padding-left: 0px !important;
+    .ant-collapse-content-box {
+      font-size: 18px !important;
+      margin-left: 16px !important;
+      font-family: "Plus Jakarta Sans", sans-serif !important;
+      font-optical-sizing: auto;
+      font-weight: 800 !important;
+      font-style: bold !important;
+    }
+    .ant-collapse-header-text {
+      font-size: 18px !important;
+    }
+    .anticon {
+      color: $orange !important;
+      font-style: bold !important;
+      font-size: 20px !important;
+    }
+  }
+
+  .collapse-item-container {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    .collapse-item-data-title {
+      color: $orange;
+      margin-right: 10px;
+    }
+    .collapse-item-data-text {
+      font-family: "Plus Jakarta Sans", sans-serif !important;
+      font-optical-sizing: auto;
+      font-weight: 600 !important;
+      font-style: normal !important;
+    }
+  }
+}

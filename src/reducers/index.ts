@@ -17,6 +17,8 @@ import device, { deviceState } from "./device";
 import units, { unitState } from "./unit";
 import log, { logState } from "./log";
 import driverLog, { driverLogState } from "./driver_log";
+import screen, { screenState } from "./screen";
+import shop, { shopState } from "./shop";
 
 export const initialState = {
   alerts: alertsState,
@@ -38,6 +40,8 @@ export const initialState = {
   units: unitState,
   log: logState,
   driverLog: driverLogState,
+  screen: screenState,
+  shop: shopState,
 };
 
 export default {
@@ -60,4 +64,6 @@ export default {
   ...units,
   ...log,
   ...driverLog,
+  ...screen,
+  ...shop,
 };

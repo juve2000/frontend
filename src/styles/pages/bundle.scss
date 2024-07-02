@@ -1,0 +1,143 @@
+.section-wrapper-bundle {
+  background-color: $bundle-bg;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-optical-sizing: auto;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.bundle-section-wrapper {
+  background-color: $bundle-bg;
+  min-width: 100%;
+}
+.bundle-item-wrapper {
+  //   max-width: 400px;
+  display: flex;
+  justify-content: center;
+  max-height: 600px;
+  margin-bottom: 30px;
+  .bundle-item-container {
+    max-width: 400px;
+  }
+}
+
+.bundle-item-container {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-optical-sizing: auto;
+  background-color: $white;
+  border-radius: 10px;
+  padding: 20px;
+  color: $shop-item-title;
+  .bundle-header-container {
+    display: flex;
+    font-size: 32px;
+    font-weight: 600 !important;
+    align-items: center;
+    margin-bottom: 10px;
+    position: relative;
+    .bundle-header-title {
+      margin-left: 8px;
+    }
+    .bundle-header-label {
+      position: absolute;
+      background-color: $bundle-text;
+      color: $white;
+      padding: 5px;
+      border-radius: 10px;
+      font-size: 12px;
+      right: 0px;
+      top: 10px;
+    }
+  }
+  .bundle-item-subTitle {
+    color: $shop-item-description;
+    font-size: 16px;
+    font-weight: 400 !important;
+    margin-bottom: 30px;
+  }
+  .bundle-item-price-container {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: center;
+    .bundle-item-price {
+      font-size: 40px;
+      font-weight: 800 !important;
+      font-style: bold !important;
+      margin-right: 5px;
+
+      color: $shop-item-title;
+    }
+    .bundle-item-price-month {
+      font-size: 18px;
+      color: $shop-item-description;
+      font-weight: 200 !important;
+    }
+  }
+  .bundle-item-description {
+    font-size: 16px;
+    font-weight: 400 !important;
+    margin-bottom: 30px;
+    color: $bundle-text;
+  }
+
+  .bundle-options-container {
+    margin-bottom: 30px;
+    .bundle-option-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      .bundle-option-icon {
+        font-size: 18px;
+        margin-right: 5px;
+      }
+      .bundile-option-title {
+        font-size: 18px;
+        color: $bundle-text;
+        font-weight: 500 !important;
+      }
+    }
+  }
+  .bundle-btn-container .ant-btn {
+    border-radius: 40px !important;
+  }
+}
+
+// -----------------------------
+// TITLE
+
+.bundle-title-container {
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  .title {
+    font-size: 40px;
+    color: $white;
+    font-weight: 800 !important;
+    margin-bottom: 40px;
+  }
+  .description {
+    font-size: 20px;
+    color: $bundle-description;
+    margin-bottom: 30px;
+  }
+  .bundle-title-switch-container {
+    .ant-switch-inner {
+      background-color: $orange;
+    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .monthly {
+      margin-right: 10px;
+      font-size: 20px;
+      color: $white;
+      font-weight: 400 !important;
+    }
+    .yearly {
+      margin-left: 10px;
+      font-size: 20px;
+      color: $white;
+      font-weight: 400 !important;
+    }
+  }
+}

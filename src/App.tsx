@@ -1,19 +1,17 @@
 import React, { useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Spin } from "antd";
+import { Spin } from "antd";
+import { debounce } from "lodash";
 import { useLocation, useNavigate } from "react-router-dom";
 import { MainRouter } from "./routes";
-import axios from "axios";
 import { getLoggedInUserReq } from "./actions/auth";
-import {
-  generateAllPermissions,
-  ALL_PERMISSION_TYPES,
-  generatePermission,
-} from "./constants/role";
+import { setScreenSize } from "./actions";
+
+import { getScreenDimension } from "./utils/screen";
 
 import { usePermissions } from "./hooks/usePermissions";
+import { screenTypeSelector } from "./utils/screen";
 import io from "socket.io-client";
 
 function App() {
@@ -22,11 +20,31 @@ function App() {
   const navigate = useNavigate();
   const loading = useSelector((state: any) => state.auth.loading);
   const { isAuthenticated, user } = useSelector((state: any) => state.auth);
+  const state = useSelector((state: any) => state);
+  const screen = useSelector((state: any) =>
+    screenTypeSelector(state?.screen?.width)
+  );
+
+  useEffect(() => {
+    dispatch(setScreenSize(getScreenDimension(window)));
+  }, []);
+
+  const onScreenResized = debounce((e) => {
+    dispatch(setScreenSize(getScreenDimension(e.target)));
+  }, 300);
+
+  useEffect(() => {
+    window.addEventListener("resize", onScreenResized);
+  }, []);
 
   useEffect(() => {
     dispatch(getLoggedInUserReq());
     console.log("env", process.env.REACT_APP_API);
   }, []);
+
+  useEffect(() => {
+    console.log("STATE", state);
+  }, [state]);
 
   if (loading) {
     return <Spin />;
@@ -34,9 +52,9 @@ function App() {
 
   // if (isAuthenticated) {
   //   if (!user.company?.name) {
-  //     // navigate("/client/company");
+  //     navigate("/client/company");
   //   } else {
-  //     // navigate("/client");
+  //     navigate("/client");
   //   }
   // }
 

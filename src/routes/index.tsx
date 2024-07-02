@@ -85,6 +85,7 @@ import { DriverLogList } from "../components/modules/driver_log/DriverLogList";
 
 import { LogListUnidentified } from "../components/modules/log-unidentified/LogListUnidentified";
 import { LogListTransaction } from "../components/modules/log-transaction/LogListTransaction";
+import { MainPage } from "../page-main/MainPage";
 
 export const MainRouter = () => {
   const navigate = useNavigate();
@@ -105,6 +106,7 @@ export const MainRouter = () => {
           <Route path="/recovery" element={<Recovery />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/new_password" element={<NewPassword />} />
+          <Route path="/main" element={<MainPage />} />
         </Route>
         <Route
           path="/client"

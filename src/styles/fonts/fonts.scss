@@ -1,6 +1,6 @@
 $ubuntu-font: "../../fonts/Ubuntu";
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 // @font-face {
 //     src: url("#{$ubuntu-font}/Ubuntu-Regular.ttf") format("ttf");
 //     font-family: 'Ubuntu';
@@ -314,4 +314,46 @@ $ubuntu-font: "../../fonts/Ubuntu";
 
 .icon-fi-rr-bell-ring:before {
   content: "\e901";
+}
+
+.jakarta {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-optical-sizing: auto;
+  font-weight: 400 !important;
+  font-style: normal !important;
+}
+
+.ant-row.jakarta {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-optical-sizing: auto !important;
+  font-weight: 400;
+  font-style: normal !important;
+}
+
+.ant-row .jakarta {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-optical-sizing: auto;
+  font-weight: 400 !important;
+  font-style: normal !important;
+}
+
+.jakarta-bold {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: bold;
+}
+
+.ant-row.jakarta-bold {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: bold;
+}
+
+.ant-row .jakarta-bold {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-optical-sizing: auto;
+  font-weight: 800 !important;
+  font-style: bold !important;
 }

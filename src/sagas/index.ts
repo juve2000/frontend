@@ -17,6 +17,7 @@ import alerts from "./alerts";
 import unit from "./unit";
 import log from "./log";
 import driverLog from "./driver_log";
+import shop from "./shop";
 
 /**
  * rootSaga
@@ -40,5 +41,6 @@ export default function* root() {
     fork(unit),
     fork(log),
     fork(driverLog),
+    fork(shop),
   ]);
 }

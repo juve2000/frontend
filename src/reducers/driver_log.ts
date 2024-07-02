@@ -158,7 +158,6 @@ export default {
         };
       })
       .addCase(getDriverLogListSuccess, (state, { payload }) => {
-        console.log("getDriver data", payload);
         return {
           ...state,
           logList: payload?.data.events ? payload?.data?.events : payload.data,

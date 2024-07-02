@@ -52,6 +52,16 @@ code {
 //access
 @import "./styles/pages/access.scss";
 
+//landing page sections
+@import "./styles/pages/section1.scss";
+@import "./styles/pages/feature-info.scss";
+@import "./styles/pages/shop.scss";
+@import "./styles/pages/cart.scss";
+@import "./styles/pages/cart-total.scss";
+@import "./styles/pages/bundle.scss";
+@import "./styles/pages/download.scss";
+@import "./styles/pages/faq.scss";
+
 //inputs
 @import "./components/common/inputs/inputs-style.scss";
 @import "./components/common/doubleinput/inputs-style.scss";

@@ -1,0 +1,90 @@
+//           <Col md={{ span: 12 }} sm={{ span: 24 }}>
+//             <div className="cart-title-container">
+//               <div className="cart-title-main">
+//                 Your One-Stop Shop for fleet Management
+//               </div>
+//               <div className="cart-title-secondary">
+//                 <div className="cart-title-secondary-1">Cart</div>
+//                 <div className="cart-title-secondary-2">Checkout</div>
+//               </div>
+//             </div>
+//           </Col>
+//           <Col md={{ span: 12 }} sm={{ span: 24 }}>
+//             <div className="cart-title-container-description">
+//               Our platform helps your business in managing expenses. These are
+//               some of the reasons why you should use our platform in managing
+//               business finances.
+//             </div>
+//           </Col>
+
+.cart-title-container {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-optical-sizing: auto;
+  .cart-title-main {
+    font-size: 20px;
+    font-weight: 500;
+    color: $orange;
+    margin-bottom: 10px;
+  }
+  .cart-title-secondary {
+    display: flex;
+    .cart-title-secondary-1 {
+      font-size: 40px;
+      font-weight: 800 !important;
+      font-style: bold !important;
+      color: $shop-item-title;
+    }
+    .cart-title-secondary-2 {
+      margin-left: 20px;
+      font-size: 40px;
+      font-weight: 600 !important;
+      font-style: bold !important;
+      color: $grey_btn;
+    }
+  }
+}
+.cart-title-container-description {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-optical-sizing: auto;
+  font-size: 20px;
+  color: $shop-item-title;
+  margin-left: 16px;
+}
+.cart-item-total-details-container {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  font-optical-sizing: auto;
+  background-color: $white;
+  margin-left: 20px;
+  padding: 16px;
+  border-radius: 10px;
+  margin-top: 20px;
+  width: 100%;
+  .cart-total-title-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    .title {
+      font-size: 24px;
+      font-style: bold;
+      font-weight: 600;
+    }
+    .price {
+      color: $orange;
+      font-size: 24px;
+      font-style: bold;
+      font-weight: 600;
+    }
+  }
+  .cart-total-item-description {
+    color: $shop-item-description;
+    margin-bottom: 200px;
+  }
+  .cost-container {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    color: $shop-item-title;
+    margin-bottom: 32px;
+    font-weight: 600;
+  }
+}
