@@ -1,0 +1,78 @@
+.benefits-section-wrapper {
+  background-color: $bundle-bg;
+  min-width: 100%;
+  position: relative;
+  .circle-bg {
+    position: absolute;
+    bottom: 0px;
+    right: -4%;
+  }
+}
+
+.benefits-section-wrapper.common-section-wrapper {
+  margin-top: 0px !important;
+}
+
+.benefit-container {
+  .title {
+    font-size: 20px;
+    color: $orange;
+    font-weight: 600;
+    margin-top: 8%;
+    margin-bottom: 30px;
+  }
+  .subTitle {
+    font-size: 40px;
+    font-weight: 700;
+    font-style: bold;
+    margin-bottom: 30px;
+    color: $white;
+  }
+  .description {
+    font-size: 20px;
+    font-weight: 400;
+    color: $bundle-description;
+  }
+}
+
+.benefit-container-title {
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+.benefit-item-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-items: center;
+  .benefit-icon {
+    align-items: center;
+    width: 50px;
+    color: $orange;
+    margin-bottom: 20px;
+  }
+  .benefit-title {
+    font-size: 20px;
+    color: $white;
+    font-weight: 600;
+  }
+}
+
+.benefit-item-wrapper {
+  display: flex;
+  justify-content: center;
+  max-height: 600px;
+  margin-bottom: 80px;
+  .bundle-item-container {
+    max-width: 400px;
+  }
+}
+
+// <Col span={24} className="circle-bg-container">
+//         <img className="circle-bg" src={circleBg} alt="bg" />
+//       </Col>
+
+.circle-bg-container {
+  position: relative;
+}
